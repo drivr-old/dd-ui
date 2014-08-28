@@ -1,0 +1,25 @@
+<div ng-controller="AccordionDemoCtrl">
+  <form name="forma">
+    <div>
+      <h2>Phone different formats validation</h2>
+      <p>
+        Full phone number with plus sign:<br/>
+        <input type="text" name="phone" ng-model="phone" phone />
+        <strong ng-show="forma.phone.$valid" color="green">Valid</strong>
+        <strong ng-show="forma.phone.$invalid" color="red">Invalid</strong>
+      </p>
+      <p>
+        Country code only with plus sign:<br/>
+        <input type="text" name="phoneCountryCode" ng-model="phoneCountryCode" phone-country-code />
+        <strong ng-show="forma.phoneCountryCode.$valid" color="green">Valid</strong>
+        <strong ng-show="forma.phoneCountryCode.$invalid" color="red">Invalid</strong>
+      </p>
+      <p>
+        Phone w/o country code:<br/>
+        <input type="text" name="phoneWoCountry" ng-model="phoneWoCountry" phone-wo-country-code />
+        <strong ng-show="forma.phoneWoCountry.$valid" color="green">Valid</strong>
+        <strong ng-show="forma.phoneWoCountry.$invalid" color="red">Invalid</strong>
+      </p>
+    </div>
+  </form>
+</div>
