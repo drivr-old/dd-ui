@@ -2,10 +2,10 @@
  * dd-ui
  * http://clickataxi.github.io/dd-ui/
 
- * Version: 0.1.0-SNAPSHOT - 2014-08-28
+ * Version: 0.1.0-SNAPSHOT - 2014-08-29
  * License: MIT
  */
-angular.module("dd.ui", ["ui.bootstrap.validation"]);
+angular.module("dd.ui", ["dd.ui.validation.phone","dd.ui.validation.sameAs","dd.ui.validation"]);
 var PHONE_REGEXP = /^\+\d{10,14}$/;
 var PHONE_COUNTRY_CODE_REGEXP = /^\+\d{1,3}$/;
 var PHONE_WO_COUNTRY_CODE_REGEXP = /^\d{7,13}$/;
@@ -21,11 +21,11 @@ angular.module('dd.ui.validation.phone', [])
             ctrl.$formatters.unshift(validate);
 
             function validate(viewValue) {
-                if (!viewValue) {
+                if (!viewValue && viewValue !== '') {
                     return viewValue;
                 }
 
-                if (PHONE_REGEXP.test(viewValue)) {
+                if (viewValue === '' || PHONE_REGEXP.test(viewValue)) {
                     ctrl.$setValidity('phone', true);
                 } else {
                     ctrl.$setValidity('phone', false);
@@ -46,11 +46,11 @@ angular.module('dd.ui.validation.phone', [])
             ctrl.$formatters.unshift(validate);
 
             function validate(viewValue) {
-                if (!viewValue) {
+                if (!viewValue && viewValue !== '') {
                     return viewValue;
                 }
 
-                if (PHONE_COUNTRY_CODE_REGEXP.test(viewValue)) {
+                if (viewValue === '' || PHONE_COUNTRY_CODE_REGEXP.test(viewValue)) {
                     ctrl.$setValidity('phoneCountryCode', true);
                 } else {
                     ctrl.$setValidity('phoneCountryCode', false);
@@ -71,11 +71,11 @@ angular.module('dd.ui.validation.phone', [])
             ctrl.$formatters.unshift(validate);
 
             function validate(viewValue) {
-                if (!viewValue) {
+                if (!viewValue && viewValue !== '') {
                     return viewValue;
                 }
 
-                if (PHONE_WO_COUNTRY_CODE_REGEXP.test(viewValue)) {
+                if (viewValue === '' || PHONE_WO_COUNTRY_CODE_REGEXP.test(viewValue)) {
                     ctrl.$setValidity('phoneWoCountryCode', true);
                 } else {
                     ctrl.$setValidity('phoneWoCountryCode', false);
@@ -116,3 +116,4 @@ angular.module('dd.ui.validation.sameAs', [])
     }
   };
 });
+angular.module('dd.ui.validation', ['dd.ui.validation.phone', 'dd.ui.validation.sameAs']);

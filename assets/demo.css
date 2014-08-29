@@ -9,10 +9,6 @@ body {
     opacity: 0;
 }
 
-.ng-invalid {
-    border: 1px solid red !important;
-}
-
 section {
     padding-top: 30px;
 }
@@ -320,4 +316,8 @@ border-color: #fff;
         margin-left: 10px;
     }
 
+}
+
+.form-group h2 {
+  padding-top: 50px;
 }

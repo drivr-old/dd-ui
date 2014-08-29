@@ -13,10 +13,10 @@ angular.module('plunker', [])
 
       var indexContent = function (content, version) {
         return '<!doctype html>\n' +
-          '<html ng-app="ui.bootstrap.demo">\n' +
+          '<html ng-app="dd.ui.demo">\n' +
           '  <head>\n' +
           '    <script src="//ajax.googleapis.com/ajax/libs/angularjs/'+ngVersion+'/angular.js"></script>\n' +
-          '    <script src="//angular-ui.github.io/bootstrap/ui-bootstrap-tpls-'+version+'.js"></script>\n' +
+          '    <script src="//clickataxi.github.io/dd-ui/dd-ui-tpls-'+version+'.js"></script>\n' +
           '    <script src="example.js"></script>\n' +
           '    <link href="//netdna.bootstrapcdn.com/bootstrap/'+bsVersion+'/css/bootstrap.min.css" rel="stylesheet">\n' +
           '  </head>\n' +
@@ -27,10 +27,10 @@ angular.module('plunker', [])
       };
 
       var scriptContent = function(content) {
-        return "angular.module('ui.bootstrap.demo', ['ui.bootstrap']);" + "\n" + content;
+        return "angular.module('dd.ui.demo', ['dd.ui']);" + "\n" + content;
       };
 
-      addField('description', 'http://angular-ui.github.io/bootstrap/');
+      addField('description', 'http://clickataxi.github.io/dd-ui/');
       addField('files[index.html]', indexContent(content.markup, version));
       addField('files[example.js]', scriptContent(content.javascript));
 
