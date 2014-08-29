@@ -21,6 +21,15 @@ describe('validation phone', function () {
       expect($scope.forma.phone.$invalid).toBe(false);
     });
 
+    it('should mark valid when changed from invalid to empty', function(){
+      $scope.phone = '+123';
+      $scope.$digest();
+
+      $scope.phone = '';
+      $scope.$digest();
+      expect($scope.forma.phone.$invalid).toBe(false);
+    });
+
     it('should mark valid null', function(){
       $scope.phone = null;
       $scope.$digest();
@@ -71,6 +80,15 @@ describe('validation phone', function () {
       expect($scope.forma.phone.$invalid).toBe(false);
     });
 
+    it('should mark valid when changed from invalid to empty', function(){
+      $scope.phone = 'aaa';
+      $scope.$digest();
+
+      $scope.phone = '';
+      $scope.$digest();
+      expect($scope.forma.phone.$invalid).toBe(false);
+    });
+
     it('should mark valid null', function(){
       $scope.phone = null;
       $scope.$digest();
@@ -116,6 +134,15 @@ describe('validation phone', function () {
     });
 
     it('should mark valid empty', function(){
+      $scope.phone = '';
+      $scope.$digest();
+      expect($scope.forma.phone.$invalid).toBe(false);
+    });
+
+    it('should mark valid when changed from invalid to empty', function(){
+      $scope.phone = 'aaa';
+      $scope.$digest();
+
       $scope.phone = '';
       $scope.$digest();
       expect($scope.forma.phone.$invalid).toBe(false);

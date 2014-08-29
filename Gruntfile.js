@@ -184,7 +184,7 @@ module.exports = function(grunt) {
           'docs/css/style.css'
         ],
         navTemplate: 'docs/nav.html',
-        title: 'ui-bootstrap',
+        title: 'dd-ui',
         html5Mode: false
       },
       api: {
@@ -219,7 +219,7 @@ module.exports = function(grunt) {
     }
   });
 
-  //Common ui.bootstrap module containing all modules for src and templates
+  //Common dd.ui module containing all modules for src and templates
   //findModule: Adds a given module to config
   var foundModules = {};
   function findModule(name) {
@@ -242,7 +242,7 @@ module.exports = function(grunt) {
 
     var module = {
       name: name,
-      moduleName: enquote('ui.bootstrap.' + name),
+      moduleName: enquote('dd.ui.' + name),
       displayName: ucwords(breakup(name, ' ')),
       srcFiles: grunt.file.expand('src/'+name+'/*.js'),
       tplFiles: grunt.file.expand('template/'+name+'/*.html'),
@@ -274,8 +274,8 @@ module.exports = function(grunt) {
       var depArrayEnd = contents.indexOf(']', depArrayStart);
       var dependencies = contents.substring(depArrayStart + 1, depArrayEnd);
       dependencies.split(',').forEach(function(dep) {
-        if (dep.indexOf('ui.bootstrap.') > -1) {
-          var depName = dep.trim().replace('ui.bootstrap.','').replace(/['"]/g,'');
+        if (dep.indexOf('dd.ui.') > -1) {
+          var depName = dep.trim().replace('dd.ui.','').replace(/['"]/g,'');
           if (deps.indexOf(depName) < 0) {
             deps.push(depName);
             //Get dependencies for this new dependency

@@ -13,11 +13,11 @@ angular.module('dd.ui.validation.phone', [])
             ctrl.$formatters.unshift(validate);
 
             function validate(viewValue) {
-                if (!viewValue) {
+                if (!viewValue && viewValue !== '') {
                     return viewValue;
                 }
 
-                if (PHONE_REGEXP.test(viewValue)) {
+                if (viewValue === '' || PHONE_REGEXP.test(viewValue)) {
                     ctrl.$setValidity('phone', true);
                 } else {
                     ctrl.$setValidity('phone', false);
@@ -38,11 +38,11 @@ angular.module('dd.ui.validation.phone', [])
             ctrl.$formatters.unshift(validate);
 
             function validate(viewValue) {
-                if (!viewValue) {
+                if (!viewValue && viewValue !== '') {
                     return viewValue;
                 }
 
-                if (PHONE_COUNTRY_CODE_REGEXP.test(viewValue)) {
+                if (viewValue === '' || PHONE_COUNTRY_CODE_REGEXP.test(viewValue)) {
                     ctrl.$setValidity('phoneCountryCode', true);
                 } else {
                     ctrl.$setValidity('phoneCountryCode', false);
@@ -63,11 +63,11 @@ angular.module('dd.ui.validation.phone', [])
             ctrl.$formatters.unshift(validate);
 
             function validate(viewValue) {
-                if (!viewValue) {
+                if (!viewValue && viewValue !== '') {
                     return viewValue;
                 }
 
-                if (PHONE_WO_COUNTRY_CODE_REGEXP.test(viewValue)) {
+                if (viewValue === '' || PHONE_WO_COUNTRY_CODE_REGEXP.test(viewValue)) {
                     ctrl.$setValidity('phoneWoCountryCode', true);
                 } else {
                     ctrl.$setValidity('phoneWoCountryCode', false);

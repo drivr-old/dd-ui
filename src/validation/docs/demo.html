@@ -1,25 +1,31 @@
-<div ng-controller="AccordionDemoCtrl">
-  <form name="forma">
-    <div>
-      <h2>Phone different formats validation</h2>
-      <p>
-        Full phone number with plus sign:<br/>
-        <input type="text" name="phone" ng-model="phone" phone />
-        <strong ng-show="forma.phone.$valid" color="green">Valid</strong>
-        <strong ng-show="forma.phone.$invalid" color="red">Invalid</strong>
-      </p>
-      <p>
-        Country code only with plus sign:<br/>
-        <input type="text" name="phoneCountryCode" ng-model="phoneCountryCode" phone-country-code />
-        <strong ng-show="forma.phoneCountryCode.$valid" color="green">Valid</strong>
-        <strong ng-show="forma.phoneCountryCode.$invalid" color="red">Invalid</strong>
-      </p>
-      <p>
-        Phone w/o country code:<br/>
-        <input type="text" name="phoneWoCountry" ng-model="phoneWoCountry" phone-wo-country-code />
-        <strong ng-show="forma.phoneWoCountry.$valid" color="green">Valid</strong>
-        <strong ng-show="forma.phoneWoCountry.$invalid" color="red">Invalid</strong>
-      </p>
+<div ng-controller="ValidationDemoCtrl">
+  <form role="form" name="forma">
+    <h2>Phone different formats validation</h2>
+    <div class="form-group" ng-class="{'has-success': forma.phone.$valid, 'has-error': forma.phone.$invalid}">
+      <label for="phone">Full phone number with plus sign</label>
+      <input type="text" name="phone" ng-model="phone" phone class="form-control" id="phone" placeholder="Full phone number starting with `+` sign">
+    </div>
+    <div class="form-group">
+      <label for="phoneCountryCode">Phone number with country code splitted</label>
+      <div>
+        <div class="col-xs-2" ng-class="{'has-success': forma.phoneCountryCode.$valid, 'has-error': forma.phoneCountryCode.$invalid }">
+          <input type="text" name="phoneCountryCode" id="phoneCountryCode" ng-model="phoneCountryCode" phone-country-code class="form-control" placeholder="+45">
+        </div>
+        <div class="col-xs-5" ng-class="{'has-success': forma.phoneWoCountry.$valid, 'has-error': forma.phoneWoCountry.$invalid}">
+          <input type="text" name="phoneWoCountry" id="phoneWoCountry" ng-model="phoneWoCountry" phone-wo-country-code class="form-control" placeholder="Phone number w/o country code">
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <h2>Same-As validation</h2>
+    </div>
+    <div class="form-group">
+      <label for="password">Password</label>
+      <input type="text" name="password" ng-model="password" class="form-control" id="password" placeholder="Enter some phrase">
+    </div>
+    <div class="form-group" ng-class="{'has-success': forma.confirmPassword.$valid, 'has-error': forma.confirmPassword.$invalid}">
+      <label for="confirmPassword">Confirm password</label>
+      <input type="text" name="confirmPassword" ng-model="confirmPassword" same-as="password" class="form-control" id="confirmPassword" placeholder="Repeat same phrase as in password field">
     </div>
   </form>
 </div>
