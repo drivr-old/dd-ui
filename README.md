@@ -2,7 +2,7 @@
 
 ***
 
-[![Build Status](https://secure.travis-ci.org/drivr/dd-ui.png)](http://travis-ci.org/drivr/dd-ui)
+[![Build Status](https://secure.travis-ci.org/clickataxi/dd-ui.png)](http://travis-ci.org/clickataxi/dd-ui)
 
 ## Demo
 
