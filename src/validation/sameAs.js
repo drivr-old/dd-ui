@@ -32,6 +32,6 @@ angular.module('dd.ui.validation.sameAs', [])
     },
     scope: {
       sameAs: '='
-    }    
+    }
   };
 });
