@@ -10,8 +10,12 @@ angular.module('dd.ui.validation.sameAs', [])
       ctrl.$parsers.unshift(validate);
       ctrl.$formatters.unshift(validate);
 
+      scope.$watch('sameAs', function() {
+        validate(ctrl.$modelValue);
+      });
+
       function validate(viewValue) {
-        var eth = scope[attrs.sameAs];
+        var eth = scope.sameAs;
 
         if (!eth) {
           return viewValue;
@@ -25,6 +29,9 @@ angular.module('dd.ui.validation.sameAs', [])
           return undefined;
         }
       }
-    }
+    },
+    scope: {
+      sameAs: '='
+    }    
   };
 });

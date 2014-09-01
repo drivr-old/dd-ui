@@ -20,6 +20,7 @@ describe('validation', function () {
       $scope.confirmPassword = '';
       $scope.$digest();
       expect($scope.forma.confirmPassword.$invalid).toBe(false);
+
     });
 
     it('should mark valid null', function(){
@@ -48,6 +49,15 @@ describe('validation', function () {
     it('should mark invalid when ethalon is different', function(){
       $scope.password = 'b';
       $scope.confirmPassword = 'a';
+      $scope.$digest();
+      expect($scope.forma.confirmPassword.$invalid).toBe(true);
+    });
+
+    it('should mark invalid when ethalon is changed', function(){
+      $scope.password = 'a';
+      $scope.confirmPassword = 'a';
+      $scope.$digest();
+      $scope.password = 'b';
       $scope.$digest();
       expect($scope.forma.confirmPassword.$invalid).toBe(true);
     });
