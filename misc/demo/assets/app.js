@@ -1,4 +1,4 @@
-angular.module('dd.ui.demo', ['dd.ui', 'plunker', 'ngTouch'], function($httpProvider){
+angular.module('dd.ui.demo', ['dd.ui', 'plunker', 'ngTouch', 'ngAnimate'], function($httpProvider){
   FastClick.attach(document.body);
   delete $httpProvider.defaults.headers.common['X-Requested-With'];
 }).run(['$location', function($location){
