@@ -17,6 +17,7 @@ angular.module('dd.ui.busy-element', [])
         scope: {
             busy: '=',
             status: '=',
+            timeout: '='
         },
         link: function (scope, element, attr) {
           updateSize();
@@ -26,9 +27,12 @@ angular.module('dd.ui.busy-element', [])
                 if (scope.status != null) {
                     scope.busy = false;
                     scope.statusClass = scope.status;
-                    $timeout(function(){
-                        scope.status = null;
-                    }, 500);
+
+                    if (scope.timeout !== 0) {
+                        $timeout(function(){
+                            scope.status = null;
+                        }, scope.timeout ? $scope.timeout : 500);
+                    }
                 }
             });
 
@@ -172,11 +176,7 @@ angular.module("template/busy-element/busy-element.html", []).run(["$templateCac
     "\n" +
     ".be-overlay {\n" +
     "    background-color: rgba(255, 255, 255, 0.7);\n" +
-    "}\n" +
-    "\n" +
-    ".be-overlay div {\n" +
-    "    margin: auto auto;\n" +
-    "    width: 1px;\n" +
+    "    text-align: center;\n" +
     "}\n" +
     "\n" +
     ".be-overlay.success {\n" +
@@ -200,8 +200,8 @@ angular.module("template/busy-element/busy-element.html", []).run(["$templateCac
     "    opacity:0;\n" +
     "}\n" +
     "</style>\n" +
-    "    <div class=\"be-overlay\" ng-show=\"busy\" style=\"width: {{ width }}px; height: {{ height }}px\">\n" +
-    "        <div><img src=\"https://drivr.com/img/spinner.gif\" /></div>									        \n" +
+    "    <div class=\"be-overlay\" ng-show=\"busy\" style=\"width: {{ width }}px; height: {{ height }}px; line-height: {{ height }}px\">\n" +
+    "        <img src=\"https://drivr.com/img/spinner.gif\" />\n" +
     "    </div>\n" +
     "    <div class=\"be-overlay be-animate\" ng-show=\"status\" ng-class=\"statusClass\" style=\"width: {{ width }}px; height: {{ height }}px\"></div>\n" +
     "</div>");

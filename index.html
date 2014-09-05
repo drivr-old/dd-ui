@@ -167,15 +167,44 @@
                           </div>
                           <div class="row">
                             <div class="col-md-6 show-grid">
-                                <div ng-controller="BusyElementDemoCtrl">
+                                <style>
+.be-overlay.custom {
+    background-color: rgba(0, 0, 128, 0.15);
+}
+</style>
+<div ng-controller="BusyElementDemoCtrl">
   <table class="table">
     <tr>
       <th>Description</th>
       <th>Sample</th>
     </tr>
     <tr>
-      <td>Busy sample</td>
-      <td><busy-element busy="true" /></td>
+      <td>Busy state</td>
+      <td style="width: 100px;">
+        <busy-element busy="true"></busy-element>
+        <input type="text" value="Some text" />
+      </td>
+    </tr>
+    <tr>
+      <td>Success state</td>
+      <td>
+        <busy-element status="'success'" timeout="0"></busy-element>
+        <input type="text" value="Some text" />
+      </td>
+    </tr>
+    <tr>
+      <td>Failed state</td>
+      <td>
+        <busy-element status="'fail'" timeout="0"></busy-element>
+        <input type="text" value="Some text" />
+      </td>
+    </tr>
+    <tr>
+      <td>Custom state</td>
+      <td>
+        <busy-element status="'custom'" timeout="0"></busy-element>
+        <input type="text" value="Some text" />
+      </td>
     </tr>
     <tr>
       <th colspan="2">Dynamic items</th>
@@ -212,15 +241,44 @@ angular.module('dd.ui.demo', ['dd.ui', 'ngAnimate']);
                                 <tabset>
                                     <tab heading="Markup">
                                         <div plunker-content="markup">
-                                            <pre ng-non-bindable><code data-language="html">&lt;div ng-controller=&quot;BusyElementDemoCtrl&quot;&gt;
+                                            <pre ng-non-bindable><code data-language="html">&lt;style&gt;
+.be-overlay.custom {
+    background-color: rgba(0, 0, 128, 0.15);
+}
+&lt;/style&gt;
+&lt;div ng-controller=&quot;BusyElementDemoCtrl&quot;&gt;
   &lt;table class=&quot;table&quot;&gt;
     &lt;tr&gt;
       &lt;th&gt;Description&lt;/th&gt;
       &lt;th&gt;Sample&lt;/th&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
-      &lt;td&gt;Busy sample&lt;/td&gt;
-      &lt;td&gt;&lt;busy-element busy=&quot;true&quot; /&gt;&lt;/td&gt;
+      &lt;td&gt;Busy state&lt;/td&gt;
+      &lt;td style=&quot;width: 100px;&quot;&gt;
+        &lt;busy-element busy=&quot;true&quot;&gt;&lt;/busy-element&gt;
+        &lt;input type=&quot;text&quot; value=&quot;Some text&quot; /&gt;
+      &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Success state&lt;/td&gt;
+      &lt;td&gt;
+        &lt;busy-element status=&quot;&#x27;success&#x27;&quot; timeout=&quot;0&quot;&gt;&lt;/busy-element&gt;
+        &lt;input type=&quot;text&quot; value=&quot;Some text&quot; /&gt;
+      &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Failed state&lt;/td&gt;
+      &lt;td&gt;
+        &lt;busy-element status=&quot;&#x27;fail&#x27;&quot; timeout=&quot;0&quot;&gt;&lt;/busy-element&gt;
+        &lt;input type=&quot;text&quot; value=&quot;Some text&quot; /&gt;
+      &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Custom state&lt;/td&gt;
+      &lt;td&gt;
+        &lt;busy-element status=&quot;&#x27;custom&#x27;&quot; timeout=&quot;0&quot;&gt;&lt;/busy-element&gt;
+        &lt;input type=&quot;text&quot; value=&quot;Some text&quot; /&gt;
+      &lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
       &lt;th colspan=&quot;2&quot;&gt;Dynamic items&lt;/th&gt;

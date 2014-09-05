@@ -16,6 +16,7 @@ angular.module('dd.ui.busy-element', [])
         scope: {
             busy: '=',
             status: '=',
+            timeout: '='
         },
         link: function (scope, element, attr) {
           updateSize();
@@ -25,9 +26,12 @@ angular.module('dd.ui.busy-element', [])
                 if (scope.status != null) {
                     scope.busy = false;
                     scope.statusClass = scope.status;
-                    $timeout(function(){
-                        scope.status = null;
-                    }, 500);
+
+                    if (scope.timeout !== 0) {
+                        $timeout(function(){
+                            scope.status = null;
+                        }, scope.timeout ? $scope.timeout : 500);
+                    }
                 }
             });
 
