@@ -1,0 +1,26 @@
+<div ng-controller="BusyElementDemoCtrl">
+  <table class="table">
+    <tr>
+      <th>Description</th>
+      <th>Sample</th>
+    </tr>
+    <tr>
+      <td>Busy sample</td>
+      <td><busy-element busy="true" /></td>
+    </tr>
+    <tr>
+      <th colspan="2">Dynamic items</th>
+    </tr>
+    <tr ng-repeat="i in items">
+      <td ng-bind="i.id"></td>
+      <td>
+        <busy-element busy="i.isBusy" status="i.responseStatus"></busy-element>
+        <select ng-model="i.status" ng-change="updated(i)">
+          <option value="">Change me</option>
+          <option value="success">Success</option>
+          <option value="fail">Fail</option>
+        </select>
+      </td>
+    </tr>
+  </table>
+</div>
