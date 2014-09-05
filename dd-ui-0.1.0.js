@@ -2,11 +2,44 @@
  * dd-ui
  * http://clickataxi.github.io/dd-ui/
 
- * Version: 0.1.0-SNAPSHOT - 2014-08-29
+ * Version: 0.1.0 - 2014-09-05
  * License: MIT
  */
-angular.module("dd.ui", ["dd.ui.tpls", "dd.ui.validation.phone","dd.ui.validation.sameAs","dd.ui.validation"]);
-angular.module("dd.ui.tpls", []);
+angular.module("dd.ui", ["dd.ui.busy-element","dd.ui.validation.phone","dd.ui.validation.sameAs","dd.ui.validation"]);
+angular.module('dd.ui.busy-element', [])
+
+.directive('busyElement', ['$parse', '$timeout', '$rootScope', function ($parse, $timeout, $rootScope) {
+    return {
+        restrict: 'EA',
+        replace: true,
+        templateUrl:'template/busy-element/busy-element.html',
+        scope: {
+            busy: '=',
+            status: '=',
+        },
+        link: function (scope, element, attr) {
+          updateSize();
+
+            scope.$watch('status', function() {
+                updateSize();
+                if (scope.status != null) {
+                    scope.busy = false;
+                    scope.statusClass = scope.status;
+                    $timeout(function(){
+                        scope.status = null;
+                    }, 500);
+                }
+            });
+
+            function updateSize() {
+                scope.width = element.parent().innerWidth();
+                scope.height = element.parent().innerHeight();
+                scope.marginLeft = element.parent().css('padding-left');
+                scope.marginTop = element.parent().css('padding-top');
+            }
+        }
+    };
+}]);
 var PHONE_REGEXP = /^\+\d{10,14}$/;
 var PHONE_COUNTRY_CODE_REGEXP = /^\+\d{1,3}$/;
 var PHONE_WO_COUNTRY_CODE_REGEXP = /^\d{7,13}$/;
@@ -99,8 +132,12 @@ angular.module('dd.ui.validation.sameAs', [])
       ctrl.$parsers.unshift(validate);
       ctrl.$formatters.unshift(validate);
 
+      scope.$watch('sameAs', function() {
+        validate(ctrl.$modelValue);
+      });
+
       function validate(viewValue) {
-        var eth = scope[attrs.sameAs];
+        var eth = scope.sameAs;
 
         if (!eth) {
           return viewValue;
@@ -114,7 +151,11 @@ angular.module('dd.ui.validation.sameAs', [])
           return undefined;
         }
       }
+    },
+    scope: {
+      sameAs: '='
     }
   };
 });
+
 angular.module('dd.ui.validation', ['dd.ui.validation.phone', 'dd.ui.validation.sameAs']);
