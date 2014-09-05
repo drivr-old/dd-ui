@@ -1,3 +1,8 @@
+<style>
+.be-overlay.custom {
+    background-color: rgba(0, 0, 128, 0.15);
+}
+</style>
 <div ng-controller="BusyElementDemoCtrl">
   <table class="table">
     <tr>
@@ -5,8 +10,32 @@
       <th>Sample</th>
     </tr>
     <tr>
-      <td>Busy sample</td>
-      <td><busy-element busy="true" /></td>
+      <td>Busy state</td>
+      <td style="width: 100px;">
+        <busy-element busy="true"></busy-element>
+        <input type="text" value="Some text" />
+      </td>
+    </tr>
+    <tr>
+      <td>Success state</td>
+      <td>
+        <busy-element status="'success'" timeout="0"></busy-element>
+        <input type="text" value="Some text" />
+      </td>
+    </tr>
+    <tr>
+      <td>Failed state</td>
+      <td>
+        <busy-element status="'fail'" timeout="0"></busy-element>
+        <input type="text" value="Some text" />
+      </td>
+    </tr>
+    <tr>
+      <td>Custom state</td>
+      <td>
+        <busy-element status="'custom'" timeout="0"></busy-element>
+        <input type="text" value="Some text" />
+      </td>
     </tr>
     <tr>
       <th colspan="2">Dynamic items</th>

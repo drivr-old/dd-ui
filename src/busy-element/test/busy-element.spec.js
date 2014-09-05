@@ -17,7 +17,7 @@ describe('busy-element', function () {
   }));
 
   beforeEach(function() {
-    wrapElement = $compile('<div style="width: 50px; height: 30px; padding: 10px 5px 10px 5px"><busy-element busy="isBusy" status="status"></busy-element></div>')($scope);
+    wrapElement = $compile('<div style="width: 50px; height: 30px; padding: 10px 5px 10px 5px"><busy-element busy="isBusy" status="status" timeout="timeout"></busy-element></div>')($scope);
     $scope.$digest();
     element = wrapElement.find('.be-container');
     busyElement = element.find('.be-overlay').first();
@@ -65,6 +65,17 @@ describe('busy-element', function () {
 
       expect(busyElement.hasClass('ng-hide')).toBe(true);
       expect(statusElement.hasClass('ng-hide')).toBe(true);
+    });
+
+    it('from busy to success, should not blink if timeout set to 0', function(){
+      $scope.status = 'success';
+      $scope.timeout = 0;
+      $scope.$digest();
+
+      $timeout.flush();
+
+      expect(busyElement.hasClass('ng-hide')).toBe(true);
+      expect(statusElement.hasClass('ng-hide')).toBe(false);
     });
   });
 });

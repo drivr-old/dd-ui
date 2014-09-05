@@ -7,11 +7,7 @@
 
 .be-overlay {
     background-color: rgba(255, 255, 255, 0.7);
-}
-
-.be-overlay div {
-    margin: auto auto;
-    width: 1px;
+    text-align: center;
 }
 
 .be-overlay.success {
@@ -35,8 +31,8 @@
     opacity:0;
 }
 </style>
-    <div class="be-overlay" ng-show="busy" style="width: {{ width }}px; height: {{ height }}px">
-        <div><img src="https://drivr.com/img/spinner.gif" /></div>									        
+    <div class="be-overlay" ng-show="busy" style="width: {{ width }}px; height: {{ height }}px; line-height: {{ height }}px">
+        <img src="https://drivr.com/img/spinner.gif" />
     </div>
     <div class="be-overlay be-animate" ng-show="status" ng-class="statusClass" style="width: {{ width }}px; height: {{ height }}px"></div>
 </div>
