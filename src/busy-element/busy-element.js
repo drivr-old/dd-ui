@@ -6,9 +6,9 @@ angular.module('dd.ui.busy-element', [])
         replace: true,
         templateUrl:'template/busy-element/busy-element.html',
         scope: {
-            busy: '=',
-            status: '=',
-            timeout: '='
+            busy: '=?',
+            status: '=?',
+            timeout: '=?'
         },
         link: function (scope, element, attr) {
           updateSize();
