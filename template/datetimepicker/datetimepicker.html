@@ -1,0 +1,24 @@
+<div class="form-inline">
+	<div class="form-group">
+		<div timepicker
+			ng-model="time"
+			ng-disabled="ngDisabled"
+			show-meridian="showMeridian"
+			minute-step="minuteStep"
+			ng-change="timeChange()"
+			show-spinners="showSpinners">
+		</div>
+	</div>
+	<div class="form-group">
+		<input class="form-control datepicker-input" type="text" style="width: 100px"
+				datepicker-popup
+				ng-click="open($event)"
+				ng-change="dateChange($event)"
+				is-open="opened"
+				ng-model="ngModel"
+				ng-disabled="ngDisabled"				
+				date-disabled="dateDisabled({date: date, mode: mode})"
+				close-text="Close"
+				show-weeks="showWeeks" />
+	</div>
+</div>

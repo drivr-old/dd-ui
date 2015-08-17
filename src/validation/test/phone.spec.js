@@ -40,7 +40,7 @@ describe('validation phone', function () {
       $scope.phone = '+1234567890123';
       $scope.$digest();
       expect($scope.forma.phone.$invalid).toBe(false);
-      expect($scope.forma.phone.$error.phone).toBe(false);
+      expect($scope.forma.phone.$error).toEqual({});
     });
 
     it('should mark invalid 13 numbers wo plus sign', function(){
@@ -99,7 +99,7 @@ describe('validation phone', function () {
       $scope.phone = '+123';
       $scope.$digest();
       expect($scope.forma.phone.$invalid).toBe(false);
-      expect($scope.forma.phone.$error.phoneCountryCode).toBe(false);
+      expect($scope.forma.phone.$error).toEqual({});
     });
 
     it('should mark valid 1 number starting with plus', function(){
@@ -158,7 +158,7 @@ describe('validation phone', function () {
       $scope.phone = '1234567';
       $scope.$digest();
       expect($scope.forma.phone.$invalid).toBe(false);
-      expect($scope.forma.phone.$error.phoneWoCountryCode).toBe(false);
+      expect($scope.forma.phone.$error).toEqual({});
     });
 
     it('should mark invalid 7 numbers with plus sign', function(){

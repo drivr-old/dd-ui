@@ -43,7 +43,7 @@ describe('validation', function () {
       $scope.confirmPassword = 'a';
       $scope.$digest();
       expect($scope.forma.confirmPassword.$invalid).toBe(false);
-      expect($scope.forma.confirmPassword.$error.sameAs).toBe(false);
+      expect($scope.forma.confirmPassword.$error).toEqual({});
     });
 
     it('should mark invalid when ethalon is different', function(){
