@@ -5,14 +5,15 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <title>Drivr directives</title>
-    <meta name="description" content="AngularJS (Angular) native directives. Widgets: Busy-element, Validation, ">
+    <meta name="description" content="AngularJS (Angular) native directives. Widgets: Busy-element, Datetimepicker, Validation, ">
 
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/fastclick/0.6.7/fastclick.min.js"></script>
-    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular.min.js"></script>
-    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular-touch.min.js"></script>
-    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular-animate.min.js"></script>
-    <script src="dd-ui-tpls-0.1.0.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular-touch.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular-animate.min.js"></script>
+	<script src="assets/ui-bootstrap-tpls.js"></script>
+    <script src="dd-ui-tpls-0.2.0.min.js"></script>
     <script src="assets/plunker.js"></script>
     <script src="assets/app.js"></script>
 
@@ -21,7 +22,7 @@
     <link rel="stylesheet" href="assets/demo.css"/>
     <link rel="author" href="https://github.com/clickataxi/dd-ui/graphs/contributors">
 </head>
-<body class="ng-cloak" ng-controller="MainCtrl">
+<body class="ng-cloak">
 <header class="navbar navbar-default navbar-fixed-top">
     <div class="navbar-inner">
         <div class="container">
@@ -44,7 +45,7 @@
                             Directives <b class="caret"></b>
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a href="#busy-element">Busy-element</a></li><li><a href="#validation">Validation</a></li>
+                            <li><a href="#busy-element">Busy-element</a></li><li><a href="#datetimepicker">Datetimepicker</a></li><li><a href="#validation">Validation</a></li>
                         </ul>
                     </li>
                     <li><a href="#getting_started">Getting started</a></li>
@@ -73,7 +74,7 @@
             <p>
                 <a class="btn btn-outline-inverse btn-lg" href="https://github.com/clickataxi/dd-ui"><i class="icon-github"></i>Code on Github</a>
                 <button type="button" class="btn btn-outline-inverse btn-lg" ng-click="showDownloadModal()">
-                    <i class="glyphicon glyphicon-download-alt"></i> Download <small>(0.1.0)</small>
+                    <i class="glyphicon glyphicon-download-alt"></i> Download <small>(0.2.0)</small>
                 </button>
             </p>
         </div>
@@ -128,6 +129,8 @@
                         
                             <li><a href="#busy-element">Busy-element</a></li>
                         
+                            <li><a href="#datetimepicker">Datetimepicker</a></li>
+                        
                             <li><a href="#validation">Validation</a></li>
                         
                     </ul>
@@ -143,7 +146,7 @@
                         The <strong>only required dependencies</strong> are:
                     </p>
                     <ul>
-                        <li><a href="http://angularjs.org" target="_blank">AngularJS</a> (requires AngularJS 1.2.x, tested with 1.2.16)</li>
+                        <li><a href="http://angularjs.org" target="_blank">AngularJS</a> (requires AngularJS 1.2.x, tested with 1.4.3)</li>
                     </ul>
                     <h3>Files to download</h3>
                     <p>
@@ -236,7 +239,7 @@ angular.module('dd.ui.demo', ['dd.ui', 'ngAnimate']);
                         <div class="row code">
                             <div class="col-md-12" ng-controller="PlunkerCtrl">
                                 <div class="pull-right">
-                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.2.16', '3.1.1', '0.1.0', 'busy-element')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
+                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.4.3', '3.1.1', '0.2.0', 'busy-element')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
                                 </div>
                                 <tabset>
                                     <tab heading="Markup">
@@ -355,6 +358,92 @@ angular.module('dd.ui.demo', ['dd.ui', 'ngAnimate']);
 	};
 });</script>
                 
+                    <section id="datetimepicker">
+                        <div class="page-header">
+                          <h1>Datetimepicker<small>
+                              (<a target="_blank" href="https://github.com/clickataxi/dd-ui/tree/master/src/datetimepicker">dd.ui.datetimepicker</a>)
+                          </small></h1>
+                          </div>
+                          <div class="row">
+                            <div class="col-md-6 show-grid">
+                                <div ng-controller="DateTimePickerDemoCtrl">
+  <div datetimepicker 
+		ng-model="datetime" 
+		date-disabled="disabled(date, mode)">
+  </div>
+</div>
+                            </div>
+                            <div class="col-md-6">
+                                <p>Combined UI Bootstrap Timepicker and Datepicker that uses a single Date model.</p>
+
+<h3>Datetimepicker Settings</h3>
+
+<ul>
+<li><p><code>ng-model</code>
+ :
+ The date object.</p></li>
+<li><p><code>date-disabled (date, mode)</code>
+ <em>(Default: null)</em> :
+ An optional expression to disable visible options based on passing date and current mode <em>(day|month|year)</em>.</p></li>
+<li><p><code>template-url</code>
+_(Default: 'template/datetimepicker/datetimepicker.html') :
+Allows overriding of default template of the datetimepicker</p></li>
+<li><p><code>minute-step</code>
+ <em>(Defaults: 1)</em> :
+  Number of minutes to increase or decrease when using a button.</p></li>
+<li><p><code>show-meridian</code>
+ <em>(Defaults: true)</em> :
+ Whether to display 12H or 24H mode.</p></li>
+<li><p><code>show-spinners</code>
+<em>(Defaults: true)</em> :
+ Shows spinner arrows above and below the inputs</p></li>
+</ul>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row code">
+                            <div class="col-md-12" ng-controller="PlunkerCtrl">
+                                <div class="pull-right">
+                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.4.3', '3.1.1', '0.2.0', 'datetimepicker')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
+                                </div>
+                                <tabset>
+                                    <tab heading="Markup">
+                                        <div plunker-content="markup">
+                                            <pre ng-non-bindable><code data-language="html">&lt;div ng-controller=&quot;DateTimePickerDemoCtrl&quot;&gt;
+  &lt;div datetimepicker 
+		ng-model=&quot;datetime&quot; 
+		date-disabled=&quot;disabled(date, mode)&quot;&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+                                        </div>
+                                    </tab>
+                                    <tab heading="JavaScript">
+                                        <div plunker-content="javascript">
+                                            <pre ng-non-bindable><code data-language="javascript">angular.module(&#x27;dd.ui.demo&#x27;).controller(&#x27;DateTimePickerDemoCtrl&#x27;, [&#x27;$scope&#x27;, function ($scope) {
+	$scope.datetime = new Date();
+	
+	$scope.disabled = function (date, mode) {
+        var d = new Date();
+        d.setHours(0, 0, 0, 0);
+        return (mode === &#x27;day&#x27; &amp;&amp; date &lt; d);
+    };
+}]);</code></pre>
+                                        </div>
+                                    </tab>
+                                </tabset>
+                            </div>
+                        </div>
+                    </section>
+                    <script>angular.module('dd.ui.demo').controller('DateTimePickerDemoCtrl', ['$scope', function ($scope) {
+	$scope.datetime = new Date();
+	
+	$scope.disabled = function (date, mode) {
+        var d = new Date();
+        d.setHours(0, 0, 0, 0);
+        return (mode === 'day' && date < d);
+    };
+}]);</script>
+                
                     <section id="validation">
                         <div class="page-header">
                           <h1>Validation<small>
@@ -403,7 +492,7 @@ angular.module('dd.ui.demo', ['dd.ui', 'ngAnimate']);
                         <div class="row code">
                             <div class="col-md-12" ng-controller="PlunkerCtrl">
                                 <div class="pull-right">
-                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.2.16', '3.1.1', '0.1.0', 'validation')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
+                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.4.3', '3.1.1', '0.2.0', 'validation')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
                                 </div>
                                 <tabset>
                                     <tab heading="Markup">

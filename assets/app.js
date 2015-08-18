@@ -9,6 +9,3 @@ angular.module('dd.ui.demo', ['dd.ui', 'plunker', 'ngTouch', 'ngAnimate'], funct
     });
   }
 }]);
-
-function MainCtrl($scope, $http, $document) {
-}
