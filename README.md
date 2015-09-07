@@ -1,4 +1,4 @@
-# dd-ui - [AngularJS](http://angularjs.org/) directives which we use everyday
+# dd-ui - [AngularJS](http://angularjs.org/) directives that we use every day
 
 ***
 
