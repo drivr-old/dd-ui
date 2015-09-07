@@ -1,6 +1,8 @@
 <div ng-controller="DateTimePickerDemoCtrl">
   <div datetimepicker 
-		ng-model="datetime" 
+		ng-model="dateTime" 
 		date-disabled="disabled(date, mode)">
   </div>
+
+  <label>Datetime:&nbsp;</label><span>{{ dateTime | date:'yyyy-MM-dd HH:mm:ss' }}</span>
 </div>

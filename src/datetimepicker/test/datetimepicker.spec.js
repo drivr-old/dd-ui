@@ -1,22 +1,22 @@
-describe('datetimepicker', function () {
+describe('datetimepicker', function() {
 	var $scope,
-	$sniffer,
-	$document,
-	element,
-	datepickerElement,
-	hourElement,
-	minuteElement;
+		$sniffer,
+		$document,
+		element,
+		datepickerElement,
+		hourElement,
+		minuteElement;
 
-	beforeEach(function () {
+	beforeEach(function() {
 		module('dd.ui.datetimepicker');
 		module('template/datetimepicker/datetimepicker.html');
 
-		inject(function ($rootScope, $compile, _$sniffer_, _$document_) {
+		inject(function($rootScope, $compile, _$sniffer_, _$document_) {
 			$scope = $rootScope.$new();
 			$sniffer = _$sniffer_;
 			$document = _$document_;
 
-			element = $compile('<div datetimepicker ng-model="dateTime"></div>')($scope);
+			element = $compile('<div datetimepicker ng-change="change()" ng-model="dateTime"></div>')($scope);
 			element.appendTo($document[0].body);
 			$scope.$digest();
 
@@ -25,7 +25,7 @@ describe('datetimepicker', function () {
 			minuteElement = element.find('[timepicker] input:eq(1)');
 		});
 	});
-	
+
 	describe('Model change', function() {
 		it('initializes a default time value if it was never set.', function() {
 			expect(element.isolateScope().time instanceof Date).toBeTruthy();
@@ -44,7 +44,7 @@ describe('datetimepicker', function () {
 
 			expect(element.isolateScope().time).toEqual(time);
 		});
-		
+
 		it('does nothing if timepicker element is active.', function() {
 			hourElement[0].focus();
 
@@ -58,8 +58,8 @@ describe('datetimepicker', function () {
 		});
 	});
 
-	describe('Date change', function () {
-		it('keeps the time on model.', function () {
+	describe('Date change', function() {
+		it('keeps the time on model.', function() {
 			changeInputValue(datepickerElement, '2015-08-30');
 			changeInputValue(hourElement, '15');
 			changeInputValue(minuteElement, '30');
@@ -69,30 +69,55 @@ describe('datetimepicker', function () {
 			expect($scope.dateTime.getHours()).toEqual(15);
 			expect($scope.dateTime.getMinutes()).toEqual(30);
 		});
-	});
-	
-	describe('Time change', function () {
-		it('merges date and time on model.', function () {
-			$scope.dateTime = '2015-08-30T15:00:00+00:00';
-			$scope.$digest();
-			
-			changeInputValue(minuteElement, '30');
-			
-			expect($scope.dateTime).toEqual(new Date('2015-08-30T15:30:00+00:00'));
+
+		it('notifies the controller via ng-change.', function() {
+			var newDate = null;
+			$scope.change = function() {
+				newDate = $scope.dateTime;
+			};
+
+			var isoDate = '2015-08-31';
+			changeInputValue(datepickerElement, isoDate);
+
+			var expectedDate = new Date(isoDate);
+			expectedDate.setHours(0, 0, 0, 0);
+			expect(newDate).toEqual(expectedDate);
 		});
 	});
-	
+
+	describe('Time change', function() {
+		it('merges date and time on model.', function() {
+			$scope.dateTime = '2015-08-30T15:00:00+00:00';
+			$scope.$digest();
+
+			changeInputValue(minuteElement, '30');
+
+			expect($scope.dateTime).toEqual(new Date('2015-08-30T15:30:00+00:00'));
+		});
+
+		it('notifies the controller via ng-change.', function() {
+			var newDate = null;
+			$scope.change = function() {
+				newDate = $scope.dateTime;
+			};
+
+			changeInputValue(minuteElement, '30');
+
+			expect(newDate.toISOString()).toContain(':30');
+		});
+	});
+
 	describe('Open', function() {
 		it('opens the datepicker and prevents further event propagation.', function() {
 			var $event = jasmine.createSpyObj('$event', ['preventDefault', 'stopPropagation']);
 			element.isolateScope().open($event);
-			
+
 			expect($event.preventDefault).toHaveBeenCalled();
 			expect($event.stopPropagation).toHaveBeenCalled();
 			expect(element.isolateScope().opened).toBeTruthy();
 		});
 	});
-	
+
 	describe('Init', function() {
 		it('sets default values.', function() {
 			expect(element.isolateScope().minuteStep).toBe(1);

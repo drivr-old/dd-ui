@@ -6,6 +6,10 @@ Combined UI Bootstrap Timepicker and Datepicker that uses a single Date model.
  	:
  	The date object.
 
+ * `ng-change`
+ 	:
+ 	Can be used together with `ng-model` to call a function whenever the datetime changes.
+
  * `date-disabled (date, mode)`
  	_(Default: null)_ :
  	An optional expression to disable visible options based on passing date and current mode _(day|month|year)_.

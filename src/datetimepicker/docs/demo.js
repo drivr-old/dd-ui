@@ -1,5 +1,5 @@
 angular.module('dd.ui.demo').controller('DateTimePickerDemoCtrl', ['$scope', function ($scope) {
-	$scope.datetime = new Date();
+	$scope.dateTime = new Date();
 	
 	$scope.disabled = function (date, mode) {
         var d = new Date();
