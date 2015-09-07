@@ -73,9 +73,6 @@
 
             <p>
                 <a class="btn btn-outline-inverse btn-lg" href="https://github.com/clickataxi/dd-ui"><i class="icon-github"></i>Code on Github</a>
-                <button type="button" class="btn btn-outline-inverse btn-lg" ng-click="showDownloadModal()">
-                    <i class="glyphicon glyphicon-download-alt"></i> Download <small>(0.2.0)</small>
-                </button>
             </p>
         </div>
         <div class="bs-social container">
@@ -147,6 +144,7 @@
                     </p>
                     <ul>
                         <li><a href="http://angularjs.org" target="_blank">AngularJS</a> (requires AngularJS 1.2.x, tested with 1.4.3)</li>
+                        <li><a href="https://angular-ui.github.io/bootstrap/" target="_blank">UI Bootstrap</a> is required by Datetimepicker directive</li>
                     </ul>
                     <h3>Files to download</h3>
                     <p>
@@ -368,9 +366,11 @@ angular.module('dd.ui.demo', ['dd.ui', 'ngAnimate']);
                             <div class="col-md-6 show-grid">
                                 <div ng-controller="DateTimePickerDemoCtrl">
   <div datetimepicker 
-		ng-model="datetime" 
+		ng-model="dateTime" 
 		date-disabled="disabled(date, mode)">
   </div>
+
+  <label>Datetime:&nbsp;</label><span>{{ dateTime | date:'yyyy-MM-dd HH:mm:ss' }}</span>
 </div>
                             </div>
                             <div class="col-md-6">
@@ -382,6 +382,9 @@ angular.module('dd.ui.demo', ['dd.ui', 'ngAnimate']);
 <li><p><code>ng-model</code>
  :
  The date object.</p></li>
+<li><p><code>ng-change</code>
+ :
+ Can be used together with <code>ng-model</code> to call a function whenever the datetime changes.</p></li>
 <li><p><code>date-disabled (date, mode)</code>
  <em>(Default: null)</em> :
  An optional expression to disable visible options based on passing date and current mode <em>(day|month|year)</em>.</p></li>
@@ -411,16 +414,18 @@ Allows overriding of default template of the datetimepicker</p></li>
                                         <div plunker-content="markup">
                                             <pre ng-non-bindable><code data-language="html">&lt;div ng-controller=&quot;DateTimePickerDemoCtrl&quot;&gt;
   &lt;div datetimepicker 
-		ng-model=&quot;datetime&quot; 
+		ng-model=&quot;dateTime&quot; 
 		date-disabled=&quot;disabled(date, mode)&quot;&gt;
   &lt;/div&gt;
+
+  &lt;label&gt;Datetime:&amp;nbsp;&lt;/label&gt;&lt;span&gt;{{ dateTime | date:&#x27;yyyy-MM-dd HH:mm:ss&#x27; }}&lt;/span&gt;
 &lt;/div&gt;</code></pre>
                                         </div>
                                     </tab>
                                     <tab heading="JavaScript">
                                         <div plunker-content="javascript">
                                             <pre ng-non-bindable><code data-language="javascript">angular.module(&#x27;dd.ui.demo&#x27;).controller(&#x27;DateTimePickerDemoCtrl&#x27;, [&#x27;$scope&#x27;, function ($scope) {
-	$scope.datetime = new Date();
+	$scope.dateTime = new Date();
 	
 	$scope.disabled = function (date, mode) {
         var d = new Date();
@@ -435,7 +440,7 @@ Allows overriding of default template of the datetimepicker</p></li>
                         </div>
                     </section>
                     <script>angular.module('dd.ui.demo').controller('DateTimePickerDemoCtrl', ['$scope', function ($scope) {
-	$scope.datetime = new Date();
+	$scope.dateTime = new Date();
 	
 	$scope.disabled = function (date, mode) {
         var d = new Date();

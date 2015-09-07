@@ -16,6 +16,7 @@ angular.module('plunker', [])
           '<html ng-app="dd.ui.demo">\n' +
           '  <head>\n' +
           '    <script src="//ajax.googleapis.com/ajax/libs/angularjs/'+ngVersion+'/angular.js"></script>\n' +
+		  '    <script src="//clickataxi.github.io/dd-ui/assets/ui-bootstrap-tpls.js"></script>\n' +
           '    <script src="//clickataxi.github.io/dd-ui/dd-ui-tpls-'+version+'.js"></script>\n' +
           '    <script src="example.js"></script>\n' +
           '    <link href="//netdna.bootstrapcdn.com/bootstrap/'+bsVersion+'/css/bootstrap.min.css" rel="stylesheet">\n' +
