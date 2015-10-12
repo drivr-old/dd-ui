@@ -38,6 +38,17 @@
       </td>
     </tr>
     <tr>
+      <td>Element selector</td>
+      <td>
+        <div>
+          <div busy-element="#input-container" status="'success'" timeout="0"></div>
+        </div>
+        <div id="input-container">
+          <input type="text" value="Some text" />
+        </div>
+      </td>
+    </tr>
+    <tr>
       <th colspan="2">Dynamic items</th>
     </tr>
     <tr ng-repeat="i in items">
