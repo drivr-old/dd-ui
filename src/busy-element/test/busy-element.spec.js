@@ -2,6 +2,7 @@ describe('busy-element', function () {
   var $scope,
     $compile,
     $timeout,
+    $document,
     wrapElement,
     element,
     busyElement,
@@ -10,10 +11,11 @@ describe('busy-element', function () {
   beforeEach(module('dd.ui.busy-element'));
   beforeEach(module('template/busy-element/busy-element.html'));
 
-  beforeEach(inject(function ($rootScope, _$compile_, _$timeout_) {
+  beforeEach(inject(function ($rootScope, _$compile_, _$timeout_, _$document_) {
     $scope = $rootScope;
     $compile = _$compile_;
     $timeout = _$timeout_;
+    $document = _$document_;
   }));
 
   beforeEach(function() {
@@ -76,6 +78,29 @@ describe('busy-element', function () {
 
       expect(busyElement.hasClass('ng-hide')).toBe(true);
       expect(statusElement.hasClass('ng-hide')).toBe(false);
+    });
+  });
+
+  describe('selector', function() {
+    beforeEach(function() {
+      wrapElement = $compile('<div><div><div busy-element="#test-container" status="status"></div></div><div style="top: 500px; left: 200px; position: absolute; width: 50px; height: 30px; padding: 10px 5px 10px 5px" id="test-container"></div></div>')($scope);
+      wrapElement.appendTo($document[0].body);
+      $scope.$digest();
+      element = wrapElement.find('.be-container');
+      busyElement = element.find('.be-overlay').first();
+      statusElement = element.find('.be-overlay.be-animate');
+    });
+
+    it('positions the busy element on specified container.', function() {
+      $scope.status = 'success';
+      $scope.$digest();
+
+      var directiveScope = busyElement.scope();
+      expect(element.offset()).toEqual({ top: 500, left: 200 });
+      expect(directiveScope.width).toEqual(60);
+      expect(directiveScope.height).toEqual(50);
+      expect(directiveScope.marginLeft).toEqual('5px');
+      expect(directiveScope.marginTop).toEqual('10px');
     });
   });
 });

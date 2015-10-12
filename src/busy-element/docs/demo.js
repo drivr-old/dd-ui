@@ -5,8 +5,6 @@ angular.module('dd.ui.demo').controller('BusyElementDemoCtrl', function ($scope,
 		{id: 'item3', status: ''},
 	];
 
-
-
 	$scope.updated = function(el) {
 
 		if (el.status === '') {

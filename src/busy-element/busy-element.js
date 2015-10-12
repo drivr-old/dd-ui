@@ -11,7 +11,7 @@ angular.module('dd.ui.busy-element', [])
             timeout: '=?'
         },
         link: function (scope, element, attr) {
-          updateSize();
+            updateSize();
 
             scope.$watch('status', function() {
                 updateSize();
@@ -28,10 +28,14 @@ angular.module('dd.ui.busy-element', [])
             });
 
             function updateSize() {
-                scope.width = element.parent().innerWidth();
-                scope.height = element.parent().innerHeight();
-                scope.marginLeft = element.parent().css('padding-left');
-                scope.marginTop = element.parent().css('padding-top');
+                var container = attr.busyElement ? angular.element(attr.busyElement) : element.parent();
+                var offset = container.offset();
+                element.offset(offset);
+
+                scope.width = container.innerWidth();
+                scope.height = container.innerHeight();
+                scope.marginLeft = container.css('padding-left');
+                scope.marginTop = container.css('padding-top');
             }
         }
     };
