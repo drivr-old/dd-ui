@@ -13,7 +13,7 @@
     <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular-touch.min.js"></script>
     <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular-animate.min.js"></script>
 	<script src="assets/ui-bootstrap-tpls.js"></script>
-    <script src="dd-ui-tpls-0.2.0.min.js"></script>
+    <script src="dd-ui-tpls-0.2.1.min.js"></script>
     <script src="assets/plunker.js"></script>
     <script src="assets/app.js"></script>
 
@@ -208,6 +208,17 @@
       </td>
     </tr>
     <tr>
+      <td>Element selector</td>
+      <td>
+        <div>
+          <div busy-element="#input-container" status="'success'" timeout="0"></div>
+        </div>
+        <div id="input-container">
+          <input type="text" value="Some text" />
+        </div>
+      </td>
+    </tr>
+    <tr>
       <th colspan="2">Dynamic items</th>
     </tr>
     <tr ng-repeat="i in items">
@@ -225,7 +236,7 @@
 </div>
                             </div>
                             <div class="col-md-6">
-                                <p>In cell edit status visualizer. When something is changed in cell and immediate save to server is required, it would be nice to give feedback for user when request is in progress and when data are updated or update is failed. For this purpose we have created busy-element directive. It covers parent element with overlay and shows spinner while busy. After request is done, it blinks in green or in red depending on update status.</p>
+                                <p>In cell edit status visualizer. When something is changed in cell and immediate save to server is required, it would be nice to give feedback for user when request is in progress and when data are updated or update is failed. For this purpose we have created busy-element directive. It covers an element (defaults to parent, or specified in selector) with overlay and shows a spinner while busy. After request is done, it blinks in green or in red depending on update status.</p>
 
 <p>NOTE: If you want to have "blinking" animated, you must to add "angular-animate.js" to your page and add "ngAnimate" module dependency to your application, like:
 <code>javascript
@@ -237,7 +248,7 @@ angular.module('dd.ui.demo', ['dd.ui', 'ngAnimate']);
                         <div class="row code">
                             <div class="col-md-12" ng-controller="PlunkerCtrl">
                                 <div class="pull-right">
-                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.4.3', '3.1.1', '0.2.0', 'busy-element')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
+                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.4.3', '3.1.1', '0.2.1', 'busy-element')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
                                 </div>
                                 <tabset>
                                     <tab heading="Markup">
@@ -282,6 +293,17 @@ angular.module('dd.ui.demo', ['dd.ui', 'ngAnimate']);
       &lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
+      &lt;td&gt;Element selector&lt;/td&gt;
+      &lt;td&gt;
+        &lt;div&gt;
+          &lt;div busy-element=&quot;#input-container&quot; status=&quot;&#x27;success&#x27;&quot; timeout=&quot;0&quot;&gt;&lt;/div&gt;
+        &lt;/div&gt;
+        &lt;div id=&quot;input-container&quot;&gt;
+          &lt;input type=&quot;text&quot; value=&quot;Some text&quot; /&gt;
+        &lt;/div&gt;
+      &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
       &lt;th colspan=&quot;2&quot;&gt;Dynamic items&lt;/th&gt;
     &lt;/tr&gt;
     &lt;tr ng-repeat=&quot;i in items&quot;&gt;
@@ -307,8 +329,6 @@ angular.module('dd.ui.demo', ['dd.ui', 'ngAnimate']);
 		{id: &#x27;item2&#x27;, status: &#x27;&#x27;},
 		{id: &#x27;item3&#x27;, status: &#x27;&#x27;},
 	];
-
-
 
 	$scope.updated = function(el) {
 
@@ -337,8 +357,6 @@ angular.module('dd.ui.demo', ['dd.ui', 'ngAnimate']);
 		{id: 'item2', status: ''},
 		{id: 'item3', status: ''},
 	];
-
-
 
 	$scope.updated = function(el) {
 
@@ -407,7 +425,7 @@ Allows overriding of default template of the datetimepicker</p></li>
                         <div class="row code">
                             <div class="col-md-12" ng-controller="PlunkerCtrl">
                                 <div class="pull-right">
-                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.4.3', '3.1.1', '0.2.0', 'datetimepicker')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
+                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.4.3', '3.1.1', '0.2.1', 'datetimepicker')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
                                 </div>
                                 <tabset>
                                     <tab heading="Markup">
@@ -497,7 +515,7 @@ Allows overriding of default template of the datetimepicker</p></li>
                         <div class="row code">
                             <div class="col-md-12" ng-controller="PlunkerCtrl">
                                 <div class="pull-right">
-                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.4.3', '3.1.1', '0.2.0', 'validation')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
+                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.4.3', '3.1.1', '0.2.1', 'validation')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
                                 </div>
                                 <tabset>
                                     <tab heading="Markup">
