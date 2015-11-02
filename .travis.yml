@@ -7,10 +7,10 @@
   - wget https://s3.amazonaws.com/travis-phantomjs/phantomjs-2.0.0-ubuntu-12.04.tar.bz2 -O $PWD/travis-phantomjs/phantomjs-2.0.0-ubuntu-12.04.tar.bz2
   - tar -xvf $PWD/travis-phantomjs/phantomjs-2.0.0-ubuntu-12.04.tar.bz2 -C $PWD/travis-phantomjs
   - export PATH=$PWD/travis-phantomjs:$PATH
-  - export PHANTOMJS_BIN=$PWD/travis-phantomjs
   - export DISPLAY=:99.0
   - sh -e /etc/init.d/xvfb start
   - npm install --quiet -g grunt-cli karma
   - npm install
+  - yes | cp -rf ./travis-phantomjs/phantomjs ./node_modules/phantomjs/lib/phantom
 
  script: grunt
