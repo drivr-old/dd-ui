@@ -1,0 +1,83 @@
+<style>
+.lookup-container .input-group {
+  width: 100%;
+}
+.lookup-container .dropdown-menu {
+  border: 1px solid #ccc !important; 
+  border-top: none !important; 
+  font-size: 11px; 
+  padding: 1px !important; 
+  max-height: 196px; 
+  overflow-y: scroll; 
+  overflow-x: hidden; 
+  width: 100%;
+}
+.lookup-container input {
+  background-color: #ffe;
+}
+.lookup-container .dropdown-menu > li > a {
+  padding: 5px;
+}
+.lookup-container .lookup-legend div, .lookup-clear div {
+  width: 16px;
+  height: 16px;
+  display: inline-block;
+  vertical-align: middle;
+}
+.lookup-container a.lookup-clear {
+  outline: 0
+}
+.lookup-container .lookup-no-results span {
+  color: #999;
+  font-size: 10px;
+}
+.lookup-container .lookup-legend .lookup-icon {
+  background-image: url(./assets/img/magnifier-small.png);
+}
+.lookup-container .lookup-legend .spinner-icon {
+  background-image: url(./assets/img/spinner.gif);
+  background-size: 16px;
+}
+.lookup-container .lookup-clear .clear-icon {
+  background-image: url(./assets/img/cross-small-white.png); 
+  opacity: 0.6;
+}
+.lookup-container .lookup-legend {
+  position: absolute;
+  right: 6px;
+  top: 6px;
+  z-index: 5;
+}
+.lookup-container .lookup-clear {
+  position: absolute;
+  right: 22px;
+  top: 6px;
+  z-index: 5;
+}
+</style>
+
+<div class="lookup-container" ng-cloak>
+  <div class="input-group">
+    <input type="text"
+           ng-model="ngModel"
+           autocomplete="off"
+           typeahead="d as getLabel(d) for d in getItems($viewValue)"
+           typeahead-on-select="onSelect($item, $model, $label)"
+           typeahead-editable="false"
+           typeahead-no-results="noResults"
+           ng-required="required"
+           ng-disabled="ngDisabled"
+           placeholder="{{placeholder}}"
+           class="form-control" />
+    <span class="lookup-legend">
+      <div class="lookup-icon" ng-show="!isBusy"></div>
+      <div class="spinner-icon" ng-show="isBusy"></div>
+    </span>
+    <a class="lookup-clear" ng-click="clear()" tabindex="-1" ng-class="{ 'disabled' : ngDisabled }">
+      <div class="clear-icon" tooltip="Clear" tooltip-append-to-body="true"></div>
+    </a>
+  </div>
+  <div ng-show="noResults" class="lookup-no-results">
+    <span class="detail"><i class="glyphicon glyphicon-remove"></i> No results found</span>
+  </div>
+</div>
