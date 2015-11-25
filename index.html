@@ -500,7 +500,7 @@ Allows overriding of default template of the datetimepicker</p></li>
         <div dd-lookup 
             ng-model="labelModel" 
             url="'http://server/api/drivers'"
-            lookup-format="['{0} - {1}', 'name', 'currentVehicle']">
+            lookup-format="formatLabel($item)">
         </div>
     </div>
     <div class="form-group">
@@ -535,8 +535,8 @@ Url of the endpoint to fetch data from.</p></li>
 _(Default: 'template/lookup/lookup.html') :
 Allows overriding of default template of the lookup.</p></li>
 <li><p><code>lookup-format</code>
-_(Default: ['{0}', 'name']) :
-Allows custom format of the item labels.</p></li>
+:
+An optional attribute that allows to specify a function that formats the item labels.</p></li>
 <li><p><code>placeholder</code>
 :
 Adds a placeholder attribute to the lookup input.</p></li>
@@ -577,7 +577,7 @@ Adds a required attribute to the lookup input.</p></li>
         &lt;div dd-lookup 
             ng-model=&quot;labelModel&quot; 
             url=&quot;&#x27;http://server/api/drivers&#x27;&quot;
-            lookup-format=&quot;[&#x27;{0} - {1}&#x27;, &#x27;name&#x27;, &#x27;currentVehicle&#x27;]&quot;&gt;
+            lookup-format=&quot;formatLabel($item)&quot;&gt;
         &lt;/div&gt;
     &lt;/div&gt;
     &lt;div class=&quot;form-group&quot;&gt;
@@ -615,6 +615,10 @@ Adds a required attribute to the lookup input.</p></li>
 
         return [200, drivers];
     });
+
+    $scope.formatLabel = function(item) {
+        return item.name + &#x27; - &#x27; + item.currentVehicle;
+    };
 
     function getJsonFromUrl(url) {
       var query = url.substr(url.indexOf(&#x27;?&#x27;) + 1);
@@ -654,6 +658,10 @@ Adds a required attribute to the lookup input.</p></li>
 
         return [200, drivers];
     });
+
+    $scope.formatLabel = function(item) {
+        return item.name + ' - ' + item.currentVehicle;
+    };
 
     function getJsonFromUrl(url) {
       var query = url.substr(url.indexOf('?') + 1);
