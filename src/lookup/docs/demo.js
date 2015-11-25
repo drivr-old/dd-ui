@@ -21,6 +21,10 @@ angular.module('dd.ui.demo').controller('LookupDemoCtrl', ['$scope', '$http', '$
         return [200, drivers];
     });
 
+    $scope.formatLabel = function(item) {
+        return item.name + ' - ' + item.currentVehicle;
+    };
+
     function getJsonFromUrl(url) {
       var query = url.substr(url.indexOf('?') + 1);
       var result = {};

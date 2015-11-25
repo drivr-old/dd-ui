@@ -23,8 +23,8 @@ Our lookup, based on UI Bootstrap Typeahead directive.
     Allows overriding of default template of the lookup.
 
  * `lookup-format`
-    _(Default: ['{0}', 'name']) :
-    Allows custom format of the item labels.
+    :
+    An optional attribute that allows to specify a function that formats the item labels.
 
  * `placeholder`
     :

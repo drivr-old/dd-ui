@@ -51,7 +51,6 @@
 
             selectItem(1);
             var expectedModel = angular.copy(items[1]);
-            expectedModel.$label = expectedModel.name;
             expect($scope.model).toEqual(expectedModel);
         });
 
@@ -72,7 +71,8 @@
 
     describe('Lookup format', function () {
         it('sets a custom label.', function() {
-            initDirective('<div dd-lookup ng-model="model" url="\'/api/drivers/lookup\'" lookup-format="[\'{0} - {1}\', \'name\', \'externalReference\']"></div>');
+            $scope.formatLabel = function(item) { return item.name + ' - ' + item.externalReference; };
+            initDirective('<div dd-lookup ng-model="model" url="\'/api/drivers/lookup\'" lookup-format="formatLabel($item)"></div>');
             
             var items = [{ id: 1, name: 'driver 1', externalReference: '123' }, { id: 2, name: 'driver 2', externalReference: '321' }];
             $httpBackend.expectGET('/api/drivers/lookup?limit=10&query=ab').respond(200, items);
@@ -83,7 +83,6 @@
 
             selectItem(0);
             expect(input.val()).toEqual('driver 1 - 123');
-            expect($scope.model.$label).toEqual('driver 1 - 123');
         });
     });
 
@@ -144,14 +143,6 @@
             element.find('.lookup-clear').click();
 
             expect(label.is(':visible')).toBeFalsy();
-        });
-    });
-
-    describe('On model change', function() {
-        it('assigns a label if it is not present.', function() {
-            $scope.model = { id: '123', name: 'Johnson' };
-            $scope.$digest();
-            expect($scope.model.$label).toEqual($scope.model.name);
         });
     });
 

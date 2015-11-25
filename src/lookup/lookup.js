@@ -7,7 +7,7 @@ angular.module('dd.ui.lookup', ['ui.bootstrap'])
             ngModel: '=',
             url: '=',
             lookupParams: '=?',
-            lookupFormat: '=?',
+            lookupFormat: '&',
             ngDisabled: '=?',
             lookupOnSelect: '&'
         },
@@ -41,10 +41,6 @@ angular.module('dd.ui.lookup', ['ui.bootstrap'])
             /* --------------- ngModel pipeline --------------- */
 
             ctrl.$formatters.push(function (modelValue) {
-                // if a model is assigned from code, it won't have a label. need to set it.
-                if (modelValue && !modelValue.$label) {
-                    modelValue.$label = $scope.getLabel(modelValue);
-                }
                 return modelValue;
             });
 
@@ -82,11 +78,8 @@ angular.module('dd.ui.lookup', ['ui.bootstrap'])
                 }
 
                 var label;
-                if ($scope.lookupFormat) {
-                    var map = $scope.lookupFormat.slice(1).map(function (value) {
-                        return item[value];
-                    });
-                    label = formatString($scope.lookupFormat[0], map);
+                if (attrs.lookupFormat) {
+                    label = $scope.lookupFormat({$item: item});
                 } else {
                     label = item.name;
                 }
@@ -95,23 +88,9 @@ angular.module('dd.ui.lookup', ['ui.bootstrap'])
             };
 
             $scope.onSelect = function($item, $model, $label) {
-                $model.$label = $label;
                 ctrl.$setDirty(true);
                 $timeout($scope.lookupOnSelect);
             };
-
-            /* --------------- private functions --------------- */
-
-            function formatString(format) {
-                var formatted = format;
-                var args = Array.prototype.concat.apply([], arguments).splice(1);
-                for (var i = 0; i < args.length; i++) {
-                    var regexp = new RegExp('\\{' + i + '\\}', 'gi');
-                    formatted = formatted.replace(regexp, (args[i] || ''));
-                }
-
-                return formatted;
-            }
         }
     };
 }]);

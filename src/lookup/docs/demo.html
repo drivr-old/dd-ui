@@ -20,7 +20,7 @@
         <div dd-lookup 
             ng-model="labelModel" 
             url="'http://server/api/drivers'"
-            lookup-format="['{0} - {1}', 'name', 'currentVehicle']">
+            lookup-format="formatLabel($item)">
         </div>
     </div>
     <div class="form-group">
