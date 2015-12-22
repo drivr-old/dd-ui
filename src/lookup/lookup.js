@@ -9,7 +9,8 @@ angular.module('dd.ui.lookup', ['ui.bootstrap'])
             lookupParams: '=?',
             lookupFormat: '&',
             ngDisabled: '=?',
-            lookupOnSelect: '&'
+            lookupOnSelect: '&',
+            lookupResponseTransform: '&'
         },
         templateUrl: function (element, attrs) {
             return attrs.templateUrl || 'template/lookup/lookup.html';
@@ -55,6 +56,9 @@ angular.module('dd.ui.lookup', ['ui.bootstrap'])
                 return $http({ method: 'GET', url: $scope.url, params: requestParams })
                     .then(function (result) {
                         $scope.isBusy = false;
+                        if (attrs.lookupResponseTransform) {
+                            return $scope.lookupResponseTransform({ $response: result.data });
+                        }
                         return result.data;
                     }, function () {
                         $scope.isBusy = false;

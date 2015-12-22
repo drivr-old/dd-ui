@@ -228,6 +228,21 @@
             expect(dropdown.attr('style')).toContain('width: calc(100% - ' + addon.outerWidth() + 'px)');
         });
     });
+
+    describe('Lookup response transform', function() {
+        it('allows custom API response format.', function() {
+            $scope.responseTransformer = function(response) { return response.items; };
+            initDirective('<div dd-lookup ng-model="model" url="\'/api/drivers/lookup\'" lookup-response-transform="responseTransformer($response)"></div>');
+            
+            var response = { items: [{ id: 1, name: 'driver 1', externalReference: '123' }, { id: 2, name: 'driver 2', externalReference: '321' }] };
+            $httpBackend.expectGET('/api/drivers/lookup?limit=10&query=ab').respond(200, response);
+            lookup('ab');
+
+            selectItem(1);
+            var expectedModel = angular.copy(response.items[1]);
+            expect($scope.model).toEqual(expectedModel);
+        });
+    });
     
     function initDirective(html) {
         element = $compile(html)($scope);

@@ -8,7 +8,7 @@ Our lookup, based on UI Bootstrap Typeahead directive.
 
  * `url`
     :
-    Url of the endpoint to fetch data from.
+    Url of the endpoint to fetch data from. Response must be an array, otherwise a response transformer can be used.
 
  * `lookup-on-select`
  	:
@@ -33,3 +33,7 @@ Our lookup, based on UI Bootstrap Typeahead directive.
  * `required`
     :
     Adds a required attribute to the lookup input.
+
+ * `lookup-response-transform`
+    :
+    An optional attribute that allows to specify a function that transforms response. Useful when response is not an array.

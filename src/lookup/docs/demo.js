@@ -21,8 +21,23 @@ angular.module('dd.ui.demo').controller('LookupDemoCtrl', ['$scope', '$http', '$
         return [200, drivers];
     });
 
+    $httpBackend.whenGET(function(url) { return url.startsWith('http://server/api/corporations'); }).respond(function(method, url) {
+        var corporations = {
+            items: [
+                { name: 'Microsoft' },
+                { name: 'Google' }
+            ]
+        };
+
+        return [200, corporations];
+    });
+
     $scope.formatLabel = function(item) {
         return item.name + ' - ' + item.currentVehicle;
+    };
+
+    $scope.responseTransformer = function(response) {
+        return response.items;
     };
 
     function getJsonFromUrl(url) {
