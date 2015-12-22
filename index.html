@@ -13,7 +13,7 @@
     <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular-touch.min.js"></script>
     <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular-animate.min.js"></script>
 	<script src="assets/ui-bootstrap-tpls.js"></script>
-    <script src="dd-ui-tpls-0.2.2.min.js"></script>
+    <script src="dd-ui-tpls-0.2.3.min.js"></script>
     <script src="assets/angular-mocks.js"></script>
     <script src="assets/plunker.js"></script>
     <script src="assets/app.js"></script>
@@ -251,7 +251,7 @@ angular.module('dd.ui.demo', ['dd.ui', 'ngAnimate']);
                         <div class="row code">
                             <div class="col-md-12" ng-controller="PlunkerCtrl">
                                 <div class="pull-right">
-                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.4.3', '3.1.1', '0.2.2', 'busy-element')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
+                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.4.3', '3.1.1', '0.2.3', 'busy-element')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
                                 </div>
                                 <tabset>
                                     <tab heading="Markup">
@@ -428,7 +428,7 @@ Allows overriding of default template of the datetimepicker</p></li>
                         <div class="row code">
                             <div class="col-md-12" ng-controller="PlunkerCtrl">
                                 <div class="pull-right">
-                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.4.3', '3.1.1', '0.2.2', 'datetimepicker')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
+                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.4.3', '3.1.1', '0.2.3', 'datetimepicker')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
                                 </div>
                                 <tabset>
                                     <tab heading="Markup">
@@ -510,6 +510,14 @@ Allows overriding of default template of the datetimepicker</p></li>
             url="'http://server/api/drivers'"
             lookup-params="lookupParams">
         </div>
+    </div>
+    <div class="form-group">
+        <h4>Lookup with response transformer</h4>
+        <div dd-lookup 
+            ng-model="transformerModel" 
+            url="'http://server/api/corporations'"
+            lookup-response-transform="responseTransformer($response)">
+        </div>
     </div>    
 </div>
                             </div>
@@ -524,7 +532,7 @@ Allows overriding of default template of the datetimepicker</p></li>
  The selected item.</p></li>
 <li><p><code>url</code>
 :
-Url of the endpoint to fetch data from.</p></li>
+Url of the endpoint to fetch data from. Response must be an array, otherwise a response transformer can be used.</p></li>
 <li><p><code>lookup-on-select</code>
  :
  An optional attribute that can be used to specify a callback for the select event.</p></li>
@@ -543,6 +551,9 @@ Adds a placeholder attribute to the lookup input.</p></li>
 <li><p><code>required</code>
 :
 Adds a required attribute to the lookup input.</p></li>
+<li><p><code>lookup-response-transform</code>
+:
+An optional attribute that allows to specify a function that transforms response. Useful when response is not an array.</p></li>
 </ul>
                             </div>
                         </div>
@@ -550,7 +561,7 @@ Adds a required attribute to the lookup input.</p></li>
                         <div class="row code">
                             <div class="col-md-12" ng-controller="PlunkerCtrl">
                                 <div class="pull-right">
-                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.4.3', '3.1.1', '0.2.2', 'lookup')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
+                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.4.3', '3.1.1', '0.2.3', 'lookup')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
                                 </div>
                                 <tabset>
                                     <tab heading="Markup">
@@ -587,6 +598,14 @@ Adds a required attribute to the lookup input.</p></li>
             url=&quot;&#x27;http://server/api/drivers&#x27;&quot;
             lookup-params=&quot;lookupParams&quot;&gt;
         &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;form-group&quot;&gt;
+        &lt;h4&gt;Lookup with response transformer&lt;/h4&gt;
+        &lt;div dd-lookup 
+            ng-model=&quot;transformerModel&quot; 
+            url=&quot;&#x27;http://server/api/corporations&#x27;&quot;
+            lookup-response-transform=&quot;responseTransformer($response)&quot;&gt;
+        &lt;/div&gt;
     &lt;/div&gt;    
 &lt;/div&gt;</code></pre>
                                         </div>
@@ -616,8 +635,23 @@ Adds a required attribute to the lookup input.</p></li>
         return [200, drivers];
     });
 
+    $httpBackend.whenGET(function(url) { return url.startsWith(&#x27;http://server/api/corporations&#x27;); }).respond(function(method, url) {
+        var corporations = {
+            items: [
+                { name: &#x27;Microsoft&#x27; },
+                { name: &#x27;Google&#x27; }
+            ]
+        };
+
+        return [200, corporations];
+    });
+
     $scope.formatLabel = function(item) {
         return item.name + &#x27; - &#x27; + item.currentVehicle;
+    };
+
+    $scope.responseTransformer = function(response) {
+        return response.items;
     };
 
     function getJsonFromUrl(url) {
@@ -659,8 +693,23 @@ Adds a required attribute to the lookup input.</p></li>
         return [200, drivers];
     });
 
+    $httpBackend.whenGET(function(url) { return url.startsWith('http://server/api/corporations'); }).respond(function(method, url) {
+        var corporations = {
+            items: [
+                { name: 'Microsoft' },
+                { name: 'Google' }
+            ]
+        };
+
+        return [200, corporations];
+    });
+
     $scope.formatLabel = function(item) {
         return item.name + ' - ' + item.currentVehicle;
+    };
+
+    $scope.responseTransformer = function(response) {
+        return response.items;
     };
 
     function getJsonFromUrl(url) {
@@ -722,7 +771,7 @@ Adds a required attribute to the lookup input.</p></li>
                         <div class="row code">
                             <div class="col-md-12" ng-controller="PlunkerCtrl">
                                 <div class="pull-right">
-                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.4.3', '3.1.1', '0.2.2', 'validation')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
+                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.4.3', '3.1.1', '0.2.3', 'validation')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
                                 </div>
                                 <tabset>
                                     <tab heading="Markup">
