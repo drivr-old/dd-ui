@@ -27,8 +27,18 @@
 .lookup-container a.lookup-clear {
   outline: 0
 }
+.lookup-container .lookup-no-results {
+  position: absolute;
+  background-color: #fff;
+  z-index: 1;
+  padding: 4px;
+  width: 100%;
+  border: 1px solid #ddd;
+  margin-top: 1px;
+  top: 100%;
+}
 .lookup-container .lookup-no-results span {
-  color: #999;
+  color: #a94442;
   font-size: 10px;
 }
 .lookup-container .lookup-legend .lookup-icon {
@@ -76,8 +86,8 @@
     <a class="lookup-clear" ng-click="clear()" tabindex="-1" ng-class="{ 'disabled' : ngDisabled }">
       <div class="clear-icon" tooltip="Clear" tooltip-append-to-body="true"></div>
     </a>
-  </div>
-  <div ng-show="noResults" class="lookup-no-results">
-    <span class="detail"><i class="glyphicon glyphicon-remove"></i> No results found</span>
+    <div ng-show="noResults" class="lookup-no-results">
+      <span class="detail"><i class="glyphicon glyphicon-remove"></i> No results found</span>
+    </div>
   </div>
 </div>
