@@ -1,19 +1,11 @@
-//TODO: remove comment after done
-//  8a = 08:00 (If last character is a, the time is am) 
-//  8p = 20:00 (If last character is p the time is pm)
-//  815a / p = 08:15 / 20:15
-//  8.15a = 08:15 / 20:15
-//  8 = 08:00
-//  815 = 08:15
-//  8.15 = 08:15
-//  8:15 = 08:15
-//  08:15 = 08:15
 
 angular.module('dd.ui.timepicker', [])
     .directive('ddTimepicker', TimepickerDirective)
     .factory('timeparserService', timeparserService);
 
-function TimepickerDirective() {
+
+TimepickerDirective.$inject = ['timeparserService'];
+function TimepickerDirective(timeparserService) {
 
     var directive = {
         restrict: 'A',
@@ -22,36 +14,41 @@ function TimepickerDirective() {
         scope: {
         },
         link: function (scope, element, attrs, ngModel) {
-
-            if (!angular.isDefined(ngModel)) {
-                return;
+            
+            //(view to model)
+            ngModel.$parsers.push(function (value) {
+                return timeparserService.toModel(value);
+            });
+            
+            element.on('blur', toModelTime);
+            
+            function toModelTime() {
+                ngModel.$setViewValue(timeparserService.toModel(ngModel.$modelValue));
+                ngModel.$render();
             }
             
-            //format text going to user (model to view)
-            ngModel.$formatters.push(function (value) {
-                return value.toUpperCase();
-            });
-
-            //format text from the user (view to model)
-            ngModel.$parsers.push(function (value) {
-                return value.toLowerCase();
-            });
+            //TODO: check about validations like min/max etc.
 
         }
     };
+    
     return directive;
 
 }
 
-
+//TODO: grunt compile files in wrong order if this service will be putted in separate file. Need to fix this global issue
 function timeparserService() {
 
     var amPmPattern = /^(\d+)(a|p)$/,
         normalTimeFormat = /^([0-9]|0[0-9]|1[0-9]|2[0-3])[.:][0-5][0-9]$/,
-        digitsPattern = /^[0-9]+$/; 
+        digitsPattern = /^[0-9]+$/;
 
     //TODO: validation for invalid cases
     function toModel(input) {
+        
+        if(!input) {
+            return null;
+        }
         
         if (normalTimeFormat.test(input)){
             return input;
