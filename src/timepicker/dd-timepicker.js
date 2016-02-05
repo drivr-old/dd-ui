@@ -13,6 +13,7 @@ function TimepickerDirective(timeparserService) {
         require: 'ngModel',
         replace: true,
         scope: {
+            ngModel:'='
         },
         link: function (scope, element, attrs, ngModel) {
             
