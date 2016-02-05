@@ -194,7 +194,7 @@ function timeparserService() {
     return {
         toModel: toModel,
         toView: toView,
-        getCurrentTime: getFormattedTime,
+        getFormattedTime: getFormattedTime,
         changeTime: changeTime
     };
 }
