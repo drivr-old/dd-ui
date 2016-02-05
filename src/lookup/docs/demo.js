@@ -32,6 +32,15 @@ angular.module('dd.ui.demo').controller('LookupDemoCtrl', ['$scope', '$http', '$
         return [200, corporations];
     });
 
+    $httpBackend.whenGET(function(url) { return url.startsWith('http://server/api/emptyList'); }).respond(function(method, url) {
+        var emptyList = {
+            items: [
+            ]
+        };
+
+        return [200, emptyList];
+    });
+
     $scope.formatLabel = function(item) {
         return item.name + ' - ' + item.currentVehicle;
     };
