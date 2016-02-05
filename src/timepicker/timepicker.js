@@ -28,7 +28,7 @@ function TimepickerDirective(timeparserService) {
 
             element.bind('keydown keypress', function (event) {
                 if (event.which === KEY_ENTER && !ngModel.$modelValue) {
-                    updateViewValue(timeparserService.getCurrentTime());
+                    updateViewValue(timeparserService.getFormattedTime());
                     event.preventDefault();
                 } else if (event.which === KEY_UP) {
                     updateViewValue(timeparserService.changeTime(ngModel.$modelValue, 1));
@@ -87,7 +87,7 @@ function timeparserService() {
 
     function toView(input) {
         if (input instanceof Date) {
-            return getCurrentTime(input);
+            return getFormattedTime(input);
         }
         return input;
     }
@@ -181,7 +181,7 @@ function timeparserService() {
         return minutes < 10 ? '0' + minutes : minutes.toString();
     }
 
-    function getCurrentTime(dateInstance) {
+    function getFormattedTime(dateInstance) {
         var date = dateInstance || new Date();
         return ('0' + date.getHours()).slice(-2) + ':' + ('0' + date.getMinutes()).slice(-2);
     }
@@ -193,7 +193,7 @@ function timeparserService() {
     return {
         toModel: toModel,
         toView: toView,
-        getCurrentTime: getCurrentTime,
+        getCurrentTime: getFormattedTime,
         changeTime: changeTime
     };
 }
