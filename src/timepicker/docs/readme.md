@@ -6,6 +6,7 @@ In the time entry field allow user to enter the time in several formats. When us
  * 8.15a = 08:15 / 20:15
  * 8 = 08:00
  * 815 = 08:15
+ * 125 = 01:25
  * 8.15 = 08:15
  * 8:15 = 08:15
  * 08:15 = 08:15

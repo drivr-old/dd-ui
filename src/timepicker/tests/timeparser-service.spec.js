@@ -139,7 +139,7 @@ describe('timeparser-service', function () {
             expect(model).toBe('08:15');
         });
 
-        it('20:16', function () {
+        it('20:15', function () {
             var input = '20:15';
 
             var model = timeparserService.toModel(input);
