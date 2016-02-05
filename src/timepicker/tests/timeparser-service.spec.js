@@ -149,4 +149,97 @@ describe('timeparser-service', function () {
 
     });
 
+    describe('change time', function () {
+
+        it('increase by one minute for am time', function () {
+            var input = '08:15';
+
+            var model = timeparserService.changeTime(input, 1);
+
+            expect(model).toBe('08:16');
+        });
+
+        it('decrease by one minute for am time', function () {
+            var input = '08:15';
+
+            var model = timeparserService.changeTime(input, -1);
+
+            expect(model).toBe('08:14');
+        });
+
+        it('increase by one minute', function () {
+            var input = '20:15';
+
+            var model = timeparserService.changeTime(input, 1);
+
+            expect(model).toBe('20:16');
+        });
+
+        it('decrease by one minute', function () {
+            var input = '20:15';
+
+            var model = timeparserService.changeTime(input, -1);
+
+            expect(model).toBe('20:14');
+        });
+
+        it('increase by one minute if hours = 0', function () {
+            var input = '00:15';
+
+            var model = timeparserService.changeTime(input, 1);
+
+            expect(model).toBe('00:16');
+        });
+
+        it('decrease by one minute if hours = 0', function () {
+            var input = '00:15';
+
+            var model = timeparserService.changeTime(input, -1);
+
+            expect(model).toBe('00:14');
+        });
+
+        it('increase hours to 21:00', function () {
+            var input = '20:59';
+
+            var model = timeparserService.changeTime(input, 1);
+
+            expect(model).toBe('21:00');
+        });
+
+        it('decrease hours to 20:59', function () {
+            var input = '21:00';
+
+            var model = timeparserService.changeTime(input, -1);
+
+            expect(model).toBe('20:59');
+        });
+        
+        //some corner cases
+        it('set to 23:59 from 00:00', function () {
+            var input = '00:00';
+
+            var model = timeparserService.changeTime(input, -1);
+
+            expect(model).toBe('23:59');
+        });
+
+        it('set to 00:01 from 00:00', function () {
+            var input = '00:00';
+
+            var model = timeparserService.changeTime(input, 1);
+
+            expect(model).toBe('00:01');
+        });
+
+        it('set to 00:00 from 23:59', function () {
+            var input = '23:59';
+
+            var model = timeparserService.changeTime(input, 1);
+
+            expect(model).toBe('00:00');
+        });
+
+    });
+
 });

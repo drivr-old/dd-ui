@@ -1,6 +1,8 @@
 <div ng-controller="TimepickerDemoCtrl">
- 
-    <input dd-timepicker type="text" ng-model="time" />
-    <br />
-    <pre>Model value: {{time}}</pre>
+    
+    <div class="form-group">
+        <h4>Model as string: {{time}}</h4>
+        <input id="time1" class="form-control" dd-timepicker type="text" ng-model="time" />
+    </div>
+    
 </div>
