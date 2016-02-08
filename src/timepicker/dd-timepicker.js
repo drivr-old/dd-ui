@@ -1,7 +1,7 @@
 
 angular.module('dd.ui.timepicker', [])
     .directive('ddTimepicker', TimepickerDirective)
-    .factory('timeparserService', timeparserService);
+    .service('timeparserService', timeparserService);
 
 var KEY_ENTER = 13, KEY_UP = 38, KEY_DOWN = 40;
 
@@ -56,12 +56,17 @@ function TimepickerDirective(timeparserService) {
 
 }
 
-//TODO: grunt compile files in wrong order if this service will be putted in separate file. Need to fix this global issue
 function timeparserService() {
-
+    var self = this;
+    
     var amPmPattern = /^(\d+)(a|p)$/,
-        normalTimeFormat = /^([0-9]|0[0-9]|1[0-9]|2[0-3])[.:][0-5][0-9]$/,
+        normalTimePattern = /^([0-9]|0[0-9]|1[0-9]|2[0-3])[.:][0-5][0-9]$/,
         digitsPattern = /^[0-9]+$/;
+        
+    self.toModel = toModel;
+    self.toView = toView;
+    self.changeTime = changeTime;
+    self.getFormattedTime = getFormattedTime;
 
     function toModel(input) {
 
@@ -69,18 +74,20 @@ function timeparserService() {
             return null;
         }
 
-        if (normalTimeFormat.test(input)) {
+        if (normalTimePattern.test(input)) {
             return parseNormalTime(input);
         }
 
         input = prepareInput(input);
 
         if (amPmPattern.test(input)) {
-            return parseAmPmTime(input, amPmPattern);
+            var parsed1 = parseAmPmTime(input, amPmPattern);
+            return validateParsedTime(parsed1);
         }
 
         if (digitsPattern.test(input)) {
-            return parseDigitsTime(input, digitsPattern);
+            var parsed2 = parseDigitsTime(input, digitsPattern);
+            return validateParsedTime(parsed2);
         }
 
         return null;
@@ -111,6 +118,11 @@ function timeparserService() {
             timeInfo.minutes = 59;
         }
         return timeInfoToString(timeInfo);
+    }
+    
+    function getFormattedTime(dateInstance) {
+        var date = dateInstance || new Date();
+        return ('0' + date.getHours()).slice(-2) + ':' + ('0' + date.getMinutes()).slice(-2);
     }
     
     //private
@@ -175,6 +187,13 @@ function timeparserService() {
             minutes: minutes
         };
     }
+    
+    function validateParsedTime(input) {
+        if (normalTimePattern.test(input)) {
+            return input;
+        }
+        return null;
+    }
 
     function prepareInput(input) {
         return input.trim().toLowerCase().replace('.', '').replace(':', '');
@@ -188,19 +207,7 @@ function timeparserService() {
         return minutes < 10 ? '0' + minutes : minutes.toString();
     }
 
-    function getFormattedTime(dateInstance) {
-        var date = dateInstance || new Date();
-        return ('0' + date.getHours()).slice(-2) + ':' + ('0' + date.getMinutes()).slice(-2);
-    }
-
     function timeInfoToString(timeInfo) {
         return hourToString(timeInfo.hours) + ':' + minutesToString(timeInfo.minutes);
     }
-
-    return {
-        toModel: toModel,
-        toView: toView,
-        getFormattedTime: getFormattedTime,
-        changeTime: changeTime
-    };
 }

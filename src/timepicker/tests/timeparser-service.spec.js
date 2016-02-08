@@ -149,6 +149,26 @@ describe('timeparser-service', function () {
 
     });
 
+    describe('return null for invalid', function () {
+
+        it('99:99', function () {
+            var input = '99:99';
+
+            var model = timeparserService.toModel(input);
+
+            expect(model).toBe(null);
+        });
+        
+        it('abcd', function () {
+            var input = 'abcd';
+
+            var model = timeparserService.toModel(input);
+
+            expect(model).toBe(null);
+        });
+
+    });
+
     describe('change time', function () {
 
         it('increase by one minute for am time', function () {
