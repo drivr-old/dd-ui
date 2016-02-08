@@ -13,7 +13,7 @@ function TimepickerDirective(timeparserService) {
         require: 'ngModel',
         replace: true,
         scope: {
-            ngModel:'='
+            ngModel: '='
         },
         link: function (scope, element, attrs, ngModel) {
             
@@ -70,7 +70,7 @@ function timeparserService() {
         }
 
         if (normalTimeFormat.test(input)) {
-            return input.replace('.', ':');
+            return parseNormalTime(input);
         }
 
         input = prepareInput(input);
@@ -127,14 +127,20 @@ function timeparserService() {
         return timeInfoToString(timeInfo);
     }
 
+    function parseNormalTime(input) {
+        input = prepareInput(input);
+        var timeInfo = getTimeInfoFromString(input, null);
+        return timeInfoToString(timeInfo);
+    }
+
     function tokenize(input, pattern) {
         return pattern.exec(input);
     }
-    
+
     function getTimeInfoFromString(inputTime, mode) {
 
         if (inputTime[0] === '0') {
-            inputTime = inputTime.replace(/^0/,'');
+            inputTime = inputTime.replace(/^0/, '');
         }
 
         var val = parseInt(inputTime),
@@ -142,7 +148,7 @@ function timeparserService() {
             minutes = 0;
         
         //user enter only minutes (mm)
-        if(inputTime[0] === '0') {
+        if (inputTime[0] === '0') {
             minutes = parseInt(inputTime);
         }
         //user enter only hour (H)
@@ -169,7 +175,7 @@ function timeparserService() {
             minutes: minutes
         };
     }
-    
+
     function prepareInput(input) {
         return input.trim().toLowerCase().replace('.', '').replace(':', '');
     }
