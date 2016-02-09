@@ -12,6 +12,7 @@ module.exports = function(config) {
       'misc/test-lib/angular.js',
       'misc/test-lib/angular-mocks.js',
       'misc/test-lib/ui-bootstrap-tpls.js',
+      'misc/test-lib/es6-polyfills.js',
       'src/**/*.js',
       'template/**/*.js'
     ],
