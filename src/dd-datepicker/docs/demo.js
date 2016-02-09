@@ -6,9 +6,10 @@ angular.module('dd.ui.demo').controller('DatepickerDemoCtrl', function ($scope) 
         var d = new Date();
         d.setHours(0, 0, 0, 0);
         return (mode === 'day' && date < d);
-    }
+    };
     
     $scope.change = function () {
         console.log('changed');
-    }
+    };
+    
 });

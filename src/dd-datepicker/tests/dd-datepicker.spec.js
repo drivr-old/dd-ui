@@ -13,8 +13,9 @@ describe('datetimepicker', function () {
             $scope = $rootScope.$new();
             $sniffer = _$sniffer_;
             $document = _$document_;
-
-            element = $compile('<input dd-datepicker ng-model="date" />')($scope);
+            
+            $scope.dateFormat = 'yyyy-MM-dd';
+            element = $compile('<input dd-datepicker date-format="yyyy-MM-dd" ng-model="date" />')($scope);
             element.appendTo($document[0].body);
             $scope.$digest();
 
@@ -85,9 +86,6 @@ describe('datetimepicker', function () {
         var input = el.find('input');
         input.val(value);
         input.trigger($sniffer.hasEvent('input') ? 'input' : 'change');
-        $scope.$digest();
-
-        input.trigger('blur');
         $scope.$digest();
     }
 });

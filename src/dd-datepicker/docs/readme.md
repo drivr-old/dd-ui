@@ -23,7 +23,7 @@ dd-ui Datepicker allows to enter custom date formats and use original bootstrap 
   Allows overriding of default template of the datepicker
   
   
-### dd-ui Datepicker supports custom users date input ###
+### dd-ui Datepicker supports custom users date input depending on given date format ###
 * 2108 OR 0821 = 21.08 (21st of August)
 * 21-08 OR 08-21 = 21.08 (21st of August)
 * 21/08 OR 08/21 = 21.08 (21st of August)

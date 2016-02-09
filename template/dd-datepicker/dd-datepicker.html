@@ -2,6 +2,7 @@
       
     <input class="form-control display-input datepicker-input"
            type="text"
+           ng-disabled="ngDisabled"
            ng-change="parseUserInput()"
            ng-model="displayModel" />
            
@@ -14,6 +15,6 @@
            date-disabled="dateDisabled({date: date, mode: mode})"
            close-text="Close"
            show-weeks="showWeeks"></div>
-        <button type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+        <button ng-disabled="ngDisabled" type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
     </span>
 </div>
