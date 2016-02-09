@@ -27,7 +27,7 @@ function TimepickerDirective(timeparserService) {
                 return timeparserService.toView(value);
             });
 
-            element.bind('keydown keypress', function (event) {
+            element.on('keydown keypress', function (event) {
                 if (event.which === KEY_ENTER && !ngModel.$modelValue) {
                     updateViewValue(timeparserService.getFormattedTime());
                     event.preventDefault();
@@ -40,7 +40,7 @@ function TimepickerDirective(timeparserService) {
                 }
             });
 
-            element.bind('blur', function toModelTime() {
+            element.on('blur', function toModelTime() {
                 updateViewValue(timeparserService.toModel(ngModel.$modelValue));
             });
 
