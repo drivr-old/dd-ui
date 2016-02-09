@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <title>Drivr directives</title>
-    <meta name="description" content="AngularJS (Angular) native directives. Widgets: Busy-element, Datetimepicker, Lookup, Validation, ">
+    <meta name="description" content="AngularJS (Angular) native directives. Widgets: Arrow-key-nav, Busy-element, Datetimepicker, Lookup, Timepicker, Validation, ">
 
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/fastclick/0.6.7/fastclick.min.js"></script>
@@ -13,7 +13,7 @@
     <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular-touch.min.js"></script>
     <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular-animate.min.js"></script>
 	<script src="assets/ui-bootstrap-tpls.js"></script>
-    <script src="dd-ui-tpls-0.2.4.min.js"></script>
+    <script src="dd-ui-tpls-0.2.5.min.js"></script>
     <script src="assets/angular-mocks.js"></script>
     <script src="assets/plunker.js"></script>
     <script src="assets/app.js"></script>
@@ -46,7 +46,7 @@
                             Directives <b class="caret"></b>
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a href="#busy-element">Busy-element</a></li><li><a href="#datetimepicker">Datetimepicker</a></li><li><a href="#lookup">Lookup</a></li><li><a href="#validation">Validation</a></li>
+                            <li><a href="#arrow-key-nav">Arrow-key-nav</a></li><li><a href="#busy-element">Busy-element</a></li><li><a href="#datetimepicker">Datetimepicker</a></li><li><a href="#lookup">Lookup</a></li><li><a href="#timepicker">Timepicker</a></li><li><a href="#validation">Validation</a></li>
                         </ul>
                     </li>
                     <li><a href="#getting_started">Getting started</a></li>
@@ -125,11 +125,15 @@
                     <ul class="nav bs-sidenav">
                         <li><a href="#"><strong>Directives</strong></a></li>
                         
+                            <li><a href="#arrow-key-nav">Arrow-key-nav</a></li>
+                        
                             <li><a href="#busy-element">Busy-element</a></li>
                         
                             <li><a href="#datetimepicker">Datetimepicker</a></li>
                         
                             <li><a href="#lookup">Lookup</a></li>
+                        
+                            <li><a href="#timepicker">Timepicker</a></li>
                         
                             <li><a href="#validation">Validation</a></li>
                         
@@ -162,6 +166,133 @@
                     </p>
                     <p>You can fork one of the plunkers from this page to see a working example of what is described here.</p>
                 </section>
+                
+                    <section id="arrow-key-nav">
+                        <div class="page-header">
+                          <h1>Arrow-key-nav<small>
+                              (<a target="_blank" href="https://github.com/clickataxi/dd-ui/tree/master/src/arrow-key-nav">dd.ui.arrow-key-nav</a>)
+                          </small></h1>
+                          </div>
+                          <div class="row">
+                            <div class="col-md-6 show-grid">
+                                <div ng-controller="ArrowKeyNavDemoCtrl">
+	<div dd-arrow-key-nav arrow-key-modifier="alt">
+		<div class="form-group">
+			<span>Use ALT + Arrow keys to navigate important fields in the form.</span>
+		</div>
+		
+		<div class="form-group">
+			<label>Line 1</label>
+			<input class="form-control arrow-key-nav" value="Important data"/>
+			<textarea class="form-control">Optional comment</textarea>
+		</div>
+
+		<div class="form-group">
+			<label>Line 2</label>
+			<input class="form-control arrow-key-nav" value="Important data"/>
+			<textarea class="form-control">Optional comment</textarea>
+		</div>
+
+		<div class="form-group">
+			<label>Description</label>
+			<textarea class="form-control arrow-key-nav">Required description</textarea>
+		</div>
+
+		<div class="form-group">
+			<label>Birth date (Optional)</label>
+			<input class="form-control" />
+		</div>
+
+		<div class="form-group">
+			<label>Options</label>
+			<select class="form-control arrow-key-nav">
+				<option>Option 1</option>
+			</select>
+		</div>
+
+		<div class="form-group">
+			<button class="btn btn-default arrow-key-nav">Submit</button>
+		</div>
+	</div>
+</div>
+                            </div>
+                            <div class="col-md-6">
+                                <p>Arrow-key-nav directive enables form navigation using arrow keys. To use it, the directive must be placed on the container element and all child elements that should be included in the arrow key navigation flow, must be marked with class name <code>arrow-key-nav</code>.</p>
+
+<h3>Arrow-key-nav Settings</h3>
+
+<ul>
+<li><code>arrowKeyModifier</code>
+:
+Optional argument to specify the modifier key ('alt', 'shift', 'ctrl', etc.)</li>
+</ul>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row code">
+                            <div class="col-md-12" ng-controller="PlunkerCtrl">
+                                <div class="pull-right">
+                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.4.3', '3.1.1', '0.2.5', 'arrow-key-nav')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
+                                </div>
+                                <tabset>
+                                    <tab heading="Markup">
+                                        <div plunker-content="markup">
+                                            <pre ng-non-bindable><code data-language="html">&lt;div ng-controller=&quot;ArrowKeyNavDemoCtrl&quot;&gt;
+	&lt;div dd-arrow-key-nav arrow-key-modifier=&quot;alt&quot;&gt;
+		&lt;div class=&quot;form-group&quot;&gt;
+			&lt;span&gt;Use ALT + Arrow keys to navigate important fields in the form.&lt;/span&gt;
+		&lt;/div&gt;
+		
+		&lt;div class=&quot;form-group&quot;&gt;
+			&lt;label&gt;Line 1&lt;/label&gt;
+			&lt;input class=&quot;form-control arrow-key-nav&quot; value=&quot;Important data&quot;/&gt;
+			&lt;textarea class=&quot;form-control&quot;&gt;Optional comment&lt;/textarea&gt;
+		&lt;/div&gt;
+
+		&lt;div class=&quot;form-group&quot;&gt;
+			&lt;label&gt;Line 2&lt;/label&gt;
+			&lt;input class=&quot;form-control arrow-key-nav&quot; value=&quot;Important data&quot;/&gt;
+			&lt;textarea class=&quot;form-control&quot;&gt;Optional comment&lt;/textarea&gt;
+		&lt;/div&gt;
+
+		&lt;div class=&quot;form-group&quot;&gt;
+			&lt;label&gt;Description&lt;/label&gt;
+			&lt;textarea class=&quot;form-control arrow-key-nav&quot;&gt;Required description&lt;/textarea&gt;
+		&lt;/div&gt;
+
+		&lt;div class=&quot;form-group&quot;&gt;
+			&lt;label&gt;Birth date (Optional)&lt;/label&gt;
+			&lt;input class=&quot;form-control&quot; /&gt;
+		&lt;/div&gt;
+
+		&lt;div class=&quot;form-group&quot;&gt;
+			&lt;label&gt;Options&lt;/label&gt;
+			&lt;select class=&quot;form-control arrow-key-nav&quot;&gt;
+				&lt;option&gt;Option 1&lt;/option&gt;
+			&lt;/select&gt;
+		&lt;/div&gt;
+
+		&lt;div class=&quot;form-group&quot;&gt;
+			&lt;button class=&quot;btn btn-default arrow-key-nav&quot;&gt;Submit&lt;/button&gt;
+		&lt;/div&gt;
+	&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+                                        </div>
+                                    </tab>
+                                    <tab heading="JavaScript">
+                                        <div plunker-content="javascript">
+                                            <pre ng-non-bindable><code data-language="javascript">angular.module(&#x27;dd.ui.demo&#x27;).controller(&#x27;ArrowKeyNavDemoCtrl&#x27;, [function() {
+
+}]);</code></pre>
+                                        </div>
+                                    </tab>
+                                </tabset>
+                            </div>
+                        </div>
+                    </section>
+                    <script>angular.module('dd.ui.demo').controller('ArrowKeyNavDemoCtrl', [function() {
+
+}]);</script>
                 
                     <section id="busy-element">
                         <div class="page-header">
@@ -251,7 +382,7 @@ angular.module('dd.ui.demo', ['dd.ui', 'ngAnimate']);
                         <div class="row code">
                             <div class="col-md-12" ng-controller="PlunkerCtrl">
                                 <div class="pull-right">
-                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.4.3', '3.1.1', '0.2.4', 'busy-element')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
+                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.4.3', '3.1.1', '0.2.5', 'busy-element')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
                                 </div>
                                 <tabset>
                                     <tab heading="Markup">
@@ -428,7 +559,7 @@ Allows overriding of default template of the datetimepicker</p></li>
                         <div class="row code">
                             <div class="col-md-12" ng-controller="PlunkerCtrl">
                                 <div class="pull-right">
-                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.4.3', '3.1.1', '0.2.4', 'datetimepicker')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
+                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.4.3', '3.1.1', '0.2.5', 'datetimepicker')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
                                 </div>
                                 <tabset>
                                     <tab heading="Markup">
@@ -568,7 +699,7 @@ An optional attribute that allows to specify a function that transforms response
                         <div class="row code">
                             <div class="col-md-12" ng-controller="PlunkerCtrl">
                                 <div class="pull-right">
-                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.4.3', '3.1.1', '0.2.4', 'lookup')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
+                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.4.3', '3.1.1', '0.2.5', 'lookup')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
                                 </div>
                                 <tabset>
                                     <tab heading="Markup">
@@ -755,6 +886,88 @@ An optional attribute that allows to specify a function that transforms response
     }
 }]);</script>
                 
+                    <section id="timepicker">
+                        <div class="page-header">
+                          <h1>Timepicker<small>
+                              (<a target="_blank" href="https://github.com/clickataxi/dd-ui/tree/master/src/timepicker">dd.ui.timepicker</a>)
+                          </small></h1>
+                          </div>
+                          <div class="row">
+                            <div class="col-md-6 show-grid">
+                                <div ng-controller="TimepickerDemoCtrl">
+    
+    <div class="form-group">
+        <h4>Model as string: {{time}}</h4>
+        <input id="time1" class="form-control" dd-timepicker type="text" ng-model="time" />
+    </div>
+    
+</div>
+                            </div>
+                            <div class="col-md-6">
+                                <p>Timepicker allow to enter custom time formats. When user have entered the value, timepicker converts model value to the 24:00 clock format. Also it's possible to use arow up/down to increase or decrease time.</p>
+
+<h3>Timepicker settings</h3>
+
+<ul>
+<li><code>ng-model</code>
+ :
+ The time string.</li>
+</ul>
+
+<h3>Supported formats:</h3>
+
+<ul>
+<li>8a = 08:00 (If last character is a, the time is am) </li>
+<li>8p = 20:00 (If last character is p the time is pm)</li>
+<li>815a / p = 08:15 / 20:15</li>
+<li>8.15a = 08:15 / 20:15</li>
+<li>8 = 08:00</li>
+<li>815 = 08:15</li>
+<li>125 = 01:25</li>
+<li>8.15 = 08:15</li>
+<li>8:15 = 08:15</li>
+<li>08:15 = 08:15</li>
+</ul>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row code">
+                            <div class="col-md-12" ng-controller="PlunkerCtrl">
+                                <div class="pull-right">
+                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.4.3', '3.1.1', '0.2.5', 'timepicker')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
+                                </div>
+                                <tabset>
+                                    <tab heading="Markup">
+                                        <div plunker-content="markup">
+                                            <pre ng-non-bindable><code data-language="html">&lt;div ng-controller=&quot;TimepickerDemoCtrl&quot;&gt;
+    
+    &lt;div class=&quot;form-group&quot;&gt;
+        &lt;h4&gt;Model as string: {{time}}&lt;/h4&gt;
+        &lt;input id=&quot;time1&quot; class=&quot;form-control&quot; dd-timepicker type=&quot;text&quot; ng-model=&quot;time&quot; /&gt;
+    &lt;/div&gt;
+    
+&lt;/div&gt;</code></pre>
+                                        </div>
+                                    </tab>
+                                    <tab heading="JavaScript">
+                                        <div plunker-content="javascript">
+                                            <pre ng-non-bindable><code data-language="javascript">angular.module(&#x27;dd.ui.demo&#x27;).controller(&#x27;TimepickerDemoCtrl&#x27;, function ($scope, $timeout) {
+	
+    $scope.time = &#x27;12:20&#x27;;
+    
+});</code></pre>
+                                        </div>
+                                    </tab>
+                                </tabset>
+                            </div>
+                        </div>
+                    </section>
+                    <script>angular.module('dd.ui.demo').controller('TimepickerDemoCtrl', function ($scope, $timeout) {
+	
+    $scope.time = '12:20';
+    
+});</script>
+                
                     <section id="validation">
                         <div class="page-header">
                           <h1>Validation<small>
@@ -803,7 +1016,7 @@ An optional attribute that allows to specify a function that transforms response
                         <div class="row code">
                             <div class="col-md-12" ng-controller="PlunkerCtrl">
                                 <div class="pull-right">
-                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.4.3', '3.1.1', '0.2.4', 'validation')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
+                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.4.3', '3.1.1', '0.2.5', 'validation')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
                                 </div>
                                 <tabset>
                                     <tab heading="Markup">
