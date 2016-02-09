@@ -37,7 +37,7 @@ module.exports = function(grunt) {
     },
     delta: {
       docs: {
-        files: ['misc/demo/index.html'],
+        files: ['misc/demo/index.html','src/**','!src/**/.spec.js'],
         tasks: ['after-test']
       },
       html: {

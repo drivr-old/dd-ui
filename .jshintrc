@@ -6,6 +6,7 @@
   "sub": true,
   "boss": true,
   "eqnull": true,
+  "multistr": true,
   "quotmark": "single",
   "trailing": true,
   "globals": {
