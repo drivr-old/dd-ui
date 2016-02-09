@@ -5,7 +5,7 @@ angular.module('dd.ui.arrow-key-nav', [])
         link: function ($scope, containerElement, attrs, ctrl) {
             var className = 'arrow-key-nav';
 
-            containerElement.keydown(function(event) {
+            containerElement.on('keydown', function(event) {
                 if (attrs.arrowKeyModifier) {
                     if (!event[attrs.arrowKeyModifier.toLowerCase() + 'Key']) {
                         return;
@@ -43,10 +43,10 @@ angular.module('dd.ui.arrow-key-nav', [])
 
                 var currentIndex = focusableElements ? focusableElements.indexOf($document[0].activeElement) : -1;
                 if (currentIndex !== -1) {
-                    var next = focusableElements.slice(currentIndex + 1).filter(isNavigatableElement)[0];
+                    var next = focusableElements.slice(currentIndex + 1).find(isNavigatableElement);
 
                     if (!next) {
-                        next = focusableElements.slice(0, currentIndex).filter(isNavigatableElement)[0];
+                        next = focusableElements.slice(0, currentIndex).find(isNavigatableElement);
                     }
 
                     return next;
