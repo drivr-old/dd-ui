@@ -1,0 +1,14 @@
+<div ng-controller="DatepickerDemoCtrl">
+
+    <form class="form-inline">
+        <input type="text" 
+               dd-datepicker 
+               date-format="yyyy-MM-dd" 
+               ng-model="date"
+               ng-change="change()"
+               date-disabled="disabled(date, mode)" />
+    </form>
+
+<label>Datetime model:&nbsp;</label><span>{{date}}</span>
+</div>
+
