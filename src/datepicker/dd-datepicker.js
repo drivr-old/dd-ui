@@ -1,15 +1,15 @@
-angular.module('dd.ui.datepicker', [])
-    .directive('ddDatepicker', DatepickerDirective)
-    .service('datepickerService', datepickerService);
+angular.module('dd.ui.datepicker', ['ui.bootstrap'])
+    .directive('ddDatepicker', DatepickerDirective);
 
-
-DatepickerDirective.$inject = ['datepickerService'];
-function DatepickerDirective(datepickerService) {
+function DatepickerDirective() {
 
     var directive = {
         restrict: 'A',
         require: 'ngModel',
         replace: true,
+        templateUrl: function(element, attrs) {
+			return attrs.templateUrl || 'template/datepicker/datepicker.html';
+		},
         scope: {
             ngModel: '='
         },
@@ -17,32 +17,22 @@ function DatepickerDirective(datepickerService) {
             
             //(view to model)
             ngModel.$parsers.push(function (value) {
-                return datepickerService.toModel(value);
+                return value;
             });
-            // 
-            // //(model to view)
+            
+            //(model to view)
             ngModel.$formatters.push(function (value) {
-                return datepickerService.toView(value);
+                return value;
             });
+            
+            scope.open = function($event) {
+				$event.preventDefault();
+				$event.stopPropagation();
+				scope.opened = true;
+			};
 
         }
     };
 
     return directive;
-}
-
-function datepickerService() {
-    var self = this;
-    
-    self.toModel = toModel;
-    
-    function toModel(input) {
-        
-    }
-    
-    //private
-    
-    function parseDate() {
-        
-    }
 }
