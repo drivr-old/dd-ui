@@ -1,8 +1,18 @@
 <div ng-controller="TimepickerDemoCtrl">
-    
+
     <div class="form-group">
         <h4>Model as string: {{time}}</h4>
-        <input id="time1" class="form-control" dd-timepicker type="text" ng-model="time" />
+        <input id="time1" class="form-control" dd-timepicker type="text" on-change="change()" ng-model="time" />
     </div>
-    
+
+    <div class="form-group">
+        <h4>Model as Date: {{timeFromDate | date:'yyyy-MM-dd HH:mm:ss' }}</h4>
+        <input id="time1" class="form-control" dd-timepicker type="text" is-date-type="true" ng-model="timeFromDate" />
+    </div>
+
+    <div class="form-group">
+        <h4>5 minutes step: {{time5minutesStep}}</h4>
+        <input id="time1" class="form-control" dd-timepicker minute-step="5" type="text" ng-model="time5minutesStep" />
+    </div>
+
 </div>
