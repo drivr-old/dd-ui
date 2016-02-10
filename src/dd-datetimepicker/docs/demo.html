@@ -1,0 +1,12 @@
+<div ng-controller="DdDateTimePickerDemoCtrl">
+    <div class="form-group">
+        <div dd-datetimepicker ng-model="dateTime" minute-step="5" date-disabled="disabled(date, mode)" ng-change="change()"></div>
+    </div>
+    <div class="form-group">
+         <label>Datetime:&nbsp;</label><span>{{ dateTime | date:'yyyy-MM-dd HH:mm:ss' }}</span>
+    </div>
+    <div class="form-group">
+        <h4>Disabled state</h4>
+        <div dd-datetimepicker ng-disabled="true" ng-model="dateTime" minute-step="5" date-disabled="disabled(date, mode)" ng-change="change()"></div>
+    </div>
+</div>
