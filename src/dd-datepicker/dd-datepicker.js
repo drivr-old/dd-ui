@@ -6,7 +6,7 @@ DatepickerDirective.$inject = ['dateFilter', 'datepickerParserService'];
 function DatepickerDirective(dateFilter, datepickerParserService) {
 
     var directive = {
-        restrict: 'A',
+        restrict: 'EA',
         require: 'ngModel',
         replace: true,
         templateUrl: function (element, attrs) {
@@ -19,27 +19,28 @@ function DatepickerDirective(dateFilter, datepickerParserService) {
             showMeridian: '=?',
             ngDisabled: '=?',
             dateDisabled: '&',
+            ngChange: '&',
             dateFormat: '@'
         },
         link: function (scope, element, attrs, ctrl) {
 
             var input = angular.element(element.find('.display-input'));
             var canUpdateDisplayModel = true;
-            
+
             scope.dateFormat = scope.dateFormat || 'yyyy-MM-dd';
             scope.parseUserInput = parseUserInput;
             scope.open = open;
-            
+
             init();
-            
-            scope.$watch('boostrapDateModel', function (value) {
-                updateMainModel(value);
-                if(canUpdateDisplayModel) {
-                    updateDisplayModel(value);
+
+            scope.$watch('boostrapDateModel', function (newValue, oldValue) {
+                updateMainModel(newValue);
+                if (canUpdateDisplayModel) {
+                    updateDisplayModel(newValue);
                 }
             });
-            
-            input.on('blur', function() {
+
+            input.on('blur', function () {
                 updateDisplayModel(scope.ngModel);
                 canUpdateDisplayModel = true;
                 scope.$apply();
@@ -57,28 +58,29 @@ function DatepickerDirective(dateFilter, datepickerParserService) {
                 $event.stopPropagation();
                 scope.opened = true;
             }
-            
+
             function init() {
                 updateBootstrapDateModel(scope.ngModel);
             }
-            
+
             function updateBootstrapDateModel(date) {
                 scope.boostrapDateModel = angular.copy(date);
             }
-            
+
             function updateDisplayModel(date) {
                 scope.displayModel = date ? dateFilter(date, scope.dateFormat) : null;
             }
-            
+
             function updateMainModel(date) {
                 scope.ngModel = date;
                 applyNgChange();
             }
-            
-            function applyNgChange() {
-                scope.$eval(attrs.ngChange);
-            }
 
+            function applyNgChange() {
+                if (scope.ngChange) {
+                    scope.ngChange();
+                }
+            }
         }
     };
 
@@ -106,7 +108,7 @@ function datepickerParserService(dateParser) {
         if (mmDdPattern.test(input)) {
             return buildNewDate(input);
         }
-        
+
         return dateParser.parse(input, format);
     }
     
