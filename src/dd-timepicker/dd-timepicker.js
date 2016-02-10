@@ -1,5 +1,5 @@
 
-angular.module('dd.ui.timepicker', [])
+angular.module('dd.ui.dd-timepicker', [])
     .directive('ddTimepicker', TimepickerDirective)
     .service('timeparserService', timeparserService);
 

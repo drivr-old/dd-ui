@@ -5,7 +5,7 @@ describe('ddTimepicker', function () {
         element;
 
     beforeEach(function () {
-        module('dd.ui.timepicker');
+        module('dd.ui.dd-timepicker');
 
         inject(function ($rootScope, $compile, _$sniffer_, _$document_) {
             $scope = $rootScope.$new();
