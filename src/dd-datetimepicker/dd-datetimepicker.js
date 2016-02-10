@@ -12,27 +12,23 @@ angular.module('dd.ui.dd-datetimepicker', ['ui.bootstrap'])
                 showMeridian: '=?',
                 ngDisabled: '=?',
                 dateDisabled: '&',
-                ngChange: '&?'
+                ngChange: '&?',
+                dateFormat: '@?'
             },
             link: function (scope, element, attrs, ctrl) {
 
-                var timePickerElement = element.children().eq(0).children()[0];
-                
                 scope.dateChange = dateChange;
                 scope.timeChange = timeChange;
+                scope.dateFormat = scope.dateFormat || 'yyyy-MM-dd';
                 
                 initTime();
 
                 scope.$watch('ngModel', function (value) {
-                    if (timePickerElement.contains($document[0].activeElement)) {
-                        return;
-                    }
                     if (scope.ngModel && scope.time) {
                         updateNgModelTime(scope.time);
                     }
                 });
-
-
+                
                 function dateChange() {
                     if (scope.ngModel && scope.time) {
                         updateNgModelTime(scope.time);
@@ -45,6 +41,7 @@ angular.module('dd.ui.dd-datetimepicker', ['ui.bootstrap'])
                         ensureDateTypes();
                         var newValue = new Date(scope.ngModel);
                         newValue.setHours(scope.time.getHours(), scope.time.getMinutes(), 0, 0);
+                        updateNgModelTime(newValue);
                         updateViewValue(newValue);
                     }
                 }

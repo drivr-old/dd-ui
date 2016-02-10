@@ -20,7 +20,7 @@ function DatepickerDirective(dateFilter, datepickerParserService) {
             ngDisabled: '=?',
             dateDisabled: '&',
             ngChange: '&',
-            dateFormat: '@'
+            dateFormat: '@?'
         },
         link: function (scope, element, attrs, ctrl) {
 
