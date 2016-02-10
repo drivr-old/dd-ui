@@ -5,50 +5,65 @@ angular.module('dd.ui.timepicker', [])
 
 var KEY_ENTER = 13, KEY_UP = 38, KEY_DOWN = 40;
 
-TimepickerDirective.$inject = ['timeparserService'];
-function TimepickerDirective(timeparserService) {
+TimepickerDirective.$inject = ['dateFilter', 'timeparserService'];
+function TimepickerDirective(dateFilter, timeparserService) {
 
     var directive = {
         restrict: 'A',
         require: 'ngModel',
         replace: true,
         scope: {
-            ngModel: '='
+            ngModel: '=',
+            minuteStep: '=?',
+            isDateType: '=?'
         },
-        link: function (scope, element, attrs, ngModel) {
+        link: function (scope, element, attrs, ctrl) {
+
+            var dateTime = scope.isDateType && scope.ngModel instanceof Date ? scope.ngModel : new Date();
+            scope.minuteStep = scope.minuteStep || 1;
+
+            ctrl.$viewChangeListeners.push(function () {
+                scope.$eval(attrs.onChange);
+            });
             
             //(view to model)
-            ngModel.$parsers.push(function (value) {
-                return timeparserService.toModel(value);
+            ctrl.$parsers.push(function (value) {
+                return timeparserService.toModel(value, scope.isDateType, dateTime);
             });
             
             //(model to view)
-            ngModel.$formatters.push(function (value) {
+            ctrl.$formatters.push(function (value) {
                 return timeparserService.toView(value);
             });
 
             element.on('keydown keypress', function (event) {
-                if (event.which === KEY_ENTER && !ngModel.$modelValue) {
+                if (event.which === KEY_ENTER && !ctrl.$modelValue) {
                     updateViewValue(timeparserService.getFormattedTime());
                     event.preventDefault();
                 } else if (event.which === KEY_UP) {
-                    updateViewValue(timeparserService.changeTime(ngModel.$modelValue, 1));
+                    updateViewValue(timeparserService.changeTime(scope.ngModel, scope.minuteStep));
                     event.preventDefault();
                 } else if (event.which === KEY_DOWN) {
-                    updateViewValue(timeparserService.changeTime(ngModel.$modelValue, -1));
+                    updateViewValue(timeparserService.changeTime(scope.ngModel, -scope.minuteStep));
                     event.preventDefault();
                 }
             });
 
             element.on('blur', function toModelTime() {
-                updateViewValue(timeparserService.toModel(ngModel.$modelValue));
+                updateViewValue(timeparserService.toView(scope.ngModel));
             });
 
             function updateViewValue(value) {
-                ngModel.$setViewValue(value);
-                ngModel.$render();
+                ctrl.$setViewValue(value);
+                ctrl.$render();
+                applyNgChange();
             }
 
+            function applyNgChange() {
+                if (scope.ngChange) {
+                    scope.ngChange();
+                }
+            }
         }
     };
 
@@ -56,38 +71,42 @@ function TimepickerDirective(timeparserService) {
 
 }
 
-function timeparserService() {
+timeparserService.$inject = ['dateFilter'];
+function timeparserService(dateFilter) {
     var self = this;
-    
+
     var amPmPattern = /^(\d+)(a|p)$/,
         normalTimePattern = /^([0-9]|0[0-9]|1[0-9]|2[0-3])[.:][0-5][0-9]$/,
         digitsPattern = /^[0-9]+$/;
-        
+
     self.toModel = toModel;
     self.toView = toView;
     self.changeTime = changeTime;
     self.getFormattedTime = getFormattedTime;
 
-    function toModel(input) {
+    function toModel(input, isDateModel, dateTime) {
+
+        var parsedTime = null;
 
         if (!input) {
             return null;
         }
 
         if (normalTimePattern.test(input)) {
-            return parseNormalTime(input);
+            parsedTime = parseNormalTime(input);
+            return parsedTimeToModel(parsedTime, isDateModel, dateTime);
         }
 
         input = prepareInput(input);
 
         if (amPmPattern.test(input)) {
-            var parsed1 = parseAmPmTime(input, amPmPattern);
-            return validateParsedTime(parsed1);
+            parsedTime = parseAmPmTime(input, amPmPattern);
+            return parsedTimeToModel(parsedTime, isDateModel, dateTime);
         }
 
         if (digitsPattern.test(input)) {
-            var parsed2 = parseDigitsTime(input, digitsPattern);
-            return validateParsedTime(parsed2);
+            parsedTime = parseDigitsTime(input, digitsPattern);
+            return parsedTimeToModel(parsedTime, isDateModel, dateTime);
         }
 
         return null;
@@ -103,40 +122,46 @@ function timeparserService() {
     function changeTime(modelValue, delta) {
         var timeInfo = getTimeInfoFromString(prepareInput(modelValue));
 
-        timeInfo.minutes += delta;
-        if (timeInfo.minutes === 60 && timeInfo.hours < 23) {
-            timeInfo.hours += 1;
-            timeInfo.minutes = 0;
-        } else if (timeInfo.minutes === 60 && timeInfo.hours === 23) {
-            timeInfo.hours = 0;
-            timeInfo.minutes = 0;
-        } else if (timeInfo.minutes === -1 && timeInfo.hours > 0) {
-            timeInfo.hours -= 1;
-            timeInfo.minutes = 59;
-        } else if (timeInfo.minutes === -1 && timeInfo.hours === 0) {
-            timeInfo.hours = 23;
-            timeInfo.minutes = 59;
-        }
-        return timeInfoToString(timeInfo);
+        var date = new Date();
+        date.setHours(timeInfo.hours);
+        date.setMinutes(timeInfo.minutes + delta);
+
+        return dateFilter(date, 'HH:mm');
     }
-    
+
     function getFormattedTime(dateInstance) {
         var date = dateInstance || new Date();
-        return ('0' + date.getHours()).slice(-2) + ':' + ('0' + date.getMinutes()).slice(-2);
+        return dateFilter(date, 'HH:mm');
     }
     
     //private
+    
+    function parsedTimeToModel(parsedTime, isDateModel, dateTime) {
+
+        if (!parsedTime) {
+            return null;
+        }
+
+        if (isDateModel) {
+            var tokens = parsedTime.split(':');
+            dateTime.setHours(parseInt(tokens[0]));
+            dateTime.setMinutes(parseInt(tokens[1]));
+            return new Date(dateTime);
+        }
+
+        return parsedTime;
+    }
 
     function parseAmPmTime(input, pattern) {
         var tokens = tokenize(input, pattern),
             timeInfo = getTimeInfoFromString(tokens[1], tokens[2]);
 
-        return timeInfoToString(timeInfo);
+        return validateParsedTime(timeInfoToString(timeInfo));
     }
 
     function parseDigitsTime(input) {
         var timeInfo = getTimeInfoFromString(input, null);
-        return timeInfoToString(timeInfo);
+        return validateParsedTime(timeInfoToString(timeInfo));
     }
 
     function parseNormalTime(input) {
@@ -187,7 +212,7 @@ function timeparserService() {
             minutes: minutes
         };
     }
-    
+
     function validateParsedTime(input) {
         if (normalTimePattern.test(input)) {
             return input;
@@ -196,6 +221,9 @@ function timeparserService() {
     }
 
     function prepareInput(input) {
+        if (input instanceof Date) {
+            input = dateFilter(input, 'HH:mm');
+        }
         return input.trim().toLowerCase().replace('.', '').replace(':', '');
     }
 
