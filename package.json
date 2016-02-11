@@ -21,7 +21,8 @@
     "grunt-ddescribe-iit": "0.0.4",
     "karma-jasmine": "latest",
     "karma-chrome-launcher": "latest",
-    "karma-phantomjs-launcher": "latest"
+    "karma-phantomjs-launcher": "latest",
+    "grunt-http-server": "^1.14.0"
   },
   "license": "MIT"
 }
