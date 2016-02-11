@@ -19,15 +19,14 @@ function DatepickerDirective(dateFilter, datepickerParserService) {
             showMeridian: '=?',
             ngDisabled: '=?',
             dateDisabled: '&',
-            ngChange: '&',
-            dateFormat: '@?'
+            ngChange: '&'
         },
         link: function (scope, element, attrs, ctrl) {
 
             var input = angular.element(element.find('.display-input'));
             var canUpdateDisplayModel = true;
 
-            scope.dateFormat = scope.dateFormat || 'yyyy-MM-dd';
+            scope.dateFormat = attrs.dateFormat || 'yyyy-MM-dd';
             scope.parseUserInput = parseUserInput;
             scope.open = open;
 
@@ -39,7 +38,7 @@ function DatepickerDirective(dateFilter, datepickerParserService) {
                     updateDisplayModel(newValue);
                 }
             });
-
+            
             input.on('blur', function () {
                 updateDisplayModel(scope.ngModel);
                 canUpdateDisplayModel = true;
