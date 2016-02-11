@@ -55,7 +55,7 @@ describe('datetimepicker', function () {
             var date = null;
             $scope.change = function () {
                 date = new Date();
-            }
+            };
 
             var isoDate = '2015-08-31';
             changeInputValue(datepickerElement, isoDate);
