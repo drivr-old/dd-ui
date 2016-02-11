@@ -22,7 +22,7 @@ angular.module('dd.ui.busy-element', [])
                     if (scope.timeout !== 0) {
                         $timeout(function(){
                             scope.status = null;
-                        }, scope.timeout ? $scope.timeout : 500);
+                        }, scope.timeout ? scope.timeout : 500);
                     }
                 }
             });
