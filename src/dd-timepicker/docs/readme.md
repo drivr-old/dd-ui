@@ -3,7 +3,7 @@ Timepicker allow to enter custom time formats. When user have entered the value,
 
  * `ng-model`
  	:
- 	The time string.
+ 	The time string or Date object.
      
 ### Supported formats:  ###
  * 8a = 08:00 (If last character is a, the time is am) 
