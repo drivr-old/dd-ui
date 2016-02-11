@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <title>Drivr directives</title>
-    <meta name="description" content="AngularJS (Angular) native directives. Widgets: Arrow-key-nav, Busy-element, Datetimepicker, Lookup, Timepicker, Validation, ">
+    <meta name="description" content="AngularJS (Angular) native directives. Widgets: Arrow-key-nav, Busy-element, Datetimepicker, Dd-datepicker, Dd-datetimepicker, Dd-timepicker, Lookup, Validation, ">
 
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/fastclick/0.6.7/fastclick.min.js"></script>
@@ -13,7 +13,7 @@
     <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular-touch.min.js"></script>
     <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular-animate.min.js"></script>
 	<script src="assets/ui-bootstrap-tpls.js"></script>
-    <script src="dd-ui-tpls-0.2.5.min.js"></script>
+    <script src="dd-ui-tpls-0.2.6.min.js"></script>
     <script src="assets/angular-mocks.js"></script>
     <script src="assets/plunker.js"></script>
     <script src="assets/app.js"></script>
@@ -46,7 +46,7 @@
                             Directives <b class="caret"></b>
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a href="#arrow-key-nav">Arrow-key-nav</a></li><li><a href="#busy-element">Busy-element</a></li><li><a href="#datetimepicker">Datetimepicker</a></li><li><a href="#lookup">Lookup</a></li><li><a href="#timepicker">Timepicker</a></li><li><a href="#validation">Validation</a></li>
+                            <li><a href="#arrow-key-nav">Arrow-key-nav</a></li><li><a href="#busy-element">Busy-element</a></li><li><a href="#datetimepicker">Datetimepicker</a></li><li><a href="#dd-datepicker">Dd-datepicker</a></li><li><a href="#dd-datetimepicker">Dd-datetimepicker</a></li><li><a href="#dd-timepicker">Dd-timepicker</a></li><li><a href="#lookup">Lookup</a></li><li><a href="#validation">Validation</a></li>
                         </ul>
                     </li>
                     <li><a href="#getting_started">Getting started</a></li>
@@ -131,9 +131,13 @@
                         
                             <li><a href="#datetimepicker">Datetimepicker</a></li>
                         
-                            <li><a href="#lookup">Lookup</a></li>
+                            <li><a href="#dd-datepicker">Dd-datepicker</a></li>
                         
-                            <li><a href="#timepicker">Timepicker</a></li>
+                            <li><a href="#dd-datetimepicker">Dd-datetimepicker</a></li>
+                        
+                            <li><a href="#dd-timepicker">Dd-timepicker</a></li>
+                        
+                            <li><a href="#lookup">Lookup</a></li>
                         
                             <li><a href="#validation">Validation</a></li>
                         
@@ -232,7 +236,7 @@ Optional argument to specify the modifier key ('alt', 'shift', 'ctrl', etc.)</li
                         <div class="row code">
                             <div class="col-md-12" ng-controller="PlunkerCtrl">
                                 <div class="pull-right">
-                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.4.3', '3.1.1', '0.2.5', 'arrow-key-nav')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
+                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.4.3', '3.1.1', '0.2.6', 'arrow-key-nav')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
                                 </div>
                                 <tabset>
                                     <tab heading="Markup">
@@ -382,7 +386,7 @@ angular.module('dd.ui.demo', ['dd.ui', 'ngAnimate']);
                         <div class="row code">
                             <div class="col-md-12" ng-controller="PlunkerCtrl">
                                 <div class="pull-right">
-                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.4.3', '3.1.1', '0.2.5', 'busy-element')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
+                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.4.3', '3.1.1', '0.2.6', 'busy-element')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
                                 </div>
                                 <tabset>
                                     <tab heading="Markup">
@@ -559,7 +563,7 @@ Allows overriding of default template of the datetimepicker</p></li>
                         <div class="row code">
                             <div class="col-md-12" ng-controller="PlunkerCtrl">
                                 <div class="pull-right">
-                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.4.3', '3.1.1', '0.2.5', 'datetimepicker')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
+                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.4.3', '3.1.1', '0.2.6', 'datetimepicker')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
                                 </div>
                                 <tabset>
                                     <tab heading="Markup">
@@ -600,6 +604,371 @@ Allows overriding of default template of the datetimepicker</p></li>
         return (mode === 'day' && date < d);
     };
 }]);</script>
+                
+                    <section id="dd-datepicker">
+                        <div class="page-header">
+                          <h1>Dd-datepicker<small>
+                              (<a target="_blank" href="https://github.com/clickataxi/dd-ui/tree/master/src/dd-datepicker">dd.ui.dd-datepicker</a>)
+                          </small></h1>
+                          </div>
+                          <div class="row">
+                            <div class="col-md-6 show-grid">
+                                <div ng-controller="DatepickerDemoCtrl">
+
+    <div class="form-inline">
+         
+         <div class="form-group">
+             <input type="text" 
+               dd-datepicker
+               date-format="yyyy-MM-dd"
+               ng-model="date"
+               ng-change="change()"
+               date-disabled="disabled(date, mode)" />
+         </div>
+         
+    </form>
+    
+</div>
+
+<label>Datetime model:&nbsp;</label><span>{{date}}</span>
+</div>
+
+
+                            </div>
+                            <div class="col-md-6">
+                                <p>dd-ui Datepicker allows to enter custom date formats and use original bootstrap datepicker.</p>
+
+<h3>dd-ui Datepicker Settings</h3>
+
+<ul>
+<li><p><code>ng-model</code>
+ :
+ The date object.</p></li>
+<li><p><code>date-format</code>
+ :
+ Date format string. In .Net it can be taken from CultureInfo.CurrentCulture.DateTimeFormat.ShortDatePattern</p></li>
+<li><p><code>ng-change</code>
+ :
+ Can be used together with <code>ng-model</code> to call a function whenever the datetime changes.</p></li>
+<li><p><code>date-disabled (date, mode)</code>
+ <em>(Default: null)</em> :
+ An optional expression to disable visible options based on passing date and current mode <em>(day|month|year)</em>.</p></li>
+<li><p><code>template-url</code>
+_(Default: 'template/dd-datepicker/dd-datepicker.html') :
+Allows overriding of default template of the datepicker</p></li>
+</ul>
+
+<h3>dd-ui Datepicker supports custom users date input depending on given date format</h3>
+
+<ul>
+<li>2108 OR 0821 = 21.08 (21st of August)</li>
+<li>21-08 OR 08-21 = 21.08 (21st of August)</li>
+<li>21/08 OR 08/21 = 21.08 (21st of August)</li>
+<li>21 08 OR 08 21 = 21.08 (21st of August)</li>
+</ul>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row code">
+                            <div class="col-md-12" ng-controller="PlunkerCtrl">
+                                <div class="pull-right">
+                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.4.3', '3.1.1', '0.2.6', 'dd-datepicker')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
+                                </div>
+                                <tabset>
+                                    <tab heading="Markup">
+                                        <div plunker-content="markup">
+                                            <pre ng-non-bindable><code data-language="html">&lt;div ng-controller=&quot;DatepickerDemoCtrl&quot;&gt;
+
+    &lt;div class=&quot;form-inline&quot;&gt;
+         
+         &lt;div class=&quot;form-group&quot;&gt;
+             &lt;input type=&quot;text&quot; 
+               dd-datepicker
+               date-format=&quot;yyyy-MM-dd&quot;
+               ng-model=&quot;date&quot;
+               ng-change=&quot;change()&quot;
+               date-disabled=&quot;disabled(date, mode)&quot; /&gt;
+         &lt;/div&gt;
+         
+    &lt;/form&gt;
+    
+&lt;/div&gt;
+
+&lt;label&gt;Datetime model:&amp;nbsp;&lt;/label&gt;&lt;span&gt;{{date}}&lt;/span&gt;
+&lt;/div&gt;
+
+</code></pre>
+                                        </div>
+                                    </tab>
+                                    <tab heading="JavaScript">
+                                        <div plunker-content="javascript">
+                                            <pre ng-non-bindable><code data-language="javascript">angular.module(&#x27;dd.ui.demo&#x27;).controller(&#x27;DatepickerDemoCtrl&#x27;, function ($scope) {
+    
+    $scope.date = new Date();
+    
+    $scope.disabled = function (date, mode) {
+        var d = new Date();
+        d.setHours(0, 0, 0, 0);
+        return (mode === &#x27;day&#x27; &amp;&amp; date &lt; d);
+    };
+    
+    $scope.change = function () {
+        console.log($scope.date, &#x27;changed&#x27;);
+    };
+    
+});</code></pre>
+                                        </div>
+                                    </tab>
+                                </tabset>
+                            </div>
+                        </div>
+                    </section>
+                    <script>angular.module('dd.ui.demo').controller('DatepickerDemoCtrl', function ($scope) {
+    
+    $scope.date = new Date();
+    
+    $scope.disabled = function (date, mode) {
+        var d = new Date();
+        d.setHours(0, 0, 0, 0);
+        return (mode === 'day' && date < d);
+    };
+    
+    $scope.change = function () {
+        console.log($scope.date, 'changed');
+    };
+    
+});</script>
+                
+                    <section id="dd-datetimepicker">
+                        <div class="page-header">
+                          <h1>Dd-datetimepicker<small>
+                              (<a target="_blank" href="https://github.com/clickataxi/dd-ui/tree/master/src/dd-datetimepicker">dd.ui.dd-datetimepicker</a>)
+                          </small></h1>
+                          </div>
+                          <div class="row">
+                            <div class="col-md-6 show-grid">
+                                <div ng-controller="DdDateTimePickerDemoCtrl">
+    <div class="form-group">
+        <div dd-datetimepicker 
+            ng-model="dateTime" 
+            minute-step="5"
+            date-format="yyyy-MM-dd"
+            date-disabled="disabled(date, mode)" 
+            ng-change="change()"></div>
+    </div>
+    <div class="form-group">
+         <label>Datetime:&nbsp;</label><span>{{ dateTime | date:'yyyy-MM-dd HH:mm:ss' }}</span>
+    </div>
+    <div class="form-group">
+        <h4>Disabled state</h4>
+        <div dd-datetimepicker ng-disabled="true" ng-model="dateTime2" minute-step="5" date-disabled="disabled(date, mode)" ng-change="change()"></div>
+    </div>
+</div>
+                            </div>
+                            <div class="col-md-6">
+                                <p>Combined dd-timepicker and dd-datepicker that uses a single Date model.</p>
+
+<h3>Datetimepicker Settings</h3>
+
+<ul>
+<li><p><code>ng-model</code>
+ :
+ The date object.</p></li>
+<li><p><code>ng-change</code>
+ :
+ Can be used together with <code>ng-model</code> to call a function whenever the datetime changes.</p></li>
+<li><p><code>date-disabled (date, mode)</code>
+ <em>(Default: null)</em> :
+ An optional expression to disable visible options based on passing date and current mode <em>(day|month|year)</em>.</p></li>
+<li><p><code>template-url</code>
+_(Default: 'template/datetimepicker/datetimepicker.html') :
+Allows overriding of default template of the datetimepicker</p></li>
+<li><p><code>minute-step</code>
+ <em>(Defaults: 1)</em> :
+  Number of minutes to increase or decrease when using a timepicker.</p></li>
+</ul>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row code">
+                            <div class="col-md-12" ng-controller="PlunkerCtrl">
+                                <div class="pull-right">
+                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.4.3', '3.1.1', '0.2.6', 'dd-datetimepicker')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
+                                </div>
+                                <tabset>
+                                    <tab heading="Markup">
+                                        <div plunker-content="markup">
+                                            <pre ng-non-bindable><code data-language="html">&lt;div ng-controller=&quot;DdDateTimePickerDemoCtrl&quot;&gt;
+    &lt;div class=&quot;form-group&quot;&gt;
+        &lt;div dd-datetimepicker 
+            ng-model=&quot;dateTime&quot; 
+            minute-step=&quot;5&quot;
+            date-format=&quot;yyyy-MM-dd&quot;
+            date-disabled=&quot;disabled(date, mode)&quot; 
+            ng-change=&quot;change()&quot;&gt;&lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;form-group&quot;&gt;
+         &lt;label&gt;Datetime:&amp;nbsp;&lt;/label&gt;&lt;span&gt;{{ dateTime | date:&#x27;yyyy-MM-dd HH:mm:ss&#x27; }}&lt;/span&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;form-group&quot;&gt;
+        &lt;h4&gt;Disabled state&lt;/h4&gt;
+        &lt;div dd-datetimepicker ng-disabled=&quot;true&quot; ng-model=&quot;dateTime2&quot; minute-step=&quot;5&quot; date-disabled=&quot;disabled(date, mode)&quot; ng-change=&quot;change()&quot;&gt;&lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+                                        </div>
+                                    </tab>
+                                    <tab heading="JavaScript">
+                                        <div plunker-content="javascript">
+                                            <pre ng-non-bindable><code data-language="javascript">angular.module(&#x27;dd.ui.demo&#x27;).controller(&#x27;DdDateTimePickerDemoCtrl&#x27;, [&#x27;$scope&#x27;, function ($scope) {
+	$scope.dateTime = new Date();
+	$scope.dateTime2 = new Date();
+	
+	$scope.disabled = function (date, mode) {
+        var d = new Date();
+        d.setHours(0, 0, 0, 0);
+        return (mode === &#x27;day&#x27; &amp;&amp; date &lt; d);
+    };
+    
+    $scope.change = function() {
+        console.log($scope.dateTime, &#x27;changed&#x27;);
+    };
+    
+}]);</code></pre>
+                                        </div>
+                                    </tab>
+                                </tabset>
+                            </div>
+                        </div>
+                    </section>
+                    <script>angular.module('dd.ui.demo').controller('DdDateTimePickerDemoCtrl', ['$scope', function ($scope) {
+	$scope.dateTime = new Date();
+	$scope.dateTime2 = new Date();
+	
+	$scope.disabled = function (date, mode) {
+        var d = new Date();
+        d.setHours(0, 0, 0, 0);
+        return (mode === 'day' && date < d);
+    };
+    
+    $scope.change = function() {
+        console.log($scope.dateTime, 'changed');
+    };
+    
+}]);</script>
+                
+                    <section id="dd-timepicker">
+                        <div class="page-header">
+                          <h1>Dd-timepicker<small>
+                              (<a target="_blank" href="https://github.com/clickataxi/dd-ui/tree/master/src/dd-timepicker">dd.ui.dd-timepicker</a>)
+                          </small></h1>
+                          </div>
+                          <div class="row">
+                            <div class="col-md-6 show-grid">
+                                <div ng-controller="TimepickerDemoCtrl">
+
+    <div class="form-group">
+        <h4>Model as string: {{time}}</h4>
+        <input id="time1" class="form-control" dd-timepicker type="text" on-change="change()" ng-model="time" />
+    </div>
+
+    <div class="form-group">
+        <h4>Model as Date: {{timeFromDate | date:'yyyy-MM-dd HH:mm:ss' }}</h4>
+        <input id="time1" class="form-control" dd-timepicker type="text" is-date-type="true" ng-model="timeFromDate" />
+    </div>
+
+    <div class="form-group">
+        <h4>5 minutes step: {{time5minutesStep}}</h4>
+        <input id="time1" class="form-control" dd-timepicker minute-step="5" type="text" ng-model="time5minutesStep" />
+    </div>
+
+</div>
+                            </div>
+                            <div class="col-md-6">
+                                <p>Timepicker allow to enter custom time formats. When user have entered the value, timepicker converts model value to the 24:00 clock format. Also it's possible to use arow up/down to increase or decrease time.</p>
+
+<h3>Timepicker settings</h3>
+
+<ul>
+<li><code>ng-model</code>
+ :
+ The time string or Date object.</li>
+</ul>
+
+<h3>Supported formats:</h3>
+
+<ul>
+<li>8a = 08:00 (If last character is a, the time is am) </li>
+<li>8p = 20:00 (If last character is p the time is pm)</li>
+<li>815a / p = 08:15 / 20:15</li>
+<li>8.15a = 08:15 / 20:15</li>
+<li>8 = 08:00</li>
+<li>815 = 08:15</li>
+<li>125 = 01:25</li>
+<li>8.15 = 08:15</li>
+<li>8:15 = 08:15</li>
+<li>08:15 = 08:15</li>
+</ul>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row code">
+                            <div class="col-md-12" ng-controller="PlunkerCtrl">
+                                <div class="pull-right">
+                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.4.3', '3.1.1', '0.2.6', 'dd-timepicker')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
+                                </div>
+                                <tabset>
+                                    <tab heading="Markup">
+                                        <div plunker-content="markup">
+                                            <pre ng-non-bindable><code data-language="html">&lt;div ng-controller=&quot;TimepickerDemoCtrl&quot;&gt;
+
+    &lt;div class=&quot;form-group&quot;&gt;
+        &lt;h4&gt;Model as string: {{time}}&lt;/h4&gt;
+        &lt;input id=&quot;time1&quot; class=&quot;form-control&quot; dd-timepicker type=&quot;text&quot; on-change=&quot;change()&quot; ng-model=&quot;time&quot; /&gt;
+    &lt;/div&gt;
+
+    &lt;div class=&quot;form-group&quot;&gt;
+        &lt;h4&gt;Model as Date: {{timeFromDate | date:&#x27;yyyy-MM-dd HH:mm:ss&#x27; }}&lt;/h4&gt;
+        &lt;input id=&quot;time1&quot; class=&quot;form-control&quot; dd-timepicker type=&quot;text&quot; is-date-type=&quot;true&quot; ng-model=&quot;timeFromDate&quot; /&gt;
+    &lt;/div&gt;
+
+    &lt;div class=&quot;form-group&quot;&gt;
+        &lt;h4&gt;5 minutes step: {{time5minutesStep}}&lt;/h4&gt;
+        &lt;input id=&quot;time1&quot; class=&quot;form-control&quot; dd-timepicker minute-step=&quot;5&quot; type=&quot;text&quot; ng-model=&quot;time5minutesStep&quot; /&gt;
+    &lt;/div&gt;
+
+&lt;/div&gt;</code></pre>
+                                        </div>
+                                    </tab>
+                                    <tab heading="JavaScript">
+                                        <div plunker-content="javascript">
+                                            <pre ng-non-bindable><code data-language="javascript">angular.module(&#x27;dd.ui.demo&#x27;).controller(&#x27;TimepickerDemoCtrl&#x27;, function ($scope, $timeout) {
+	
+    $scope.time = &#x27;12:20&#x27;;
+    $scope.time5minutesStep = &#x27;15:20&#x27;;
+    $scope.timeFromDate = new Date();
+    
+    $scope.change = function() {
+        console.log($scope.time, &#x27;changed&#x27;);
+    };
+    
+});</code></pre>
+                                        </div>
+                                    </tab>
+                                </tabset>
+                            </div>
+                        </div>
+                    </section>
+                    <script>angular.module('dd.ui.demo').controller('TimepickerDemoCtrl', function ($scope, $timeout) {
+	
+    $scope.time = '12:20';
+    $scope.time5minutesStep = '15:20';
+    $scope.timeFromDate = new Date();
+    
+    $scope.change = function() {
+        console.log($scope.time, 'changed');
+    };
+    
+});</script>
                 
                     <section id="lookup">
                         <div class="page-header">
@@ -699,7 +1068,7 @@ An optional attribute that allows to specify a function that transforms response
                         <div class="row code">
                             <div class="col-md-12" ng-controller="PlunkerCtrl">
                                 <div class="pull-right">
-                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.4.3', '3.1.1', '0.2.5', 'lookup')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
+                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.4.3', '3.1.1', '0.2.6', 'lookup')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
                                 </div>
                                 <tabset>
                                     <tab heading="Markup">
@@ -886,88 +1255,6 @@ An optional attribute that allows to specify a function that transforms response
     }
 }]);</script>
                 
-                    <section id="timepicker">
-                        <div class="page-header">
-                          <h1>Timepicker<small>
-                              (<a target="_blank" href="https://github.com/clickataxi/dd-ui/tree/master/src/timepicker">dd.ui.timepicker</a>)
-                          </small></h1>
-                          </div>
-                          <div class="row">
-                            <div class="col-md-6 show-grid">
-                                <div ng-controller="TimepickerDemoCtrl">
-    
-    <div class="form-group">
-        <h4>Model as string: {{time}}</h4>
-        <input id="time1" class="form-control" dd-timepicker type="text" ng-model="time" />
-    </div>
-    
-</div>
-                            </div>
-                            <div class="col-md-6">
-                                <p>Timepicker allow to enter custom time formats. When user have entered the value, timepicker converts model value to the 24:00 clock format. Also it's possible to use arow up/down to increase or decrease time.</p>
-
-<h3>Timepicker settings</h3>
-
-<ul>
-<li><code>ng-model</code>
- :
- The time string.</li>
-</ul>
-
-<h3>Supported formats:</h3>
-
-<ul>
-<li>8a = 08:00 (If last character is a, the time is am) </li>
-<li>8p = 20:00 (If last character is p the time is pm)</li>
-<li>815a / p = 08:15 / 20:15</li>
-<li>8.15a = 08:15 / 20:15</li>
-<li>8 = 08:00</li>
-<li>815 = 08:15</li>
-<li>125 = 01:25</li>
-<li>8.15 = 08:15</li>
-<li>8:15 = 08:15</li>
-<li>08:15 = 08:15</li>
-</ul>
-                            </div>
-                        </div>
-                        <hr>
-                        <div class="row code">
-                            <div class="col-md-12" ng-controller="PlunkerCtrl">
-                                <div class="pull-right">
-                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.4.3', '3.1.1', '0.2.5', 'timepicker')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
-                                </div>
-                                <tabset>
-                                    <tab heading="Markup">
-                                        <div plunker-content="markup">
-                                            <pre ng-non-bindable><code data-language="html">&lt;div ng-controller=&quot;TimepickerDemoCtrl&quot;&gt;
-    
-    &lt;div class=&quot;form-group&quot;&gt;
-        &lt;h4&gt;Model as string: {{time}}&lt;/h4&gt;
-        &lt;input id=&quot;time1&quot; class=&quot;form-control&quot; dd-timepicker type=&quot;text&quot; ng-model=&quot;time&quot; /&gt;
-    &lt;/div&gt;
-    
-&lt;/div&gt;</code></pre>
-                                        </div>
-                                    </tab>
-                                    <tab heading="JavaScript">
-                                        <div plunker-content="javascript">
-                                            <pre ng-non-bindable><code data-language="javascript">angular.module(&#x27;dd.ui.demo&#x27;).controller(&#x27;TimepickerDemoCtrl&#x27;, function ($scope, $timeout) {
-	
-    $scope.time = &#x27;12:20&#x27;;
-    
-});</code></pre>
-                                        </div>
-                                    </tab>
-                                </tabset>
-                            </div>
-                        </div>
-                    </section>
-                    <script>angular.module('dd.ui.demo').controller('TimepickerDemoCtrl', function ($scope, $timeout) {
-	
-    $scope.time = '12:20';
-    
-});</script>
-                
                     <section id="validation">
                         <div class="page-header">
                           <h1>Validation<small>
@@ -1016,7 +1303,7 @@ An optional attribute that allows to specify a function that transforms response
                         <div class="row code">
                             <div class="col-md-12" ng-controller="PlunkerCtrl">
                                 <div class="pull-right">
-                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.4.3', '3.1.1', '0.2.5', 'validation')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
+                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.4.3', '3.1.1', '0.2.6', 'validation')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
                                 </div>
                                 <tabset>
                                     <tab heading="Markup">
