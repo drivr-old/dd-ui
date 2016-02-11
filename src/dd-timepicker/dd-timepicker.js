@@ -224,6 +224,9 @@ function timeparserService(dateFilter) {
         if (input instanceof Date) {
             input = dateFilter(input, 'HH:mm');
         }
+        if (!input) {
+            input = '00:00';
+        }
         return input.trim().toLowerCase().replace('.', '').replace(':', '');
     }
 
