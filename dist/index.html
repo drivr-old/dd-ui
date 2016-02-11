@@ -1,0 +1,1387 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="dd.ui.demo" id="top">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Drivr directives</title>
+    <meta name="description" content="AngularJS (Angular) native directives. Widgets: Arrow-key-nav, Busy-element, Datetimepicker, Dd-datepicker, Dd-datetimepicker, Dd-timepicker, Lookup, Validation, ">
+
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/fastclick/0.6.7/fastclick.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular-touch.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular-animate.min.js"></script>
+	<script src="assets/ui-bootstrap-tpls.js"></script>
+    <script src="dd-ui-tpls-0.2.6.min.js"></script>
+    <script src="assets/angular-mocks.js"></script>
+    <script src="assets/plunker.js"></script>
+    <script src="assets/app.js"></script>
+
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="assets/rainbow.css"/>
+    <link rel="stylesheet" href="assets/demo.css"/>
+    <link rel="author" href="https://github.com/clickataxi/dd-ui/graphs/contributors">
+</head>
+<body class="ng-cloak">
+<header class="navbar navbar-default navbar-fixed-top">
+    <div class="navbar-inner">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-3" ng-click="isCollapsed = !isCollapsed">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand visible-xs" href="#">Drivr UI</a>
+            </div>
+            <nav class="hidden-xs">
+                <ul class="nav navbar-nav">
+                    <a href="#top" role="button" class="navbar-brand">
+                        Drivr UI
+                    </a>
+                    <li class="dropdown" dropdown>
+                        <a role="button" class="dropdown-toggle" dropdown-toggle>
+                            Directives <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#arrow-key-nav">Arrow-key-nav</a></li><li><a href="#busy-element">Busy-element</a></li><li><a href="#datetimepicker">Datetimepicker</a></li><li><a href="#dd-datepicker">Dd-datepicker</a></li><li><a href="#dd-datetimepicker">Dd-datetimepicker</a></li><li><a href="#dd-timepicker">Dd-timepicker</a></li><li><a href="#lookup">Lookup</a></li><li><a href="#validation">Validation</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="#getting_started">Getting started</a></li>
+                </ul>
+            </nav>
+            <nav class="visible-xs" collapse="!isCollapsed">
+                <ul class="nav navbar-nav">
+                    <li><a href="#getting_started" ng-click="isCollapsed = !isCollapsed">Getting started</a></li>
+                    <li><a href="#directives_small" ng-click="isCollapsed = !isCollapsed">Directives</a></li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</header>
+<div class="header-placeholder"></div>
+<div role="main">
+    <header class="bs-header text-center" id="overview">
+        <div class="container">
+            <h1>
+                Drivr UI
+            </h1>
+
+            <p>Drivr UI components written in pure <a href="http://angularjs.org">AngularJS</a> by the <a
+                    href="http://clickataxi.github.io">Drivr Team</a></p>
+
+            <p>
+                <a class="btn btn-outline-inverse btn-lg" href="https://github.com/clickataxi/dd-ui"><i class="icon-github"></i>Code on Github</a>
+            </p>
+        </div>
+        <div class="bs-social container">
+            <ul class="bs-social-buttons">
+                <li>
+                    <iframe src="//ghbtns.com/github-btn.html?user=clickataxi&repo=dd-ui&type=watch&count=true"
+                            allowtransparency="true" frameborder="0" scrolling="0" width="110" height="20"></iframe>
+                </li>
+                <li>
+                    <iframe src="//ghbtns.com/github-btn.html?user=clickataxi&repo=dd-ui&type=fork&count=true"
+                            allowtransparency="true" frameborder="0" scrolling="0" width="110" height="20"></iframe>
+                </li>
+                <li>
+                    <a href="https://twitter.com/share" class="twitter-share-button"
+                       data-hashtags="angularjs">Tweet</a>
+                    <script>!function (d, s, id) {
+                        var js, fjs = d.getElementsByTagName(s)[0];
+                        if (!d.getElementById(id)) {
+                            js = d.createElement(s);
+                            js.id = id;
+                            js.src = "//platform.twitter.com/widgets.js";
+                            fjs.parentNode.insertBefore(js, fjs);
+                        }
+                    }(document, "script", "twitter-wjs");</script>
+                </li>
+                <li>
+                    <!-- Place this tag where you want the +1 button to render. -->
+                    <div class="g-plusone" data-size="medium"></div>
+
+                    <!-- Place this tag after the last +1 button tag. -->
+                    <script type="text/javascript">
+                        (function () {
+                            var po = document.createElement('script');
+                            po.type = 'text/javascript';
+                            po.async = true;
+                            po.src = 'https://apis.google.com/js/plusone.js';
+                            var s = document.getElementsByTagName('script')[0];
+                            s.parentNode.insertBefore(po, s);
+                        })();
+                    </script>
+                </li>
+            </ul>
+        </div>
+    </header>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <section class="bs-sidebar visible-xs" id="directives_small">
+                    <ul class="nav bs-sidenav">
+                        <li><a href="#"><strong>Directives</strong></a></li>
+                        
+                            <li><a href="#arrow-key-nav">Arrow-key-nav</a></li>
+                        
+                            <li><a href="#busy-element">Busy-element</a></li>
+                        
+                            <li><a href="#datetimepicker">Datetimepicker</a></li>
+                        
+                            <li><a href="#dd-datepicker">Dd-datepicker</a></li>
+                        
+                            <li><a href="#dd-datetimepicker">Dd-datetimepicker</a></li>
+                        
+                            <li><a href="#dd-timepicker">Dd-timepicker</a></li>
+                        
+                            <li><a href="#lookup">Lookup</a></li>
+                        
+                            <li><a href="#validation">Validation</a></li>
+                        
+                    </ul>
+                </section>
+
+                <section id="getting_started">
+                    <div class="page-header">
+                        <h1>Getting started</h1>
+                    </div>
+                    <h3>Dependencies</h3>
+                    <p>
+                        This repository contains a set of <strong>native AngularJS directives</strong>. As a result no dependency on jQuery is required.
+                        The <strong>only required dependencies</strong> are:
+                    </p>
+                    <ul>
+                        <li><a href="http://angularjs.org" target="_blank">AngularJS</a> (requires AngularJS 1.2.x, tested with 1.4.3)</li>
+                        <li><a href="https://angular-ui.github.io/bootstrap/" target="_blank">UI Bootstrap</a> is required by Datetimepicker directive</li>
+                    </ul>
+                    <h3>Files to download</h3>
+                    <p>
+                        Build files for all directives are distributed in several flavours: minified for production usage, un-minified
+                        for development, with or without templates. All the options are described and can be
+                        <a href="https://github.com/clickataxi/dd-ui/tree/gh-pages">downloaded from here</a>.
+                    </p>
+                    <h3>Installation</h3>
+                    <p>As soon as you've got all the files downloaded and included in your page you just need to declare
+                       a dependency on the <code>dd.ui</code> <a href="http://docs.angularjs.org/guide/module">module</a>:<br>
+                       <pre><code>angular.module('myModule', ['dd.ui']);</code></pre>
+                    </p>
+                    <p>You can fork one of the plunkers from this page to see a working example of what is described here.</p>
+                </section>
+                
+                    <section id="arrow-key-nav">
+                        <div class="page-header">
+                          <h1>Arrow-key-nav<small>
+                              (<a target="_blank" href="https://github.com/clickataxi/dd-ui/tree/master/src/arrow-key-nav">dd.ui.arrow-key-nav</a>)
+                          </small></h1>
+                          </div>
+                          <div class="row">
+                            <div class="col-md-6 show-grid">
+                                <div ng-controller="ArrowKeyNavDemoCtrl">
+	<div dd-arrow-key-nav arrow-key-modifier="alt">
+		<div class="form-group">
+			<span>Use ALT + Arrow keys to navigate important fields in the form.</span>
+		</div>
+		
+		<div class="form-group">
+			<label>Line 1</label>
+			<input class="form-control arrow-key-nav" value="Important data"/>
+			<textarea class="form-control">Optional comment</textarea>
+		</div>
+
+		<div class="form-group">
+			<label>Line 2</label>
+			<input class="form-control arrow-key-nav" value="Important data"/>
+			<textarea class="form-control">Optional comment</textarea>
+		</div>
+
+		<div class="form-group">
+			<label>Description</label>
+			<textarea class="form-control arrow-key-nav">Required description</textarea>
+		</div>
+
+		<div class="form-group">
+			<label>Birth date (Optional)</label>
+			<input class="form-control" />
+		</div>
+
+		<div class="form-group">
+			<label>Options</label>
+			<select class="form-control arrow-key-nav">
+				<option>Option 1</option>
+			</select>
+		</div>
+
+		<div class="form-group">
+			<button class="btn btn-default arrow-key-nav">Submit</button>
+		</div>
+	</div>
+</div>
+                            </div>
+                            <div class="col-md-6">
+                                <p>Arrow-key-nav directive enables form navigation using arrow keys. To use it, the directive must be placed on the container element and all child elements that should be included in the arrow key navigation flow, must be marked with class name <code>arrow-key-nav</code>.</p>
+
+<h3>Arrow-key-nav Settings</h3>
+
+<ul>
+<li><code>arrowKeyModifier</code>
+:
+Optional argument to specify the modifier key ('alt', 'shift', 'ctrl', etc.)</li>
+</ul>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row code">
+                            <div class="col-md-12" ng-controller="PlunkerCtrl">
+                                <div class="pull-right">
+                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.4.3', '3.1.1', '0.2.6', 'arrow-key-nav')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
+                                </div>
+                                <tabset>
+                                    <tab heading="Markup">
+                                        <div plunker-content="markup">
+                                            <pre ng-non-bindable><code data-language="html">&lt;div ng-controller=&quot;ArrowKeyNavDemoCtrl&quot;&gt;
+	&lt;div dd-arrow-key-nav arrow-key-modifier=&quot;alt&quot;&gt;
+		&lt;div class=&quot;form-group&quot;&gt;
+			&lt;span&gt;Use ALT + Arrow keys to navigate important fields in the form.&lt;/span&gt;
+		&lt;/div&gt;
+		
+		&lt;div class=&quot;form-group&quot;&gt;
+			&lt;label&gt;Line 1&lt;/label&gt;
+			&lt;input class=&quot;form-control arrow-key-nav&quot; value=&quot;Important data&quot;/&gt;
+			&lt;textarea class=&quot;form-control&quot;&gt;Optional comment&lt;/textarea&gt;
+		&lt;/div&gt;
+
+		&lt;div class=&quot;form-group&quot;&gt;
+			&lt;label&gt;Line 2&lt;/label&gt;
+			&lt;input class=&quot;form-control arrow-key-nav&quot; value=&quot;Important data&quot;/&gt;
+			&lt;textarea class=&quot;form-control&quot;&gt;Optional comment&lt;/textarea&gt;
+		&lt;/div&gt;
+
+		&lt;div class=&quot;form-group&quot;&gt;
+			&lt;label&gt;Description&lt;/label&gt;
+			&lt;textarea class=&quot;form-control arrow-key-nav&quot;&gt;Required description&lt;/textarea&gt;
+		&lt;/div&gt;
+
+		&lt;div class=&quot;form-group&quot;&gt;
+			&lt;label&gt;Birth date (Optional)&lt;/label&gt;
+			&lt;input class=&quot;form-control&quot; /&gt;
+		&lt;/div&gt;
+
+		&lt;div class=&quot;form-group&quot;&gt;
+			&lt;label&gt;Options&lt;/label&gt;
+			&lt;select class=&quot;form-control arrow-key-nav&quot;&gt;
+				&lt;option&gt;Option 1&lt;/option&gt;
+			&lt;/select&gt;
+		&lt;/div&gt;
+
+		&lt;div class=&quot;form-group&quot;&gt;
+			&lt;button class=&quot;btn btn-default arrow-key-nav&quot;&gt;Submit&lt;/button&gt;
+		&lt;/div&gt;
+	&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+                                        </div>
+                                    </tab>
+                                    <tab heading="JavaScript">
+                                        <div plunker-content="javascript">
+                                            <pre ng-non-bindable><code data-language="javascript">angular.module(&#x27;dd.ui.demo&#x27;).controller(&#x27;ArrowKeyNavDemoCtrl&#x27;, [function() {
+
+}]);</code></pre>
+                                        </div>
+                                    </tab>
+                                </tabset>
+                            </div>
+                        </div>
+                    </section>
+                    <script>angular.module('dd.ui.demo').controller('ArrowKeyNavDemoCtrl', [function() {
+
+}]);</script>
+                
+                    <section id="busy-element">
+                        <div class="page-header">
+                          <h1>Busy-element<small>
+                              (<a target="_blank" href="https://github.com/clickataxi/dd-ui/tree/master/src/busy-element">dd.ui.busy-element</a>)
+                          </small></h1>
+                          </div>
+                          <div class="row">
+                            <div class="col-md-6 show-grid">
+                                <style>
+.be-overlay.custom {
+    background-color: rgba(0, 0, 128, 0.15);
+}
+</style>
+<div ng-controller="BusyElementDemoCtrl">
+  <table class="table">
+    <tr>
+      <th>Description</th>
+      <th>Sample</th>
+    </tr>
+    <tr>
+      <td>Busy state</td>
+      <td style="width: 100px;">
+        <busy-element busy="true"></busy-element>
+        <input type="text" value="Some text" />
+      </td>
+    </tr>
+    <tr>
+      <td>Success state</td>
+      <td>
+        <busy-element status="'success'" timeout="0"></busy-element>
+        <input type="text" value="Some text" />
+      </td>
+    </tr>
+    <tr>
+      <td>Failed state</td>
+      <td>
+        <busy-element status="'fail'" timeout="0"></busy-element>
+        <input type="text" value="Some text" />
+      </td>
+    </tr>
+    <tr>
+      <td>Custom state</td>
+      <td>
+        <busy-element status="'custom'" timeout="0"></busy-element>
+        <input type="text" value="Some text" />
+      </td>
+    </tr>
+    <tr>
+      <td>Element selector</td>
+      <td>
+        <div>
+          <div busy-element="#input-container" status="'success'" timeout="0"></div>
+        </div>
+        <div id="input-container">
+          <input type="text" value="Some text" />
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <th colspan="2">Dynamic items</th>
+    </tr>
+    <tr ng-repeat="i in items">
+      <td ng-bind="i.id"></td>
+      <td>
+        <busy-element busy="i.isBusy" status="i.responseStatus"></busy-element>
+        <select ng-model="i.status" ng-change="updated(i)">
+          <option value="">Change me</option>
+          <option value="success">Success</option>
+          <option value="fail">Fail</option>
+        </select>
+      </td>
+    </tr>
+  </table>
+</div>
+                            </div>
+                            <div class="col-md-6">
+                                <p>In cell edit status visualizer. When something is changed in cell and immediate save to server is required, it would be nice to give feedback for user when request is in progress and when data are updated or update is failed. For this purpose we have created busy-element directive. It covers an element (defaults to parent, or specified in selector) with overlay and shows a spinner while busy. After request is done, it blinks in green or in red depending on update status.</p>
+
+<p>NOTE: If you want to have "blinking" animated, you must to add "angular-animate.js" to your page and add "ngAnimate" module dependency to your application, like:
+<code>javascript
+angular.module('dd.ui.demo', ['dd.ui', 'ngAnimate']);
+</code></p>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row code">
+                            <div class="col-md-12" ng-controller="PlunkerCtrl">
+                                <div class="pull-right">
+                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.4.3', '3.1.1', '0.2.6', 'busy-element')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
+                                </div>
+                                <tabset>
+                                    <tab heading="Markup">
+                                        <div plunker-content="markup">
+                                            <pre ng-non-bindable><code data-language="html">&lt;style&gt;
+.be-overlay.custom {
+    background-color: rgba(0, 0, 128, 0.15);
+}
+&lt;/style&gt;
+&lt;div ng-controller=&quot;BusyElementDemoCtrl&quot;&gt;
+  &lt;table class=&quot;table&quot;&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Description&lt;/th&gt;
+      &lt;th&gt;Sample&lt;/th&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Busy state&lt;/td&gt;
+      &lt;td style=&quot;width: 100px;&quot;&gt;
+        &lt;busy-element busy=&quot;true&quot;&gt;&lt;/busy-element&gt;
+        &lt;input type=&quot;text&quot; value=&quot;Some text&quot; /&gt;
+      &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Success state&lt;/td&gt;
+      &lt;td&gt;
+        &lt;busy-element status=&quot;&#x27;success&#x27;&quot; timeout=&quot;0&quot;&gt;&lt;/busy-element&gt;
+        &lt;input type=&quot;text&quot; value=&quot;Some text&quot; /&gt;
+      &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Failed state&lt;/td&gt;
+      &lt;td&gt;
+        &lt;busy-element status=&quot;&#x27;fail&#x27;&quot; timeout=&quot;0&quot;&gt;&lt;/busy-element&gt;
+        &lt;input type=&quot;text&quot; value=&quot;Some text&quot; /&gt;
+      &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Custom state&lt;/td&gt;
+      &lt;td&gt;
+        &lt;busy-element status=&quot;&#x27;custom&#x27;&quot; timeout=&quot;0&quot;&gt;&lt;/busy-element&gt;
+        &lt;input type=&quot;text&quot; value=&quot;Some text&quot; /&gt;
+      &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Element selector&lt;/td&gt;
+      &lt;td&gt;
+        &lt;div&gt;
+          &lt;div busy-element=&quot;#input-container&quot; status=&quot;&#x27;success&#x27;&quot; timeout=&quot;0&quot;&gt;&lt;/div&gt;
+        &lt;/div&gt;
+        &lt;div id=&quot;input-container&quot;&gt;
+          &lt;input type=&quot;text&quot; value=&quot;Some text&quot; /&gt;
+        &lt;/div&gt;
+      &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th colspan=&quot;2&quot;&gt;Dynamic items&lt;/th&gt;
+    &lt;/tr&gt;
+    &lt;tr ng-repeat=&quot;i in items&quot;&gt;
+      &lt;td ng-bind=&quot;i.id&quot;&gt;&lt;/td&gt;
+      &lt;td&gt;
+        &lt;busy-element busy=&quot;i.isBusy&quot; status=&quot;i.responseStatus&quot;&gt;&lt;/busy-element&gt;
+        &lt;select ng-model=&quot;i.status&quot; ng-change=&quot;updated(i)&quot;&gt;
+          &lt;option value=&quot;&quot;&gt;Change me&lt;/option&gt;
+          &lt;option value=&quot;success&quot;&gt;Success&lt;/option&gt;
+          &lt;option value=&quot;fail&quot;&gt;Fail&lt;/option&gt;
+        &lt;/select&gt;
+      &lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/table&gt;
+&lt;/div&gt;</code></pre>
+                                        </div>
+                                    </tab>
+                                    <tab heading="JavaScript">
+                                        <div plunker-content="javascript">
+                                            <pre ng-non-bindable><code data-language="javascript">angular.module(&#x27;dd.ui.demo&#x27;).controller(&#x27;BusyElementDemoCtrl&#x27;, function ($scope, $timeout) {
+	$scope.items = [
+		{id: &#x27;item1&#x27;, status: &#x27;&#x27;},
+		{id: &#x27;item2&#x27;, status: &#x27;&#x27;},
+		{id: &#x27;item3&#x27;, status: &#x27;&#x27;},
+	];
+
+	$scope.updated = function(el) {
+
+		if (el.status === &#x27;&#x27;) {
+			return;
+		}
+
+		// usually we enable isBusy before http request
+		el.isBusy = true;
+
+		$timeout(function() {
+			// $timeout in this case replaces $http simulating response received
+			el.responseStatus = el.status;
+		}, 500);
+	};
+});</code></pre>
+                                        </div>
+                                    </tab>
+                                </tabset>
+                            </div>
+                        </div>
+                    </section>
+                    <script>angular.module('dd.ui.demo').controller('BusyElementDemoCtrl', function ($scope, $timeout) {
+	$scope.items = [
+		{id: 'item1', status: ''},
+		{id: 'item2', status: ''},
+		{id: 'item3', status: ''},
+	];
+
+	$scope.updated = function(el) {
+
+		if (el.status === '') {
+			return;
+		}
+
+		// usually we enable isBusy before http request
+		el.isBusy = true;
+
+		$timeout(function() {
+			// $timeout in this case replaces $http simulating response received
+			el.responseStatus = el.status;
+		}, 500);
+	};
+});</script>
+                
+                    <section id="datetimepicker">
+                        <div class="page-header">
+                          <h1>Datetimepicker<small>
+                              (<a target="_blank" href="https://github.com/clickataxi/dd-ui/tree/master/src/datetimepicker">dd.ui.datetimepicker</a>)
+                          </small></h1>
+                          </div>
+                          <div class="row">
+                            <div class="col-md-6 show-grid">
+                                <div ng-controller="DateTimePickerDemoCtrl">
+  <div datetimepicker 
+		ng-model="dateTime" 
+		date-disabled="disabled(date, mode)">
+  </div>
+
+  <label>Datetime:&nbsp;</label><span>{{ dateTime | date:'yyyy-MM-dd HH:mm:ss' }}</span>
+</div>
+                            </div>
+                            <div class="col-md-6">
+                                <p>Combined UI Bootstrap Timepicker and Datepicker that uses a single Date model.</p>
+
+<h3>Datetimepicker Settings</h3>
+
+<ul>
+<li><p><code>ng-model</code>
+ :
+ The date object.</p></li>
+<li><p><code>ng-change</code>
+ :
+ Can be used together with <code>ng-model</code> to call a function whenever the datetime changes.</p></li>
+<li><p><code>date-disabled (date, mode)</code>
+ <em>(Default: null)</em> :
+ An optional expression to disable visible options based on passing date and current mode <em>(day|month|year)</em>.</p></li>
+<li><p><code>template-url</code>
+_(Default: 'template/datetimepicker/datetimepicker.html') :
+Allows overriding of default template of the datetimepicker</p></li>
+<li><p><code>minute-step</code>
+ <em>(Defaults: 1)</em> :
+  Number of minutes to increase or decrease when using a button.</p></li>
+<li><p><code>show-meridian</code>
+ <em>(Defaults: true)</em> :
+ Whether to display 12H or 24H mode.</p></li>
+<li><p><code>show-spinners</code>
+<em>(Defaults: true)</em> :
+ Shows spinner arrows above and below the inputs</p></li>
+</ul>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row code">
+                            <div class="col-md-12" ng-controller="PlunkerCtrl">
+                                <div class="pull-right">
+                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.4.3', '3.1.1', '0.2.6', 'datetimepicker')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
+                                </div>
+                                <tabset>
+                                    <tab heading="Markup">
+                                        <div plunker-content="markup">
+                                            <pre ng-non-bindable><code data-language="html">&lt;div ng-controller=&quot;DateTimePickerDemoCtrl&quot;&gt;
+  &lt;div datetimepicker 
+		ng-model=&quot;dateTime&quot; 
+		date-disabled=&quot;disabled(date, mode)&quot;&gt;
+  &lt;/div&gt;
+
+  &lt;label&gt;Datetime:&amp;nbsp;&lt;/label&gt;&lt;span&gt;{{ dateTime | date:&#x27;yyyy-MM-dd HH:mm:ss&#x27; }}&lt;/span&gt;
+&lt;/div&gt;</code></pre>
+                                        </div>
+                                    </tab>
+                                    <tab heading="JavaScript">
+                                        <div plunker-content="javascript">
+                                            <pre ng-non-bindable><code data-language="javascript">angular.module(&#x27;dd.ui.demo&#x27;).controller(&#x27;DateTimePickerDemoCtrl&#x27;, [&#x27;$scope&#x27;, function ($scope) {
+	$scope.dateTime = new Date();
+	
+	$scope.disabled = function (date, mode) {
+        var d = new Date();
+        d.setHours(0, 0, 0, 0);
+        return (mode === &#x27;day&#x27; &amp;&amp; date &lt; d);
+    };
+}]);</code></pre>
+                                        </div>
+                                    </tab>
+                                </tabset>
+                            </div>
+                        </div>
+                    </section>
+                    <script>angular.module('dd.ui.demo').controller('DateTimePickerDemoCtrl', ['$scope', function ($scope) {
+	$scope.dateTime = new Date();
+	
+	$scope.disabled = function (date, mode) {
+        var d = new Date();
+        d.setHours(0, 0, 0, 0);
+        return (mode === 'day' && date < d);
+    };
+}]);</script>
+                
+                    <section id="dd-datepicker">
+                        <div class="page-header">
+                          <h1>Dd-datepicker<small>
+                              (<a target="_blank" href="https://github.com/clickataxi/dd-ui/tree/master/src/dd-datepicker">dd.ui.dd-datepicker</a>)
+                          </small></h1>
+                          </div>
+                          <div class="row">
+                            <div class="col-md-6 show-grid">
+                                <div ng-controller="DatepickerDemoCtrl">
+
+    <div class="form-inline">
+         
+         <div class="form-group">
+             <input type="text" 
+               dd-datepicker
+               date-format="yyyy-MM-dd"
+               ng-model="date"
+               ng-change="change()"
+               date-disabled="disabled(date, mode)" />
+         </div>
+         
+    </form>
+    
+</div>
+
+<label>Datetime model:&nbsp;</label><span>{{date}}</span>
+</div>
+
+
+                            </div>
+                            <div class="col-md-6">
+                                <p>dd-ui Datepicker allows to enter custom date formats and use original bootstrap datepicker.</p>
+
+<h3>dd-ui Datepicker Settings</h3>
+
+<ul>
+<li><p><code>ng-model</code>
+ :
+ The date object.</p></li>
+<li><p><code>date-format</code>
+ :
+ Date format string. In .Net it can be taken from CultureInfo.CurrentCulture.DateTimeFormat.ShortDatePattern</p></li>
+<li><p><code>ng-change</code>
+ :
+ Can be used together with <code>ng-model</code> to call a function whenever the datetime changes.</p></li>
+<li><p><code>date-disabled (date, mode)</code>
+ <em>(Default: null)</em> :
+ An optional expression to disable visible options based on passing date and current mode <em>(day|month|year)</em>.</p></li>
+<li><p><code>template-url</code>
+_(Default: 'template/dd-datepicker/dd-datepicker.html') :
+Allows overriding of default template of the datepicker</p></li>
+</ul>
+
+<h3>dd-ui Datepicker supports custom users date input depending on given date format</h3>
+
+<ul>
+<li>2108 OR 0821 = 21.08 (21st of August)</li>
+<li>21-08 OR 08-21 = 21.08 (21st of August)</li>
+<li>21/08 OR 08/21 = 21.08 (21st of August)</li>
+<li>21 08 OR 08 21 = 21.08 (21st of August)</li>
+</ul>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row code">
+                            <div class="col-md-12" ng-controller="PlunkerCtrl">
+                                <div class="pull-right">
+                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.4.3', '3.1.1', '0.2.6', 'dd-datepicker')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
+                                </div>
+                                <tabset>
+                                    <tab heading="Markup">
+                                        <div plunker-content="markup">
+                                            <pre ng-non-bindable><code data-language="html">&lt;div ng-controller=&quot;DatepickerDemoCtrl&quot;&gt;
+
+    &lt;div class=&quot;form-inline&quot;&gt;
+         
+         &lt;div class=&quot;form-group&quot;&gt;
+             &lt;input type=&quot;text&quot; 
+               dd-datepicker
+               date-format=&quot;yyyy-MM-dd&quot;
+               ng-model=&quot;date&quot;
+               ng-change=&quot;change()&quot;
+               date-disabled=&quot;disabled(date, mode)&quot; /&gt;
+         &lt;/div&gt;
+         
+    &lt;/form&gt;
+    
+&lt;/div&gt;
+
+&lt;label&gt;Datetime model:&amp;nbsp;&lt;/label&gt;&lt;span&gt;{{date}}&lt;/span&gt;
+&lt;/div&gt;
+
+</code></pre>
+                                        </div>
+                                    </tab>
+                                    <tab heading="JavaScript">
+                                        <div plunker-content="javascript">
+                                            <pre ng-non-bindable><code data-language="javascript">angular.module(&#x27;dd.ui.demo&#x27;).controller(&#x27;DatepickerDemoCtrl&#x27;, function ($scope) {
+    
+    $scope.date = new Date();
+    
+    $scope.disabled = function (date, mode) {
+        var d = new Date();
+        d.setHours(0, 0, 0, 0);
+        return (mode === &#x27;day&#x27; &amp;&amp; date &lt; d);
+    };
+    
+    $scope.change = function () {
+        console.log($scope.date, &#x27;changed&#x27;);
+    };
+    
+});</code></pre>
+                                        </div>
+                                    </tab>
+                                </tabset>
+                            </div>
+                        </div>
+                    </section>
+                    <script>angular.module('dd.ui.demo').controller('DatepickerDemoCtrl', function ($scope) {
+    
+    $scope.date = new Date();
+    
+    $scope.disabled = function (date, mode) {
+        var d = new Date();
+        d.setHours(0, 0, 0, 0);
+        return (mode === 'day' && date < d);
+    };
+    
+    $scope.change = function () {
+        console.log($scope.date, 'changed');
+    };
+    
+});</script>
+                
+                    <section id="dd-datetimepicker">
+                        <div class="page-header">
+                          <h1>Dd-datetimepicker<small>
+                              (<a target="_blank" href="https://github.com/clickataxi/dd-ui/tree/master/src/dd-datetimepicker">dd.ui.dd-datetimepicker</a>)
+                          </small></h1>
+                          </div>
+                          <div class="row">
+                            <div class="col-md-6 show-grid">
+                                <div ng-controller="DdDateTimePickerDemoCtrl">
+    <div class="form-group">
+        <div dd-datetimepicker 
+            ng-model="dateTime" 
+            minute-step="5"
+            date-format="yyyy-MM-dd"
+            date-disabled="disabled(date, mode)" 
+            ng-change="change()"></div>
+    </div>
+    <div class="form-group">
+         <label>Datetime:&nbsp;</label><span>{{ dateTime | date:'yyyy-MM-dd HH:mm:ss' }}</span>
+    </div>
+    <div class="form-group">
+        <h4>Disabled state</h4>
+        <div dd-datetimepicker ng-disabled="true" ng-model="dateTime2" minute-step="5" date-disabled="disabled(date, mode)" ng-change="change()"></div>
+    </div>
+</div>
+                            </div>
+                            <div class="col-md-6">
+                                <p>Combined dd-timepicker and dd-datepicker that uses a single Date model.</p>
+
+<h3>Datetimepicker Settings</h3>
+
+<ul>
+<li><p><code>ng-model</code>
+ :
+ The date object.</p></li>
+<li><p><code>ng-change</code>
+ :
+ Can be used together with <code>ng-model</code> to call a function whenever the datetime changes.</p></li>
+<li><p><code>date-disabled (date, mode)</code>
+ <em>(Default: null)</em> :
+ An optional expression to disable visible options based on passing date and current mode <em>(day|month|year)</em>.</p></li>
+<li><p><code>template-url</code>
+_(Default: 'template/datetimepicker/datetimepicker.html') :
+Allows overriding of default template of the datetimepicker</p></li>
+<li><p><code>minute-step</code>
+ <em>(Defaults: 1)</em> :
+  Number of minutes to increase or decrease when using a timepicker.</p></li>
+</ul>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row code">
+                            <div class="col-md-12" ng-controller="PlunkerCtrl">
+                                <div class="pull-right">
+                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.4.3', '3.1.1', '0.2.6', 'dd-datetimepicker')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
+                                </div>
+                                <tabset>
+                                    <tab heading="Markup">
+                                        <div plunker-content="markup">
+                                            <pre ng-non-bindable><code data-language="html">&lt;div ng-controller=&quot;DdDateTimePickerDemoCtrl&quot;&gt;
+    &lt;div class=&quot;form-group&quot;&gt;
+        &lt;div dd-datetimepicker 
+            ng-model=&quot;dateTime&quot; 
+            minute-step=&quot;5&quot;
+            date-format=&quot;yyyy-MM-dd&quot;
+            date-disabled=&quot;disabled(date, mode)&quot; 
+            ng-change=&quot;change()&quot;&gt;&lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;form-group&quot;&gt;
+         &lt;label&gt;Datetime:&amp;nbsp;&lt;/label&gt;&lt;span&gt;{{ dateTime | date:&#x27;yyyy-MM-dd HH:mm:ss&#x27; }}&lt;/span&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;form-group&quot;&gt;
+        &lt;h4&gt;Disabled state&lt;/h4&gt;
+        &lt;div dd-datetimepicker ng-disabled=&quot;true&quot; ng-model=&quot;dateTime2&quot; minute-step=&quot;5&quot; date-disabled=&quot;disabled(date, mode)&quot; ng-change=&quot;change()&quot;&gt;&lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+                                        </div>
+                                    </tab>
+                                    <tab heading="JavaScript">
+                                        <div plunker-content="javascript">
+                                            <pre ng-non-bindable><code data-language="javascript">angular.module(&#x27;dd.ui.demo&#x27;).controller(&#x27;DdDateTimePickerDemoCtrl&#x27;, [&#x27;$scope&#x27;, function ($scope) {
+	$scope.dateTime = new Date();
+	$scope.dateTime2 = new Date();
+	
+	$scope.disabled = function (date, mode) {
+        var d = new Date();
+        d.setHours(0, 0, 0, 0);
+        return (mode === &#x27;day&#x27; &amp;&amp; date &lt; d);
+    };
+    
+    $scope.change = function() {
+        console.log($scope.dateTime, &#x27;changed&#x27;);
+    };
+    
+}]);</code></pre>
+                                        </div>
+                                    </tab>
+                                </tabset>
+                            </div>
+                        </div>
+                    </section>
+                    <script>angular.module('dd.ui.demo').controller('DdDateTimePickerDemoCtrl', ['$scope', function ($scope) {
+	$scope.dateTime = new Date();
+	$scope.dateTime2 = new Date();
+	
+	$scope.disabled = function (date, mode) {
+        var d = new Date();
+        d.setHours(0, 0, 0, 0);
+        return (mode === 'day' && date < d);
+    };
+    
+    $scope.change = function() {
+        console.log($scope.dateTime, 'changed');
+    };
+    
+}]);</script>
+                
+                    <section id="dd-timepicker">
+                        <div class="page-header">
+                          <h1>Dd-timepicker<small>
+                              (<a target="_blank" href="https://github.com/clickataxi/dd-ui/tree/master/src/dd-timepicker">dd.ui.dd-timepicker</a>)
+                          </small></h1>
+                          </div>
+                          <div class="row">
+                            <div class="col-md-6 show-grid">
+                                <div ng-controller="TimepickerDemoCtrl">
+
+    <div class="form-group">
+        <h4>Model as string: {{time}}</h4>
+        <input id="time1" class="form-control" dd-timepicker type="text" on-change="change()" ng-model="time" />
+    </div>
+
+    <div class="form-group">
+        <h4>Model as Date: {{timeFromDate | date:'yyyy-MM-dd HH:mm:ss' }}</h4>
+        <input id="time1" class="form-control" dd-timepicker type="text" is-date-type="true" ng-model="timeFromDate" />
+    </div>
+
+    <div class="form-group">
+        <h4>5 minutes step: {{time5minutesStep}}</h4>
+        <input id="time1" class="form-control" dd-timepicker minute-step="5" type="text" ng-model="time5minutesStep" />
+    </div>
+
+</div>
+                            </div>
+                            <div class="col-md-6">
+                                <p>Timepicker allow to enter custom time formats. When user have entered the value, timepicker converts model value to the 24:00 clock format. Also it's possible to use arow up/down to increase or decrease time.</p>
+
+<h3>Timepicker settings</h3>
+
+<ul>
+<li><code>ng-model</code>
+ :
+ The time string or Date object.</li>
+</ul>
+
+<h3>Supported formats:</h3>
+
+<ul>
+<li>8a = 08:00 (If last character is a, the time is am) </li>
+<li>8p = 20:00 (If last character is p the time is pm)</li>
+<li>815a / p = 08:15 / 20:15</li>
+<li>8.15a = 08:15 / 20:15</li>
+<li>8 = 08:00</li>
+<li>815 = 08:15</li>
+<li>125 = 01:25</li>
+<li>8.15 = 08:15</li>
+<li>8:15 = 08:15</li>
+<li>08:15 = 08:15</li>
+</ul>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row code">
+                            <div class="col-md-12" ng-controller="PlunkerCtrl">
+                                <div class="pull-right">
+                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.4.3', '3.1.1', '0.2.6', 'dd-timepicker')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
+                                </div>
+                                <tabset>
+                                    <tab heading="Markup">
+                                        <div plunker-content="markup">
+                                            <pre ng-non-bindable><code data-language="html">&lt;div ng-controller=&quot;TimepickerDemoCtrl&quot;&gt;
+
+    &lt;div class=&quot;form-group&quot;&gt;
+        &lt;h4&gt;Model as string: {{time}}&lt;/h4&gt;
+        &lt;input id=&quot;time1&quot; class=&quot;form-control&quot; dd-timepicker type=&quot;text&quot; on-change=&quot;change()&quot; ng-model=&quot;time&quot; /&gt;
+    &lt;/div&gt;
+
+    &lt;div class=&quot;form-group&quot;&gt;
+        &lt;h4&gt;Model as Date: {{timeFromDate | date:&#x27;yyyy-MM-dd HH:mm:ss&#x27; }}&lt;/h4&gt;
+        &lt;input id=&quot;time1&quot; class=&quot;form-control&quot; dd-timepicker type=&quot;text&quot; is-date-type=&quot;true&quot; ng-model=&quot;timeFromDate&quot; /&gt;
+    &lt;/div&gt;
+
+    &lt;div class=&quot;form-group&quot;&gt;
+        &lt;h4&gt;5 minutes step: {{time5minutesStep}}&lt;/h4&gt;
+        &lt;input id=&quot;time1&quot; class=&quot;form-control&quot; dd-timepicker minute-step=&quot;5&quot; type=&quot;text&quot; ng-model=&quot;time5minutesStep&quot; /&gt;
+    &lt;/div&gt;
+
+&lt;/div&gt;</code></pre>
+                                        </div>
+                                    </tab>
+                                    <tab heading="JavaScript">
+                                        <div plunker-content="javascript">
+                                            <pre ng-non-bindable><code data-language="javascript">angular.module(&#x27;dd.ui.demo&#x27;).controller(&#x27;TimepickerDemoCtrl&#x27;, function ($scope, $timeout) {
+	
+    $scope.time = &#x27;12:20&#x27;;
+    $scope.time5minutesStep = &#x27;15:20&#x27;;
+    $scope.timeFromDate = new Date();
+    
+    $scope.change = function() {
+        console.log($scope.time, &#x27;changed&#x27;);
+    };
+    
+});</code></pre>
+                                        </div>
+                                    </tab>
+                                </tabset>
+                            </div>
+                        </div>
+                    </section>
+                    <script>angular.module('dd.ui.demo').controller('TimepickerDemoCtrl', function ($scope, $timeout) {
+	
+    $scope.time = '12:20';
+    $scope.time5minutesStep = '15:20';
+    $scope.timeFromDate = new Date();
+    
+    $scope.change = function() {
+        console.log($scope.time, 'changed');
+    };
+    
+});</script>
+                
+                    <section id="lookup">
+                        <div class="page-header">
+                          <h1>Lookup<small>
+                              (<a target="_blank" href="https://github.com/clickataxi/dd-ui/tree/master/src/lookup">dd.ui.lookup</a>)
+                          </small></h1>
+                          </div>
+                          <div class="row">
+                            <div class="col-md-6 show-grid">
+                                <div ng-controller="LookupDemoCtrl">
+    <div class="form-group">
+        <h4>Basic lookup</h4>
+        <div dd-lookup 
+            ng-model="basicModel" 
+            url="'http://server/api/drivers'">
+        </div>
+    </div>
+    <div class="form-group">
+        <h4>Lookup with placeholder and addon</h4>
+        <div dd-lookup 
+            ng-model="addonModel" 
+            url="'http://server/api/drivers'"
+            placeholder="Please select a driver"
+            lookup-addon="<span>Driver</span>">
+        </div>
+    </div>
+    <div class="form-group">
+        <h4>Lookup with custom label format</h4>
+        <div dd-lookup 
+            ng-model="labelModel" 
+            url="'http://server/api/drivers'"
+            lookup-format="formatLabel($item)">
+        </div>
+    </div>
+    <div class="form-group">
+        <h4>Lookup with url params</h4>
+        <div dd-lookup 
+            ng-model="paramsModel" 
+            url="'http://server/api/drivers'"
+            lookup-params="lookupParams">
+        </div>
+    </div>
+    <div class="form-group">
+        <h4>Lookup with response transformer</h4>
+        <div dd-lookup 
+            ng-model="transformerModel" 
+            url="'http://server/api/corporations'"
+            lookup-response-transform="responseTransformer($response)">
+        </div>
+    </div>   
+    <div class="form-group">
+        <h4>Lookup with empty list response</h4>
+        <div dd-lookup 
+            ng-model="emptyModel" 
+            url="'http://server/api/emptyList'">
+        </div>
+    </div>    
+</div>
+                            </div>
+                            <div class="col-md-6">
+                                <p>Our lookup, based on UI Bootstrap Typeahead directive.</p>
+
+<h3>Lookup Settings</h3>
+
+<ul>
+<li><p><code>ng-model</code>
+ :
+ The selected item.</p></li>
+<li><p><code>url</code>
+:
+Url of the endpoint to fetch data from. Response must be an array, otherwise a response transformer can be used.</p></li>
+<li><p><code>lookup-on-select</code>
+ :
+ An optional attribute that can be used to specify a callback for the select event.</p></li>
+<li><p><code>lookup-params</code>
+ <em>(Default: null)</em> :
+ An optional object that holds url parameters for the API endpoint.</p></li>
+<li><p><code>template-url</code>
+_(Default: 'template/lookup/lookup.html') :
+Allows overriding of default template of the lookup.</p></li>
+<li><p><code>lookup-format</code>
+:
+An optional attribute that allows to specify a function that formats the item labels.</p></li>
+<li><p><code>placeholder</code>
+:
+Adds a placeholder attribute to the lookup input.</p></li>
+<li><p><code>required</code>
+:
+Adds a required attribute to the lookup input.</p></li>
+<li><p><code>lookup-response-transform</code>
+:
+An optional attribute that allows to specify a function that transforms response. Useful when response is not an array.</p></li>
+</ul>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row code">
+                            <div class="col-md-12" ng-controller="PlunkerCtrl">
+                                <div class="pull-right">
+                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.4.3', '3.1.1', '0.2.6', 'lookup')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
+                                </div>
+                                <tabset>
+                                    <tab heading="Markup">
+                                        <div plunker-content="markup">
+                                            <pre ng-non-bindable><code data-language="html">&lt;div ng-controller=&quot;LookupDemoCtrl&quot;&gt;
+    &lt;div class=&quot;form-group&quot;&gt;
+        &lt;h4&gt;Basic lookup&lt;/h4&gt;
+        &lt;div dd-lookup 
+            ng-model=&quot;basicModel&quot; 
+            url=&quot;&#x27;http://server/api/drivers&#x27;&quot;&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;form-group&quot;&gt;
+        &lt;h4&gt;Lookup with placeholder and addon&lt;/h4&gt;
+        &lt;div dd-lookup 
+            ng-model=&quot;addonModel&quot; 
+            url=&quot;&#x27;http://server/api/drivers&#x27;&quot;
+            placeholder=&quot;Please select a driver&quot;
+            lookup-addon=&quot;&lt;span&gt;Driver&lt;/span&gt;&quot;&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;form-group&quot;&gt;
+        &lt;h4&gt;Lookup with custom label format&lt;/h4&gt;
+        &lt;div dd-lookup 
+            ng-model=&quot;labelModel&quot; 
+            url=&quot;&#x27;http://server/api/drivers&#x27;&quot;
+            lookup-format=&quot;formatLabel($item)&quot;&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;form-group&quot;&gt;
+        &lt;h4&gt;Lookup with url params&lt;/h4&gt;
+        &lt;div dd-lookup 
+            ng-model=&quot;paramsModel&quot; 
+            url=&quot;&#x27;http://server/api/drivers&#x27;&quot;
+            lookup-params=&quot;lookupParams&quot;&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;form-group&quot;&gt;
+        &lt;h4&gt;Lookup with response transformer&lt;/h4&gt;
+        &lt;div dd-lookup 
+            ng-model=&quot;transformerModel&quot; 
+            url=&quot;&#x27;http://server/api/corporations&#x27;&quot;
+            lookup-response-transform=&quot;responseTransformer($response)&quot;&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;   
+    &lt;div class=&quot;form-group&quot;&gt;
+        &lt;h4&gt;Lookup with empty list response&lt;/h4&gt;
+        &lt;div dd-lookup 
+            ng-model=&quot;emptyModel&quot; 
+            url=&quot;&#x27;http://server/api/emptyList&#x27;&quot;&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;    
+&lt;/div&gt;</code></pre>
+                                        </div>
+                                    </tab>
+                                    <tab heading="JavaScript">
+                                        <div plunker-content="javascript">
+                                            <pre ng-non-bindable><code data-language="javascript">angular.module(&#x27;dd.ui.demo&#x27;).controller(&#x27;LookupDemoCtrl&#x27;, [&#x27;$scope&#x27;, &#x27;$http&#x27;, &#x27;$httpBackend&#x27;, function ($scope, $http, $httpBackend) {
+    $scope.lastRequest = null;
+    $scope.lookupParams = {
+        currentVehicle: &#x27;BMW&#x27;
+    };
+
+    // Fake backend
+    $httpBackend.whenGET(function(url) { return url.startsWith(&#x27;http://server/api/drivers&#x27;); }).respond(function(method, url) {
+        var drivers = [
+            { name: &#x27;John&#x27;, currentVehicle: &#x27;BMW&#x27; },
+            { name: &#x27;Johnny&#x27;, currentVehicle: &#x27;Audi&#x27; }
+        ];
+
+        var params = getJsonFromUrl(url);
+        if (params.currentVehicle) {
+            drivers = drivers.filter(function(d) {
+                return d.currentVehicle == params.currentVehicle;
+            });
+        }
+
+        return [200, drivers];
+    });
+
+    $httpBackend.whenGET(function(url) { return url.startsWith(&#x27;http://server/api/corporations&#x27;); }).respond(function(method, url) {
+        var corporations = {
+            items: [
+                { name: &#x27;Microsoft&#x27; },
+                { name: &#x27;Google&#x27; }
+            ]
+        };
+
+        return [200, corporations];
+    });
+
+    $httpBackend.whenGET(function(url) { return url.startsWith(&#x27;http://server/api/emptyList&#x27;); }).respond(function(method, url) {
+        var emptyList = {
+            items: [
+            ]
+        };
+
+        return [200, emptyList];
+    });
+
+    $scope.formatLabel = function(item) {
+        return item.name + &#x27; - &#x27; + item.currentVehicle;
+    };
+
+    $scope.responseTransformer = function(response) {
+        return response.items;
+    };
+
+    function getJsonFromUrl(url) {
+      var query = url.substr(url.indexOf(&#x27;?&#x27;) + 1);
+      var result = {};
+      query.split(&#x27;&amp;&#x27;).forEach(function(part) {
+        var item = part.split(&#x27;=&#x27;);
+        result[item[0]] = decodeURIComponent(item[1]);
+      });
+      return result;
+    }
+}]);</code></pre>
+                                        </div>
+                                    </tab>
+                                </tabset>
+                            </div>
+                        </div>
+                    </section>
+                    <script>angular.module('dd.ui.demo').controller('LookupDemoCtrl', ['$scope', '$http', '$httpBackend', function ($scope, $http, $httpBackend) {
+    $scope.lastRequest = null;
+    $scope.lookupParams = {
+        currentVehicle: 'BMW'
+    };
+
+    // Fake backend
+    $httpBackend.whenGET(function(url) { return url.startsWith('http://server/api/drivers'); }).respond(function(method, url) {
+        var drivers = [
+            { name: 'John', currentVehicle: 'BMW' },
+            { name: 'Johnny', currentVehicle: 'Audi' }
+        ];
+
+        var params = getJsonFromUrl(url);
+        if (params.currentVehicle) {
+            drivers = drivers.filter(function(d) {
+                return d.currentVehicle == params.currentVehicle;
+            });
+        }
+
+        return [200, drivers];
+    });
+
+    $httpBackend.whenGET(function(url) { return url.startsWith('http://server/api/corporations'); }).respond(function(method, url) {
+        var corporations = {
+            items: [
+                { name: 'Microsoft' },
+                { name: 'Google' }
+            ]
+        };
+
+        return [200, corporations];
+    });
+
+    $httpBackend.whenGET(function(url) { return url.startsWith('http://server/api/emptyList'); }).respond(function(method, url) {
+        var emptyList = {
+            items: [
+            ]
+        };
+
+        return [200, emptyList];
+    });
+
+    $scope.formatLabel = function(item) {
+        return item.name + ' - ' + item.currentVehicle;
+    };
+
+    $scope.responseTransformer = function(response) {
+        return response.items;
+    };
+
+    function getJsonFromUrl(url) {
+      var query = url.substr(url.indexOf('?') + 1);
+      var result = {};
+      query.split('&').forEach(function(part) {
+        var item = part.split('=');
+        result[item[0]] = decodeURIComponent(item[1]);
+      });
+      return result;
+    }
+}]);</script>
+                
+                    <section id="validation">
+                        <div class="page-header">
+                          <h1>Validation<small>
+                              (<a target="_blank" href="https://github.com/clickataxi/dd-ui/tree/master/src/validation">dd.ui.validation</a>)
+                          </small></h1>
+                          </div>
+                          <div class="row">
+                            <div class="col-md-6 show-grid">
+                                <div ng-controller="ValidationDemoCtrl">
+  <form role="form" name="forma">
+    <h2>Phone different formats validation</h2>
+    <div class="form-group" ng-class="{'has-success': forma.phone.$valid, 'has-error': forma.phone.$invalid}">
+      <label for="phone">Full phone number with plus sign</label>
+      <input type="text" name="phone" ng-model="phone" phone class="form-control" id="phone" placeholder="Full phone number starting with `+` sign">
+    </div>
+    <div class="form-group">
+      <label for="phoneCountryCode">Phone number with country code splitted</label>
+      <div>
+        <div class="col-xs-2" ng-class="{'has-success': forma.phoneCountryCode.$valid, 'has-error': forma.phoneCountryCode.$invalid }">
+          <input type="text" name="phoneCountryCode" id="phoneCountryCode" ng-model="phoneCountryCode" phone-country-code class="form-control" placeholder="+45">
+        </div>
+        <div class="col-xs-5" ng-class="{'has-success': forma.phoneWoCountry.$valid, 'has-error': forma.phoneWoCountry.$invalid}">
+          <input type="text" name="phoneWoCountry" id="phoneWoCountry" ng-model="phoneWoCountry" phone-wo-country-code class="form-control" placeholder="Phone number w/o country code">
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <h2>Same-As validation</h2>
+    </div>
+    <div class="form-group">
+      <label for="password">Password</label>
+      <input type="text" name="password" ng-model="password" class="form-control" id="password" placeholder="Enter some phrase">
+    </div>
+    <div class="form-group" ng-class="{'has-success': forma.confirmPassword.$valid, 'has-error': forma.confirmPassword.$invalid}">
+      <label for="confirmPassword">Confirm password</label>
+      <input type="text" name="confirmPassword" ng-model="confirmPassword" same-as="password" class="form-control" id="confirmPassword" placeholder="Repeat same phrase as in password field">
+    </div>
+  </form>
+</div>
+                            </div>
+                            <div class="col-md-6">
+                                <p>These validation directives are dedicated to validate different format user inputs.</p>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row code">
+                            <div class="col-md-12" ng-controller="PlunkerCtrl">
+                                <div class="pull-right">
+                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.4.3', '3.1.1', '0.2.6', 'validation')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
+                                </div>
+                                <tabset>
+                                    <tab heading="Markup">
+                                        <div plunker-content="markup">
+                                            <pre ng-non-bindable><code data-language="html">&lt;div ng-controller=&quot;ValidationDemoCtrl&quot;&gt;
+  &lt;form role=&quot;form&quot; name=&quot;forma&quot;&gt;
+    &lt;h2&gt;Phone different formats validation&lt;/h2&gt;
+    &lt;div class=&quot;form-group&quot; ng-class=&quot;{&#x27;has-success&#x27;: forma.phone.$valid, &#x27;has-error&#x27;: forma.phone.$invalid}&quot;&gt;
+      &lt;label for=&quot;phone&quot;&gt;Full phone number with plus sign&lt;/label&gt;
+      &lt;input type=&quot;text&quot; name=&quot;phone&quot; ng-model=&quot;phone&quot; phone class=&quot;form-control&quot; id=&quot;phone&quot; placeholder=&quot;Full phone number starting with `+` sign&quot;&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;form-group&quot;&gt;
+      &lt;label for=&quot;phoneCountryCode&quot;&gt;Phone number with country code splitted&lt;/label&gt;
+      &lt;div&gt;
+        &lt;div class=&quot;col-xs-2&quot; ng-class=&quot;{&#x27;has-success&#x27;: forma.phoneCountryCode.$valid, &#x27;has-error&#x27;: forma.phoneCountryCode.$invalid }&quot;&gt;
+          &lt;input type=&quot;text&quot; name=&quot;phoneCountryCode&quot; id=&quot;phoneCountryCode&quot; ng-model=&quot;phoneCountryCode&quot; phone-country-code class=&quot;form-control&quot; placeholder=&quot;+45&quot;&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;col-xs-5&quot; ng-class=&quot;{&#x27;has-success&#x27;: forma.phoneWoCountry.$valid, &#x27;has-error&#x27;: forma.phoneWoCountry.$invalid}&quot;&gt;
+          &lt;input type=&quot;text&quot; name=&quot;phoneWoCountry&quot; id=&quot;phoneWoCountry&quot; ng-model=&quot;phoneWoCountry&quot; phone-wo-country-code class=&quot;form-control&quot; placeholder=&quot;Phone number w/o country code&quot;&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;form-group&quot;&gt;
+      &lt;h2&gt;Same-As validation&lt;/h2&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;form-group&quot;&gt;
+      &lt;label for=&quot;password&quot;&gt;Password&lt;/label&gt;
+      &lt;input type=&quot;text&quot; name=&quot;password&quot; ng-model=&quot;password&quot; class=&quot;form-control&quot; id=&quot;password&quot; placeholder=&quot;Enter some phrase&quot;&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;form-group&quot; ng-class=&quot;{&#x27;has-success&#x27;: forma.confirmPassword.$valid, &#x27;has-error&#x27;: forma.confirmPassword.$invalid}&quot;&gt;
+      &lt;label for=&quot;confirmPassword&quot;&gt;Confirm password&lt;/label&gt;
+      &lt;input type=&quot;text&quot; name=&quot;confirmPassword&quot; ng-model=&quot;confirmPassword&quot; same-as=&quot;password&quot; class=&quot;form-control&quot; id=&quot;confirmPassword&quot; placeholder=&quot;Repeat same phrase as in password field&quot;&gt;
+    &lt;/div&gt;
+  &lt;/form&gt;
+&lt;/div&gt;</code></pre>
+                                        </div>
+                                    </tab>
+                                    <tab heading="JavaScript">
+                                        <div plunker-content="javascript">
+                                            <pre ng-non-bindable><code data-language="javascript">angular.module(&#x27;dd.ui.demo&#x27;).controller(&#x27;ValidationDemoCtrl&#x27;, function ($scope) {
+});</code></pre>
+                                        </div>
+                                    </tab>
+                                </tabset>
+                            </div>
+                        </div>
+                    </section>
+                    <script>angular.module('dd.ui.demo').controller('ValidationDemoCtrl', function ($scope) {
+});</script>
+                
+            </div>
+        </div>
+    </div><!-- /.container -->
+</div><!-- /.main -->
+<footer class="footer">
+    <div class="container">
+        <p>Designed and built by <a href="https://github.com/clickataxi?tab=members" target="_blank">Drivr team</a> and <a href="https://github.com/clickataxi/dd-ui/graphs/contributors" target="_blank">contributors</a>.</p>
+        <p>Code licensed under <a href="https://github.com/clickataxi/dd-ui/blob/master/LICENSE">MIT License</a>.</p>
+        <p><a href="https://github.com/clickataxi/dd-ui/issues?state=open">Issues</a></p>
+    </div>
+</footer>
+<script src="assets/rainbow.js"></script>
+<script src="assets/rainbow-generic.js"></script>
+<script src="assets/rainbow-javascript.js"></script>
+<script src="assets/rainbow-html.js"></script>
+<script type="text/javascript">
+
+/*    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-37467169-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();*/
+
+</script>
+<script src="assets/smoothscroll-angular-custom.js"></script>
+</body>
+</html>
