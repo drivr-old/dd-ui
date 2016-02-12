@@ -236,7 +236,7 @@ Optional argument to specify the modifier key ('alt', 'shift', 'ctrl', etc.)</li
                         <div class="row code">
                             <div class="col-md-12" ng-controller="PlunkerCtrl">
                                 <div class="pull-right">
-                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.4.3', '3.1.1', '0.2.6', 'arrow-key-nav')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
+                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.4.3', '3.1.1', '0.3.0-SNAPSHOT', 'arrow-key-nav')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
                                 </div>
                                 <tabset>
                                     <tab heading="Markup">
@@ -386,7 +386,7 @@ angular.module('dd.ui.demo', ['dd.ui', 'ngAnimate']);
                         <div class="row code">
                             <div class="col-md-12" ng-controller="PlunkerCtrl">
                                 <div class="pull-right">
-                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.4.3', '3.1.1', '0.2.6', 'busy-element')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
+                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.4.3', '3.1.1', '0.3.0-SNAPSHOT', 'busy-element')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
                                 </div>
                                 <tabset>
                                     <tab heading="Markup">
@@ -563,7 +563,7 @@ Allows overriding of default template of the datetimepicker</p></li>
                         <div class="row code">
                             <div class="col-md-12" ng-controller="PlunkerCtrl">
                                 <div class="pull-right">
-                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.4.3', '3.1.1', '0.2.6', 'datetimepicker')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
+                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.4.3', '3.1.1', '0.3.0-SNAPSHOT', 'datetimepicker')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
                                 </div>
                                 <tabset>
                                     <tab heading="Markup">
@@ -672,7 +672,7 @@ Allows overriding of default template of the datepicker</p></li>
                         <div class="row code">
                             <div class="col-md-12" ng-controller="PlunkerCtrl">
                                 <div class="pull-right">
-                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.4.3', '3.1.1', '0.2.6', 'dd-datepicker')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
+                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.4.3', '3.1.1', '0.3.0-SNAPSHOT', 'dd-datepicker')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
                                 </div>
                                 <tabset>
                                     <tab heading="Markup">
@@ -748,20 +748,24 @@ Allows overriding of default template of the datepicker</p></li>
                           <div class="row">
                             <div class="col-md-6 show-grid">
                                 <div ng-controller="DdDateTimePickerDemoCtrl">
+
     <div class="form-group">
-        <div dd-datetimepicker 
-            ng-model="dateTime" 
-            minute-step="5"
-            date-format="yyyy-MM-dd"
-            date-disabled="disabled(date, mode)" 
-            ng-change="change()"></div>
+        <div dd-datetimepicker ng-model="dateTime" minute-step="5" date-format="yyyy-MM-dd" date-disabled="disabled(date, mode)"
+        ng-change="change()"></div>
     </div>
     <div class="form-group">
-         <label>Datetime:&nbsp;</label><span>{{ dateTime | date:'yyyy-MM-dd HH:mm:ss' }}</span>
+        <label>Datetime:&nbsp;</label><span>{{ dateTime | date:'yyyy-MM-dd HH:mm:ss' }}</span>
     </div>
     <div class="form-group">
         <h4>Disabled state</h4>
         <div dd-datetimepicker ng-disabled="true" ng-model="dateTime2" minute-step="5" date-disabled="disabled(date, mode)" ng-change="change()"></div>
+    </div>
+    <div class="form-group">
+        <h4>Start from empty</h4>
+        <div dd-datetimepicker ng-disabled="false" ng-model="dateTime3" minute-step="5"></div>
+    </div>
+    <div class="form-group">
+        <label>Datetime:&nbsp;</label><span>{{ dateTime3 | date:'yyyy-MM-dd HH:mm:ss' }}</span>
     </div>
 </div>
                             </div>
@@ -793,26 +797,30 @@ Allows overriding of default template of the datetimepicker</p></li>
                         <div class="row code">
                             <div class="col-md-12" ng-controller="PlunkerCtrl">
                                 <div class="pull-right">
-                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.4.3', '3.1.1', '0.2.6', 'dd-datetimepicker')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
+                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.4.3', '3.1.1', '0.3.0-SNAPSHOT', 'dd-datetimepicker')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
                                 </div>
                                 <tabset>
                                     <tab heading="Markup">
                                         <div plunker-content="markup">
                                             <pre ng-non-bindable><code data-language="html">&lt;div ng-controller=&quot;DdDateTimePickerDemoCtrl&quot;&gt;
+
     &lt;div class=&quot;form-group&quot;&gt;
-        &lt;div dd-datetimepicker 
-            ng-model=&quot;dateTime&quot; 
-            minute-step=&quot;5&quot;
-            date-format=&quot;yyyy-MM-dd&quot;
-            date-disabled=&quot;disabled(date, mode)&quot; 
-            ng-change=&quot;change()&quot;&gt;&lt;/div&gt;
+        &lt;div dd-datetimepicker ng-model=&quot;dateTime&quot; minute-step=&quot;5&quot; date-format=&quot;yyyy-MM-dd&quot; date-disabled=&quot;disabled(date, mode)&quot;
+        ng-change=&quot;change()&quot;&gt;&lt;/div&gt;
     &lt;/div&gt;
     &lt;div class=&quot;form-group&quot;&gt;
-         &lt;label&gt;Datetime:&amp;nbsp;&lt;/label&gt;&lt;span&gt;{{ dateTime | date:&#x27;yyyy-MM-dd HH:mm:ss&#x27; }}&lt;/span&gt;
+        &lt;label&gt;Datetime:&amp;nbsp;&lt;/label&gt;&lt;span&gt;{{ dateTime | date:&#x27;yyyy-MM-dd HH:mm:ss&#x27; }}&lt;/span&gt;
     &lt;/div&gt;
     &lt;div class=&quot;form-group&quot;&gt;
         &lt;h4&gt;Disabled state&lt;/h4&gt;
         &lt;div dd-datetimepicker ng-disabled=&quot;true&quot; ng-model=&quot;dateTime2&quot; minute-step=&quot;5&quot; date-disabled=&quot;disabled(date, mode)&quot; ng-change=&quot;change()&quot;&gt;&lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;form-group&quot;&gt;
+        &lt;h4&gt;Start from empty&lt;/h4&gt;
+        &lt;div dd-datetimepicker ng-disabled=&quot;false&quot; ng-model=&quot;dateTime3&quot; minute-step=&quot;5&quot;&gt;&lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;form-group&quot;&gt;
+        &lt;label&gt;Datetime:&amp;nbsp;&lt;/label&gt;&lt;span&gt;{{ dateTime3 | date:&#x27;yyyy-MM-dd HH:mm:ss&#x27; }}&lt;/span&gt;
     &lt;/div&gt;
 &lt;/div&gt;</code></pre>
                                         </div>
@@ -914,7 +922,7 @@ Allows overriding of default template of the datetimepicker</p></li>
                         <div class="row code">
                             <div class="col-md-12" ng-controller="PlunkerCtrl">
                                 <div class="pull-right">
-                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.4.3', '3.1.1', '0.2.6', 'dd-timepicker')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
+                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.4.3', '3.1.1', '0.3.0-SNAPSHOT', 'dd-timepicker')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
                                 </div>
                                 <tabset>
                                     <tab heading="Markup">
@@ -1068,7 +1076,7 @@ An optional attribute that allows to specify a function that transforms response
                         <div class="row code">
                             <div class="col-md-12" ng-controller="PlunkerCtrl">
                                 <div class="pull-right">
-                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.4.3', '3.1.1', '0.2.6', 'lookup')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
+                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.4.3', '3.1.1', '0.3.0-SNAPSHOT', 'lookup')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
                                 </div>
                                 <tabset>
                                     <tab heading="Markup">
@@ -1303,7 +1311,7 @@ An optional attribute that allows to specify a function that transforms response
                         <div class="row code">
                             <div class="col-md-12" ng-controller="PlunkerCtrl">
                                 <div class="pull-right">
-                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.4.3', '3.1.1', '0.2.6', 'validation')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
+                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.4.3', '3.1.1', '0.3.0-SNAPSHOT', 'validation')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
                                 </div>
                                 <tabset>
                                     <tab heading="Markup">
