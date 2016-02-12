@@ -91,9 +91,12 @@ Check the Grunt build file for other tasks that are defined for this project.
 
 #### TDD
 * Run test: `grunt watch`
- 
+
 This will start Karma server and will continuously watch files in the project, executing tests upon every change.
 
+#### Demo page
+* Compile files, start http server and watch changes: `grunt server`
+ 
 #### Test coverage
 Add the `--coverage` option (e.g. `grunt test --coverage`, `grunt watch --coverage`) to see reports on the test coverage. These coverage reports are found in the coverage folder.
 
@@ -166,3 +169,4 @@ For more information visit: https://github.com/karlgoldstein/grunt-html2js
 * publish Bower and NuGet packages
 
 Well done! (If you don't like repeating yourself open a PR with a grunt task taking care of the above!)
+`grunt shell`
