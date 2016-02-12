@@ -1,5 +1,5 @@
 angular.module('dd.ui.dd-datetimepicker', ['ui.bootstrap'])
-    .directive('ddDatetimepicker', ['$document', 'dateFilter', function ($document, dateFilter) {
+    .directive('ddDatetimepicker', ['$timeout', 'dateFilter', function ($timeout, dateFilter) {
         return {
             restrict: 'EA',
             require: 'ngModel',
@@ -13,14 +13,13 @@ angular.module('dd.ui.dd-datetimepicker', ['ui.bootstrap'])
                 ngDisabled: '=?',
                 dateDisabled: '&',
                 ngChange: '&?',
-                dateFormat: '@?'
+                dateFormat: '@'
             },
             link: function (scope, element, attrs, ctrl) {
-
+                
                 scope.dateChange = dateChange;
                 scope.timeChange = timeChange;
-                scope.dateFormat = scope.dateFormat || 'yyyy-MM-dd';
-                
+
                 initTime();
 
                 scope.$watch('ngModel', function (value) {
@@ -28,12 +27,19 @@ angular.module('dd.ui.dd-datetimepicker', ['ui.bootstrap'])
                         updateNgModelTime(scope.time);
                     }
                 });
-                
+
+                scope.$watch('time', function (newTime, oldTime) {
+                    if(newTime && oldTime && scope.ngModel) {
+                        updateDateIfNeeded(newTime, oldTime);
+                    }
+                });
+
                 function dateChange() {
                     if (scope.ngModel && scope.time) {
                         updateNgModelTime(scope.time);
                         updateViewValue(scope.ngModel);
                     }
+                    applyNgChange();
                 }
 
                 function timeChange() {
@@ -44,22 +50,15 @@ angular.module('dd.ui.dd-datetimepicker', ['ui.bootstrap'])
                         updateNgModelTime(newValue);
                         updateViewValue(newValue);
                     }
+                    applyNgChange();
                 }
 
                 function updateViewValue(value) {
                     ctrl.$setViewValue(value);
-                    if (scope.ngChange) {
-                        scope.ngChange();
-                    }
                 }
 
                 function initTime() {
                     scope.time = angular.copy(scope.ngModel);
-                    if (!scope.time) {
-                        var time = new Date();
-                        time.setHours(0, 0, 0, 0);
-                        scope.time = time;
-                    }
                 }
 
                 function updateNgModelTime(time) {
@@ -74,6 +73,38 @@ angular.module('dd.ui.dd-datetimepicker', ['ui.bootstrap'])
                     if (!(scope.time instanceof Date)) {
                         scope.time = new Date(scope.time);
                     }
+                }
+
+                function applyNgChange() {
+                    if (scope.ngChange) {
+                        scope.ngChange();
+                    }
+                }
+                
+                function updateDateIfNeeded(newTime, oldTime) {
+                    var hoursDelta = newTime.getHours() - oldTime.getHours();
+                    var currentDate = scope.ngModel.getDate();
+                    if (hoursDelta === -23) {
+                        scope.ngModel.setDate(currentDate + 1);
+                        notifyWithDatepickerChange();
+                    } else if (hoursDelta === 23) {
+                        scope.ngModel.setDate(currentDate - 1);
+                        notifyWithDatepickerChange();
+                    }
+                }
+
+                function notifyWithDatepickerChange() {
+                    var datepicker = element.find('.datepicker-input.display-input');
+                    updateDatepickerValue(datepicker);
+                    datepicker.css('background-color','rgba(0, 128, 0, 0.15)');
+                    $timeout(function() {
+                        datepicker.css('background-color','rgba(0, 0, 0, 0)');
+                    }, 500);
+                }
+                
+                function updateDatepickerValue(element) {
+                    var dateFormat = scope.dateFormat || 'yyyy-MM-dd';
+                    element.val(dateFilter(scope.ngModel, dateFormat));
                 }
             }
         };

@@ -2,6 +2,7 @@ describe('datetimepicker', function () {
     var $scope,
         $sniffer,
         $document,
+        $compile,
         element,
         datepickerElement,
         timepickerElement;
@@ -10,26 +11,20 @@ describe('datetimepicker', function () {
         module('dd.ui.dd-datetimepicker');
         module('template/dd-datetimepicker/dd-datetimepicker.html');
 
-        inject(function ($rootScope, $compile, _$sniffer_, _$document_) {
+        inject(function ($rootScope, _$compile_, _$sniffer_, _$document_) {
             $scope = $rootScope.$new();
             $sniffer = _$sniffer_;
             $document = _$document_;
+            $compile = _$compile_;
 
-            element = $compile('<div dd-datetimepicker ng-change="change()" ng-model="dateTime"></div>')($scope);
-            element.appendTo($document[0].body);
-            $scope.$digest();
+            element = compileElement($scope);
 
             datepickerElement = element.find('.datepicker-container input');
-            timepickerElement = element.find('.timepicker-container input');
+            timepickerElement = element.find('.timepicker-container input.timepicker-input');
         });
     });
 
     describe('Model change', function () {
-        it('initializes a default time value if it was never set.', function () {
-            expect(element.isolateScope().time instanceof Date).toBeTruthy();
-            expect(element.isolateScope().time.getHours()).toBe(0);
-            expect(element.isolateScope().time.getMinutes()).toBe(0);
-        });
 
         it('does not change the time value if model is empty and it is not the first change.', function () {
             $scope.dateTime = new Date('2015-08-30T16:00+00:00');
@@ -44,43 +39,40 @@ describe('datetimepicker', function () {
         });
 
         it('does nothing if timepicker element is active.', function () {
+
+            $scope.dateTime = new Date('2015-08-30T00:00+00:00');
+
             datepickerElement.focus();
-
             $scope.$digest();
 
-            $scope.dateTime = new Date('2015-08-30T16:00+00:00');
-            $scope.$digest();
-
-            expect(element.isolateScope().time.getHours()).toBe(0);
-            expect(element.isolateScope().time.getMinutes()).toBe(0);
+            expect(element.isolateScope().ngModel).toBe($scope.dateTime);
         });
     });
 
     describe('Date change', function () {
 
         it('notifies the controller via ng-change.', function () {
-            var newDate = null;
+            var date = null;
             $scope.change = function () {
-                newDate = $scope.dateTime;
+                date = new Date();
             };
 
             var isoDate = '2015-08-31';
             changeInputValue(datepickerElement, isoDate);
 
-            var expectedDate = new Date(isoDate);
-            expectedDate.setHours(0, 0, 0, 0);
-            expect(newDate).toEqual(expectedDate);
+            expect(date).toBeDefined();
         });
     });
 
     describe('Time change', function () {
         it('merges date and time on model.', function () {
-            $scope.dateTime = new Date('2015-08-30T15:00:00+00:00');
+            $scope.dateTime = new Date('2015-08-30T00:00:00+00:00');
             $scope.$digest();
 
             changeInputValue(timepickerElement, createTime(15, 30));
 
-            expect($scope.dateTime).toEqual(new Date('2015-08-30T15:30:00+00:00'));
+            expect($scope.dateTime.getHours()).toBe(15);
+            expect($scope.dateTime.getMinutes()).toBe(30);
         });
 
         it('notifies the controller via ng-change.', function () {
@@ -99,12 +91,12 @@ describe('datetimepicker', function () {
     describe('Init', function () {
         it('sets default time from model.', function () {
             $scope.dateTime = new Date();
-            $scope.$digest();
+            var element = compileElement($scope);
 
-            expect(element.isolateScope().time.getTime()).toBe($scope.dateTime.getTime());
+            expect(element.isolateScope().time).toBeDefined();
         });
     });
-
+    
     function changeInputValue(el, value) {
         el.val(value);
         el.trigger($sniffer.hasEvent('input') ? 'input' : 'change');
@@ -112,8 +104,16 @@ describe('datetimepicker', function () {
     }
 
     function createTime(hours, minutes) {
-        var date = new Date('2015-08-30T' + hours + ':' + minutes + ':00+00:00');
+        var date = new Date('2015-08-30T15:00:00+00:00');
+        date.setHours(hours, minutes, 0, 0);
         return date;
+    }
+
+    function compileElement($scope) {
+        var element = $compile('<div dd-datetimepicker ng-change="change()" ng-model="dateTime"></div>')($scope);
+        element.appendTo($document[0].body);
+        $scope.$digest();
+        return element;
     }
 
 });
