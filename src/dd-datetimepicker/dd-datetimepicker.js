@@ -98,7 +98,7 @@ angular.module('dd.ui.dd-datetimepicker', ['ui.bootstrap'])
                     updateDatepickerValue(datepicker);
                     datepicker.css('background-color','rgba(0, 128, 0, 0.15)');
                     $timeout(function() {
-                        datepicker.css('background-color','rgba(0, 0, 0, 0)');
+                        datepicker.css('background-color','#FFF');
                     }, 500);
                 }
                 
