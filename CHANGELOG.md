@@ -1,3 +1,13 @@
+# 0.2.8 (2016-02-12)
+
+## Features
+
+- **fix:** 
+  - change back to white color ([e40c05fc](http://github.com/clickataxi/dd-ui/commit/e40c05fc))  
+  - fix invalid demo html markup ([a3513c3a](http://github.com/clickataxi/dd-ui/commit/a3513c3a))  
+  - change to white color ([e9624845](http://github.com/clickataxi/dd-ui/commit/e9624845))   
+
+
 # 0.2.7 (2016-02-12)
 
 ## Features
