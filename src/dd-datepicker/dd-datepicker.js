@@ -38,11 +38,11 @@ function DatepickerDirective(dateFilter, datepickerParserService) {
                     updateDisplayModel(newValue);
                 }
             });
-            
-            scope.$on('ddDatepicker:sync', function(event, args) {
-               scope.boostrapDateModel = args.model;
+
+            scope.$on('ddDatepicker:sync', function (event, args) {
+                scope.boostrapDateModel = args.model;
             });
-            
+
             input.on('blur', function () {
                 updateDisplayModel(scope.ngModel);
                 canUpdateDisplayModel = true;
@@ -50,7 +50,7 @@ function DatepickerDirective(dateFilter, datepickerParserService) {
             });
 
             function parseUserInput() {
-                var parsedDate = datepickerParserService.parse(scope.displayModel, scope.dateFormat);
+                var parsedDate = datepickerParserService.parse(scope.displayModel, scope.dateFormat, scope.dateDisabled);
                 updateMainModel(parsedDate);
                 canUpdateDisplayModel = false;
                 updateBootstrapDateModel(scope.ngModel);
@@ -100,8 +100,17 @@ function datepickerParserService(dateParser) {
     var self = this;
     self.parse = parse;
 
-    function parse(input, format) {
-
+    function parse(input, format, dateDisabled) {
+        var parsedDate = parseInternal(input, format);
+        if (dateDisabled) {
+            return validateWithDisabledDate(parsedDate, dateDisabled);
+        }
+        return parsedDate;
+    }
+    
+    //private
+    
+    function parseInternal(input, format) {
         var useMmDdPattern = mmDdFormatPattern.test(format);
 
         if (!useMmDdPattern) {
@@ -114,9 +123,15 @@ function datepickerParserService(dateParser) {
 
         return dateParser.parse(input, format);
     }
-    
-    //private
-    
+
+    function validateWithDisabledDate(parsedDate, dateDisabled) {
+        var disabled = dateDisabled({date: parsedDate, mode: 'day'});
+        if (disabled) {
+            return null;
+        }
+        return parsedDate;
+    }
+
     function buildNewDate(input) {
         var tokens = tokenize(input),
             year = new Date().getFullYear(),
