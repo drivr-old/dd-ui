@@ -1,5 +1,6 @@
 angular.module('dd.ui.dd-datetimepicker', ['ui.bootstrap'])
-    .directive('ddDatetimepicker', ['$timeout', 'dateFilter', function ($timeout, dateFilter) {
+    .constant('days', ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'])
+    .directive('ddDatetimepicker', ['$timeout', 'dateFilter', 'days', function ($timeout, dateFilter, days) {
         return {
             restrict: 'EA',
             require: 'ngModel',
@@ -11,12 +12,19 @@ angular.module('dd.ui.dd-datetimepicker', ['ui.bootstrap'])
                 minuteStep: '=?',
                 showMeridian: '=?',
                 ngDisabled: '=?',
+                ngRequired: '=?',
                 dateDisabled: '&',
                 ngChange: '&?',
-                dateFormat: '@'
+                dateFormat: '@',
+                showDayName: '=?'
             },
             link: function (scope, element, attrs, ctrl) {
-                
+
+                var timeChanged = false;
+                var timepickerElement = element.find('.timepicker-container input');
+
+                scope.dayName = null;
+                scope.time = null;
                 scope.dateChange = dateChange;
                 scope.timeChange = timeChange;
 
@@ -26,12 +34,16 @@ angular.module('dd.ui.dd-datetimepicker', ['ui.bootstrap'])
                     if (scope.ngModel && scope.time) {
                         updateNgModelTime(scope.time);
                     }
+                    updateDayLabel();
+                    setValidity();
                 });
 
                 scope.$watch('time', function (newTime, oldTime) {
-                    if(newTime && oldTime && scope.ngModel) {
-                        updateDateIfNeeded(newTime, oldTime);
-                    }
+                    setValidity();
+                });
+
+                timepickerElement.on('blur', function () {
+                    jumpToNextDayIfPossible();
                 });
 
                 function dateChange() {
@@ -43,6 +55,7 @@ angular.module('dd.ui.dd-datetimepicker', ['ui.bootstrap'])
                 }
 
                 function timeChange() {
+                    timeChanged = true;
                     if (scope.ngModel && scope.time) {
                         ensureDateTypes();
                         var newValue = new Date(scope.ngModel);
@@ -53,8 +66,21 @@ angular.module('dd.ui.dd-datetimepicker', ['ui.bootstrap'])
                     applyNgChange();
                 }
 
+                function updateDayLabel() {
+                    if (scope.showDayName) {
+                        scope.dayName = getDayLabel();
+                    }
+                }
+
                 function updateViewValue(value) {
                     ctrl.$setViewValue(value);
+                }
+
+                function getDayLabel() {
+                    if (!scope.ngModel) {
+                        return null;
+                    }
+                    return days[scope.ngModel.getDay()];
                 }
 
                 function initTime() {
@@ -80,32 +106,49 @@ angular.module('dd.ui.dd-datetimepicker', ['ui.bootstrap'])
                         scope.ngChange();
                     }
                 }
-                
-                function updateDateIfNeeded(newTime, oldTime) {
-                    var hoursDelta = newTime.getHours() - oldTime.getHours();
-                    var currentDate = scope.ngModel.getDate();
-                    if (hoursDelta === -23) {
-                        scope.ngModel.setDate(currentDate + 1);
-                        notifyWithDatepickerChange();
-                    } else if (hoursDelta === 23) {
-                        scope.ngModel.setDate(currentDate - 1);
-                        notifyWithDatepickerChange();
+
+                function setValidity() {
+                    if (scope.ngRequired && (!scope.time || !scope.ngModel)) {
+                        ctrl.$setValidity('required', false);
+                    } else {
+                        ctrl.$setValidity('required', true);
                     }
                 }
 
+                function jumpToNextDayIfPossible() {
+                    if (!scope.ngModel || !scope.time) {
+                        return;
+                    }
+
+                    var currentDate = scope.ngModel.getDate();
+                    var canAddDay = canAddDayIfUserDecreaseTime();
+
+                    if (canAddDay) {
+                        scope.ngModel.setDate(currentDate + 1);
+                        syncDatepickerModel();
+                        updateDayLabel();
+                        notifyWithDatepickerChange();
+                        _addDayExecuted = canAddDay;
+                    }
+                }
+
+                var _addDayExecuted = false;
+                function canAddDayIfUserDecreaseTime() {
+                    return !_addDayExecuted && timeChanged && scope.ngModel.getTime() < new Date().getTime();
+                }
+
                 function notifyWithDatepickerChange() {
-                    var datepicker = element.find('.datepicker-input.display-input');
-                    updateDatepickerValue(datepicker);
-                    datepicker.css('background-color','rgba(0, 128, 0, 0.15)');
-                    $timeout(function() {
-                        datepicker.css('background-color','#FFF');
+                    var datepickerElement = element.find('.datepicker-container .display-input');
+                    datepickerElement.css('background-color', 'rgba(0, 128, 0, 0.15)');
+                    $timeout(function () {
+                        datepickerElement.css('background-color', '');
                     }, 500);
                 }
-                
-                function updateDatepickerValue(element) {
-                    var dateFormat = scope.dateFormat || 'yyyy-MM-dd';
-                    element.val(dateFilter(scope.ngModel, dateFormat));
+
+                function syncDatepickerModel(element) {
+                    scope.$broadcast('ddDatepicker:sync', { model: scope.ngModel });
                 }
+
             }
         };
     }]);
