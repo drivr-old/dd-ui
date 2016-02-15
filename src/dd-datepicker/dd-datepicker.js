@@ -39,6 +39,10 @@ function DatepickerDirective(dateFilter, datepickerParserService) {
                 }
             });
             
+            scope.$on('ddDatepicker:sync', function(event, args) {
+               scope.boostrapDateModel = args.model;
+            });
+            
             input.on('blur', function () {
                 updateDisplayModel(scope.ngModel);
                 canUpdateDisplayModel = true;
