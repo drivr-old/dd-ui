@@ -1,21 +1,27 @@
 <div ng-controller="DdDateTimePickerDemoCtrl">
 
-    <div class="form-group">
-        <div dd-datetimepicker ng-model="dateTime" minute-step="5" date-format="yyyy-MM-dd" date-disabled="disabled(date, mode)"
-        ng-change="change()"></div>
-    </div>
-    <div class="form-group">
-        <label>Datetime:&nbsp;</label><span>{{ dateTime | date:'yyyy-MM-dd HH:mm:ss' }}</span>
-    </div>
-    <div class="form-group">
-        <h4>Disabled state</h4>
-        <div dd-datetimepicker ng-disabled="true" ng-model="dateTime2" minute-step="5" date-disabled="disabled(date, mode)" ng-change="change()"></div>
-    </div>
-    <div class="form-group">
-        <h4>Start from empty</h4>
-        <div dd-datetimepicker ng-disabled="false" ng-model="dateTime3" minute-step="5"></div>
-    </div>
-    <div class="form-group">
-        <label>Datetime:&nbsp;</label><span>{{ dateTime3 | date:'yyyy-MM-dd HH:mm:ss' }}</span>
-    </div>
+    <form name="form">
+        <div class="form-group">
+            <h4>Basic usage</h4>
+            <div dd-datetimepicker ng-model="dateTime" minute-step="5" date-format="yyyy-MM-dd" date-disabled="disabled(date, mode)"
+            ng-change="change()"></div>
+        </div>
+        <div class="form-group">
+            <label>Datetime:&nbsp;</label><span>{{ dateTime | date:'yyyy-MM-dd HH:mm:ss' }}</span>
+        </div>
+        <div class="form-group">
+            <h4>Disabled state <small><a href="#" ng-click="disabledPicker = !disabledPicker">Toggle</a></small></h4>
+            <div dd-datetimepicker show-day-name="true" ng-disabled="disabledPicker" ng-model="dateTime2" minute-step="5" date-disabled="disabled(date, mode)"
+            ng-change="change()"></div>
+        </div>
+        <div class="form-group">
+            <h4>Required field</h4>
+            <div dd-datetimepicker ng-required="true" name="dateTime3" show-day-name="true" ng-disabled="false" ng-model="dateTime3" minute-step="5"></div>
+        </div>
+        <div class="form-group">
+            <label>Datetime:&nbsp;</label><span>{{ dateTime3 }}</span> <br />
+            <label>IsValid:&nbsp;</label><span>{{ form.dateTime3.$valid }}</span> <br />
+        </div>
+    </form>
+    
 </div>

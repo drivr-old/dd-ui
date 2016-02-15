@@ -6,6 +6,17 @@ Combined dd-timepicker and dd-datepicker that uses a single Date model.
  	:
  	The date object.
 
+ * `date-format`:
+    String. Example: yyyy-MM-dd. See dd-datepicker for more information.
+
+ * `ng-required`
+ 	:
+ 	Set as required field.
+     
+* `show-day-name`
+ 	_(Default: false)_ ::
+ 	Show day name.
+     
  * `ng-change`
  	:
  	Can be used together with `ng-model` to call a function whenever the datetime changes.
