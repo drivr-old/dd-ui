@@ -46,7 +46,7 @@ module.exports = function (grunt) {
                 tasks: ['karma:watch:run']
             },
             demo: {
-                files: ['misc/demo/index.html', 'src/**', '!src/**/*spec.js', 'template/**/*.html','template/**/*.css'],
+                files: ['misc/demo/index.html', 'src/**', '!src/**/*spec.js', 'template/**/*.html', 'template/**/*.css'],
                 tasks: ['html2js', 'after-test']
             }
         },
@@ -124,7 +124,7 @@ module.exports = function (grunt) {
             files: ['Gruntfile.js', 'src/**/*.js']
         },
         karma: {
-           options: {
+            options: {
                 configFile: 'karma.conf.js'
             },
             watch: {
@@ -144,7 +144,7 @@ module.exports = function (grunt) {
                 singleRun: true,
                 autoWatch: false,
                 reporters: ['dots'],
-                browsers: ['Chrome']
+                browsers: ['Firefox']
             },
             coverage: {
                 preprocessors: {
@@ -196,7 +196,7 @@ module.exports = function (grunt) {
                 ext: 'html',
                 runInBackground: true,
                 logFn: function (req, res, error) {
-                    
+
                 },
                 openBrowser: true
             }
@@ -211,13 +211,13 @@ module.exports = function (grunt) {
     //Rename our watch task to 'delta', then make actual 'watch'
     //task build things, then start test server
     grunt.renameTask('watch', 'delta');
-    grunt.registerTask('watch', ['before-test', 'after-test', 'karma:watch', 'delta:js','delta:html']);
+    grunt.registerTask('watch', ['before-test', 'after-test', 'karma:watch', 'delta:js', 'delta:html']);
     
     // For development and debugging. Builds everything, but doesn't run tests.
     grunt.registerTask('notest', ['before-test', 'after-test']);
     
     // For development and watch dd-ui demo page
-    grunt.registerTask('server', ['before-test','after-test','http-server','delta:demo','delta:html']);
+    grunt.registerTask('server', ['before-test', 'after-test', 'http-server', 'delta:demo', 'delta:html']);
 
     // Default task.
     grunt.registerTask('default', ['before-test', 'test', 'after-test']);
