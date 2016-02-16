@@ -14,7 +14,8 @@ module.exports = function(config) {
       'misc/test-lib/ui-bootstrap-tpls.js',
       'misc/test-lib/es6-polyfills.js',
       'src/**/*.js',
-      'template/**/*.js'
+      'template/**/*.js',
+      'template/**/*.css'
     ],
 
     // list of files to exclude

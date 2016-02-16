@@ -46,7 +46,7 @@ module.exports = function (grunt) {
                 tasks: ['karma:watch:run']
             },
             demo: {
-                files: ['misc/demo/index.html', 'src/**', '!src/**/*spec.js', 'template/**/*.html'],
+                files: ['misc/demo/index.html', 'src/**', '!src/**/*spec.js', 'template/**/*.html','template/**/*.css'],
                 tasks: ['html2js', 'after-test']
             }
         },
@@ -258,7 +258,7 @@ module.exports = function (grunt) {
             moduleName: enquote(`dd.ui.${name}`),
             displayName: ucwords(breakup(name, ' ')),
             srcFiles: grunt.file.expand([`src/${name}/*.js`, `!src/${name}/index.js`]),
-            cssFiles: grunt.file.expand(`src/${name}/*.css`),
+            cssFiles: grunt.file.expand(`template/${name}/*.css`),
             tplFiles: grunt.file.expand(`template/${name}/*.html`),
             tpljsFiles: grunt.file.expand(`template/${name}/*.html.js`),
             tplModules: grunt.file.expand(`template/${name}/*.html`).map(enquoteUibDir),
