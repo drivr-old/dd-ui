@@ -15,7 +15,7 @@ angular.module('dd.ui.busy-element', [])
 
             scope.$watch('status', function() {
                 updateSize();
-                if (scope.status != null) {
+                if (scope.status !== undefined) {
                     scope.busy = false;
                     scope.statusClass = scope.status;
 

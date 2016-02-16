@@ -14,7 +14,7 @@ angular.module('dd.ui.demo').controller('LookupDemoCtrl', ['$scope', '$http', '$
         var params = getJsonFromUrl(url);
         if (params.currentVehicle) {
             drivers = drivers.filter(function(d) {
-                return d.currentVehicle == params.currentVehicle;
+                return d.currentVehicle === params.currentVehicle;
             });
         }
 

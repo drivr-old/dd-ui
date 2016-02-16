@@ -144,8 +144,8 @@ function timeparserService(dateFilter) {
 
         if (isDateModel) {
             var tokens = parsedTime.split(':');
-            dateTime.setHours(parseInt(tokens[0]));
-            dateTime.setMinutes(parseInt(tokens[1]));
+            dateTime.setHours(parseInt(tokens[0], 10));
+            dateTime.setMinutes(parseInt(tokens[1], 10));
             return new Date(dateTime);
         }
 
@@ -180,13 +180,13 @@ function timeparserService(dateFilter) {
             inputTime = inputTime.replace(/^0/, '');
         }
 
-        var val = parseInt(inputTime),
+        var val = parseInt(inputTime, 10),
             hours = 0,
             minutes = 0;
         
         //user enter only minutes (mm)
         if (inputTime[0] === '0') {
-            minutes = parseInt(inputTime);
+            minutes = parseInt(inputTime, 10);
         }
         //user enter only hour (H)
         else if (val <= 24 && inputTime.length <= 2) {
@@ -194,13 +194,13 @@ function timeparserService(dateFilter) {
         }
         // user enter hour and minutes (H:mm)
         else if (val > 24 && val <= 999) {
-            hours = parseInt(inputTime[0]);
-            minutes = parseInt(inputTime.substr(1, 3));
+            hours = parseInt(inputTime[0], 10);
+            minutes = parseInt(inputTime.substr(1, 3), 10);
         }
         // user enter hours and minutes (HH:mm)
         else if (val > 24 && val <= 9999) {
-            hours = parseInt(inputTime.substr(0, 2));
-            minutes = parseInt(inputTime.substr(2, 4));
+            hours = parseInt(inputTime.substr(0, 2), 10);
+            minutes = parseInt(inputTime.substr(2, 4), 10);
         }
 
         if (mode === 'p') {
