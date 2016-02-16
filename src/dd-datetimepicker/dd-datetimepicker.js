@@ -1,6 +1,5 @@
 angular.module('dd.ui.dd-datetimepicker', ['ui.bootstrap'])
-    .constant('days', ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'])
-    .directive('ddDatetimepicker', ['$timeout', 'dateFilter', 'days', function ($timeout, dateFilter, days) {
+    .directive('ddDatetimepicker', ['$timeout', 'dateFilter', function ($timeout, dateFilter) {
         return {
             restrict: 'EA',
             require: 'ngModel',
@@ -23,18 +22,16 @@ angular.module('dd.ui.dd-datetimepicker', ['ui.bootstrap'])
                 var timeChanged = false;
                 var timepickerElement = element.find('.timepicker-container input');
 
-                scope.dayName = null;
                 scope.time = null;
                 scope.dateChange = dateChange;
                 scope.timeChange = timeChange;
-
+            
                 initTime();
-
+            
                 scope.$watch('ngModel', function (value) {
                     if (scope.ngModel && scope.time) {
                         updateNgModelTime(scope.time);
                     }
-                    updateDayLabel();
                     setValidity();
                 });
 
@@ -66,22 +63,10 @@ angular.module('dd.ui.dd-datetimepicker', ['ui.bootstrap'])
                     applyNgChange();
                 }
 
-                function updateDayLabel() {
-                    if (scope.showDayName) {
-                        scope.dayName = getDayLabel();
-                    }
-                }
-
                 function updateViewValue(value) {
                     ctrl.$setViewValue(value);
                 }
 
-                function getDayLabel() {
-                    if (!scope.ngModel) {
-                        return null;
-                    }
-                    return days[scope.ngModel.getDay()];
-                }
 
                 function initTime() {
                     scope.time = angular.copy(scope.ngModel);
@@ -126,7 +111,6 @@ angular.module('dd.ui.dd-datetimepicker', ['ui.bootstrap'])
                     if (canAddDay) {
                         scope.ngModel.setDate(currentDate + 1);
                         syncDatepickerModel();
-                        updateDayLabel();
                         notifyWithDatepickerChange();
                         _addDayExecuted = canAddDay;
                     }
