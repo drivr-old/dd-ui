@@ -90,7 +90,7 @@ describe('datetimepicker', function () {
             $scope.dateDisabled = function (date, mode) {
                 var d = new Date('2016-08-30T15:00:00+00:00');
                 d.setHours(0, 0, 0, 0);
-                return (mode === 'day' && date < d);
+                return mode === 'day' && date < d;
             };
             $scope.$digest();
 
@@ -104,7 +104,7 @@ describe('datetimepicker', function () {
             var d = new Date('2016-08-30T15:00:00+00:00');
             $scope.dateDisabled = function (date, mode) {
                 d.setHours(0, 0, 0, 0);
-                return (mode === 'day' && date < d);
+                return mode === 'day' && date < d;
             };
             $scope.$digest();
 
