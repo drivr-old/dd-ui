@@ -1,0 +1,21 @@
+.dd-datetimepicker {
+    display: inline-flex;
+}
+.dd-datetimepicker .timepicker-container {
+    width: 100px;
+}
+
+.dd-datetimepicker .timepicker-container input {
+    border-bottom-right-radius: 0;
+    border-top-right-radius: 0;
+    border-right: 0;
+}
+
+.dd-datetimepicker .datepicker-container input.short {
+    width: 70px;
+}
+.dd-datetimepicker .datepicker-container input {
+    width: 105px;
+    border-bottom-left-radius: 0;
+    border-top-left-radius: 0;
+}

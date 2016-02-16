@@ -1,0 +1,14 @@
+ .dd-datepicker .calendar-btn-with-day {
+        border-radius: 0;
+        border-left: 0;
+    }
+    .dd-datepicker .day-name-label {
+        width: 100px;
+    }
+    
+.dd-datepicker input.short {
+    width: 70px;
+}
+.dd-datepicker input {
+    width: 105px;
+}

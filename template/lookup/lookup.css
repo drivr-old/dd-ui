@@ -1,0 +1,65 @@
+.lookup-container .input-group {
+  width: 100%;
+}
+.lookup-container .dropdown-menu {
+  border: 1px solid #ccc !important; 
+  border-top: none !important; 
+  font-size: 11px; 
+  padding: 1px !important; 
+  max-height: 196px; 
+  overflow-y: scroll; 
+  overflow-x: hidden; 
+  width: 100%;
+}
+.lookup-container input {
+  background-color: #ffe;
+}
+.lookup-container .dropdown-menu > li > a {
+  padding: 5px;
+}
+.lookup-container .lookup-legend div, .lookup-clear div {
+  width: 16px;
+  height: 16px;
+  display: inline-block;
+  vertical-align: middle;
+}
+.lookup-container a.lookup-clear {
+  outline: 0
+}
+.lookup-container .lookup-no-results {
+  position: absolute;
+  background-color: #fff;
+  z-index: 1;
+  padding: 4px;
+  width: 100%;
+  border: 1px solid #ddd;
+  margin-top: 1px;
+  top: 100%;
+}
+.lookup-container .lookup-no-results span {
+  color: #a94442;
+  font-size: 10px;
+}
+.lookup-container .lookup-legend .lookup-icon {
+  background-image: url(./assets/img/magnifier-small.png);
+}
+.lookup-container .lookup-legend .spinner-icon {
+  background-image: url(./assets/img/spinner.gif);
+  background-size: 16px;
+}
+.lookup-container .lookup-clear .clear-icon {
+  background-image: url(./assets/img/cross-small-white.png); 
+  opacity: 0.6;
+}
+.lookup-container .lookup-legend {
+  position: absolute;
+  right: 6px;
+  top: 6px;
+  z-index: 5;
+}
+.lookup-container .lookup-clear {
+  position: absolute;
+  right: 22px;
+  top: 6px;
+  z-index: 5;
+}

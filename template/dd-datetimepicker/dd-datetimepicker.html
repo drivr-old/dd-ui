@@ -1,6 +1,7 @@
-<div class="form-inline">
-	<div class="form-group timepicker-container">
-         <input class="form-control timepicker-input"  style="width:65px" 
+<div class="dd-datetimepicker">
+	<div class="input-group timepicker-container">
+         <span class="input-group-addon"><span class="glyphicon glyphicon-time"></span></span>
+         <input class="form-control timepicker-input" 
                 dd-timepicker
                 is-date-type="true"
                 type="text"
@@ -10,19 +11,16 @@
                 minute-step="minuteStep"
                 ng-model="time" />
 	</div>
-	<div class="form-group datepicker-container">
+	<div class="input-group datepicker-container">
         <input type="text" 
                dd-datepicker
                ng-disabled="ngDisabled"
                ng-required="ngRequired"
-               date-format="{{dateFormat}}"
+               date-format="{{::dateFormat}}"
                ng-model="ngModel"
                ng-change="dateChange($event)"
-               show-weeks="showWeeks"
+               show-day-name="showDayName"
                close-text="Close"
                date-disabled="dateDisabled({date: date, mode: mode})" />
 	</div>
-    <div ng-if="showDayName" class="form-group">
-        <span>{{dayName}}</span>
-    </div>
 </div>

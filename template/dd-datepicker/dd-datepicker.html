@@ -1,13 +1,14 @@
-<div class="input-group" style="width: 140px">
-      
+<div class="input-group dd-datepicker">
+
     <input class="form-control display-input datepicker-input"
            type="text"
+           ng-class="{'short': useShortDateFormat}"
            ng-disabled="ngDisabled"
            ng-required="ngRequired"
            ng-change="parseUserInput()"
            ng-model="displayModel" />
            
-    <span class="input-group-btn">
+    <div class="input-group-btn">
         <div type="text"
            class="datepicker-input" 
            datepicker-popup="{{dateFormat}}"
@@ -16,6 +17,15 @@
            date-disabled="dateDisabled({date: date, mode: mode})"
            close-text="Close"
            show-weeks="showWeeks"></div>
-        <button ng-disabled="ngDisabled" type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
-    </span>
+        <button ng-disabled="ngDisabled" 
+                type="button" 
+                class="btn btn-default" 
+                ng-click="open($event)"
+                ng-class="{'calendar-btn-with-day':showDayName}">
+                <i class="glyphicon glyphicon-calendar"></i>
+        </button>
+    </div>
+    
+    <span ng-if="showDayName" class="input-group-addon day-name-label">{{dayName}}</span>
+
 </div>
