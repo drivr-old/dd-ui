@@ -13,8 +13,8 @@ Combined dd-timepicker and dd-datepicker that uses a single Date model.
  	:
  	Set as required field.
      
-* `show-day-name`
- 	_(Default: false)_ ::
+ * `show-day-name`
+ 	_(Default: false)_ :
  	Show day name.
      
  * `ng-change`
