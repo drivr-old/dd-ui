@@ -13,12 +13,13 @@
     <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular-touch.min.js"></script>
     <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular-animate.min.js"></script>
 	<script src="assets/ui-bootstrap-tpls.js"></script>
-    <script src="dd-ui-tpls-0.2.8.min.js"></script>
+    <script src="dd-ui-tpls-0.2.9.min.js"></script>
     <script src="assets/angular-mocks.js"></script>
     <script src="assets/plunker.js"></script>
     <script src="assets/app.js"></script>
 
     <link href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="dd-ui-0.2.9-csp.css"/>
     <link rel="stylesheet" href="assets/rainbow.css"/>
     <link rel="stylesheet" href="assets/demo.css"/>
     <link rel="author" href="https://github.com/clickataxi/dd-ui/graphs/contributors">
@@ -222,21 +223,20 @@
                             </div>
                             <div class="col-md-6">
                                 <p>Arrow-key-nav directive enables form navigation using arrow keys. To use it, the directive must be placed on the container element and all child elements that should be included in the arrow key navigation flow, must be marked with class name <code>arrow-key-nav</code>.</p>
-
-<h3>Arrow-key-nav Settings</h3>
-
+<h3 id="arrow-key-nav-settings">Arrow-key-nav Settings</h3>
 <ul>
 <li><code>arrowKeyModifier</code>
-:
-Optional argument to specify the modifier key ('alt', 'shift', 'ctrl', etc.)</li>
+ :
+ Optional argument to specify the modifier key (&#39;alt&#39;, &#39;shift&#39;, &#39;ctrl&#39;, etc.)</li>
 </ul>
+
                             </div>
                         </div>
                         <hr>
                         <div class="row code">
                             <div class="col-md-12" ng-controller="PlunkerCtrl">
                                 <div class="pull-right">
-                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.4.3', '3.1.1', '0.2.8', 'arrow-key-nav')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
+                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.4.3', '3.1.1', '0.3.0-SNAPSHOT', 'arrow-key-nav')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
                                 </div>
                                 <tabset>
                                     <tab heading="Markup">
@@ -375,18 +375,17 @@ Optional argument to specify the modifier key ('alt', 'shift', 'ctrl', etc.)</li
                             </div>
                             <div class="col-md-6">
                                 <p>In cell edit status visualizer. When something is changed in cell and immediate save to server is required, it would be nice to give feedback for user when request is in progress and when data are updated or update is failed. For this purpose we have created busy-element directive. It covers an element (defaults to parent, or specified in selector) with overlay and shows a spinner while busy. After request is done, it blinks in green or in red depending on update status.</p>
+<p>NOTE: If you want to have &quot;blinking&quot; animated, you must to add &quot;angular-animate.js&quot; to your page and add &quot;ngAnimate&quot; module dependency to your application, like:</p>
+<pre><code class="lang-javascript">angular.module(&#39;dd.ui.demo&#39;, [&#39;dd.ui&#39;, &#39;ngAnimate&#39;]);
+</code></pre>
 
-<p>NOTE: If you want to have "blinking" animated, you must to add "angular-animate.js" to your page and add "ngAnimate" module dependency to your application, like:
-<code>javascript
-angular.module('dd.ui.demo', ['dd.ui', 'ngAnimate']);
-</code></p>
                             </div>
                         </div>
                         <hr>
                         <div class="row code">
                             <div class="col-md-12" ng-controller="PlunkerCtrl">
                                 <div class="pull-right">
-                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.4.3', '3.1.1', '0.2.8', 'busy-element')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
+                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.4.3', '3.1.1', '0.3.0-SNAPSHOT', 'busy-element')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
                                 </div>
                                 <tabset>
                                     <tab heading="Markup">
@@ -465,7 +464,7 @@ angular.module('dd.ui.demo', ['dd.ui', 'ngAnimate']);
 	$scope.items = [
 		{id: &#x27;item1&#x27;, status: &#x27;&#x27;},
 		{id: &#x27;item2&#x27;, status: &#x27;&#x27;},
-		{id: &#x27;item3&#x27;, status: &#x27;&#x27;},
+		{id: &#x27;item3&#x27;, status: &#x27;&#x27;}
 	];
 
 	$scope.updated = function(el) {
@@ -493,7 +492,7 @@ angular.module('dd.ui.demo', ['dd.ui', 'ngAnimate']);
 	$scope.items = [
 		{id: 'item1', status: ''},
 		{id: 'item2', status: ''},
-		{id: 'item3', status: ''},
+		{id: 'item3', status: ''}
 	];
 
 	$scope.updated = function(el) {
@@ -531,39 +530,45 @@ angular.module('dd.ui.demo', ['dd.ui', 'ngAnimate']);
                             </div>
                             <div class="col-md-6">
                                 <p>Combined UI Bootstrap Timepicker and Datepicker that uses a single Date model.</p>
-
-<h3>Datetimepicker Settings</h3>
-
+<h3 id="datetimepicker-settings">Datetimepicker Settings</h3>
 <ul>
 <li><p><code>ng-model</code>
- :
- The date object.</p></li>
+  :
+  The date object.</p>
+</li>
 <li><p><code>ng-change</code>
- :
- Can be used together with <code>ng-model</code> to call a function whenever the datetime changes.</p></li>
+  :
+  Can be used together with <code>ng-model</code> to call a function whenever the datetime changes.</p>
+</li>
 <li><p><code>date-disabled (date, mode)</code>
- <em>(Default: null)</em> :
- An optional expression to disable visible options based on passing date and current mode <em>(day|month|year)</em>.</p></li>
+  <em>(Default: null)</em> :
+  An optional expression to disable visible options based on passing date and current mode <em>(day|month|year)</em>.</p>
+</li>
 <li><p><code>template-url</code>
-_(Default: 'template/datetimepicker/datetimepicker.html') :
-Allows overriding of default template of the datetimepicker</p></li>
+_(Default: &#39;template/datetimepicker/datetimepicker.html&#39;) :
+Allows overriding of default template of the datetimepicker</p>
+</li>
 <li><p><code>minute-step</code>
- <em>(Defaults: 1)</em> :
-  Number of minutes to increase or decrease when using a button.</p></li>
+  <em>(Defaults: 1)</em> :
+   Number of minutes to increase or decrease when using a button.</p>
+</li>
 <li><p><code>show-meridian</code>
- <em>(Defaults: true)</em> :
- Whether to display 12H or 24H mode.</p></li>
+  <em>(Defaults: true)</em> :
+  Whether to display 12H or 24H mode.</p>
+</li>
 <li><p><code>show-spinners</code>
-<em>(Defaults: true)</em> :
- Shows spinner arrows above and below the inputs</p></li>
+ <em>(Defaults: true)</em> :
+  Shows spinner arrows above and below the inputs</p>
+</li>
 </ul>
+
                             </div>
                         </div>
                         <hr>
                         <div class="row code">
                             <div class="col-md-12" ng-controller="PlunkerCtrl">
                                 <div class="pull-right">
-                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.4.3', '3.1.1', '0.2.8', 'datetimepicker')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
+                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.4.3', '3.1.1', '0.3.0-SNAPSHOT', 'datetimepicker')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
                                 </div>
                                 <tabset>
                                     <tab heading="Markup">
@@ -586,7 +591,7 @@ Allows overriding of default template of the datetimepicker</p></li>
 	$scope.disabled = function (date, mode) {
         var d = new Date();
         d.setHours(0, 0, 0, 0);
-        return (mode === &#x27;day&#x27; &amp;&amp; date &lt; d);
+        return mode === &#x27;day&#x27; &amp;&amp; date &lt; d;
     };
 }]);</code></pre>
                                         </div>
@@ -601,7 +606,7 @@ Allows overriding of default template of the datetimepicker</p></li>
 	$scope.disabled = function (date, mode) {
         var d = new Date();
         d.setHours(0, 0, 0, 0);
-        return (mode === 'day' && date < d);
+        return mode === 'day' && date < d;
     };
 }]);</script>
                 
@@ -615,85 +620,83 @@ Allows overriding of default template of the datetimepicker</p></li>
                             <div class="col-md-6 show-grid">
                                 <div ng-controller="DatepickerDemoCtrl">
 
-    <div class="form-inline">
-         
-         <div class="form-group">
-             <input type="text" 
-               dd-datepicker
-               date-format="yyyy-MM-dd"
-               ng-model="date"
-               ng-change="change()"
-               date-disabled="disabled(date, mode)" />
-         </div>
-         
+    <div class="form">
+
+        <div class="form-group">
+            <h4>Basic usage</h4>
+            <input type="text" style="width:150px" dd-datepicker  date-format="yyyy-MM-dd" ng-model="date" ng-change="change()" date-disabled="disabled(date, mode)" />
+            <label>Datetime model:&nbsp;</label><span>{{date}}</span>
+        </div>
+        <div class="form-group">
+            <h4>Display week day name</h4>
+            <input type="text" style="width:250px" dd-datepicker show-day-name="true" date-format="yyyy-MM-dd" ng-model="date" ng-change="change()" date-disabled="disabled(date, mode)" />
+        </div>
+    </div>
 </div>
-
-<label>Datetime model:&nbsp;</label><span>{{date}}</span>
-</div>
-
-
                             </div>
                             <div class="col-md-6">
                                 <p>dd-ui Datepicker allows to enter custom date formats and use original bootstrap datepicker.</p>
-
-<h3>dd-ui Datepicker Settings</h3>
-
+<h3 id="dd-ui-datepicker-settings">dd-ui Datepicker Settings</h3>
 <ul>
 <li><p><code>ng-model</code>
- :
- The date object.</p></li>
+  :
+  The date object.</p>
+</li>
 <li><p><code>date-format</code>
- :
- Date format string. In .Net it can be taken from CultureInfo.CurrentCulture.DateTimeFormat.ShortDatePattern</p></li>
+  :
+  Date format string. In .Net it can be taken from CultureInfo.CurrentCulture.DateTimeFormat.ShortDatePattern</p>
+</li>
+<li><p><code>show-day-name</code>
+  <em>(Default: false)</em> ::
+  Show day name.</p>
+</li>
 <li><p><code>ng-change</code>
- :
- Can be used together with <code>ng-model</code> to call a function whenever the datetime changes.</p></li>
+  :
+  Can be used together with <code>ng-model</code> to call a function whenever the datetime changes.</p>
+</li>
 <li><p><code>date-disabled (date, mode)</code>
- <em>(Default: null)</em> :
- An optional expression to disable visible options based on passing date and current mode <em>(day|month|year)</em>.</p></li>
+  <em>(Default: null)</em> :
+  An optional expression to disable visible options based on passing date and current mode <em>(day|month|year)</em>.</p>
+</li>
 <li><p><code>template-url</code>
-_(Default: 'template/dd-datepicker/dd-datepicker.html') :
-Allows overriding of default template of the datepicker</p></li>
+_(Default: &#39;template/dd-datepicker/dd-datepicker.html&#39;) :
+Allows overriding of default template of the datepicker</p>
+</li>
 </ul>
-
-<h3>dd-ui Datepicker supports custom users date input depending on given date format</h3>
-
+<h3 id="dd-ui-datepicker-supports-custom-users-date-input-depending-on-given-date-format">dd-ui Datepicker supports custom users date input depending on given date format</h3>
 <ul>
 <li>2108 OR 0821 = 21.08 (21st of August)</li>
 <li>21-08 OR 08-21 = 21.08 (21st of August)</li>
 <li>21/08 OR 08/21 = 21.08 (21st of August)</li>
 <li>21 08 OR 08 21 = 21.08 (21st of August)</li>
 </ul>
+
                             </div>
                         </div>
                         <hr>
                         <div class="row code">
                             <div class="col-md-12" ng-controller="PlunkerCtrl">
                                 <div class="pull-right">
-                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.4.3', '3.1.1', '0.2.8', 'dd-datepicker')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
+                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.4.3', '3.1.1', '0.3.0-SNAPSHOT', 'dd-datepicker')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
                                 </div>
                                 <tabset>
                                     <tab heading="Markup">
                                         <div plunker-content="markup">
                                             <pre ng-non-bindable><code data-language="html">&lt;div ng-controller=&quot;DatepickerDemoCtrl&quot;&gt;
 
-    &lt;div class=&quot;form-inline&quot;&gt;
-         
-         &lt;div class=&quot;form-group&quot;&gt;
-             &lt;input type=&quot;text&quot; 
-               dd-datepicker
-               date-format=&quot;yyyy-MM-dd&quot;
-               ng-model=&quot;date&quot;
-               ng-change=&quot;change()&quot;
-               date-disabled=&quot;disabled(date, mode)&quot; /&gt;
-         &lt;/div&gt;
-         
-&lt;/div&gt;
+    &lt;div class=&quot;form&quot;&gt;
 
-&lt;label&gt;Datetime model:&amp;nbsp;&lt;/label&gt;&lt;span&gt;{{date}}&lt;/span&gt;
-&lt;/div&gt;
-
-</code></pre>
+        &lt;div class=&quot;form-group&quot;&gt;
+            &lt;h4&gt;Basic usage&lt;/h4&gt;
+            &lt;input type=&quot;text&quot; style=&quot;width:150px&quot; dd-datepicker  date-format=&quot;yyyy-MM-dd&quot; ng-model=&quot;date&quot; ng-change=&quot;change()&quot; date-disabled=&quot;disabled(date, mode)&quot; /&gt;
+            &lt;label&gt;Datetime model:&amp;nbsp;&lt;/label&gt;&lt;span&gt;{{date}}&lt;/span&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;form-group&quot;&gt;
+            &lt;h4&gt;Display week day name&lt;/h4&gt;
+            &lt;input type=&quot;text&quot; style=&quot;width:250px&quot; dd-datepicker show-day-name=&quot;true&quot; date-format=&quot;yyyy-MM-dd&quot; ng-model=&quot;date&quot; ng-change=&quot;change()&quot; date-disabled=&quot;disabled(date, mode)&quot; /&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;</code></pre>
                                         </div>
                                     </tab>
                                     <tab heading="JavaScript">
@@ -705,7 +708,7 @@ Allows overriding of default template of the datepicker</p></li>
     $scope.disabled = function (date, mode) {
         var d = new Date();
         d.setHours(0, 0, 0, 0);
-        return (mode === &#x27;day&#x27; &amp;&amp; date &lt; d);
+        return mode === &#x27;day&#x27; &amp;&amp; date &lt; d;
     };
     
     $scope.change = function () {
@@ -726,7 +729,7 @@ Allows overriding of default template of the datepicker</p></li>
     $scope.disabled = function (date, mode) {
         var d = new Date();
         d.setHours(0, 0, 0, 0);
-        return (mode === 'day' && date < d);
+        return mode === 'day' && date < d;
     };
     
     $scope.change = function () {
@@ -745,79 +748,108 @@ Allows overriding of default template of the datepicker</p></li>
                             <div class="col-md-6 show-grid">
                                 <div ng-controller="DdDateTimePickerDemoCtrl">
 
-    <div class="form-group">
-        <div dd-datetimepicker ng-model="dateTime" minute-step="5" date-format="yyyy-MM-dd" date-disabled="disabled(date, mode)"
-        ng-change="change()"></div>
-    </div>
-    <div class="form-group">
-        <label>Datetime:&nbsp;</label><span>{{ dateTime | date:'yyyy-MM-dd HH:mm:ss' }}</span>
-    </div>
-    <div class="form-group">
-        <h4>Disabled state</h4>
-        <div dd-datetimepicker ng-disabled="true" ng-model="dateTime2" minute-step="5" date-disabled="disabled(date, mode)" ng-change="change()"></div>
-    </div>
-    <div class="form-group">
-        <h4>Start from empty</h4>
-        <div dd-datetimepicker ng-disabled="false" ng-model="dateTime3" minute-step="5"></div>
-    </div>
-    <div class="form-group">
-        <label>Datetime:&nbsp;</label><span>{{ dateTime3 | date:'yyyy-MM-dd HH:mm:ss' }}</span>
-    </div>
+    <form name="form">
+        <div class="form-group">
+            <h4>Basic usage with MM-dd format</h4>
+            <div dd-datetimepicker ng-model="dateTime" minute-step="5" date-format="MM-dd" date-disabled="disabled(date, mode)" ng-change="change()"></div>
+        </div>
+        <div class="form-group">
+            <label>Datetime:&nbsp;</label><span>{{ dateTime | date:'yyyy-MM-dd HH:mm:ss' }}</span>
+        </div>
+        <div class="form-group">
+            <h4>Disabled state <small><a href="#" ng-click="disabledPicker = !disabledPicker">Toggle</a></small></h4>
+            <div dd-datetimepicker show-day-name="true" ng-disabled="disabledPicker" ng-model="dateTime2" minute-step="5" date-disabled="disabled(date, mode)"
+            ng-change="change()"></div>
+        </div>
+        <div class="form-group">
+            <h4>Required field</h4>
+            <div dd-datetimepicker ng-required="true" name="dateTime3" show-day-name="true" ng-disabled="false" ng-model="dateTime3"
+            minute-step="5"></div>
+        </div>
+        <div class="form-group">
+            <label>Datetime:&nbsp;</label><span>{{ dateTime3 }}</span>
+            <br />
+            <label>IsValid:&nbsp;</label><span>{{ form.dateTime3.$valid }}</span>
+            <br />
+        </div>
+    </form>
 </div>
                             </div>
                             <div class="col-md-6">
                                 <p>Combined dd-timepicker and dd-datepicker that uses a single Date model.</p>
-
-<h3>Datetimepicker Settings</h3>
-
+<h3 id="datetimepicker-settings">Datetimepicker Settings</h3>
 <ul>
 <li><p><code>ng-model</code>
- :
- The date object.</p></li>
+  :
+  The date object.</p>
+</li>
+<li><p><code>date-format</code>:
+ String. Example: yyyy-MM-dd. See dd-datepicker for more information.</p>
+</li>
+<li><p><code>ng-required</code>
+  :
+  Set as required field.</p>
+</li>
+<li><p><code>show-day-name</code>
+  <em>(Default: false)</em> :
+  Show day name.</p>
+</li>
 <li><p><code>ng-change</code>
- :
- Can be used together with <code>ng-model</code> to call a function whenever the datetime changes.</p></li>
+  :
+  Can be used together with <code>ng-model</code> to call a function whenever the datetime changes.</p>
+</li>
 <li><p><code>date-disabled (date, mode)</code>
- <em>(Default: null)</em> :
- An optional expression to disable visible options based on passing date and current mode <em>(day|month|year)</em>.</p></li>
+  <em>(Default: null)</em> :
+  An optional expression to disable visible options based on passing date and current mode <em>(day|month|year)</em>.</p>
+</li>
 <li><p><code>template-url</code>
-_(Default: 'template/datetimepicker/datetimepicker.html') :
-Allows overriding of default template of the datetimepicker</p></li>
+_(Default: &#39;template/datetimepicker/datetimepicker.html&#39;) :
+Allows overriding of default template of the datetimepicker</p>
+</li>
 <li><p><code>minute-step</code>
- <em>(Defaults: 1)</em> :
-  Number of minutes to increase or decrease when using a timepicker.</p></li>
+  <em>(Defaults: 1)</em> :
+   Number of minutes to increase or decrease when using a timepicker.</p>
+</li>
 </ul>
+
                             </div>
                         </div>
                         <hr>
                         <div class="row code">
                             <div class="col-md-12" ng-controller="PlunkerCtrl">
                                 <div class="pull-right">
-                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.4.3', '3.1.1', '0.2.8', 'dd-datetimepicker')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
+                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.4.3', '3.1.1', '0.3.0-SNAPSHOT', 'dd-datetimepicker')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
                                 </div>
                                 <tabset>
                                     <tab heading="Markup">
                                         <div plunker-content="markup">
                                             <pre ng-non-bindable><code data-language="html">&lt;div ng-controller=&quot;DdDateTimePickerDemoCtrl&quot;&gt;
 
-    &lt;div class=&quot;form-group&quot;&gt;
-        &lt;div dd-datetimepicker ng-model=&quot;dateTime&quot; minute-step=&quot;5&quot; date-format=&quot;yyyy-MM-dd&quot; date-disabled=&quot;disabled(date, mode)&quot;
-        ng-change=&quot;change()&quot;&gt;&lt;/div&gt;
-    &lt;/div&gt;
-    &lt;div class=&quot;form-group&quot;&gt;
-        &lt;label&gt;Datetime:&amp;nbsp;&lt;/label&gt;&lt;span&gt;{{ dateTime | date:&#x27;yyyy-MM-dd HH:mm:ss&#x27; }}&lt;/span&gt;
-    &lt;/div&gt;
-    &lt;div class=&quot;form-group&quot;&gt;
-        &lt;h4&gt;Disabled state&lt;/h4&gt;
-        &lt;div dd-datetimepicker ng-disabled=&quot;true&quot; ng-model=&quot;dateTime2&quot; minute-step=&quot;5&quot; date-disabled=&quot;disabled(date, mode)&quot; ng-change=&quot;change()&quot;&gt;&lt;/div&gt;
-    &lt;/div&gt;
-    &lt;div class=&quot;form-group&quot;&gt;
-        &lt;h4&gt;Start from empty&lt;/h4&gt;
-        &lt;div dd-datetimepicker ng-disabled=&quot;false&quot; ng-model=&quot;dateTime3&quot; minute-step=&quot;5&quot;&gt;&lt;/div&gt;
-    &lt;/div&gt;
-    &lt;div class=&quot;form-group&quot;&gt;
-        &lt;label&gt;Datetime:&amp;nbsp;&lt;/label&gt;&lt;span&gt;{{ dateTime3 | date:&#x27;yyyy-MM-dd HH:mm:ss&#x27; }}&lt;/span&gt;
-    &lt;/div&gt;
+    &lt;form name=&quot;form&quot;&gt;
+        &lt;div class=&quot;form-group&quot;&gt;
+            &lt;h4&gt;Basic usage with MM-dd format&lt;/h4&gt;
+            &lt;div dd-datetimepicker ng-model=&quot;dateTime&quot; minute-step=&quot;5&quot; date-format=&quot;MM-dd&quot; date-disabled=&quot;disabled(date, mode)&quot; ng-change=&quot;change()&quot;&gt;&lt;/div&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;form-group&quot;&gt;
+            &lt;label&gt;Datetime:&amp;nbsp;&lt;/label&gt;&lt;span&gt;{{ dateTime | date:&#x27;yyyy-MM-dd HH:mm:ss&#x27; }}&lt;/span&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;form-group&quot;&gt;
+            &lt;h4&gt;Disabled state &lt;small&gt;&lt;a href=&quot;#&quot; ng-click=&quot;disabledPicker = !disabledPicker&quot;&gt;Toggle&lt;/a&gt;&lt;/small&gt;&lt;/h4&gt;
+            &lt;div dd-datetimepicker show-day-name=&quot;true&quot; ng-disabled=&quot;disabledPicker&quot; ng-model=&quot;dateTime2&quot; minute-step=&quot;5&quot; date-disabled=&quot;disabled(date, mode)&quot;
+            ng-change=&quot;change()&quot;&gt;&lt;/div&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;form-group&quot;&gt;
+            &lt;h4&gt;Required field&lt;/h4&gt;
+            &lt;div dd-datetimepicker ng-required=&quot;true&quot; name=&quot;dateTime3&quot; show-day-name=&quot;true&quot; ng-disabled=&quot;false&quot; ng-model=&quot;dateTime3&quot;
+            minute-step=&quot;5&quot;&gt;&lt;/div&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;form-group&quot;&gt;
+            &lt;label&gt;Datetime:&amp;nbsp;&lt;/label&gt;&lt;span&gt;{{ dateTime3 }}&lt;/span&gt;
+            &lt;br /&gt;
+            &lt;label&gt;IsValid:&amp;nbsp;&lt;/label&gt;&lt;span&gt;{{ form.dateTime3.$valid }}&lt;/span&gt;
+            &lt;br /&gt;
+        &lt;/div&gt;
+    &lt;/form&gt;
 &lt;/div&gt;</code></pre>
                                         </div>
                                     </tab>
@@ -830,7 +862,7 @@ Allows overriding of default template of the datetimepicker</p></li>
 	$scope.disabled = function (date, mode) {
         var d = new Date();
         d.setHours(0, 0, 0, 0);
-        return (mode === &#x27;day&#x27; &amp;&amp; date &lt; d);
+        return mode === &#x27;day&#x27; &amp;&amp; date &lt; d;
     };
     
     $scope.change = function() {
@@ -851,7 +883,7 @@ Allows overriding of default template of the datetimepicker</p></li>
 	$scope.disabled = function (date, mode) {
         var d = new Date();
         d.setHours(0, 0, 0, 0);
-        return (mode === 'day' && date < d);
+        return mode === 'day' && date < d;
     };
     
     $scope.change = function() {
@@ -882,24 +914,20 @@ Allows overriding of default template of the datetimepicker</p></li>
 
     <div class="form-group">
         <h4>5 minutes step: {{time5minutesStep}}</h4>
-        <input id="time1" class="form-control" dd-timepicker minute-step="5" type="text" ng-model="time5minutesStep" />
+        <input id="time1" ng-required="true" class="form-control" dd-timepicker minute-step="5" type="text" ng-model="time5minutesStep" />
     </div>
 
 </div>
                             </div>
                             <div class="col-md-6">
-                                <p>Timepicker allow to enter custom time formats. When user have entered the value, timepicker converts model value to the 24:00 clock format. Also it's possible to use arow up/down to increase or decrease time.</p>
-
-<h3>Timepicker settings</h3>
-
+                                <p>Timepicker allow to enter custom time formats. When user have entered the value, timepicker converts model value to the 24:00 clock format. Also it&#39;s possible to use arow up/down to increase or decrease time.</p>
+<h3 id="timepicker-settings">Timepicker settings</h3>
 <ul>
 <li><code>ng-model</code>
- :
- The time string or Date object.</li>
+  :
+  The time string or Date object.</li>
 </ul>
-
-<h3>Supported formats:</h3>
-
+<h3 id="supported-formats-">Supported formats:</h3>
 <ul>
 <li>8a = 08:00 (If last character is a, the time is am) </li>
 <li>8p = 20:00 (If last character is p the time is pm)</li>
@@ -912,13 +940,14 @@ Allows overriding of default template of the datetimepicker</p></li>
 <li>8:15 = 08:15</li>
 <li>08:15 = 08:15</li>
 </ul>
+
                             </div>
                         </div>
                         <hr>
                         <div class="row code">
                             <div class="col-md-12" ng-controller="PlunkerCtrl">
                                 <div class="pull-right">
-                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.4.3', '3.1.1', '0.2.8', 'dd-timepicker')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
+                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.4.3', '3.1.1', '0.3.0-SNAPSHOT', 'dd-timepicker')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
                                 </div>
                                 <tabset>
                                     <tab heading="Markup">
@@ -937,7 +966,7 @@ Allows overriding of default template of the datetimepicker</p></li>
 
     &lt;div class=&quot;form-group&quot;&gt;
         &lt;h4&gt;5 minutes step: {{time5minutesStep}}&lt;/h4&gt;
-        &lt;input id=&quot;time1&quot; class=&quot;form-control&quot; dd-timepicker minute-step=&quot;5&quot; type=&quot;text&quot; ng-model=&quot;time5minutesStep&quot; /&gt;
+        &lt;input id=&quot;time1&quot; ng-required=&quot;true&quot; class=&quot;form-control&quot; dd-timepicker minute-step=&quot;5&quot; type=&quot;text&quot; ng-model=&quot;time5minutesStep&quot; /&gt;
     &lt;/div&gt;
 
 &lt;/div&gt;</code></pre>
@@ -1034,45 +1063,53 @@ Allows overriding of default template of the datetimepicker</p></li>
                             </div>
                             <div class="col-md-6">
                                 <p>Our lookup, based on UI Bootstrap Typeahead directive.</p>
-
-<h3>Lookup Settings</h3>
-
+<h3 id="lookup-settings">Lookup Settings</h3>
 <ul>
 <li><p><code>ng-model</code>
- :
- The selected item.</p></li>
+  :
+  The selected item.</p>
+</li>
 <li><p><code>url</code>
-:
-Url of the endpoint to fetch data from. Response must be an array, otherwise a response transformer can be used.</p></li>
-<li><p><code>lookup-on-select</code>
  :
- An optional attribute that can be used to specify a callback for the select event.</p></li>
+ Url of the endpoint to fetch data from. Response must be an array, otherwise a response transformer can be used.</p>
+</li>
+<li><p><code>lookup-on-select</code>
+  :
+  An optional attribute that can be used to specify a callback for the select event.</p>
+</li>
 <li><p><code>lookup-params</code>
- <em>(Default: null)</em> :
- An optional object that holds url parameters for the API endpoint.</p></li>
+  <em>(Default: null)</em> :
+  An optional object that holds url parameters for the API endpoint.</p>
+</li>
 <li><p><code>template-url</code>
-_(Default: 'template/lookup/lookup.html') :
-Allows overriding of default template of the lookup.</p></li>
+ _(Default: &#39;template/lookup/lookup.html&#39;) :
+ Allows overriding of default template of the lookup.</p>
+</li>
 <li><p><code>lookup-format</code>
-:
-An optional attribute that allows to specify a function that formats the item labels.</p></li>
+ :
+ An optional attribute that allows to specify a function that formats the item labels.</p>
+</li>
 <li><p><code>placeholder</code>
-:
-Adds a placeholder attribute to the lookup input.</p></li>
+ :
+ Adds a placeholder attribute to the lookup input.</p>
+</li>
 <li><p><code>required</code>
-:
-Adds a required attribute to the lookup input.</p></li>
+ :
+ Adds a required attribute to the lookup input.</p>
+</li>
 <li><p><code>lookup-response-transform</code>
-:
-An optional attribute that allows to specify a function that transforms response. Useful when response is not an array.</p></li>
+ :
+ An optional attribute that allows to specify a function that transforms response. Useful when response is not an array.</p>
+</li>
 </ul>
+
                             </div>
                         </div>
                         <hr>
                         <div class="row code">
                             <div class="col-md-12" ng-controller="PlunkerCtrl">
                                 <div class="pull-right">
-                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.4.3', '3.1.1', '0.2.8', 'lookup')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
+                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.4.3', '3.1.1', '0.3.0-SNAPSHOT', 'lookup')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
                                 </div>
                                 <tabset>
                                     <tab heading="Markup">
@@ -1146,7 +1183,7 @@ An optional attribute that allows to specify a function that transforms response
         var params = getJsonFromUrl(url);
         if (params.currentVehicle) {
             drivers = drivers.filter(function(d) {
-                return d.currentVehicle == params.currentVehicle;
+                return d.currentVehicle === params.currentVehicle;
             });
         }
 
@@ -1213,7 +1250,7 @@ An optional attribute that allows to specify a function that transforms response
         var params = getJsonFromUrl(url);
         if (params.currentVehicle) {
             drivers = drivers.filter(function(d) {
-                return d.currentVehicle == params.currentVehicle;
+                return d.currentVehicle === params.currentVehicle;
             });
         }
 
@@ -1301,13 +1338,14 @@ An optional attribute that allows to specify a function that transforms response
                             </div>
                             <div class="col-md-6">
                                 <p>These validation directives are dedicated to validate different format user inputs.</p>
+
                             </div>
                         </div>
                         <hr>
                         <div class="row code">
                             <div class="col-md-12" ng-controller="PlunkerCtrl">
                                 <div class="pull-right">
-                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.4.3', '3.1.1', '0.2.8', 'validation')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
+                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.4.3', '3.1.1', '0.3.0-SNAPSHOT', 'validation')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
                                 </div>
                                 <tabset>
                                     <tab heading="Markup">
