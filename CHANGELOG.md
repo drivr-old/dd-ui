@@ -1,3 +1,27 @@
+<a name="0.2.9"></a>
+## [0.2.9](//compare/0.2.8...v0.2.9) (2016-02-17)
+
+
+### Features
+
+* **datetimepicker:** move week day label to dd-datepicker ec520cc
+* **datetimepicker:** update docs 8505e39
+* **fix:** add important to datepicker width e066093
+* **fix:** added ngRequired support for dd-datetimepicker 7293f4e
+* **fix:** eslint fixes 9398d17
+* **fix:** fix eslint warnings and unit tests 768d3f4
+* **fix:** load css files for karma 4bda704
+* **fix:** sync dd-datepicker after dd-datetimepicker time change 63684ec
+* **fix:** update docs 4ecd216
+* **fix:** update package.json 8692d14
+* **fix:** update travis compiler b11270c
+* **fix:** validate custom user date using dateDisabled 54589fb
+* **fix:** wrap to iife c2bafe4
+* **grunt:** move css to separate files d6bab2f
+* **grunt:** update grunt tasks 2029a78
+
+
+
 # 0.2.8 (2016-02-12)
 
 ## Features
