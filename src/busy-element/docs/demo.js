@@ -2,7 +2,7 @@ angular.module('dd.ui.demo').controller('BusyElementDemoCtrl', function ($scope,
 	$scope.items = [
 		{id: 'item1', status: ''},
 		{id: 'item2', status: ''},
-		{id: 'item3', status: ''},
+		{id: 'item3', status: ''}
 	];
 
 	$scope.updated = function(el) {

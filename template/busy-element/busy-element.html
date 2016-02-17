@@ -1,36 +1,4 @@
 <div class="be-container" style="margin-left: -{{ marginLeft }}; margin-top: -{{ marginTop }}">
-<style>
-.be-container {
-    position: absolute;
-    z-index: 1;
-}
-
-.be-overlay {
-    background-color: rgba(255, 255, 255, 0.7);
-    text-align: center;
-}
-
-.be-overlay.success {
-    background-color: rgba(0, 128, 0, 0.15);
-}
-
-.be-overlay.fail {
-    background-color: rgba(128, 0, 0, 0.15);
-}
-
-.be-animate {
-    -webkit-transition:opacity 0.5s;
-    transition:opacity 0.5s;
-    opacity:1;
-}
-
-.be-animate.ng-hide-add, .be-animate.ng-hide-remove {
-    display: block !important;
-}
-.be-animate.ng-hide {
-    opacity:0;
-}
-</style>
     <div class="be-overlay" ng-show="busy" style="width: {{ width }}px; height: {{ height }}px; line-height: {{ height }}px">
         <img src="https://drivr.com/img/spinner.gif" />
     </div>

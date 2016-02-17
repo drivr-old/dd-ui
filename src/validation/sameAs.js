@@ -24,10 +24,10 @@ angular.module('dd.ui.validation.sameAs', [])
         if (viewValue === eth) {
           ctrl.$setValidity('sameAs', true);
           return viewValue;
-        } else {
-          ctrl.$setValidity('sameAs', false);
-          return undefined;
         }
+        
+        ctrl.$setValidity('sameAs', false);
+        return undefined;
       }
     },
     scope: {

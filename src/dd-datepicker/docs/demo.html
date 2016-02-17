@@ -1,18 +1,15 @@
 <div ng-controller="DatepickerDemoCtrl">
 
-    <div class="form-inline">
-         
-         <div class="form-group">
-             <input type="text" 
-               dd-datepicker
-               date-format="yyyy-MM-dd"
-               ng-model="date"
-               ng-change="change()"
-               date-disabled="disabled(date, mode)" />
-         </div>
-         
-</div>
+    <div class="form">
 
-<label>Datetime model:&nbsp;</label><span>{{date}}</span>
+        <div class="form-group">
+            <h4>Basic usage</h4>
+            <input type="text" style="width:150px" dd-datepicker  date-format="yyyy-MM-dd" ng-model="date" ng-change="change()" date-disabled="disabled(date, mode)" />
+            <label>Datetime model:&nbsp;</label><span>{{date}}</span>
+        </div>
+        <div class="form-group">
+            <h4>Display week day name</h4>
+            <input type="text" style="width:250px" dd-datepicker show-day-name="true" date-format="yyyy-MM-dd" ng-model="date" ng-change="change()" date-disabled="disabled(date, mode)" />
+        </div>
+    </div>
 </div>
-

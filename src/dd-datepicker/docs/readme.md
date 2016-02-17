@@ -9,7 +9,11 @@ dd-ui Datepicker allows to enter custom date formats and use original bootstrap 
  * `date-format`
  	:
  	Date format string. In .Net it can be taken from CultureInfo.CurrentCulture.DateTimeFormat.ShortDatePattern
-
+     
+ * `show-day-name`
+ 	_(Default: false)_ ::
+ 	Show day name.
+     
  * `ng-change`
  	:
  	Can be used together with `ng-model` to call a function whenever the datetime changes.

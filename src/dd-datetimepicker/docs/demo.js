@@ -5,7 +5,7 @@ angular.module('dd.ui.demo').controller('DdDateTimePickerDemoCtrl', ['$scope', f
 	$scope.disabled = function (date, mode) {
         var d = new Date();
         d.setHours(0, 0, 0, 0);
-        return (mode === 'day' && date < d);
+        return mode === 'day' && date < d;
     };
     
     $scope.change = function() {

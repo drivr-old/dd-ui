@@ -14,7 +14,8 @@ module.exports = function(config) {
       'misc/test-lib/ui-bootstrap-tpls.js',
       'misc/test-lib/es6-polyfills.js',
       'src/**/*.js',
-      'template/**/*.js'
+      'template/**/*.js',
+      'template/**/*.css'
     ],
 
     // list of files to exclude
@@ -53,7 +54,7 @@ module.exports = function(config) {
     logLevel: config.LOG_INFO,
 
     // enable / disable watching file and executing tests whenever any file changes
-    autoWatch: false,
+    autoWatch: true,
 
     // Continuous Integration mode
     // if true, it capture browsers, run tests and exit
