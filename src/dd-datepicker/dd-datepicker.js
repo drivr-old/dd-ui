@@ -46,8 +46,8 @@
                         if (canUpdateDisplayModel) {
                             updateDisplayModel(newValue);
                         }
-                        updateDayLabel();
                     }
+                    updateDayLabel();
                 });
 
                 scope.$watch('ngModel', function () {
