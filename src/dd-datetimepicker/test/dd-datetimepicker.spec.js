@@ -96,7 +96,33 @@ describe('datetimepicker', function () {
             expect(element.isolateScope().time).toBeDefined();
         });
     });
-    
+
+    describe('Adjust date', function () {
+        it('set next day if allowAdjustDate=true', function () {
+            $scope.dateTime = new Date('2015-08-30T15:00:00+00:00');
+            $scope.allowAdjustDate = true;
+            $scope.$digest();
+            
+            changeInputValue(timepickerElement, createTime(8, 30));
+            timepickerElement.blur();
+            
+            console.log(element.isolateScope().ngModel);
+            expect(element.isolateScope().ngModel.getDate()).toBe(31);
+        });
+        
+        it('dont set next day allowAdjustDate=false', function () {
+            $scope.dateTime = new Date('2015-08-30T15:00:00+00:00');
+            $scope.allowAdjustDate = false;
+            $scope.$digest();
+            
+            changeInputValue(timepickerElement, createTime(8, 30));
+            timepickerElement.blur();
+            
+            console.log(element.isolateScope().ngModel);
+            expect(element.isolateScope().ngModel.getDate()).toBe(30);
+        });
+    });
+
     function changeInputValue(el, value) {
         el.val(value);
         el.trigger($sniffer.hasEvent('input') ? 'input' : 'change');
@@ -110,7 +136,7 @@ describe('datetimepicker', function () {
     }
 
     function compileElement($scope) {
-        var element = $compile('<div dd-datetimepicker ng-change="change()" ng-model="dateTime"></div>')($scope);
+        var element = $compile('<div dd-datetimepicker ng-change="change()" allow-adjust-date="allowAdjustDate" ng-model="dateTime"></div>')($scope);
         element.appendTo($document[0].body);
         $scope.$digest();
         return element;
