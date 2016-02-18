@@ -1,4 +1,22 @@
 <a name="0.2.9"></a>
+## [0.2.9](//compare/0.2.9...v0.2.9) (2016-02-18)
+
+
+### Bug Fixes
+
+* **datepicker:** update day name label eef6eb3
+* **datetimepicker:** if ngModel changes rerun internal logic 5c7dc56
+* **datetimepicker:** rename to allow-forward-date-adjustment 730d7f2
+* **timepicker:** remove uneeded code 11c641d
+
+### Features
+
+* **datetimepicker:** added scope.allowAdjustDate property and logic e78b60e
+* **datetimepicker:** update docs for datetimepicker ab87afe
+
+
+
+<a name="0.2.9"></a>
 ## [0.2.9](//compare/0.2.8...v0.2.9) (2016-02-17)
 
 
