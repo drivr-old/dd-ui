@@ -13,6 +13,10 @@ Combined dd-timepicker and dd-datepicker that uses a single Date model.
  	:
  	Set as required field.
      
+ * `allow-forward-date-adjustment`
+ 	_(Default: false)_ :
+ 	If true and user enter time less than current time jump to next day.
+     
  * `show-day-name`
  	_(Default: false)_ :
  	Show day name.
