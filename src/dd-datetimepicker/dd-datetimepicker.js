@@ -22,17 +22,22 @@ angular.module('dd.ui.dd-datetimepicker', ['ui.bootstrap'])
 
                 var timeChanged = false;
                 var timepickerElement = element.find('.timepicker-container input');
+                var canExecuteNgModelChanges = true;
 
                 scope.time = null;
+                scope.date = null;
                 scope.dateChange = dateChange;
                 scope.timeChange = timeChange;
-            
-                initTime();
-            
+
+                init();
+                
                 scope.$watch('ngModel', function (value) {
-                    if (scope.ngModel && scope.time) {
-                        updateNgModelTime(scope.time);
+                    if (canExecuteNgModelChanges){
+                        init();
                     }
+                });
+
+                scope.$watch('date', function (newTime, oldTime) {
                     setValidity();
                 });
 
@@ -45,56 +50,61 @@ angular.module('dd.ui.dd-datetimepicker', ['ui.bootstrap'])
                 });
 
                 function dateChange() {
-                    if (scope.ngModel && scope.time) {
-                        updateNgModelTime(scope.time);
-                        updateViewValue(scope.ngModel);
-                    }
+                    updateMainModel();
                     applyNgChange();
                 }
 
                 function timeChange() {
                     timeChanged = true;
-                    if (scope.ngModel && scope.time) {
-                        ensureDateTypes();
-                        var newValue = new Date(scope.ngModel);
-                        newValue.setHours(scope.time.getHours(), scope.time.getMinutes(), 0, 0);
-                        updateNgModelTime(newValue);
-                        updateViewValue(newValue);
-                    }
+                    updateMainModel();
                     applyNgChange();
                 }
 
-                function updateViewValue(value) {
-                    ctrl.$setViewValue(value);
-                }
-
-
-                function initTime() {
-                    scope.time = angular.copy(scope.ngModel);
-                }
-
-                function updateNgModelTime(time) {
+                function updateMainModel() {
+                    canExecuteNgModelChanges = false;
                     ensureDateTypes();
-                    scope.ngModel.setHours(time.getHours(), time.getMinutes(), 0, 0);
+                    
+                    var model = angular.copy(scope.date);
+                    if (model) {
+                        if (scope.time) {
+                            model.setHours(scope.time.getHours(), scope.time.getMinutes(), 0, 0);
+                        } else {
+                            model.setHours(0, 0, 0, 0);
+                        }
+                    }
+                    ctrl.$setViewValue(model);
+                    ctrl.$render();
+                    
+                    $timeout(function () {
+                        canExecuteNgModelChanges = true;
+                    }, 500);
+                }
+
+                function init() {
+                    ctrl.$modelValue = angular.copy(scope.ngModel);
+                    scope.time = angular.copy(ctrl.$modelValue);
+                    scope.date = angular.copy(ctrl.$modelValue);
                 }
 
                 function ensureDateTypes() {
-                    if (!(scope.ngModel instanceof Date)) {
-                        scope.ngModel = new Date(scope.ngModel);
+                    if (scope.date && !(scope.date instanceof Date)) {
+                        scope.date = new Date(scope.date);
                     }
-                    if (!(scope.time instanceof Date)) {
+                    if (scope.time && !(scope.time instanceof Date)) {
                         scope.time = new Date(scope.time);
                     }
                 }
 
                 function applyNgChange() {
                     if (scope.ngChange) {
-                        scope.ngChange();
+                        $timeout(function () {
+                            scope.ngChange();
+                        });
                     }
                 }
 
                 function setValidity() {
-                    if (scope.ngRequired && (!scope.time || !scope.ngModel)) {
+                    if (scope.ngRequired && (!scope.time || !scope.date)) {
                         ctrl.$setValidity('required', false);
                     } else {
                         ctrl.$setValidity('required', true);
@@ -102,15 +112,16 @@ angular.module('dd.ui.dd-datetimepicker', ['ui.bootstrap'])
                 }
 
                 function jumpToNextDayIfPossible() {
-                    if (!scope.ngModel || !scope.time) {
+                    if (!scope.date || !scope.time) {
                         return;
                     }
 
-                    var currentDate = scope.ngModel.getDate();
+                    var currentDate = scope.date.getDate();
                     var canAddDay = canAddDayIfUserDecreaseTime();
 
                     if (canAddDay) {
-                        scope.ngModel.setDate(currentDate + 1);
+                        scope.date.setDate(currentDate + 1);
+                        updateMainModel();
                         syncDatepickerModel();
                         notifyWithDatepickerChange();
                         _addDayExecuted = canAddDay;
@@ -119,7 +130,7 @@ angular.module('dd.ui.dd-datetimepicker', ['ui.bootstrap'])
 
                 var _addDayExecuted = false;
                 function canAddDayIfUserDecreaseTime() {
-                    return scope.allowForwardDateAdjustment && !_addDayExecuted && timeChanged && scope.ngModel.getTime() < new Date().getTime();
+                    return scope.allowForwardDateAdjustment && !_addDayExecuted && timeChanged && ctrl.$modelValue.getTime() < new Date().getTime();
                 }
 
                 function notifyWithDatepickerChange() {
@@ -131,7 +142,7 @@ angular.module('dd.ui.dd-datetimepicker', ['ui.bootstrap'])
                 }
 
                 function syncDatepickerModel(element) {
-                    scope.$broadcast('ddDatepicker:sync', { model: scope.ngModel });
+                    scope.$broadcast('ddDatepicker:sync', { model: ctrl.$modelValue });
                 }
 
             }

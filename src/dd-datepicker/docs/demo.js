@@ -12,4 +12,13 @@ angular.module('dd.ui.demo').controller('DatepickerDemoCtrl', function ($scope) 
         console.log($scope.date, 'changed');
     };
     
+    $scope.setToNow = function() {
+        console.log('setToNow');
+        $scope.date = new Date();
+    };
+    
+    $scope.setToEmpty = function() {
+        console.log('setToEmpty');
+        $scope.date = null;
+    };
 });

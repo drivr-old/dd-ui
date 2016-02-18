@@ -26,14 +26,13 @@ describe('datetimepicker', function () {
 
     describe('Model change', function () {
 
-        it('does not change the time value if model is empty and it is not the first change.', function () {
+        it('does not change the time value if date set to empty', function () {
             $scope.dateTime = new Date('2015-08-30T16:00+00:00');
             $scope.$digest();
 
             var time = element.isolateScope().time;
 
-            $scope.dateTime = '';
-            $scope.$digest();
+            changeInputValue(datepickerElement, '');
 
             expect(element.isolateScope().time).toEqual(time);
         });
@@ -47,8 +46,32 @@ describe('datetimepicker', function () {
 
             expect(element.isolateScope().ngModel).toBe($scope.dateTime);
         });
-    });
 
+        it('set current date and time', function () {
+            $scope.dateTime = null;
+            $scope.$digest();
+
+            $scope.dateTime = new Date('2015-08-30T15:00+00:00');
+            $scope.$digest();
+
+            expect(element.isolateScope().date.getTime()).toBe($scope.dateTime.getTime());
+            expect(element.isolateScope().time.getTime()).toBe($scope.dateTime.getTime());
+        });
+
+        it('set empty date and time', function () {
+            $scope.dateTime = new Date('2015-08-30T00:00+00:00');
+            $scope.$digest();
+
+            $scope.dateTime = null;
+            $scope.$digest();
+
+            expect(element.isolateScope().date).toBe(null);
+            expect(element.isolateScope().time).toBe(null);
+            expect(datepickerElement.val()).toBe('');
+            expect(timepickerElement.val()).toBe('');
+        });
+    });
+    
     describe('Date change', function () {
 
         it('notifies the controller via ng-change.', function () {
@@ -61,6 +84,17 @@ describe('datetimepicker', function () {
             changeInputValue(datepickerElement, isoDate);
 
             expect(date).toBeDefined();
+        });
+
+        it('update ngModel after date change', function () {
+            $scope.dateTime = null;
+            $scope.$digest();
+
+            var date = '2015-08-31';
+            changeInputValue(datepickerElement, date);
+
+            expect($scope.dateTime).toBeDefined();
+
         });
     });
 
@@ -89,11 +123,12 @@ describe('datetimepicker', function () {
     });
 
     describe('Init', function () {
-        it('sets default time from model.', function () {
+        it('sets default time and date from model.', function () {
             $scope.dateTime = new Date();
             var element = compileElement($scope);
 
             expect(element.isolateScope().time).toBeDefined();
+            expect(element.isolateScope().date).toBeDefined();
         });
     });
 

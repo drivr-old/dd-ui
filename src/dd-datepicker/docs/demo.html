@@ -3,7 +3,7 @@
     <div class="form">
 
         <div class="form-group">
-            <h4>Basic usage</h4>
+            <h4>Basic usage <small><a href="#" ng-click="setToNow()">Set to now</a> | <a href="#" ng-click="setToEmpty()">Set to empty</a></small></h4>
             <input type="text" style="width:150px" dd-datepicker  date-format="yyyy-MM-dd" ng-model="date" ng-change="change()" date-disabled="disabled(date, mode)" />
             <label>Datetime model:&nbsp;</label><span>{{date}}</span>
         </div>
