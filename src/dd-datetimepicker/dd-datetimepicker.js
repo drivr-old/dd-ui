@@ -16,7 +16,7 @@ angular.module('dd.ui.dd-datetimepicker', ['ui.bootstrap'])
                 ngChange: '&?',
                 dateFormat: '@',
                 showDayName: '=?',
-                allowAdjustDate: '=?'
+                allowForwardDateAdjustment: '=?'
             },
             link: function (scope, element, attrs, ctrl) {
 
@@ -119,7 +119,7 @@ angular.module('dd.ui.dd-datetimepicker', ['ui.bootstrap'])
 
                 var _addDayExecuted = false;
                 function canAddDayIfUserDecreaseTime() {
-                    return scope.allowAdjustDate && !_addDayExecuted && timeChanged && scope.ngModel.getTime() < new Date().getTime();
+                    return scope.allowForwardDateAdjustment && !_addDayExecuted && timeChanged && scope.ngModel.getTime() < new Date().getTime();
                 }
 
                 function notifyWithDatepickerChange() {

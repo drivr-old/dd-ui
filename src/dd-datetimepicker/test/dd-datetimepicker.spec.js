@@ -98,9 +98,9 @@ describe('datetimepicker', function () {
     });
 
     describe('Adjust date', function () {
-        it('set next day if allowAdjustDate=true', function () {
+        it('set next day if allowForwardDateAdjustment=true', function () {
             $scope.dateTime = new Date('2015-08-30T15:00:00+00:00');
-            $scope.allowAdjustDate = true;
+            $scope.allowForwardDateAdjustment = true;
             $scope.$digest();
             
             changeInputValue(timepickerElement, createTime(8, 30));
@@ -110,9 +110,9 @@ describe('datetimepicker', function () {
             expect(element.isolateScope().ngModel.getDate()).toBe(31);
         });
         
-        it('dont set next day allowAdjustDate=false', function () {
+        it('dont set next day allowForwardDateAdjustment=false', function () {
             $scope.dateTime = new Date('2015-08-30T15:00:00+00:00');
-            $scope.allowAdjustDate = false;
+            $scope.allowForwardDateAdjustment = false;
             $scope.$digest();
             
             changeInputValue(timepickerElement, createTime(8, 30));
@@ -136,7 +136,7 @@ describe('datetimepicker', function () {
     }
 
     function compileElement($scope) {
-        var element = $compile('<div dd-datetimepicker ng-change="change()" allow-adjust-date="allowAdjustDate" ng-model="dateTime"></div>')($scope);
+        var element = $compile('<div dd-datetimepicker ng-change="change()" allow-forward-date-adjustment="allowForwardDateAdjustment" ng-model="dateTime"></div>')($scope);
         element.appendTo($document[0].body);
         $scope.$digest();
         return element;
