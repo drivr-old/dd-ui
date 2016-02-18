@@ -1,13 +1,13 @@
 (function () {
     'use strict';
-    
+
     angular.module('dd.ui.dd-datepicker', ['ui.bootstrap'])
         .constant('days', ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'])
         .directive('ddDatepicker', DatepickerDirective)
         .service('datepickerParserService', datepickerParserService);
 
-    DatepickerDirective.$inject = ['dateFilter', 'datepickerParserService', 'days'];
-    function DatepickerDirective(dateFilter, datepickerParserService, days) {
+    DatepickerDirective.$inject = ['$timeout', 'dateFilter', 'datepickerParserService', 'days'];
+    function DatepickerDirective($timeout, dateFilter, datepickerParserService, days) {
 
         var directive = {
             restrict: 'EA',
@@ -30,6 +30,7 @@
 
                 var input = angular.element(element.find('.display-input'));
                 var canUpdateDisplayModel = true;
+                var canExecuteNgModelChanges = true;
 
                 scope.dayName = null;
                 scope.dateFormat = attrs.dateFormat || 'yyyy-MM-dd';
@@ -40,11 +41,20 @@
                 init();
 
                 scope.$watch('boostrapDateModel', function (newValue, oldValue) {
-                    updateMainModel(newValue);
-                    if (canUpdateDisplayModel) {
-                        updateDisplayModel(newValue);
+                    if (newValue) {
+                        updateMainModel(newValue);
+                        if (canUpdateDisplayModel) {
+                            updateDisplayModel(newValue);
+                        }
                     }
                     updateDayLabel();
+                });
+
+                scope.$watch('ngModel', function () {
+                    if (canExecuteNgModelChanges) {
+                        updateDisplay();
+                        updateDayLabel();
+                    }
                 });
 
                 scope.$on('ddDatepicker:sync', function (event, args) {
@@ -52,16 +62,14 @@
                 });
 
                 input.on('blur', function () {
-                    updateDisplayModel(scope.ngModel);
-                    canUpdateDisplayModel = true;
-                    scope.$apply();
+                    scope.$apply(updateDisplay);
                 });
 
                 function parseUserInput() {
                     var parsedDate = datepickerParserService.parse(scope.displayModel, scope.dateFormat, scope.dateDisabled);
                     updateMainModel(parsedDate);
                     canUpdateDisplayModel = false;
-                    updateBootstrapDateModel(scope.ngModel);
+                    updateBootstrapDateModel(ctrl.$modelValue);
                 }
 
                 function open($event) {
@@ -71,11 +79,17 @@
                 }
 
                 function init() {
-                    updateBootstrapDateModel(scope.ngModel);
+                    ctrl.$modelValue = angular.copy(scope.ngModel);
+                    updateBootstrapDateModel(ctrl.$modelValue);
                 }
 
                 function updateBootstrapDateModel(date) {
                     scope.boostrapDateModel = angular.copy(date);
+                }
+
+                function updateDisplay() {
+                    updateDisplayModel(ctrl.$modelValue);
+                    canUpdateDisplayModel = true;
                 }
 
                 function updateDisplayModel(date) {
@@ -83,13 +97,20 @@
                 }
 
                 function updateMainModel(date) {
-                    scope.ngModel = date;
+                    canExecuteNgModelChanges = false;
+                    ctrl.$setViewValue(date);
+                    ctrl.$render();
                     applyNgChange();
+                    $timeout(function () {
+                        canExecuteNgModelChanges = true;
+                    }, 500);
                 }
 
                 function applyNgChange() {
                     if (scope.ngChange) {
-                        scope.ngChange();
+                        $timeout(function () {
+                            scope.ngChange();
+                        });
                     }
                 }
 
@@ -100,10 +121,10 @@
                 }
 
                 function getDayLabel() {
-                    if (!scope.ngModel) {
+                    if (!ctrl.$modelValue) {
                         return null;
                     }
-                    return days[scope.ngModel.getDay()];
+                    return days[ctrl.$modelValue.getDay()];
                 }
             }
         };
@@ -114,7 +135,7 @@
     datepickerParserService.$inject = ['dateParser'];
     function datepickerParserService(dateParser) {
         var self = this;
-        
+
         var mmDdPattern = /^(0?[1-9]|1[012])[-\/\s]?(0?[1-9]|[12][0-9]|3[01])$/,
             mmDdFormatPattern = /(MM)[-\/\s](dd)/,
             datePartsPattern = /(..)[-\/\s]?(..)/;

@@ -58,13 +58,6 @@
                 function updateViewValue(value) {
                     ctrl.$setViewValue(value);
                     ctrl.$render();
-                    applyNgChange();
-                }
-
-                function applyNgChange() {
-                    if (scope.ngChange) {
-                        scope.ngChange();
-                    }
                 }
             }
         };
