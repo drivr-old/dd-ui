@@ -3,7 +3,7 @@
     <input type="text"
            ng-model="ngModel"
            autocomplete="off"
-           uib-typeahead="d as getLabel(d) for d in getItems($viewValue)"
+           typeahead="d as getLabel(d) for d in getItems($viewValue)"
            typeahead-on-select="onSelect($item, $model, $label)"
            typeahead-editable="false"
            typeahead-no-results="noResults"

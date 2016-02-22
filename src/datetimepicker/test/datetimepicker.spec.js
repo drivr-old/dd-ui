@@ -21,8 +21,8 @@ describe('datetimepicker', function() {
 			$scope.$digest();
 
 			datepickerElement = element.find('.datepicker-input');
-			hourElement = element.find('[uib-timepicker] input:eq(0)');
-			minuteElement = element.find('[uib-timepicker] input:eq(1)');
+			hourElement = element.find('[timepicker] input:eq(0)');
+			minuteElement = element.find('[timepicker] input:eq(1)');
 		});
 	});
 

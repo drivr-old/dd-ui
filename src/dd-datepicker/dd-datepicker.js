@@ -132,8 +132,8 @@
         return directive;
     }
 
-    datepickerParserService.$inject = ['uibDateParser'];
-    function datepickerParserService(uibDateParser) {
+    datepickerParserService.$inject = ['dateParser'];
+    function datepickerParserService(dateParser) {
         var self = this;
 
         var mmDdPattern = /^(0?[1-9]|1[012])[-\/\s]?(0?[1-9]|[12][0-9]|3[01])$/,
@@ -163,7 +163,7 @@
                 return buildNewDate(input);
             }
 
-            return uibDateParser.parse(input, format);
+            return dateParser.parse(input, format);
         }
 
         function validateWithDisabledDate(parsedDate, dateDisabled) {
