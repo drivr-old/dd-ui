@@ -35,8 +35,11 @@
                 scope.dayName = null;
                 scope.dateFormat = attrs.dateFormat || 'yyyy-MM-dd';
                 scope.useShortDateFormat = scope.dateFormat.length < 6;
+                
                 scope.parseUserInput = parseUserInput;
-                scope.open = open;
+                
+                scope.calendarOpened = false;
+                scope.openCalendar = openCalendar;
 
                 init();
 
@@ -56,6 +59,12 @@
                         updateDayLabel();
                     }
                 });
+                
+                scope.$watch('calendarOpened', function(newValue, oldValue) {
+                    if (!newValue && oldValue) {
+                        input.focus();
+                    }
+                });
 
                 scope.$on('ddDatepicker:sync', function (event, args) {
                     scope.boostrapDateModel = args.model;
@@ -72,10 +81,10 @@
                     updateBootstrapDateModel(ctrl.$modelValue);
                 }
 
-                function open($event) {
+                function openCalendar($event) {
                     $event.preventDefault();
                     $event.stopPropagation();
-                    scope.opened = true;
+                    scope.calendarOpened = true;
                 }
 
                 function init() {
