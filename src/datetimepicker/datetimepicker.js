@@ -28,7 +28,7 @@ angular.module('dd.ui.datetimepicker', ['ui.bootstrap'])
 			scope.$watch('ngModel', function(newTime) {
 				// if a time element is focused, updating its model will cause hours/minutes to be formatted by padding with leading zeros
 				if (!timePickerElement.contains($document[0].activeElement)) {
-					if (newTime === undefined || newTime === '') { // if the newTime is not defined
+					if (!newTime) { // if the newTime is not defined
 						if (firstTimeAssign) { // if it's the first time we assign the time value
 							// create a new default time where the hours, minutes, seconds and milliseconds are set to 0.
 							newTime = new Date();
