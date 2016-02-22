@@ -1,3 +1,19 @@
+<a name="0.3.1"></a>
+## [0.3.1](//compare/0.3.0...v0.3.1) (2016-02-22)
+
+
+### Bug Fixes
+
+* **datetimepicker:** if date is cleared do not change time 6c75723
+
+### Features
+
+* **bootstrap:** revert update ui-bootstrap to latests version 84f6c00
+* **bootstrap:** update ui-bootstrap to latests version 52ca9ea
+* **uibootstrap:** update ui-bootstrap-tpls to latest 8ddf28c
+
+
+
 <a name="0.3.0"></a>
 # [0.3.0](//compare/0.2.9...v0.3.0) (2016-02-18)
 
