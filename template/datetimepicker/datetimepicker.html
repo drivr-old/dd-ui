@@ -1,6 +1,6 @@
 <div class="form-inline">
 	<div class="form-group timepicker-container">
-		<div timepicker
+		<div uib-timepicker
 			ng-model="time"
 			ng-disabled="ngDisabled"
 			show-meridian="showMeridian"
@@ -11,7 +11,7 @@
 	</div>
 	<div class="form-group datepicker-container">
 		<input class="form-control datepicker-input" type="text" style="width: 100px"
-				datepicker-popup
+				uib-datepicker-popup
 				ng-click="open($event)"
 				ng-change="dateChange($event)"
 				is-open="opened"
