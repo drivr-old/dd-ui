@@ -3,6 +3,7 @@ describe('datetimepicker', function () {
         $sniffer,
         $document,
         $compile,
+        $timeout,
         element,
         currentYear = new Date().getFullYear();
 
@@ -10,17 +11,15 @@ describe('datetimepicker', function () {
         module('dd.ui.dd-datepicker');
         module('template/dd-datepicker/dd-datepicker.html');
 
-        inject(function ($rootScope, _$compile_, _$sniffer_, _$document_) {
+        inject(function ($rootScope, _$compile_, _$sniffer_, _$document_, _$timeout_) {
             $scope = $rootScope.$new();
             $sniffer = _$sniffer_;
             $document = _$document_;
             $compile = _$compile_;
+            $timeout = _$timeout_;
 
             $scope.dateFormat = 'yyyy-MM-dd';
             element = compileElement($scope);
-            element.appendTo($document[0].body);
-            $scope.$digest();
-
         });
     });
 
@@ -70,17 +69,17 @@ describe('datetimepicker', function () {
 
         it('abcd', function () {
             changeInputValue(element, 'abcd');
-            expect(element.isolateScope().ngModel).toBe('');
+            expect(element.isolateScope().ngModel).toBe(null);
         });
 
         it('9999', function () {
             changeInputValue(element, '9999');
-            expect(element.isolateScope().ngModel).toBe('');
+            expect(element.isolateScope().ngModel).toBe(null);
         });
 
         it('10.50', function () {
             changeInputValue(element, '10.50');
-            expect(element.isolateScope().ngModel).toBe('');
+            expect(element.isolateScope().ngModel).toBe(null);
         });
     });
 
@@ -96,7 +95,7 @@ describe('datetimepicker', function () {
 
             changeInputValue(element, '08-12');
             
-            expect(element.isolateScope().ngModel).toBe('');
+            expect(element.isolateScope().ngModel).toBe(null);
         });
         
         it('return date if in range', function () {
@@ -125,6 +124,7 @@ describe('datetimepicker', function () {
         var input = el.find('input');
         input.val(value);
         input.trigger($sniffer.hasEvent('input') ? 'input' : 'change');
-        $scope.$digest();
+        input.trigger('blur');
+        $timeout.flush();
     }
 });
