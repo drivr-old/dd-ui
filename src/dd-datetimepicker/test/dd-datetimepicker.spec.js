@@ -3,6 +3,7 @@ describe('datetimepicker', function () {
         $sniffer,
         $document,
         $compile,
+        $timeout,
         element,
         datepickerElement,
         timepickerElement;
@@ -11,11 +12,12 @@ describe('datetimepicker', function () {
         module('dd.ui.dd-datetimepicker');
         module('template/dd-datetimepicker/dd-datetimepicker.html');
 
-        inject(function ($rootScope, _$compile_, _$sniffer_, _$document_) {
+        inject(function ($rootScope, _$compile_, _$sniffer_, _$document_, _$timeout_) {
             $scope = $rootScope.$new();
             $sniffer = _$sniffer_;
             $document = _$document_;
             $compile = _$compile_;
+            $timeout = _$timeout_;
 
             element = compileElement($scope);
 
@@ -48,9 +50,11 @@ describe('datetimepicker', function () {
         });
 
         it('set current date and time', function () {
+            $timeout.flush();
             $scope.dateTime = null;
             $scope.$digest();
-
+            
+            $timeout.flush();
             $scope.dateTime = new Date('2015-08-30T15:00+00:00');
             $scope.$digest();
 
@@ -59,9 +63,11 @@ describe('datetimepicker', function () {
         });
 
         it('set empty date and time', function () {
+            $timeout.flush();
             $scope.dateTime = new Date('2015-08-30T00:00+00:00');
             $scope.$digest();
 
+            $timeout.flush();
             $scope.dateTime = null;
             $scope.$digest();
 
@@ -100,10 +106,12 @@ describe('datetimepicker', function () {
 
     describe('Time change', function () {
         it('merges date and time on model.', function () {
+            $timeout.flush();
             $scope.dateTime = new Date('2015-08-30T00:00:00+00:00');
             $scope.$digest();
 
             changeInputValue(timepickerElement, createTime(15, 30));
+            blurElement(timepickerElement);
 
             expect($scope.dateTime.getHours()).toBe(15);
             expect($scope.dateTime.getMinutes()).toBe(30);
@@ -111,6 +119,7 @@ describe('datetimepicker', function () {
 
         it('notifies the controller via ng-change.', function () {
             var newDate = null;
+            $timeout.flush();
             $scope.dateTime = new Date();
             $scope.$digest();
             $scope.change = function () {
@@ -134,6 +143,7 @@ describe('datetimepicker', function () {
 
     describe('Adjust date', function () {
         it('set next day if allowForwardDateAdjustment=true', function () {
+            $timeout.flush();
             $scope.dateTime = new Date('2015-08-30T15:00:00+00:00');
             $scope.allowForwardDateAdjustment = true;
             $scope.$digest();
@@ -141,11 +151,11 @@ describe('datetimepicker', function () {
             changeInputValue(timepickerElement, createTime(8, 30));
             timepickerElement.blur();
             
-            console.log(element.isolateScope().ngModel);
             expect(element.isolateScope().ngModel.getDate()).toBe(31);
         });
         
         it('dont set next day allowForwardDateAdjustment=false', function () {
+            $timeout.flush();
             $scope.dateTime = new Date('2015-08-30T15:00:00+00:00');
             $scope.allowForwardDateAdjustment = false;
             $scope.$digest();
@@ -153,7 +163,6 @@ describe('datetimepicker', function () {
             changeInputValue(timepickerElement, createTime(8, 30));
             timepickerElement.blur();
             
-            console.log(element.isolateScope().ngModel);
             expect(element.isolateScope().ngModel.getDate()).toBe(30);
         });
     });
@@ -161,7 +170,11 @@ describe('datetimepicker', function () {
     function changeInputValue(el, value) {
         el.val(value);
         el.trigger($sniffer.hasEvent('input') ? 'input' : 'change');
-        $scope.$digest();
+    }
+    
+    function blurElement(el) {
+        el.trigger('blur');
+        $timeout.flush();
     }
 
     function createTime(hours, minutes) {

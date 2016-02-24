@@ -23,7 +23,6 @@
                 showMeridian: '=?',
                 ngDisabled: '=?',
                 dateDisabled: '&',
-                ngChange: '&',
                 showDayName: '=?'
             },
             link: function (scope, element, attrs, ctrl) {
@@ -31,12 +30,12 @@
                 var input = angular.element(element.find('.display-input'));
                 var canUpdateDisplayModel = true;
                 var canExecuteNgModelChanges = true;
+                var canParseUserInput = false;
 
                 scope.dayName = null;
                 scope.dateFormat = attrs.dateFormat || 'yyyy-MM-dd';
                 scope.useShortDateFormat = scope.dateFormat.length < 6;
                 
-                scope.parseUserInput = parseUserInput;
                 
                 scope.calendarOpened = false;
                 scope.openCalendar = openCalendar;
@@ -53,7 +52,11 @@
                     updateDayLabel();
                 });
 
-                scope.$watch('ngModel', function () {
+                scope.$watch('ngModel', function (newValue, oldValue) {
+                    if(!oldValue && !newValue) {
+                        return;
+                    }
+                    
                     if (canExecuteNgModelChanges) {
                         updateDisplay();
                         updateDayLabel();
@@ -65,13 +68,22 @@
                         input.focus();
                     }
                 });
+                
+                scope.$watch('displayModel', function (newValue, oldValue) {
+                    canParseUserInput = newValue !== oldValue;
+                });
 
                 scope.$on('ddDatepicker:sync', function (event, args) {
                     scope.boostrapDateModel = args.model;
                 });
 
                 input.on('blur', function () {
-                    scope.$apply(updateDisplay);
+                    if (canParseUserInput) {
+                        $timeout(function() {
+                            parseUserInput();
+                            updateDisplay();
+                        }, 0);
+                    }
                 });
 
                 function parseUserInput() {
@@ -109,18 +121,9 @@
                     canExecuteNgModelChanges = false;
                     ctrl.$setViewValue(date);
                     ctrl.$render();
-                    applyNgChange();
                     $timeout(function () {
                         canExecuteNgModelChanges = true;
                     }, 500);
-                }
-
-                function applyNgChange() {
-                    if (scope.ngChange) {
-                        $timeout(function () {
-                            scope.ngChange();
-                        });
-                    }
                 }
 
                 function updateDayLabel() {
@@ -154,9 +157,9 @@
         function parse(input, format, dateDisabled) {
             var parsedDate = parseInternal(input, format);
             if (dateDisabled) {
-                return validateWithDisabledDate(parsedDate, dateDisabled);
+                parsedDate = validateWithDisabledDate(parsedDate, dateDisabled);
             }
-            return parsedDate;
+            return parsedDate || null;
         }
     
         //private
