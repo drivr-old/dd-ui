@@ -6,7 +6,7 @@
         .directive('ddDatepicker', DatepickerDirective)
         .service('datepickerParserService', datepickerParserService);
 
-    var KEY_UP = 38, KEY_DOWN = 40;
+    var KEY_ENTER = 13, KEY_UP = 38, KEY_DOWN = 40;
 
     DatepickerDirective.$inject = ['$timeout', 'dateFilter', 'datepickerParserService', 'days'];
     function DatepickerDirective($timeout, dateFilter, datepickerParserService, days) {
@@ -91,6 +91,9 @@
                 input.on('keydown keypress', function (event) {
                     if (event.altKey) {
                         return;
+                    } else if (event.which === KEY_ENTER && !scope.displayModel) {
+                        changeDate(0);
+                        event.preventDefault();
                     } else if (event.which === KEY_UP) {
                         changeDate(1);
                         event.preventDefault();
@@ -107,7 +110,7 @@
                 }
 
                 function changeDate(delta) {
-                    var parsedDate = datepickerParserService.parse(scope.displayModel, scope.dateFormat, scope.dateDisabled);
+                    var parsedDate = scope.displayModel ? datepickerParserService.parse(scope.displayModel, scope.dateFormat, scope.dateDisabled) : new Date();
                     datepickerParserService.changeDate(parsedDate, delta);
                     updateMainModel(parsedDate);
                     updateBootstrapDateModel(false);
@@ -148,8 +151,9 @@
                     if (scope.showDayName) {
                         if (!ctrl.$modelValue) {
                             scope.dayName = null;
+                        } else {
+                            scope.dayName = days[ctrl.$modelValue.getDay()];
                         }
-                        scope.dayName = days[ctrl.$modelValue.getDay()];
                     }
                 }
             }
@@ -162,9 +166,9 @@
     function datepickerParserService(uibDateParser) {
         var self = this;
 
-        var mmDdPattern = /^(0?[1-9]|1[012])[-\/\s]?(0?[1-9]|[12][0-9]|3[01])$/,
-            mmDdFormatPattern = /(MM)[-\/\s](dd)/,
-            datePartsPattern = /(..)[-\/\s]?(..)/;
+        var mmDdPattern = /^(0?[1-9]|1[012])[-\/\s.]?(0?[1-9]|[12][0-9]|3[01])$/,
+            mmDdFormatPattern = /(MM?)[-\/\s.](dd?)/,
+            datePartsPattern = /^(\d\d?)[-\/\s.]?(\d\d?)$/;
 
         self.parse = parse;
         self.changeDate = changeDate;
