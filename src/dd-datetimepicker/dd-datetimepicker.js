@@ -13,7 +13,6 @@ angular.module('dd.ui.dd-datetimepicker', ['ui.bootstrap'])
                 ngDisabled: '=?',
                 ngRequired: '=?',
                 dateDisabled: '&',
-                ngChange: '&?',
                 dateFormat: '@',
                 showDayName: '=?',
                 allowForwardDateAdjustment: '=?'
@@ -26,8 +25,6 @@ angular.module('dd.ui.dd-datetimepicker', ['ui.bootstrap'])
 
                 scope.time = null;
                 scope.date = null;
-                scope.dateChange = dateChange;
-                scope.timeChange = timeChange;
 
                 init();
                 
@@ -38,27 +35,19 @@ angular.module('dd.ui.dd-datetimepicker', ['ui.bootstrap'])
                 });
 
                 scope.$watch('date', function (newTime, oldTime) {
+                    updateMainModel();
                     setValidity();
                 });
 
                 scope.$watch('time', function (newTime, oldTime) {
+                    timeChanged = true;
+                    updateMainModel();
                     setValidity();
                 });
 
                 timepickerElement.on('blur', function () {
                     jumpToNextDayIfPossible();
                 });
-
-                function dateChange() {
-                    updateMainModel();
-                    applyNgChange();
-                }
-
-                function timeChange() {
-                    timeChanged = true;
-                    updateMainModel();
-                    applyNgChange();
-                }
 
                 function updateMainModel() {
                     canExecuteNgModelChanges = false;
@@ -92,14 +81,6 @@ angular.module('dd.ui.dd-datetimepicker', ['ui.bootstrap'])
                     }
                     if (scope.time && !(scope.time instanceof Date)) {
                         scope.time = new Date(scope.time);
-                    }
-                }
-
-                function applyNgChange() {
-                    if (scope.ngChange) {
-                        $timeout(function () {
-                            scope.ngChange();
-                        });
                     }
                 }
 

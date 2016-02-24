@@ -7,8 +7,8 @@
 
     var KEY_ENTER = 13, KEY_UP = 38, KEY_DOWN = 40;
 
-    TimepickerDirective.$inject = ['dateFilter', 'timeparserService'];
-    function TimepickerDirective(dateFilter, timeparserService) {
+    TimepickerDirective.$inject = ['$timeout', 'dateFilter', 'timeparserService'];
+    function TimepickerDirective($timeout, dateFilter, timeparserService) {
 
         var directive = {
             restrict: 'A',
@@ -22,15 +22,15 @@
             link: function (scope, element, attrs, ctrl) {
 
                 var dateTime = scope.isDateType && scope.ngModel instanceof Date ? scope.ngModel : new Date();
+                var canUpdateNgModel = false;
+
                 scope.minuteStep = scope.minuteStep || 1;
 
-                ctrl.$viewChangeListeners.push(function () {
-                    scope.$eval(attrs.ngChange);
-                });
-            
                 //(view to model)
                 ctrl.$parsers.push(function (value) {
-                    return timeparserService.toModel(value, scope.isDateType, dateTime);
+                    value = canUpdateNgModel ? timeparserService.toModel(value, scope.isDateType, dateTime) : scope.ngModel;
+                    canUpdateNgModel = false;
+                    return value;
                 });
             
                 //(model to view)
@@ -39,20 +39,29 @@
                 });
 
                 element.on('keydown keypress', function (event) {
-                    if (event.which === KEY_ENTER && !ctrl.$modelValue) {
+                    if (event.altKey) {
+                        return;
+                    } else if (event.which === KEY_ENTER && !ctrl.$viewValue) {
+                        canUpdateNgModel = true;
                         updateViewValue(timeparserService.getFormattedTime());
                         event.preventDefault();
                     } else if (event.which === KEY_UP) {
+                        canUpdateNgModel = true;
                         updateViewValue(timeparserService.changeTime(scope.ngModel, scope.minuteStep));
                         event.preventDefault();
                     } else if (event.which === KEY_DOWN) {
+                        canUpdateNgModel = true;
                         updateViewValue(timeparserService.changeTime(scope.ngModel, -scope.minuteStep));
                         event.preventDefault();
                     }
                 });
 
                 element.on('blur', function toModelTime() {
-                    updateViewValue(timeparserService.toView(scope.ngModel));
+                    $timeout(function () {
+                        canUpdateNgModel = true;
+                        scope.ngModel = timeparserService.toModel(ctrl.$viewValue, scope.isDateType, dateTime);
+                        updateViewValue(timeparserService.toView(scope.ngModel));
+                    }, 0);
                 });
 
                 function updateViewValue(value) {
