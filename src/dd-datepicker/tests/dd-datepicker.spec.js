@@ -30,6 +30,19 @@ describe('datetimepicker', function () {
         return element;
     }
 
+    describe('Init', function () {
+        it('set default values', function () {
+            $scope.date = new Date('2016-02-09');
+
+            var element = compileElement($scope);
+            var elementScope = element.isolateScope();
+            $timeout.flush();
+
+            expect(elementScope.displayModel).toBeDefined();
+            expect(elementScope.bootstrapDateModel).toBeDefined();
+        });
+    });
+
     describe('Parse date formats', function () {
         it('2016-02-09', function () {
             changeInputValue(element, '2016-02-09');
@@ -85,7 +98,7 @@ describe('datetimepicker', function () {
 
     describe('Validate by dateDisabled', function () {
         it('return null if date disabled', function () {
-            
+
             $scope.dateDisabled = function (date, mode) {
                 var d = new Date('2016-08-30T15:00:00+00:00');
                 d.setHours(0, 0, 0, 0);
@@ -94,12 +107,12 @@ describe('datetimepicker', function () {
             $scope.$digest();
 
             changeInputValue(element, '08-12');
-            
+
             expect(element.isolateScope().ngModel).toBe(null);
         });
-        
+
         it('return date if in range', function () {
-            
+
             var d = new Date('2016-08-30T15:00:00+00:00');
             $scope.dateDisabled = function (date, mode) {
                 d.setHours(0, 0, 0, 0);
@@ -108,9 +121,46 @@ describe('datetimepicker', function () {
             $scope.$digest();
 
             changeInputValue(element, '08-30');
-            
+
             expect(element.isolateScope().ngModel.getTime()).toBe(d.getTime());
         });
+    });
+
+    describe('Arrow keys', function () {
+
+        it('add one day on arrow key up click', function () {
+            $scope.date = new Date('2016-08-25');
+            $scope.$digest();
+
+            var input = element.find('.display-input');
+            var keyUpCode = 38;
+            triggerKeyDown(input, keyUpCode);
+
+            expect($scope.date.getDate()).toBe(26);
+        });
+
+        it('substract one day on arrow key down click', function () {
+            $scope.date = new Date('2016-08-25');
+            $scope.$digest();
+
+            var input = element.find('.display-input');
+            var keyDownCode = 40;
+            triggerKeyDown(input, keyDownCode);
+
+            expect($scope.date.getDate()).toBe(24);
+        });
+
+        it('dont change date if alt key clicked', function () {
+            $scope.date = new Date('2016-08-25');
+            $scope.$digest();
+
+            var input = element.find('.display-input');
+            var altKeyCode = 18;
+            triggerKeyDown(input, altKeyCode);
+
+            expect($scope.date.getDate()).toBe(25);
+        });
+
     });
 
     function expectDate(el, month, day) {
@@ -127,4 +177,5 @@ describe('datetimepicker', function () {
         input.trigger('blur');
         $timeout.flush();
     }
+
 });

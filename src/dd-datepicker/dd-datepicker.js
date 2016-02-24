@@ -6,6 +6,8 @@
         .directive('ddDatepicker', DatepickerDirective)
         .service('datepickerParserService', datepickerParserService);
 
+    var KEY_UP = 38, KEY_DOWN = 40;
+
     DatepickerDirective.$inject = ['$timeout', 'dateFilter', 'datepickerParserService', 'days'];
     function DatepickerDirective($timeout, dateFilter, datepickerParserService, days) {
 
@@ -35,14 +37,14 @@
                 scope.dayName = null;
                 scope.dateFormat = attrs.dateFormat || 'yyyy-MM-dd';
                 scope.useShortDateFormat = scope.dateFormat.length < 6;
-                
-                
+
+
                 scope.calendarOpened = false;
                 scope.openCalendar = openCalendar;
 
                 init();
 
-                scope.$watch('boostrapDateModel', function (newValue, oldValue) {
+                scope.$watch('bootstrapDateModel', function (newValue, oldValue) {
                     if (newValue) {
                         updateMainModel(newValue);
                         if (canUpdateDisplayModel) {
@@ -53,44 +55,63 @@
                 });
 
                 scope.$watch('ngModel', function (newValue, oldValue) {
-                    if(!oldValue && !newValue) {
+                    if (!oldValue && !newValue) {
                         return;
                     }
-                    
+
                     if (canExecuteNgModelChanges) {
-                        updateDisplay();
+                        updateDisplayModel();
                         updateDayLabel();
                     }
                 });
-                
-                scope.$watch('calendarOpened', function(newValue, oldValue) {
+
+                scope.$watch('calendarOpened', function (newValue, oldValue) {
                     if (!newValue && oldValue) {
                         input.focus();
                     }
                 });
-                
+
                 scope.$watch('displayModel', function (newValue, oldValue) {
                     canParseUserInput = newValue !== oldValue;
                 });
 
                 scope.$on('ddDatepicker:sync', function (event, args) {
-                    scope.boostrapDateModel = args.model;
+                    scope.bootstrapDateModel = args.model;
                 });
 
                 input.on('blur', function () {
                     if (canParseUserInput) {
-                        $timeout(function() {
+                        $timeout(function () {
                             parseUserInput();
-                            updateDisplay();
+                            updateDisplayModel();
                         }, 0);
+                    }
+                });
+
+                input.on('keydown keypress', function (event) {
+                    if (event.altKey) {
+                        return;
+                    } else if (event.which === KEY_UP) {
+                        changeDate(1);
+                        event.preventDefault();
+                    } else if (event.which === KEY_DOWN) {
+                        changeDate(-1);
+                        event.preventDefault();
                     }
                 });
 
                 function parseUserInput() {
                     var parsedDate = datepickerParserService.parse(scope.displayModel, scope.dateFormat, scope.dateDisabled);
                     updateMainModel(parsedDate);
-                    canUpdateDisplayModel = false;
-                    updateBootstrapDateModel(ctrl.$modelValue);
+                    updateBootstrapDateModel(false);
+                }
+
+                function changeDate(delta) {
+                    var parsedDate = datepickerParserService.parse(scope.displayModel, scope.dateFormat, scope.dateDisabled);
+                    datepickerParserService.changeDate(parsedDate, delta);
+                    updateMainModel(parsedDate);
+                    updateBootstrapDateModel(false);
+                    $timeout(updateDisplayModel, 0);
                 }
 
                 function openCalendar($event) {
@@ -101,20 +122,17 @@
 
                 function init() {
                     ctrl.$modelValue = angular.copy(scope.ngModel);
-                    updateBootstrapDateModel(ctrl.$modelValue);
+                    updateBootstrapDateModel(true);
                 }
 
-                function updateBootstrapDateModel(date) {
-                    scope.boostrapDateModel = angular.copy(date);
+                function updateBootstrapDateModel(allowUpdateDisplayModel) {
+                    canUpdateDisplayModel = allowUpdateDisplayModel;
+                    scope.bootstrapDateModel = angular.copy(ctrl.$modelValue);
                 }
 
-                function updateDisplay() {
-                    updateDisplayModel(ctrl.$modelValue);
+                function updateDisplayModel() {
                     canUpdateDisplayModel = true;
-                }
-
-                function updateDisplayModel(date) {
-                    scope.displayModel = date ? dateFilter(date, scope.dateFormat) : null;
+                    scope.displayModel = ctrl.$modelValue ? dateFilter(ctrl.$modelValue, scope.dateFormat) : null;
                 }
 
                 function updateMainModel(date) {
@@ -128,15 +146,11 @@
 
                 function updateDayLabel() {
                     if (scope.showDayName) {
-                        scope.dayName = getDayLabel();
+                        if (!ctrl.$modelValue) {
+                            scope.dayName = null;
+                        }
+                        scope.dayName = days[ctrl.$modelValue.getDay()];
                     }
-                }
-
-                function getDayLabel() {
-                    if (!ctrl.$modelValue) {
-                        return null;
-                    }
-                    return days[ctrl.$modelValue.getDay()];
                 }
             }
         };
@@ -153,13 +167,24 @@
             datePartsPattern = /(..)[-\/\s]?(..)/;
 
         self.parse = parse;
+        self.changeDate = changeDate;
 
         function parse(input, format, dateDisabled) {
             var parsedDate = parseInternal(input, format);
             if (dateDisabled) {
                 parsedDate = validateWithDisabledDate(parsedDate, dateDisabled);
             }
+
             return parsedDate || null;
+        }
+
+        function changeDate(currentDate, delta) {
+            if (!currentDate) {
+                return;
+            }
+
+            var day = currentDate.getDate() + delta;
+            currentDate.setDate(day);
         }
     
         //private
@@ -183,6 +208,7 @@
             if (disabled) {
                 return null;
             }
+
             return parsedDate;
         }
 
