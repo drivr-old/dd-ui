@@ -12,14 +12,14 @@
            class="datepicker-input" 
            uib-datepicker-popup="{{dateFormat}}"
            ng-model="boostrapDateModel"
-           is-open="opened"
+           is-open="calendarOpened"
            date-disabled="dateDisabled({date: date, mode: mode})"
            close-text="Close"
            show-weeks="showWeeks"></div>
         <button ng-disabled="ngDisabled" 
                 type="button" 
                 class="btn btn-default" 
-                ng-click="open($event)"
+                ng-click="openCalendar($event)"
                 ng-class="{'calendar-btn-with-day':showDayName}">
                 <i class="glyphicon glyphicon-calendar"></i>
         </button>
