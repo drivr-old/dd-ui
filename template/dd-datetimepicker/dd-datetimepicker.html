@@ -5,7 +5,6 @@
                 dd-timepicker
                 is-date-type="true"
                 type="text"
-                ng-change="timeChange()"
                 ng-disabled="ngDisabled"
                 ng-required="ngRequired"
                 minute-step="minuteStep"
@@ -18,7 +17,6 @@
                ng-required="ngRequired"
                date-format="{{::dateFormat}}"
                ng-model="date"
-               ng-change="dateChange($event)"
                show-day-name="showDayName"
                close-text="Close"
                date-disabled="dateDisabled({date: date, mode: mode})" />
