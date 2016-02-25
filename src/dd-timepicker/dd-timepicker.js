@@ -26,14 +26,12 @@
 
                 scope.minuteStep = scope.minuteStep || 1;
 
-                //(view to model)
                 ctrl.$parsers.push(function (value) {
                     value = canUpdateNgModel ? timeparserService.toModel(value, scope.isDateType, dateTime) : scope.ngModel;
                     canUpdateNgModel = false;
                     return value;
                 });
             
-                //(model to view)
                 ctrl.$formatters.push(function (value) {
                     return timeparserService.toView(value);
                 });
@@ -42,31 +40,35 @@
                     if (event.altKey) {
                         return;
                     } else if (event.which === KEY_ENTER && !ctrl.$viewValue) {
-                        canUpdateNgModel = true;
-                        updateViewValue(timeparserService.getFormattedTime());
-                        event.preventDefault();
+                        updateModelOnKeypress(event, 0, timeparserService.getFormattedTime());
                     } else if (event.which === KEY_UP) {
-                        canUpdateNgModel = true;
-                        updateViewValue(timeparserService.changeTime(scope.ngModel, scope.minuteStep));
-                        event.preventDefault();
+                        updateModelOnKeypress(event, scope.minuteStep);
                     } else if (event.which === KEY_DOWN) {
-                        canUpdateNgModel = true;
-                        updateViewValue(timeparserService.changeTime(scope.ngModel, -scope.minuteStep));
-                        event.preventDefault();
+                        updateModelOnKeypress(event, -scope.minuteStep);
                     }
                 });
 
                 element.on('blur', function toModelTime() {
-                    $timeout(function () {
+                    if (isValueChanged()) {
                         canUpdateNgModel = true;
                         scope.ngModel = timeparserService.toModel(ctrl.$viewValue, scope.isDateType, dateTime);
                         updateViewValue(timeparserService.toView(scope.ngModel));
-                    }, 0);
+                    }
                 });
 
                 function updateViewValue(value) {
                     ctrl.$setViewValue(value);
                     ctrl.$render();
+                }
+
+                function updateModelOnKeypress(event, delta, customDate) {
+                    canUpdateNgModel = true;
+                    updateViewValue(customDate || timeparserService.changeTime(scope.ngModel, delta));
+                    event.preventDefault();
+                }
+
+                function isValueChanged() {
+                    return ctrl.$viewValue !== timeparserService.toView(scope.ngModel);
                 }
             }
         };
