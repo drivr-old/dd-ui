@@ -26,10 +26,8 @@ angular.module('dd.ui.dd-datetimepicker', ['ui.bootstrap'])
                 scope.time = null;
                 scope.date = null;
 
-                init();
-                
                 scope.$watch('ngModel', function (value) {
-                    if (canExecuteNgModelChanges){
+                    if (canExecuteNgModelChanges) {
                         init();
                     }
                 });
@@ -52,21 +50,18 @@ angular.module('dd.ui.dd-datetimepicker', ['ui.bootstrap'])
                 function updateMainModel() {
                     canExecuteNgModelChanges = false;
                     ensureDateTypes();
-                    
+
                     var model = angular.copy(scope.date);
-                    if (model) {
-                        if (scope.time) {
-                            model.setHours(scope.time.getHours(), scope.time.getMinutes(), 0, 0);
-                        } else {
-                            model.setHours(0, 0, 0, 0);
-                        }
+                    if (model && scope.time) {
+                        model.setHours(scope.time.getHours(), scope.time.getMinutes(), 0, 0);
                     }
+
                     ctrl.$setViewValue(model);
                     ctrl.$render();
-                    
+
                     $timeout(function () {
                         canExecuteNgModelChanges = true;
-                    }, 500);
+                    }, 100);
                 }
 
                 function init() {
@@ -122,10 +117,9 @@ angular.module('dd.ui.dd-datetimepicker', ['ui.bootstrap'])
                     }, 500);
                 }
 
-                function syncDatepickerModel(element) {
+                function syncDatepickerModel() {
                     scope.$broadcast('ddDatepicker:sync', { model: ctrl.$modelValue });
                 }
-
             }
         };
     }]);
