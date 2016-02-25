@@ -106,7 +106,10 @@ angular.module('dd.ui.dd-datetimepicker', ['ui.bootstrap'])
 
                 var _addDayExecuted = false;
                 function canAddDayIfUserDecreaseTime() {
-                    return scope.allowForwardDateAdjustment && !_addDayExecuted && timeChanged && ctrl.$modelValue.getTime() < new Date().getTime();
+                    var currentDate = new Date();
+                    currentDate.setSeconds(0);
+                    currentDate.setMilliseconds(0);
+                    return scope.allowForwardDateAdjustment && !_addDayExecuted && timeChanged && ctrl.$modelValue.getTime() < currentDate.getTime();
                 }
 
                 function notifyWithDatepickerChange() {
