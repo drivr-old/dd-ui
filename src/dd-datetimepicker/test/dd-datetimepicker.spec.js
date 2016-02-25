@@ -53,7 +53,7 @@ describe('datetimepicker', function () {
             $timeout.flush();
             $scope.dateTime = null;
             $scope.$digest();
-            
+
             $timeout.flush();
             $scope.dateTime = new Date('2015-08-30T15:00+00:00');
             $scope.$digest();
@@ -77,7 +77,7 @@ describe('datetimepicker', function () {
             expect(timepickerElement.val()).toBe('');
         });
     });
-    
+
     describe('Date change', function () {
 
         it('notifies the controller via ng-change.', function () {
@@ -144,25 +144,27 @@ describe('datetimepicker', function () {
     describe('Adjust date', function () {
         it('set next day if allowForwardDateAdjustment=true', function () {
             $timeout.flush();
-            $scope.dateTime = new Date('2015-08-30T15:00:00+00:00');
+            $scope.dateTime = new Date();
             $scope.allowForwardDateAdjustment = true;
             $scope.$digest();
-            
-            changeInputValue(timepickerElement, createTime(8, 30));
+
+            changeInputValue(timepickerElement, createTime($scope.dateTime.getHours() - 1, 30));
             timepickerElement.blur();
-            
-            expect(element.isolateScope().ngModel.getDate()).toBe(31);
+
+            var tomorrow = new Date();
+            tomorrow.setDate(new Date().getDate() + 1);
+            expect(element.isolateScope().ngModel.getDate()).toBe(tomorrow.getDate());
         });
-        
+
         it('dont set next day allowForwardDateAdjustment=false', function () {
             $timeout.flush();
             $scope.dateTime = new Date('2015-08-30T15:00:00+00:00');
             $scope.allowForwardDateAdjustment = false;
             $scope.$digest();
-            
+
             changeInputValue(timepickerElement, createTime(8, 30));
             timepickerElement.blur();
-            
+
             expect(element.isolateScope().ngModel.getDate()).toBe(30);
         });
     });
@@ -171,7 +173,7 @@ describe('datetimepicker', function () {
         el.val(value);
         el.trigger($sniffer.hasEvent('input') ? 'input' : 'change');
     }
-    
+
     function blurElement(el) {
         el.trigger('blur');
         $timeout.flush();

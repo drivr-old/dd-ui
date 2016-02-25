@@ -100,16 +100,18 @@ angular.module('dd.ui.dd-datetimepicker', ['ui.bootstrap'])
                         updateMainModel();
                         syncDatepickerModel();
                         notifyWithDatepickerChange();
-                        _addDayExecuted = canAddDay;
                     }
                 }
 
-                var _addDayExecuted = false;
                 function canAddDayIfUserDecreaseTime() {
                     var currentDate = new Date();
                     currentDate.setSeconds(0);
                     currentDate.setMilliseconds(0);
-                    return scope.allowForwardDateAdjustment && !_addDayExecuted && timeChanged && ctrl.$modelValue.getTime() < currentDate.getTime();
+                    
+                    return scope.allowForwardDateAdjustment && 
+                           sameDay(currentDate, ctrl.$modelValue) && 
+                           timeChanged && 
+                           ctrl.$modelValue.getTime() < currentDate.getTime();
                 }
 
                 function notifyWithDatepickerChange() {
@@ -122,6 +124,12 @@ angular.module('dd.ui.dd-datetimepicker', ['ui.bootstrap'])
 
                 function syncDatepickerModel() {
                     scope.$broadcast('ddDatepicker:sync', { model: ctrl.$modelValue });
+                }
+
+                function sameDay(d1, d2) {
+                    return d1.getUTCFullYear() == d2.getUTCFullYear() &&
+                        d1.getUTCMonth() == d2.getUTCMonth() &&
+                        d1.getUTCDate() == d2.getUTCDate();
                 }
             }
         };
