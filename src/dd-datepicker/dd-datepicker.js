@@ -32,7 +32,6 @@
                 var input = angular.element(element.find('.display-input'));
                 var canUpdateDisplayModel = true;
                 var canExecuteNgModelChanges = true;
-                var canParseUserInput = false;
 
                 scope.dayName = null;
                 scope.dateFormat = attrs.dateFormat || 'yyyy-MM-dd';
@@ -44,16 +43,6 @@
 
                 init();
 
-                scope.$watch('bootstrapDateModel', function (newValue, oldValue) {
-                    if (newValue) {
-                        updateMainModel(newValue);
-                        if (canUpdateDisplayModel) {
-                            updateDisplayModel(newValue);
-                        }
-                    }
-                    updateDayLabel();
-                });
-
                 scope.$watch('ngModel', function (newValue, oldValue) {
                     if (!oldValue && !newValue) {
                         return;
@@ -62,30 +51,25 @@
                     if (canExecuteNgModelChanges) {
                         updateDisplayModel();
                         updateDayLabel();
+                        syncBootstrapDateModel();
                     }
                 });
 
                 scope.$watch('calendarOpened', function (newValue, oldValue) {
                     if (!newValue && oldValue) {
+                        onCalendarClosed();
                         input.focus();
                     }
                 });
-
-                scope.$watch('displayModel', function (newValue, oldValue) {
-                    canParseUserInput = newValue !== oldValue;
+                
+                scope.$on('ddDatepicker:sync', function(event, args) {
+                    canExecuteNgModelChanges = true;
+                    scope.ngModel = args.model;
                 });
-
-                scope.$on('ddDatepicker:sync', function (event, args) {
-                    scope.bootstrapDateModel = args.model;
-                });
-
+                
                 input.on('blur', function () {
-                    if (canParseUserInput) {
-                        $timeout(function () {
-                            parseUserInput();
-                            updateDisplayModel();
-                        }, 0);
-                    }
+                    parseUserInput();
+                    updateDisplayModel();
                 });
 
                 input.on('keydown keypress', function (event) {
@@ -103,17 +87,26 @@
                     }
                 });
 
+                function onCalendarClosed() {
+                    if (scope.bootstrapDateModel) {
+                        updateMainModel(scope.bootstrapDateModel);
+                        if (canUpdateDisplayModel) {
+                            updateDisplayModel(scope.bootstrapDateModel);
+                        }
+                    }
+                }
+                
                 function parseUserInput() {
                     var parsedDate = datepickerParserService.parse(scope.displayModel, scope.dateFormat, scope.dateDisabled);
                     updateMainModel(parsedDate);
-                    updateBootstrapDateModel(false);
+                    syncBootstrapDateModel();
                 }
 
                 function changeDate(delta) {
                     var parsedDate = scope.displayModel ? datepickerParserService.parse(scope.displayModel, scope.dateFormat, scope.dateDisabled) : new Date();
                     datepickerParserService.changeDate(parsedDate, delta);
                     updateMainModel(parsedDate);
-                    updateBootstrapDateModel(false);
+                    syncBootstrapDateModel();
                     $timeout(updateDisplayModel, 0);
                 }
 
@@ -125,11 +118,10 @@
 
                 function init() {
                     ctrl.$modelValue = angular.copy(scope.ngModel);
-                    updateBootstrapDateModel(true);
+                    syncBootstrapDateModel();
                 }
 
-                function updateBootstrapDateModel(allowUpdateDisplayModel) {
-                    canUpdateDisplayModel = allowUpdateDisplayModel;
+                function syncBootstrapDateModel() {
                     scope.bootstrapDateModel = angular.copy(ctrl.$modelValue);
                 }
 
@@ -142,9 +134,10 @@
                     canExecuteNgModelChanges = false;
                     ctrl.$setViewValue(date);
                     ctrl.$render();
+                    updateDayLabel();
                     $timeout(function () {
                         canExecuteNgModelChanges = true;
-                    }, 500);
+                    }, 100);
                 }
 
                 function updateDayLabel() {
