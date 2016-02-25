@@ -1,3 +1,27 @@
+<a name="0.3.2"></a>
+## [0.3.2](//compare/0.3.1...v0.3.2) (2016-02-25)
+
+
+### Bug Fixes
+
+* **datepicker:** remove unneeded watches 9f209e7
+* **datepicker:** set day label with important 928723b
+* **datepicker:** set input on focus after calendar is closed 8a15016
+* **datepicker:** use arrow keys to add/substract date 2db4240
+* **datetimepicker:** adjust date forward if current date ebc880a
+* **datetimepicker:** fix es lint 7f39202
+* **datetimepicker:** init values from ngWatch 8027068
+* **datetimepicker:** parse user input on blur 460b56d
+* **datetimepicker:** remove unused param ad3be57
+* **datetimepicker:** set seconds and miliseconds to 0 for currentTime a79c5c8
+* **timepicker:** check if value is changed f886768
+
+### Features
+
+* **datepicker:** allow add date by arrow keys ff4a718
+
+
+
 <a name="0.3.1"></a>
 ## [0.3.1](//compare/0.3.0...v0.3.1) (2016-02-22)
 
