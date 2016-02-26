@@ -170,7 +170,7 @@ describe('datetimepicker', function () {
         
         it('23:59->00:01 = +1 day', function () {
             $timeout.flush();
-            $scope.dateTime = new Date('2015-08-25');
+            $scope.dateTime = new Date('2015-08-25T15:00:00+00:00');
             $scope.$digest();
 
             changeInputValue(timepickerElement, createTime(23, 59));
@@ -183,7 +183,7 @@ describe('datetimepicker', function () {
         
         it('00:01->23:59 = -1 day', function () {
             $timeout.flush();
-            $scope.dateTime = new Date('2015-08-25');
+            $scope.dateTime = new Date('2015-08-25T15:00:00+00:00');
             $scope.$digest();
 
             changeInputValue(timepickerElement, createTime(0, 1));
