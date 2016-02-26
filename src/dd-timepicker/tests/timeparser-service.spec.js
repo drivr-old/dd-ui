@@ -58,7 +58,22 @@ describe('timeparser-service', function () {
 
             expect(model).toBe('20:15');
         });
+        
+        it('12a', function () {
+            var input = '12a';
 
+            var model = timeparserService.toModel(input);
+
+            expect(model).toBe('00:00');
+        });
+        
+        it('12p', function () {
+            var input = '12p';
+
+            var model = timeparserService.toModel(input);
+
+            expect(model).toBe('12:00');
+        });
     });
 
     describe('parse with . or : separator', function () {
