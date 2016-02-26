@@ -189,8 +189,6 @@ describe('datetimepicker', function () {
             changeInputValue(timepickerElement, createTime(0, 1));
             changeInputValue(timepickerElement, createTime(23, 59));
             
-            console.log($scope.dateTime);
-
             expect($scope.dateTime.getDate()).toBe(24);
         });
     });
