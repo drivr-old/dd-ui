@@ -167,6 +167,32 @@ describe('datetimepicker', function () {
 
             expect(element.isolateScope().ngModel.getDate()).toBe(30);
         });
+        
+        it('23:59->00:01 = +1 day', function () {
+            $timeout.flush();
+            $scope.dateTime = new Date('2015-08-25');
+            $scope.$digest();
+
+            changeInputValue(timepickerElement, createTime(23, 59));
+            changeInputValue(timepickerElement, createTime(0, 1));
+            
+            console.log($scope.dateTime);
+
+            expect($scope.dateTime.getDate()).toBe(26);
+        });
+        
+        it('00:01->23:59 = -1 day', function () {
+            $timeout.flush();
+            $scope.dateTime = new Date('2015-08-25');
+            $scope.$digest();
+
+            changeInputValue(timepickerElement, createTime(0, 1));
+            changeInputValue(timepickerElement, createTime(23, 59));
+            
+            console.log($scope.dateTime);
+
+            expect($scope.dateTime.getDate()).toBe(24);
+        });
     });
 
     function changeInputValue(el, value) {

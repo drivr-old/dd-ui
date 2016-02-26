@@ -1,5 +1,5 @@
 angular.module('dd.ui.dd-datetimepicker', ['ui.bootstrap'])
-    .directive('ddDatetimepicker', ['$timeout', 'dateFilter', function ($timeout, dateFilter) {
+    .directive('ddDatetimepicker', ['$timeout', function ($timeout) {
         return {
             restrict: 'EA',
             require: 'ngModel',
@@ -20,8 +20,8 @@ angular.module('dd.ui.dd-datetimepicker', ['ui.bootstrap'])
             link: function (scope, element, attrs, ctrl) {
 
                 var timeChanged = false;
-                var timepickerElement = element.find('.timepicker-container input');
                 var canExecuteNgModelChanges = true;
+                var timepickerBlurEventFired = false;
 
                 scope.time = null;
                 scope.date = null;
@@ -39,25 +39,29 @@ angular.module('dd.ui.dd-datetimepicker', ['ui.bootstrap'])
 
                 scope.$watch('time', function (newTime, oldTime) {
                     timeChanged = true;
+                    
                     updateMainModel();
                     setValidity();
+                    adjustToNextDayIfPossible();
+                    adjustDate(newTime, oldTime);
+                    
+                    timepickerBlurEventFired = false;
                 });
-
-                timepickerElement.on('blur', function () {
-                    jumpToNextDayIfPossible();
-                });
-
+                
+                scope.onTimeBlur = function() {
+                    timepickerBlurEventFired = true;
+                };
+                
                 function updateMainModel() {
                     canExecuteNgModelChanges = false;
+                    
                     ensureDateTypes();
-
                     var model = angular.copy(scope.date);
                     if (model && scope.time) {
                         model.setHours(scope.time.getHours(), scope.time.getMinutes(), 0, 0);
                     }
 
                     ctrl.$setViewValue(model);
-                    ctrl.$render();
 
                     $timeout(function () {
                         canExecuteNgModelChanges = true;
@@ -87,19 +91,42 @@ angular.module('dd.ui.dd-datetimepicker', ['ui.bootstrap'])
                     }
                 }
 
-                function jumpToNextDayIfPossible() {
+                function adjustDate(newTime, oldTime) {
+                    if (!newTime || !oldTime || !scope.ngModel || timepickerBlurEventFired) {
+                        return;
+                    }
+
+                    newTime = new Date(newTime);
+                    oldTime = new Date(oldTime);
+
+                    var hoursDelta = newTime.getHours() - oldTime.getHours();
+                    var currentDate = scope.ngModel.getDate();
+                    if (hoursDelta === -23) {
+                        adjustDateByDay(currentDate + 1);
+                    } else if (hoursDelta === 23) {
+                        adjustDateByDay(currentDate - 1);
+                    }
+                    
+                }
+
+                function adjustDateByDay(day) {
+                    scope.ngModel.setDate(day);
+                    scope.date = angular.copy(scope.ngModel);
+                    notifyAboutDatepickerChange();
+                }
+
+                function adjustToNextDayIfPossible() {
                     if (!scope.date || !scope.time) {
                         return;
                     }
 
                     var currentDate = scope.date.getDate();
-                    var canAddDay = canAddDayIfUserDecreaseTime();
 
-                    if (canAddDay) {
+                    if (canAddDayIfUserDecreaseTime()) {
                         scope.date.setDate(currentDate + 1);
                         updateMainModel();
                         syncDatepickerModel();
-                        notifyWithDatepickerChange();
+                        notifyAboutDatepickerChange();
                     }
                 }
 
@@ -107,14 +134,14 @@ angular.module('dd.ui.dd-datetimepicker', ['ui.bootstrap'])
                     var currentDate = new Date();
                     currentDate.setSeconds(0);
                     currentDate.setMilliseconds(0);
-                    
-                    return scope.allowForwardDateAdjustment && 
-                           sameDay(currentDate, ctrl.$modelValue) && 
-                           timeChanged && 
-                           ctrl.$modelValue.getTime() < currentDate.getTime();
+
+                    return scope.allowForwardDateAdjustment &&
+                        sameDay(currentDate, ctrl.$modelValue) &&
+                        timeChanged &&
+                        ctrl.$modelValue.getTime() < currentDate.getTime();
                 }
 
-                function notifyWithDatepickerChange() {
+                function notifyAboutDatepickerChange() {
                     var datepickerElement = element.find('.datepicker-container .display-input');
                     datepickerElement.css('background-color', 'rgba(0, 128, 0, 0.15)');
                     $timeout(function () {
