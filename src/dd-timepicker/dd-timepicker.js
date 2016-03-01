@@ -182,9 +182,7 @@
 
         function getTimeInfoFromString(inputTime, mode) {
 
-            if (inputTime[0] === '0') {
-                inputTime = inputTime.replace(/^0/, '');
-            }
+            inputTime = inputTime.replace(/^0/, '');
 
             var val = parseInt(inputTime, 10),
                 hours = 0,
@@ -208,9 +206,11 @@
                 hours = parseInt(inputTime.substr(0, 2), 10);
                 minutes = parseInt(inputTime.substr(2, 4), 10);
             }
-
-            if (mode === 'p') {
+            
+            if (mode === 'p' && hours !== 12) {
                 hours += 12;
+            } else if (mode === 'a' && hours === 12) {
+                hours = 0;
             }
 
             return {
@@ -236,16 +236,12 @@
             return input.trim().toLowerCase().replace('.', '').replace(':', '');
         }
 
-        function hourToString(hour) {
-            return hour < 10 ? '0' + hour : hour.toString();
-        }
-
-        function minutesToString(minutes) {
-            return minutes < 10 ? '0' + minutes : minutes.toString();
+        function timePartToString(part) {
+            return part < 10 ? '0' + part : part.toString();
         }
 
         function timeInfoToString(timeInfo) {
-            return hourToString(timeInfo.hours) + ':' + minutesToString(timeInfo.minutes);
+            return timePartToString(timeInfo.hours) + ':' + timePartToString(timeInfo.minutes);
         }
     }
 
