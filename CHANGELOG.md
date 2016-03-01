@@ -1,3 +1,19 @@
+<a name="0.3.3"></a>
+## [0.3.3](//compare/0.3.2...v0.3.3) (2016-03-01)
+
+
+### Bug Fixes
+
+* **datetimepicker:** 23:59->00:01=+1 day and 00:01->23:59=-1 day b2bd04c
+* **datetimepicker:** add time to Date object 778428f
+* **timepicker:** handle 12a/12p time parsing 4623edf
+
+### Features
+
+* **timepicker:** add unit test for date conversion check a13a8e7
+
+
+
 <a name="0.3.2"></a>
 ## [0.3.2](//compare/0.3.1...v0.3.2) (2016-02-25)
 
