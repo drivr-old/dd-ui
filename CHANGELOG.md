@@ -1,3 +1,14 @@
+<a name="0.3.4"></a>
+## [0.3.4](//compare/0.3.3...v0.3.4) (2016-03-03)
+
+
+### Bug Fixes
+
+* **datetimepicker:** check if time is changed 9ff3cec
+* **datetimepicker:** fix es lint 2a2ea9b
+
+
+
 <a name="0.3.3"></a>
 ## [0.3.3](//compare/0.3.2...v0.3.3) (2016-03-01)
 
