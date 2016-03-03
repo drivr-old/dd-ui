@@ -39,7 +39,7 @@ angular.module('dd.ui.dd-datetimepicker', ['ui.bootstrap'])
 
                 scope.$watch('time', function (newTime, oldTime) {
                     
-                    if(newTime && oldTime && newTime != oldTime) {
+                    if (newTime && oldTime && newTime !== oldTime) {
                         timeChanged = true;
                     }
                     
