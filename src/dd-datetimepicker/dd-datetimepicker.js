@@ -38,7 +38,10 @@ angular.module('dd.ui.dd-datetimepicker', ['ui.bootstrap'])
                 });
 
                 scope.$watch('time', function (newTime, oldTime) {
-                    timeChanged = true;
+                    
+                    if(newTime && oldTime && newTime != oldTime) {
+                        timeChanged = true;
+                    }
                     
                     updateMainModel();
                     setValidity();
@@ -120,10 +123,10 @@ angular.module('dd.ui.dd-datetimepicker', ['ui.bootstrap'])
                         return;
                     }
 
-                    var currentDate = scope.date.getDate();
+                    var currentDay = scope.date.getDate();
 
                     if (canAddDayIfUserDecreaseTime()) {
-                        scope.date.setDate(currentDate + 1);
+                        scope.date.setDate(currentDay + 1);
                         updateMainModel();
                         syncDatepickerModel();
                         notifyAboutDatepickerChange();
