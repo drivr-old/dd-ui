@@ -10,7 +10,10 @@ describe('datetimepicker', function () {
 
     beforeEach(function () {
         module('dd.ui.dd-datetimepicker');
+        module('dd.ui.dd-datepicker');
+        module('dd.ui.dd-timepicker');
         module('template/dd-datetimepicker/dd-datetimepicker.html');
+        module('template/dd-datepicker/dd-datepicker.html');
 
         inject(function ($rootScope, _$compile_, _$sniffer_, _$document_, _$timeout_) {
             $scope = $rootScope.$new();
@@ -21,7 +24,7 @@ describe('datetimepicker', function () {
 
             element = compileElement($scope);
 
-            datepickerElement = element.find('.datepicker-container input');
+            datepickerElement = element.find('.datepicker-container input.datepicker-input');
             timepickerElement = element.find('.timepicker-container input.timepicker-input');
         });
     });
@@ -50,11 +53,10 @@ describe('datetimepicker', function () {
         });
 
         it('set current date and time', function () {
-            $timeout.flush();
+            
             $scope.dateTime = null;
             $scope.$digest();
 
-            $timeout.flush();
             $scope.dateTime = new Date('2015-08-30T15:00+00:00');
             $scope.$digest();
 
@@ -63,11 +65,9 @@ describe('datetimepicker', function () {
         });
 
         it('set empty date and time', function () {
-            $timeout.flush();
             $scope.dateTime = new Date('2015-08-30T00:00+00:00');
             $scope.$digest();
 
-            $timeout.flush();
             $scope.dateTime = null;
             $scope.$digest();
 
@@ -106,12 +106,11 @@ describe('datetimepicker', function () {
 
     describe('Time change', function () {
         it('merges date and time on model.', function () {
-            $timeout.flush();
             $scope.dateTime = new Date('2015-08-30T00:00:00+00:00');
             $scope.$digest();
 
-            changeInputValue(timepickerElement, createTime(15, 30));
-            blurElement(timepickerElement);
+            changeInputValue(timepickerElement, '15:30');
+            timepickerElement.blur();
 
             expect($scope.dateTime.getHours()).toBe(15);
             expect($scope.dateTime.getMinutes()).toBe(30);
@@ -119,14 +118,14 @@ describe('datetimepicker', function () {
 
         it('notifies the controller via ng-change.', function () {
             var newDate = null;
-            $timeout.flush();
             $scope.dateTime = new Date();
             $scope.$digest();
             $scope.change = function () {
                 newDate = $scope.dateTime;
             };
 
-            changeInputValue(timepickerElement, createTime(15, 30));
+            changeInputValue(timepickerElement, '15:30');
+            timepickerElement.blur();
             expect(newDate.toISOString()).toContain(':30');
         });
     });
@@ -143,12 +142,12 @@ describe('datetimepicker', function () {
 
     describe('Adjust date', function () {
         it('set next day if allowForwardDateAdjustment=true', function () {
-            $timeout.flush();
+ 
             $scope.dateTime = new Date();
             $scope.allowForwardDateAdjustment = true;
             $scope.$digest();
 
-            changeInputValue(timepickerElement, createTime($scope.dateTime.getHours() - 1, 30));
+            changeInputValue(timepickerElement, $scope.dateTime.getHours() - 1 +':30');
             timepickerElement.blur();
 
             var tomorrow = new Date();
@@ -157,24 +156,26 @@ describe('datetimepicker', function () {
         });
 
         it('dont set next day allowForwardDateAdjustment=false', function () {
-            $timeout.flush();
+      
             $scope.dateTime = new Date('2015-08-30T15:00:00+00:00');
             $scope.allowForwardDateAdjustment = false;
             $scope.$digest();
 
-            changeInputValue(timepickerElement, createTime(8, 30));
+            changeInputValue(timepickerElement, '08:30');
             timepickerElement.blur();
 
             expect(element.isolateScope().ngModel.getDate()).toBe(30);
         });
         
         it('23:59->00:01 = +1 day', function () {
-            $timeout.flush();
+    
             $scope.dateTime = new Date('2015-08-25T15:00:00+00:00');
             $scope.$digest();
 
-            changeInputValue(timepickerElement, createTime(23, 59));
-            changeInputValue(timepickerElement, createTime(0, 1));
+            changeInputValue(timepickerElement, '23:59');
+            timepickerElement.blur();
+            changeInputValue(timepickerElement, '00:01');
+            timepickerElement.blur();
             
             console.log($scope.dateTime);
 
@@ -182,12 +183,14 @@ describe('datetimepicker', function () {
         });
         
         it('00:01->23:59 = -1 day', function () {
-            $timeout.flush();
+  
             $scope.dateTime = new Date('2015-08-25T15:00:00+00:00');
             $scope.$digest();
 
-            changeInputValue(timepickerElement, createTime(0, 1));
-            changeInputValue(timepickerElement, createTime(23, 59));
+            changeInputValue(timepickerElement, '00:01');
+            timepickerElement.blur();
+            changeInputValue(timepickerElement, '23:59');
+            timepickerElement.blur();
             
             expect($scope.dateTime.getDate()).toBe(24);
         });
@@ -198,19 +201,8 @@ describe('datetimepicker', function () {
         el.trigger($sniffer.hasEvent('input') ? 'input' : 'change');
     }
 
-    function blurElement(el) {
-        el.trigger('blur');
-        $timeout.flush();
-    }
-
-    function createTime(hours, minutes) {
-        var date = new Date('2015-08-30T15:00:00+00:00');
-        date.setHours(hours, minutes, 0, 0);
-        return date;
-    }
-
     function compileElement($scope) {
-        var element = $compile('<div dd-datetimepicker ng-change="change()" allow-forward-date-adjustment="allowForwardDateAdjustment" ng-model="dateTime"></div>')($scope);
+        var element = $compile(angular.element('<div dd-datetimepicker ng-change="change()" allow-forward-date-adjustment="allowForwardDateAdjustment" ng-model="dateTime"></div>'))($scope);
         element.appendTo($document[0].body);
         $scope.$digest();
         return element;

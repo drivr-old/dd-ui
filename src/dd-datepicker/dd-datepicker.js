@@ -14,6 +14,7 @@
         var directive = {
             restrict: 'EA',
             require: 'ngModel',
+            replace: 'true',
             templateUrl: function (element, attrs) {
                 return attrs.templateUrl || 'template/dd-datepicker/dd-datepicker.html';
             },
@@ -52,7 +53,6 @@
                 });
 
                 scope.$on('ddDatepicker:sync', function (event, args) {
-                    canExecuteNgModelChanges = true;
                     scope.ngModel = args.model;
                 });
 
