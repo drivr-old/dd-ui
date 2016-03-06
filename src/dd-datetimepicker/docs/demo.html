@@ -3,20 +3,20 @@
     <form name="form">
         <div class="form-group">
             <h4>Basic usage with MM-dd format <small><a href="#" ng-click="setToNow()">Set to now</a> | <a href="#" ng-click="setToEmpty()">Set to empty</a></small></h4>
-            <div dd-datetimepicker ng-model="dateTime" minute-step="5" date-format="MM-dd" date-disabled="disabled(date, mode)" show-day-name="true" ng-change="change()"></div>
+            <div dd-datetimepicker ng-model="dateTime" minute-step="5" date-format="MM-dd" date-disabled="disabled(date, mode)" show-day-name="true"
+            ng-change="change()"></div>
         </div>
         <div class="form-group">
             <label>Datetime:&nbsp;</label><span>{{ dateTime | date:'yyyy-MM-dd HH:mm:ss' }}</span>
         </div>
         <div class="form-group">
             <h4>Disabled state <small><a href="#" ng-click="disabledPicker = !disabledPicker">Toggle</a></small></h4>
-            <div dd-datetimepicker allow-forward-date-adjustment="true" show-day-name="true" ng-disabled="disabledPicker" ng-model="dateTime2" minute-step="5" date-disabled="disabled(date, mode)"
-            ng-change="change()"></div>
+            <div dd-datetimepicker allow-forward-date-adjustment="true" show-day-name="true" ng-disabled="disabledPicker" ng-model="dateTime2"
+            minute-step="5" date-disabled="disabled(date, mode)" ng-change="change()"></div>
         </div>
         <div class="form-group">
             <h4>Required field</h4>
-            <div dd-datetimepicker ng-required="true" name="dateTime3" ng-disabled="false" ng-model="dateTime3"
-            minute-step="5"></div>
+            <div dd-datetimepicker ng-required="true" name="dateTime3" ng-disabled="false" ng-model="dateTime3" minute-step="5"></div>
         </div>
         <div class="form-group">
             <label>Datetime:&nbsp;</label><span>{{ dateTime3 | date:'yyyy-MM-dd HH:mm:ss' }}</span>
@@ -25,5 +25,32 @@
             <br />
         </div>
 
+    </form>
+
+    <form name="form" class="well well-small">
+        <h3>Using in forms</h3>
+        <div class="form-group">
+            <label for="exampleInputEmail1">Date</label>
+            <div dd-datepicker name="date" ng-model="date" style="width: 200px"></div>
+            <p class="help-block">Prestine: {{form.date.$pristine}}, Model: {{date | date:'yyyy-MM-dd HH:mm:ss' }}</p>
+        </div>
+        <div class="form-group">
+            <label for="exampleInputPassword1">Time</label>
+            <input class="form-control" dd-timepicker name="time" ng-model="time" style="width: 200px">
+            <p class="help-block">Prestine: {{form.time.$pristine}}, Model: {{time}}</p>
+        </div>
+        <div class="form-group" ng-class="{'has-error': form.formDateTime.$invalid}">
+            <label for="exampleInputFile">Datetime</label>
+            <div dd-datetimepicker name="formDateTime" ng-required="true" ng-model="formDateTime" allow-forward-date-adjustment="true" show-day-name="true"></div>
+            <p class="help-block">Prestine: {{form.formDateTime.$pristine}}, Model: {{formDateTime | date:'yyyy-MM-dd HH:mm:ss' }}</p>
+        </div>
+
+        <button type="submit" class="btn btn-success">Submit</button>
+        <button type="submit" ng-click="formCancel()" class="btn btn-default">Cancel</button>
+        <br />
+        <p style="margin-top:10px;">
+            Form prestine: {{form.$pristine}} <br/>
+            Form valid: {{form.$valid}}
+        </div>
     </form>
 </div>

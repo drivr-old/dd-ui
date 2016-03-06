@@ -20,43 +20,42 @@ angular.module('dd.ui.dd-datetimepicker', ['ui.bootstrap'])
             link: function (scope, element, attrs, ctrl) {
 
                 var timeChanged = false;
-                var canExecuteNgModelChanges = true;
                 var timepickerBlurEventFired = false;
 
                 scope.time = null;
                 scope.date = null;
-
-                scope.$watch('ngModel', function (value) {
-                    if (canExecuteNgModelChanges) {
-                        init();
-                    }
+                
+                ctrl.$formatters.push(function(value) {
+                    init(value);
+                    return value;
                 });
 
                 scope.$watch('date', function (newTime, oldTime) {
-                    updateMainModel();
-                    setValidity();
+                    if (scope.ngModel !== newTime) {
+                        updateMainModel();
+                        setValidity();
+                    }
                 });
 
                 scope.$watch('time', function (newTime, oldTime) {
-                    
-                    if (newTime && oldTime && newTime !== oldTime) {
+
+                    if (scope.ngModel !== newTime) {
                         timeChanged = true;
+                        
+                        updateMainModel();
+                        setValidity();
+                        adjustToNextDayIfPossible();
+                        adjustDate(newTime, oldTime);
+
+                        timepickerBlurEventFired = false;
                     }
-                    
-                    updateMainModel();
-                    setValidity();
-                    adjustToNextDayIfPossible();
-                    adjustDate(newTime, oldTime);
-                    
-                    timepickerBlurEventFired = false;
                 });
-                
-                scope.onTimeBlur = function() {
+
+                scope.onTimeBlur = function () {
                     timepickerBlurEventFired = true;
                 };
-                
+
                 function updateMainModel() {
-                    canExecuteNgModelChanges = false;
                     
                     ensureDateTypes();
                     var model = angular.copy(scope.date);
@@ -65,16 +64,12 @@ angular.module('dd.ui.dd-datetimepicker', ['ui.bootstrap'])
                     }
 
                     ctrl.$setViewValue(model);
-
-                    $timeout(function () {
-                        canExecuteNgModelChanges = true;
-                    }, 100);
                 }
 
-                function init() {
-                    ctrl.$modelValue = angular.copy(scope.ngModel);
-                    scope.time = angular.copy(ctrl.$modelValue);
-                    scope.date = angular.copy(ctrl.$modelValue);
+                function init(model) {
+                    ctrl.$modelValue = model;
+                    scope.time = ctrl.$modelValue;
+                    scope.date = ctrl.$modelValue;
                 }
 
                 function ensureDateTypes() {
@@ -109,7 +104,7 @@ angular.module('dd.ui.dd-datetimepicker', ['ui.bootstrap'])
                     } else if (hoursDelta === 23) {
                         adjustDateByDay(currentDate - 1);
                     }
-                    
+
                 }
 
                 function adjustDateByDay(day) {
@@ -157,9 +152,9 @@ angular.module('dd.ui.dd-datetimepicker', ['ui.bootstrap'])
                 }
 
                 function sameDay(d1, d2) {
-                    return d1.getUTCFullYear() === d2.getUTCFullYear() &&
-                        d1.getUTCMonth() === d2.getUTCMonth() &&
-                        d1.getUTCDate() === d2.getUTCDate();
+                    return d1.getYear() === d2.getYear() &&
+                        d1.getMonth() === d2.getMonth() &&
+                        d1.getDate() === d2.getDate();
                 }
             }
         };

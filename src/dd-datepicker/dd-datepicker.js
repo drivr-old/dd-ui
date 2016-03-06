@@ -37,39 +37,30 @@
                 scope.dateFormat = attrs.dateFormat || 'yyyy-MM-dd';
                 scope.useShortDateFormat = scope.dateFormat.length < 6;
 
-
                 scope.calendarOpened = false;
                 scope.openCalendar = openCalendar;
 
-                init();
-
-                scope.$watch('ngModel', function (newValue, oldValue) {
-                    if (!oldValue && !newValue) {
-                        return;
-                    }
-
-                    if (canExecuteNgModelChanges) {
-                        updateDisplayModel();
-                        updateDayLabel();
-                        syncBootstrapDateModel();
-                    }
+                ctrl.$formatters.push(function(value) {
+                    init(value);
+                    return value;
                 });
-
+                
                 scope.$watch('calendarOpened', function (newValue, oldValue) {
                     if (!newValue && oldValue) {
                         onCalendarClosed();
                         input.focus();
                     }
                 });
-                
-                scope.$on('ddDatepicker:sync', function(event, args) {
-                    canExecuteNgModelChanges = true;
+
+                scope.$on('ddDatepicker:sync', function (event, args) {
                     scope.ngModel = args.model;
                 });
-                
+
                 input.on('blur', function () {
-                    parseUserInput();
-                    updateDisplayModel();
+                    if (isDateChanged()) {
+                        parseUserInput();
+                        updateDisplayModel();
+                    }
                 });
 
                 input.on('keydown keypress', function (event) {
@@ -86,6 +77,26 @@
                         event.preventDefault();
                     }
                 });
+                
+                function init(model) {
+                    ctrl.$modelValue = model;
+                    updateDisplayModel();
+                    updateDayLabel();
+                    syncBootstrapDateModel();
+                }
+
+                function isDateChanged() {
+                    var inputVal = input.val();
+                    if (!scope.ngModel && !inputVal) {
+                        return false;
+                    }
+
+                    if (scope.ngModel && inputVal && dateFilter(scope.ngModel, scope.dateFormat) === inputVal) {
+                        return false;
+                    }
+
+                    return true;
+                }
 
                 function onCalendarClosed() {
                     if (scope.bootstrapDateModel) {
@@ -95,7 +106,7 @@
                         }
                     }
                 }
-                
+
                 function parseUserInput() {
                     var parsedDate = datepickerParserService.parse(scope.displayModel, scope.dateFormat, scope.dateDisabled);
                     updateMainModel(parsedDate);
@@ -114,11 +125,6 @@
                     $event.preventDefault();
                     $event.stopPropagation();
                     scope.calendarOpened = true;
-                }
-
-                function init() {
-                    ctrl.$modelValue = angular.copy(scope.ngModel);
-                    syncBootstrapDateModel();
                 }
 
                 function syncBootstrapDateModel() {
