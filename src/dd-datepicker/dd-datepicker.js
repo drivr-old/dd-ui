@@ -14,7 +14,7 @@
         var directive = {
             restrict: 'EA',
             require: 'ngModel',
-            replace: 'true',
+            replace: true,
             templateUrl: function (element, attrs) {
                 return attrs.templateUrl || 'template/dd-datepicker/dd-datepicker.html';
             },
