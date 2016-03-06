@@ -1,3 +1,20 @@
+<a name="0.4.0"></a>
+# [0.4.0](//compare/0.3.4...v0.4.0) (2016-03-06)
+
+
+### Bug Fixes
+
+* **datetimepicker:** add modules dep for unit test 6c2e784
+* **datetimepicker:** change replace type to bool 7700414
+* **datetimepicker:** remove uneeded watches and timeouts 73a3293
+* **docs:** toogle menu 271de7b
+
+### Features
+
+* **datetimepicker:** html and css cleanup 3a4f0c7
+
+
+
 <a name="0.3.4"></a>
 ## [0.3.4](//compare/0.3.3...v0.3.4) (2016-03-03)
 
