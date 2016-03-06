@@ -12,14 +12,14 @@
                 ng-model="time" />
 	</div>
 	<div class="input-group datepicker-container">
-        <input type="text" 
-               dd-datepicker
+        <div dd-datepicker
                ng-disabled="ngDisabled"
                ng-required="ngRequired"
                date-format="{{::dateFormat}}"
                ng-model="date"
                show-day-name="showDayName"
                close-text="Close"
-               date-disabled="dateDisabled({date: date, mode: mode})" />
+               date-disabled="dateDisabled({date: date, mode: mode})">
+        </div>
 	</div>
 </div>

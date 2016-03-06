@@ -19,3 +19,7 @@
     border-bottom-left-radius: 0;
     border-top-left-radius: 0;
 }
+
+.has-error .dd-datetimepicker .calendar-btn-with-day {
+    border-color: #a94442;
+}

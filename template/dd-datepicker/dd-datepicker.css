@@ -3,7 +3,8 @@
         border-left: 0;
     }
     .dd-datepicker .day-name-label {
-        width: 100px !important;
+        width: 90px !important;
+        font-size: 12px;
     }
     
 .dd-datepicker input.short {
