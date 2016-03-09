@@ -40,6 +40,17 @@
             $scope.lookupParams.driverId = '123';
             lookup('ac');
         });
+        
+        it('limit is overriden by passed value.', function () {
+            $scope.lookupParams = {};
+
+            $httpBackend.expectGET('/api/drivers/lookup?limit=10&query=ab').respond(200);
+            lookup('ab');
+            
+            $httpBackend.expectGET('/api/drivers/lookup?limit=100&query=ac').respond(200);
+            $scope.lookupParams.limit = 100;
+            lookup('ac');
+        });
     });
 
     describe('Select item', function () {
