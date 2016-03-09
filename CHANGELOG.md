@@ -1,3 +1,13 @@
+<a name="0.3.6"></a>
+## [0.3.6](//compare/0.3.5...v0.3.6) (2016-03-09)
+
+
+### Bug Fixes
+
+* **lookup:** Allow override of limit parameter. b00611d
+
+
+
 <a name="0.3.5"></a>
 ## [0.3.5](//compare/0.4.0...v0.3.5) (2016-03-06)
 
