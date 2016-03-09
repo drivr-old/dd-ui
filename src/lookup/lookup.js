@@ -50,7 +50,10 @@ angular.module('dd.ui.lookup', ['ui.bootstrap'])
             $scope.getItems = function(query) {
                 var requestParams = $scope.lookupParams || {};
                 requestParams.query = encodeURIComponent(query);
-                requestParams.limit = 10;
+                
+                if(angular.isUndefined(requestParams.limit)){
+                    requestParams.limit = 10;
+                }
 
                 $scope.isBusy = true;
                 return $http({ method: 'GET', url: $scope.url, params: requestParams })
