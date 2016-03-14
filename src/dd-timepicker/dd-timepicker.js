@@ -29,7 +29,7 @@
                 ctrl.$parsers.push(function (value) {
                     value = canUpdateNgModel ? timeparserService.toModel(value, scope.isDateType, dateTime) : scope.ngModel;
                     canUpdateNgModel = false;
-                    return value;
+                    return value || null;
                 });
             
                 ctrl.$formatters.push(function (value) {
