@@ -1,3 +1,13 @@
+<a name="0.3.8"></a>
+## [0.3.8](//compare/0.3.6...v0.3.8) (2016-03-14)
+
+
+### Bug Fixes
+
+* **timepicker:** be should default return null 40126ba
+
+
+
 <a name="0.3.7"></a>
 ## [0.3.7](//compare/0.3.6...v0.3.7) (2016-03-14)
 
