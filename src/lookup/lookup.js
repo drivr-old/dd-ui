@@ -62,7 +62,7 @@ angular.module('dd.ui.lookup', ['ui.bootstrap'])
                         if (attrs.lookupResponseTransform) {
                             return $scope.lookupResponseTransform({ $response: result.data });
                         }
-                		ctrl.$setDirty(true);
+                        ctrl.$setDirty(true);
                         return result.data;
                     }, function () {
                         $scope.isBusy = false;
