@@ -20,7 +20,6 @@ angular.module('dd.ui.lookup', ['ui.bootstrap'])
             
             /* --------------- read-only attributes --------------- */
 
-            $scope.required = attrs.required;
             $scope.placeholder = attrs.placeholder;
 
             if (attrs.lookupAddon) {
