@@ -32,7 +32,7 @@ describe('datetimepicker', function () {
 
     describe('Init', function () {
         it('set default values', function () {
-            $scope.date = new Date('2016-02-09');
+            $scope.date = new Date('2016-02-09T12:01:00+00:00');
 
             var element = compileElement($scope);
             var elementScope = element.isolateScope();
@@ -40,6 +40,13 @@ describe('datetimepicker', function () {
 
             expect(elementScope.displayModel).toBeDefined();
             expect(elementScope.bootstrapDateModel).toBeDefined();
+        });
+    });
+
+    describe('Parse', function () {
+        it('does not change initial time', function () {
+            changeInputValue(element, '2016-02-09');
+            expectUtcTime(12, 1, 0);
         });
     });
 
@@ -58,9 +65,7 @@ describe('datetimepicker', function () {
         });
     });
 
-
     describe('Parse custom formats', function () {
-
         it('0812', function () {
 
             changeInputValue(element, '0812');
@@ -191,8 +196,18 @@ describe('datetimepicker', function () {
             expect($scope.date.getDate()).toBe(25);
         });
 
-        it('set current date on enter click if input is empty', function () {
+        it('dont change initial time', function () {
+            $scope.date = new Date('2016-08-25T12:01:00+00:00');
+            $scope.$digest();
 
+            var input = element.find('.display-input');
+            var altKeyCode = 38;
+            triggerKeyDown(input, altKeyCode);
+
+            expectUtcTime(12, 1, 0);
+        });
+
+        it('set current date on enter click if input is empty', function () {
             var input = element.find('.display-input');
             var enterKeyCode = 13;
             triggerKeyDown(input, enterKeyCode);
@@ -207,6 +222,12 @@ describe('datetimepicker', function () {
         expect(model.getFullYear()).toBe(currentYear);
         expect(model.getMonth() + 1).toBe(month);
         expect(model.getDate()).toBe(day);
+    }
+
+    function expectUtcTime(time, hour, minute, second) {
+        expect(time.getUTCHours()).toBe(hour);
+        expect(time.getUTCMinutes()).toBe(minute);
+        expect(time.getUTCSeconds()).toBe(second);
     }
 
     function changeInputValue(el, value) {

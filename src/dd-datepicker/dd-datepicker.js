@@ -108,13 +108,13 @@
                 }
 
                 function parseUserInput() {
-                    var parsedDate = datepickerParserService.parse(scope.displayModel, scope.dateFormat, scope.dateDisabled);
+                    var parsedDate = datepickerParserService.parse(scope.displayModel, scope.dateFormat, scope.dateDisabled, ctrl.$modelValue);
                     updateMainModel(parsedDate);
                     syncBootstrapDateModel();
                 }
 
                 function changeDate(delta) {
-                    var parsedDate = scope.displayModel ? datepickerParserService.parse(scope.displayModel, scope.dateFormat, scope.dateDisabled) : new Date();
+                    var parsedDate = scope.displayModel ? datepickerParserService.parse(scope.displayModel, scope.dateFormat, scope.dateDisabled, ctrl.$modelValue) : new Date();
                     datepickerParserService.changeDate(parsedDate, delta);
                     updateMainModel(parsedDate);
                     syncBootstrapDateModel();
@@ -172,12 +172,16 @@
         self.parse = parse;
         self.changeDate = changeDate;
 
-        function parse(input, format, dateDisabled) {
+        function parse(input, format, dateDisabled, time) {
             var parsedDate = parseInternal(input, format);
             if (dateDisabled) {
                 parsedDate = validateWithDisabledDate(parsedDate, dateDisabled);
             }
 
+            if (time){
+                parsedDate.setHours(time.getHours(), time.getMinutes(), 0, 0);
+            }
+            
             return parsedDate || null;
         }
 
@@ -190,7 +194,7 @@
             currentDate.setDate(day);
         }
     
-        //private
+        // private
     
         function parseInternal(input, format) {
             var useMmDdPattern = mmDdFormatPattern.test(format);
