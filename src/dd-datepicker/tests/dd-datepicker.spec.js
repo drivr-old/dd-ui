@@ -49,9 +49,8 @@ describe('datetimepicker', function () {
             $scope.$digest();
 
             changeInputValue(element, '2016-02-09');
-            
-            var model = element.isolateScope().ngModel;
-            expectUtcTime(model, 12, 1, 0);
+
+            expectUtcTime($scope.date, 12, 1, 0);
         });
     });
 
