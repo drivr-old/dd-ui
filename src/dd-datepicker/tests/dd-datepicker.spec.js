@@ -46,7 +46,8 @@ describe('datetimepicker', function () {
     describe('Parse', function () {
         it('does not change initial time', function () {
             changeInputValue(element, '2016-02-09');
-            expectUtcTime(12, 1, 0);
+            var model = element.isolateScope().ngModel;
+            expectUtcTime(model, 12, 1, 0);
         });
     });
 
@@ -204,7 +205,7 @@ describe('datetimepicker', function () {
             var altKeyCode = 38;
             triggerKeyDown(input, altKeyCode);
 
-            expectUtcTime(12, 1, 0);
+            expectUtcTime($scope.date, 12, 1, 0);
         });
 
         it('set current date on enter click if input is empty', function () {
