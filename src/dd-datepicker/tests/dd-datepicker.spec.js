@@ -45,7 +45,11 @@ describe('datetimepicker', function () {
 
     describe('Parse', function () {
         it('does not change initial time', function () {
+            $scope.date = new Date('2016-08-25T12:01:00+00:00');
+            $scope.$digest();
+
             changeInputValue(element, '2016-02-09');
+            
             var model = element.isolateScope().ngModel;
             expectUtcTime(model, 12, 1, 0);
         });
@@ -225,10 +229,10 @@ describe('datetimepicker', function () {
         expect(model.getDate()).toBe(day);
     }
 
-    function expectUtcTime(time, hour, minute, second) {
-        expect(time.getUTCHours()).toBe(hour);
-        expect(time.getUTCMinutes()).toBe(minute);
-        expect(time.getUTCSeconds()).toBe(second);
+    function expectUtcTime(model, hour, minute, second) {
+        expect(model.getUTCHours()).toBe(hour);
+        expect(model.getUTCMinutes()).toBe(minute);
+        expect(model.getUTCSeconds()).toBe(second);
     }
 
     function changeInputValue(el, value) {
