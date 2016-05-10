@@ -237,8 +237,8 @@
                                 <div class="pull-right">
                                     <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.4.3', '3.1.1', '0.4.1', 'arrow-key-nav')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
                                 </div>
-                                <tabset>
-                                    <tab heading="Markup">
+                                <uib-tabset>
+                                    <uib-tab heading="Markup">
                                         <div plunker-content="markup">
                                             <pre ng-non-bindable><code data-language="html">&lt;div ng-controller=&quot;ArrowKeyNavDemoCtrl&quot;&gt;
 	&lt;div dd-arrow-key-nav arrow-key-modifier=&quot;alt&quot;&gt;
@@ -281,15 +281,15 @@
 	&lt;/div&gt;
 &lt;/div&gt;</code></pre>
                                         </div>
-                                    </tab>
-                                    <tab heading="JavaScript">
+                                    </uib-tab>
+                                    <uib-tab heading="JavaScript">
                                         <div plunker-content="javascript">
                                             <pre ng-non-bindable><code data-language="javascript">angular.module(&#x27;dd.ui.demo&#x27;).controller(&#x27;ArrowKeyNavDemoCtrl&#x27;, [function() {
 
 }]);</code></pre>
                                         </div>
-                                    </tab>
-                                </tabset>
+                                    </uib-tab>
+                                </uib-tabset>
                             </div>
                         </div>
                     </section>
@@ -386,8 +386,8 @@
                                 <div class="pull-right">
                                     <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.4.3', '3.1.1', '0.4.1', 'busy-element')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
                                 </div>
-                                <tabset>
-                                    <tab heading="Markup">
+                                <uib-tabset>
+                                    <uib-tab heading="Markup">
                                         <div plunker-content="markup">
                                             <pre ng-non-bindable><code data-language="html">&lt;style&gt;
 .be-overlay.custom {
@@ -456,8 +456,8 @@
   &lt;/table&gt;
 &lt;/div&gt;</code></pre>
                                         </div>
-                                    </tab>
-                                    <tab heading="JavaScript">
+                                    </uib-tab>
+                                    <uib-tab heading="JavaScript">
                                         <div plunker-content="javascript">
                                             <pre ng-non-bindable><code data-language="javascript">angular.module(&#x27;dd.ui.demo&#x27;).controller(&#x27;BusyElementDemoCtrl&#x27;, function ($scope, $timeout) {
 	$scope.items = [
@@ -482,8 +482,8 @@
 	};
 });</code></pre>
                                         </div>
-                                    </tab>
-                                </tabset>
+                                    </uib-tab>
+                                </uib-tabset>
                             </div>
                         </div>
                     </section>
@@ -569,8 +569,8 @@ Allows overriding of default template of the datetimepicker</p>
                                 <div class="pull-right">
                                     <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.4.3', '3.1.1', '0.4.1', 'datetimepicker')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
                                 </div>
-                                <tabset>
-                                    <tab heading="Markup">
+                                <uib-tabset>
+                                    <uib-tab heading="Markup">
                                         <div plunker-content="markup">
                                             <pre ng-non-bindable><code data-language="html">&lt;div ng-controller=&quot;DateTimePickerDemoCtrl&quot;&gt;
   &lt;div datetimepicker 
@@ -581,8 +581,8 @@ Allows overriding of default template of the datetimepicker</p>
   &lt;label&gt;Datetime:&amp;nbsp;&lt;/label&gt;&lt;span&gt;{{ dateTime | date:&#x27;yyyy-MM-dd HH:mm:ss&#x27; }}&lt;/span&gt;
 &lt;/div&gt;</code></pre>
                                         </div>
-                                    </tab>
-                                    <tab heading="JavaScript">
+                                    </uib-tab>
+                                    <uib-tab heading="JavaScript">
                                         <div plunker-content="javascript">
                                             <pre ng-non-bindable><code data-language="javascript">angular.module(&#x27;dd.ui.demo&#x27;).controller(&#x27;DateTimePickerDemoCtrl&#x27;, [&#x27;$scope&#x27;, function ($scope) {
 	$scope.dateTime = new Date();
@@ -594,8 +594,8 @@ Allows overriding of default template of the datetimepicker</p>
     };
 }]);</code></pre>
                                         </div>
-                                    </tab>
-                                </tabset>
+                                    </uib-tab>
+                                </uib-tabset>
                             </div>
                         </div>
                     </section>
@@ -680,8 +680,8 @@ Allows overriding of default template of the datepicker</p>
                                 <div class="pull-right">
                                     <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.4.3', '3.1.1', '0.4.1', 'dd-datepicker')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
                                 </div>
-                                <tabset>
-                                    <tab heading="Markup">
+                                <uib-tabset>
+                                    <uib-tab heading="Markup">
                                         <div plunker-content="markup">
                                             <pre ng-non-bindable><code data-language="html">&lt;div ng-controller=&quot;DatepickerDemoCtrl&quot;&gt;
 
@@ -701,8 +701,8 @@ Allows overriding of default template of the datepicker</p>
     &lt;/div&gt;
 &lt;/div&gt;</code></pre>
                                         </div>
-                                    </tab>
-                                    <tab heading="JavaScript">
+                                    </uib-tab>
+                                    <uib-tab heading="JavaScript">
                                         <div plunker-content="javascript">
                                             <pre ng-non-bindable><code data-language="javascript">angular.module(&#x27;dd.ui.demo&#x27;).controller(&#x27;DatepickerDemoCtrl&#x27;, function ($scope) {
     
@@ -729,8 +729,8 @@ Allows overriding of default template of the datepicker</p>
     };
 });</code></pre>
                                         </div>
-                                    </tab>
-                                </tabset>
+                                    </uib-tab>
+                                </uib-tabset>
                             </div>
                         </div>
                     </section>
@@ -873,8 +873,8 @@ Allows overriding of default template of the datetimepicker</p>
                                 <div class="pull-right">
                                     <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.4.3', '3.1.1', '0.4.1', 'dd-datetimepicker')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
                                 </div>
-                                <tabset>
-                                    <tab heading="Markup">
+                                <uib-tabset>
+                                    <uib-tab heading="Markup">
                                         <div plunker-content="markup">
                                             <pre ng-non-bindable><code data-language="html">&lt;div ng-controller=&quot;DdDateTimePickerDemoCtrl&quot;&gt;
 
@@ -933,8 +933,8 @@ Allows overriding of default template of the datetimepicker</p>
     &lt;/form&gt;
 &lt;/div&gt;</code></pre>
                                         </div>
-                                    </tab>
-                                    <tab heading="JavaScript">
+                                    </uib-tab>
+                                    <uib-tab heading="JavaScript">
                                         <div plunker-content="javascript">
                                             <pre ng-non-bindable><code data-language="javascript">angular.module(&#x27;dd.ui.demo&#x27;).controller(&#x27;DdDateTimePickerDemoCtrl&#x27;, [&#x27;$scope&#x27;, function ($scope) {
 	$scope.dateTime = new Date();
@@ -970,8 +970,8 @@ Allows overriding of default template of the datetimepicker</p>
     
 }]);</code></pre>
                                         </div>
-                                    </tab>
-                                </tabset>
+                                    </uib-tab>
+                                </uib-tabset>
                             </div>
                         </div>
                     </section>
@@ -1066,8 +1066,8 @@ Allows overriding of default template of the datetimepicker</p>
                                 <div class="pull-right">
                                     <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.4.3', '3.1.1', '0.4.1', 'dd-timepicker')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
                                 </div>
-                                <tabset>
-                                    <tab heading="Markup">
+                                <uib-tabset>
+                                    <uib-tab heading="Markup">
                                         <div plunker-content="markup">
                                             <pre ng-non-bindable><code data-language="html">&lt;div ng-controller=&quot;TimepickerDemoCtrl&quot;&gt;
 
@@ -1088,8 +1088,8 @@ Allows overriding of default template of the datetimepicker</p>
 
 &lt;/div&gt;</code></pre>
                                         </div>
-                                    </tab>
-                                    <tab heading="JavaScript">
+                                    </uib-tab>
+                                    <uib-tab heading="JavaScript">
                                         <div plunker-content="javascript">
                                             <pre ng-non-bindable><code data-language="javascript">angular.module(&#x27;dd.ui.demo&#x27;).controller(&#x27;TimepickerDemoCtrl&#x27;, function ($scope, $timeout) {
 	
@@ -1103,8 +1103,8 @@ Allows overriding of default template of the datetimepicker</p>
     
 });</code></pre>
                                         </div>
-                                    </tab>
-                                </tabset>
+                                    </uib-tab>
+                                </uib-tabset>
                             </div>
                         </div>
                     </section>
@@ -1228,8 +1228,8 @@ Allows overriding of default template of the datetimepicker</p>
                                 <div class="pull-right">
                                     <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.4.3', '3.1.1', '0.4.1', 'lookup')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
                                 </div>
-                                <tabset>
-                                    <tab heading="Markup">
+                                <uib-tabset>
+                                    <uib-tab heading="Markup">
                                         <div plunker-content="markup">
                                             <pre ng-non-bindable><code data-language="html">&lt;div ng-controller=&quot;LookupDemoCtrl&quot;&gt;
     &lt;div class=&quot;form-group&quot;&gt;
@@ -1281,8 +1281,8 @@ Allows overriding of default template of the datetimepicker</p>
     &lt;/div&gt;    
 &lt;/div&gt;</code></pre>
                                         </div>
-                                    </tab>
-                                    <tab heading="JavaScript">
+                                    </uib-tab>
+                                    <uib-tab heading="JavaScript">
                                         <div plunker-content="javascript">
                                             <pre ng-non-bindable><code data-language="javascript">angular.module(&#x27;dd.ui.demo&#x27;).controller(&#x27;LookupDemoCtrl&#x27;, [&#x27;$scope&#x27;, &#x27;$http&#x27;, &#x27;$httpBackend&#x27;, function ($scope, $http, $httpBackend) {
     $scope.lastRequest = null;
@@ -1346,8 +1346,8 @@ Allows overriding of default template of the datetimepicker</p>
     }
 }]);</code></pre>
                                         </div>
-                                    </tab>
-                                </tabset>
+                                    </uib-tab>
+                                </uib-tabset>
                             </div>
                         </div>
                     </section>
@@ -1464,8 +1464,8 @@ Allows overriding of default template of the datetimepicker</p>
                                 <div class="pull-right">
                                     <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.4.3', '3.1.1', '0.4.1', 'validation')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
                                 </div>
-                                <tabset>
-                                    <tab heading="Markup">
+                                <uib-tabset>
+                                    <uib-tab heading="Markup">
                                         <div plunker-content="markup">
                                             <pre ng-non-bindable><code data-language="html">&lt;div ng-controller=&quot;ValidationDemoCtrl&quot;&gt;
   &lt;form role=&quot;form&quot; name=&quot;forma&quot;&gt;
@@ -1499,14 +1499,14 @@ Allows overriding of default template of the datetimepicker</p>
   &lt;/form&gt;
 &lt;/div&gt;</code></pre>
                                         </div>
-                                    </tab>
-                                    <tab heading="JavaScript">
+                                    </uib-tab>
+                                    <uib-tab heading="JavaScript">
                                         <div plunker-content="javascript">
                                             <pre ng-non-bindable><code data-language="javascript">angular.module(&#x27;dd.ui.demo&#x27;).controller(&#x27;ValidationDemoCtrl&#x27;, function ($scope) {
 });</code></pre>
                                         </div>
-                                    </tab>
-                                </tabset>
+                                    </uib-tab>
+                                </uib-tabset>
                             </div>
                         </div>
                     </section>
