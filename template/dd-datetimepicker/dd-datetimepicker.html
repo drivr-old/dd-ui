@@ -3,6 +3,7 @@
          <span class="input-group-addon"><span class="glyphicon glyphicon-time"></span></span>
          <input class="form-control timepicker-input" 
                 dd-timepicker
+                placeholder="{{timePlaceholder}}"
                 is-date-type="true"
                 type="text"
                 ng-blur="onTimeBlur()"
@@ -13,6 +14,7 @@
 	</div>
 	<div class="input-group datepicker-container">
         <div dd-datepicker
+               placeholder="{{datePlaceholder}}"
                ng-disabled="ngDisabled"
                ng-required="ngRequired"
                date-format="{{::dateFormat}}"
