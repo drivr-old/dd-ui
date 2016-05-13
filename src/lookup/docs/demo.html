@@ -38,7 +38,14 @@
             url="'http://server/api/corporations'"
             lookup-response-transform="responseTransformer($response)">
         </div>
-    </div>   
+    </div>
+    <div class="form-group">
+        <h4>Lookup with a data provider</h4>
+        <div dd-lookup 
+            ng-model="dataProviderModel" 
+            lookup-data-provider="getLookupData($query)">
+        </div>
+    </div>           
     <div class="form-group">
         <h4>Lookup with empty list response</h4>
         <div dd-lookup 

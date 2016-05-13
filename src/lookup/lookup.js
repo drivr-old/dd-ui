@@ -1,16 +1,17 @@
 angular.module('dd.ui.lookup', ['ui.bootstrap'])
-.directive('ddLookup', ['$http', '$timeout', function ($http, $timeout) {
+.directive('ddLookup', ['$http', '$timeout', '$q', function ($http, $timeout, $q) {
     return {
         restrict: 'EA',
         require: 'ngModel',
         scope: {
             ngModel: '=',
-            url: '=',
+            url: '=?',
             lookupParams: '=?',
             lookupFormat: '&',
             ngDisabled: '=?',
             lookupOnSelect: '&',
-            lookupResponseTransform: '&'
+            lookupResponseTransform: '&',
+            lookupDataProvider: '&'
         },
         templateUrl: function (element, attrs) {
             return attrs.templateUrl || 'template/lookup/lookup.html';
@@ -47,25 +48,28 @@ angular.module('dd.ui.lookup', ['ui.bootstrap'])
             /* --------------- scope functions --------------- */
 
             $scope.getItems = function(query) {
-                var requestParams = $scope.lookupParams || {};
-                requestParams.query = encodeURIComponent(query);
-                
-                if(angular.isUndefined(requestParams.limit)){
-                    requestParams.limit = 10;
+                var dataPromise = null;
+                if($scope.url) {
+                    dataPromise = getHttpItems(query).then(function(response) { return response.data; });
+                } else if ($scope.lookupDataProvider) {
+                    dataPromise = $q.when($scope.lookupDataProvider({ $query: query }));
                 }
-
+                
+                if (!dataPromise) {
+                    return null;
+                }
+                
                 $scope.isBusy = true;
-                return $http({ method: 'GET', url: $scope.url, params: requestParams })
-                    .then(function (result) {
-                        $scope.isBusy = false;
-                        if (attrs.lookupResponseTransform) {
-                            return $scope.lookupResponseTransform({ $response: result.data });
-                        }
-                        ctrl.$setDirty(true);
-                        return result.data;
-                    }, function () {
-                        $scope.isBusy = false;
-                    });
+                return dataPromise.then(function (result) {
+                    $scope.isBusy = false;
+                    if (attrs.lookupResponseTransform) {
+                        return $scope.lookupResponseTransform({ $response: result });
+                    }
+                    ctrl.$setDirty(true);
+                    return result;
+                }, function () {
+                    $scope.isBusy = false;
+                });
             };
 
             $scope.clear = function () {
@@ -98,6 +102,17 @@ angular.module('dd.ui.lookup', ['ui.bootstrap'])
                 ctrl.$setDirty(true);
                 $timeout($scope.lookupOnSelect);
             };
+            
+            function getHttpItems(query) {
+                var requestParams = $scope.lookupParams || {};
+                requestParams.query = encodeURIComponent(query);
+                
+                if(angular.isUndefined(requestParams.limit)){
+                    requestParams.limit = 10;
+                }
+                
+                return $http({ method: 'GET', url: $scope.url, params: requestParams });                    
+            }
         }
     };
 }]);
