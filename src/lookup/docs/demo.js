@@ -48,6 +48,13 @@ angular.module('dd.ui.demo').controller('LookupDemoCtrl', ['$scope', '$http', '$
     $scope.responseTransformer = function(response) {
         return response.items;
     };
+    
+    $scope.getLookupData = function(query) {
+        return [
+                { name: 'Provider item 1' },
+                { name: 'Provider item 2' }
+            ];
+    };
 
     function getJsonFromUrl(url) {
       var query = url.substr(url.indexOf('?') + 1);

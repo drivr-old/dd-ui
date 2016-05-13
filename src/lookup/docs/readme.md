@@ -37,3 +37,7 @@ Our lookup, based on UI Bootstrap Typeahead directive.
  * `lookup-response-transform`
     :
     An optional attribute that allows to specify a function that transforms response. Useful when response is not an array.
+    
+ * `lookup-data-provider`
+    :
+    Can be used instead of `url` to specify a function providing data.

@@ -255,6 +255,21 @@
         });
     });
     
+    describe('Lookup data provider', function() {
+       it('handles the lookup item fetching.', function() {
+           var items = [ { id: 1, name: 'driver 1' }, { id: 2, name: 'driver 2' }];
+           
+           $scope.loadDataItems = jasmine.createSpy('loadDataItems').and.callFake(function(query) { return items; });
+           initDirective('<div dd-lookup ng-model="model" lookup-data-provider="loadDataItems($query)"></div>');
+           
+           lookup('ab', true);           
+           expect($scope.loadDataItems).toHaveBeenCalledWith('ab');
+           
+           selectItem(1, true);
+           expect($scope.model).toEqual(items[1]);
+       }) ;
+    });
+    
     function initDirective(html) {
         element = $compile(html)($scope);
         element.appendTo($document[0].body);
