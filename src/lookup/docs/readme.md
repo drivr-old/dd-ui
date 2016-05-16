@@ -19,7 +19,7 @@ Our lookup, based on UI Bootstrap Typeahead directive.
  	An optional object that holds url parameters for the API endpoint.
 
  * `template-url`
-    _(Default: 'template/lookup/lookup.html') :
+    _(Default: 'template/lookup/lookup.html')_ :
     Allows overriding of default template of the lookup.
 
  * `lookup-format`
@@ -43,5 +43,5 @@ Our lookup, based on UI Bootstrap Typeahead directive.
     Can be used instead of `url` to specify a function providing data.
     
  * `lookup-grouping`
-    :
-    If set to `true` enables result grouping by exploiting model property `group`.
+    _(Default: 'group')_ :
+    If set enables result grouping by exploiting provided model property.

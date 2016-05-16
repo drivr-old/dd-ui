@@ -274,15 +274,15 @@
     describe('Data with groups', function() {
         it('is grouped under corresponding headers.', function() {
             var items = [ 
-                { id: 1, name: 'driver 1', group: 'Group 1' }, 
-                { id: 2, name: 'driver 2', group: 'Group 2' }, 
-                { id: 3, name: 'driver 3', group: 'Group 1' }, 
-                { id: 4, name: 'driver 4', group: 'Group 3' }, 
+                { id: 1, name: 'driver 1', grupe: 'Group 1' }, 
+                { id: 2, name: 'driver 2', grupe: 'Group 2' }, 
+                { id: 3, name: 'driver 3', grupe: 'Group 1' }, 
+                { id: 4, name: 'driver 4', grupe: 'Group 3' }, 
                 { id: 5, name: 'driver 5' }];
                 
-            $scope.enableGrouping = true;
+            $scope.groupingProperty = 'grupe';
             $scope.loadDataItems = jasmine.createSpy('loadDataItems').and.returnValue(items);
-            initDirective('<div dd-lookup ng-model="model" lookup-grouping="enableGrouping" lookup-data-provider="loadDataItems($query)"></div>');
+            initDirective('<div dd-lookup ng-model="model" lookup-grouping="groupingProperty" lookup-data-provider="loadDataItems($query)"></div>');
             
             lookup('ab', true);
             

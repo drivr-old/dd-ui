@@ -63,7 +63,7 @@ angular.module('dd.ui.lookup', ['ui.bootstrap'])
                         result = $scope.lookupResponseTransform({ $response: result });
                     }
                     
-                    if ($scope.lookupGrouping) {
+                    if (attrs.lookupGrouping) {
                         result = applyGrouping(result);    
                     }
                                                                                                     
@@ -105,18 +105,17 @@ angular.module('dd.ui.lookup', ['ui.bootstrap'])
             };
             
             function applyGrouping(data) {
+                var propertyName = $scope.lookupGrouping || 'group';
                 var grouped = data ? data.reduce(function(prev, curr) {
-                    if (!curr.group) {
-                        curr.group = 'Other';    
-                    }
+                    curr.lookupGroup = curr[propertyName] || 'Other';
                     
-                    if (!prev[curr.group]) {
-                        prev[curr.group] = [];
+                    if (!prev[curr.lookupGroup]) {
+                        prev[curr.lookupGroup] = [];
                         curr.firstInGroup = true;
                     }
-                    
-                    prev[curr.group].push(curr);
-                    
+
+                    prev[curr.lookupGroup].push(curr);
+                                        
                     return prev;
                 }, {}) : null;
                 
