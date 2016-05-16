@@ -25,6 +25,10 @@ dd-ui Datepicker allows to enter custom date formats and use original bootstrap 
  * `template-url`
   _(Default: 'template/dd-datepicker/dd-datepicker.html') :
   Allows overriding of default template of the datepicker
+ 
+ * `placeholder`
+  :
+  Text to default if empty
   
   
 ### dd-ui Datepicker supports custom users date input depending on given date format ###

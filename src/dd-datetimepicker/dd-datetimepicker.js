@@ -15,7 +15,9 @@ angular.module('dd.ui.dd-datetimepicker', ['ui.bootstrap'])
                 dateDisabled: '&',
                 dateFormat: '@',
                 showDayName: '=?',
-                allowForwardDateAdjustment: '=?'
+                allowForwardDateAdjustment: '=?',
+                datePlaceholder: '@?',
+                timePlaceholder: '@?'
             },
             link: function (scope, element, attrs, ctrl) {
 

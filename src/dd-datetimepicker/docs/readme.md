@@ -36,3 +36,8 @@ Combined dd-timepicker and dd-datepicker that uses a single Date model.
  * `minute-step`
  	_(Defaults: 1)_ :
  	 Number of minutes to increase or decrease when using a timepicker.
+ * `date-placeholder`
+ 	Set date placeholder
+	 
+ * `time-placeholder`
+ 	Set time placeholder

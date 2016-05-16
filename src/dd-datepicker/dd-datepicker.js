@@ -25,7 +25,8 @@
                 showMeridian: '=?',
                 ngDisabled: '=?',
                 dateDisabled: '&',
-                showDayName: '=?'
+                showDayName: '=?',
+                placeholder: '@?'
             },
             link: function (scope, element, attrs, ctrl) {
 
@@ -174,6 +175,10 @@
 
         function parse(input, format, dateDisabled, time) {
             var parsedDate = parseInternal(input, format);
+            
+            if (!parsedDate) {
+                return null;
+            }
             if (dateDisabled) {
                 parsedDate = validateWithDisabledDate(parsedDate, dateDisabled);
             }

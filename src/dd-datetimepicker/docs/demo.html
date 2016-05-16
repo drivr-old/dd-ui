@@ -41,7 +41,7 @@
         </div>
         <div class="form-group" ng-class="{'has-error': form.formDateTime.$invalid}">
             <label for="exampleInputFile">Datetime</label>
-            <div dd-datetimepicker name="formDateTime" ng-required="true" ng-model="formDateTime" allow-forward-date-adjustment="true" show-day-name="true"></div>
+            <div date-placeholder="yyyy-MM-dd" time-placeholder="HH:mm" dd-datetimepicker name="formDateTime" ng-required="true" ng-model="formDateTime" allow-forward-date-adjustment="true" show-day-name="true"></div>
             <p class="help-block">Prestine: {{form.formDateTime.$pristine}}, Model: {{formDateTime | date:'yyyy-MM-dd HH:mm:ss' }}</p>
         </div>
 
