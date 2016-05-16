@@ -41,3 +41,7 @@ Our lookup, based on UI Bootstrap Typeahead directive.
  * `lookup-data-provider`
     :
     Can be used instead of `url` to specify a function providing data.
+    
+ * `lookup-grouping`
+    :
+    If set to `true` enables result grouping by exploiting model property `group`.

@@ -11,7 +11,8 @@ angular.module('dd.ui.lookup', ['ui.bootstrap'])
             ngDisabled: '=?',
             lookupOnSelect: '&',
             lookupResponseTransform: '&',
-            lookupDataProvider: '&'
+            lookupDataProvider: '&',
+            lookupGrouping: '=?'
         },
         templateUrl: function (element, attrs) {
             return attrs.templateUrl || 'template/lookup/lookup.html';
@@ -39,12 +40,6 @@ angular.module('dd.ui.lookup', ['ui.bootstrap'])
                 });
             }
 
-            /* --------------- ngModel pipeline --------------- */
-
-            ctrl.$formatters.push(function (modelValue) {
-                return modelValue;
-            });
-
             /* --------------- scope functions --------------- */
 
             $scope.getItems = function(query) {
@@ -62,10 +57,16 @@ angular.module('dd.ui.lookup', ['ui.bootstrap'])
                 $scope.isBusy = true;
                 return dataPromise.then(function (result) {
                     $scope.isBusy = false;
-                    if (attrs.lookupResponseTransform) {
-                        return $scope.lookupResponseTransform({ $response: result });
-                    }
                     ctrl.$setDirty(true);
+                    
+                    if (attrs.lookupResponseTransform) {
+                        result = $scope.lookupResponseTransform({ $response: result });
+                    }
+                    
+                    if ($scope.lookupGrouping) {
+                        result = applyGrouping(result);    
+                    }
+                                                                                                    
                     return result;
                 }, function () {
                     $scope.isBusy = false;
@@ -102,6 +103,31 @@ angular.module('dd.ui.lookup', ['ui.bootstrap'])
                 ctrl.$setDirty(true);
                 $timeout($scope.lookupOnSelect);
             };
+            
+            function applyGrouping(data) {
+                var grouped = data ? data.reduce(function(prev, curr) {
+                    if (!curr.group) {
+                        curr.group = 'Other';    
+                    }
+                    
+                    if (!prev[curr.group]) {
+                        prev[curr.group] = [];
+                        curr.firstInGroup = true;
+                    }
+                    
+                    prev[curr.group].push(curr);
+                    
+                    return prev;
+                }, {}) : null;
+                
+                var result = [];
+                for(var group in grouped) {
+                    if ({}.hasOwnProperty.call(grouped, group)) {
+                        result = result.concat(grouped[group]);
+                    }                    
+                }
+                return result;
+            }
             
             function getHttpItems(query) {
                 var requestParams = $scope.lookupParams || {};
