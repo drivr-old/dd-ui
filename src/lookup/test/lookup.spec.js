@@ -311,6 +311,7 @@
         input.val(value);
         input.trigger($sniffer.hasEvent('input') ? 'input' : 'change');
         $scope.$digest();
+        $timeout.flush();
         if (!manualFlush) {
             $httpBackend.flush();
         }
