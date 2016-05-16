@@ -1,3 +1,25 @@
+<a name="0.4.3"></a>
+## [0.4.3](//compare/0.3.8...v0.4.3) (2016-05-16)
+
+
+### Bug Fixes
+
+* **datepicker:** fix changing date not to change initial time 88a3d7c
+* **datepicker:** fix test 5b6a8e7
+* **datepicker:** fix test 38b9ef3
+* **datepicker:** fix test 43864a1
+* **datepicker:** undo test 18bea5a
+* **lookup:** set dirty on load 4d3c817
+* **lookup:** set dirty on load 96bd5b8
+* **lookup:** v0.4.0 remove ng required in template 67fa9ef
+
+### Features
+
+* **datepicker:** add placeholder for datetime pickers 0eb9fd6
+* **lookup:** lookup data provider e6b49be
+
+
+
 <a name="0.3.8"></a>
 ## [0.3.8](//compare/0.3.6...v0.3.8) (2016-03-14)
 
