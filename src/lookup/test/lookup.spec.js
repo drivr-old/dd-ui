@@ -11,6 +11,7 @@
     beforeEach(function () {
         module('dd.ui.lookup');
         module('template/lookup/lookup.html');
+        module('template/lookup/lookup-item.html');
 
         inject(function ($rootScope, _$compile_, _$document_, $templateCache, _$httpBackend_, _$sniffer_, _$timeout_) {
             $scope = $rootScope;
@@ -267,7 +268,36 @@
            
            selectItem(1, true);
            expect($scope.model).toEqual(items[1]);
-       }) ;
+       });
+    });
+    
+    describe('Data with groups', function() {
+        it('is grouped under corresponding headers.', function() {
+            var items = [ 
+                { id: 1, name: 'driver 1', grupe: 'Group 1' }, 
+                { id: 2, name: 'driver 2', grupe: 'Group 2' }, 
+                { id: 3, name: 'driver 3', grupe: 'Group 1' }, 
+                { id: 4, name: 'driver 4', grupe: 'Group 3' }, 
+                { id: 5, name: 'driver 5' }];
+                
+            $scope.groupingProperty = 'grupe';
+            $scope.loadDataItems = jasmine.createSpy('loadDataItems').and.returnValue(items);
+            initDirective('<div dd-lookup ng-model="model" lookup-grouping="groupingProperty" lookup-data-provider="loadDataItems($query)"></div>');
+            
+            lookup('ab', true);
+            
+            var lookupItems = getLookupItems();
+            expect(lookupItems[0].header).toEqual('Group 1');
+            expect(lookupItems[0].item).toEqual('driver 1');
+            expect(lookupItems[1].header).toEqual(undefined);
+            expect(lookupItems[1].item).toEqual('driver 3');
+            expect(lookupItems[2].header).toEqual('Group 2');
+            expect(lookupItems[2].item).toEqual('driver 2');
+            expect(lookupItems[3].header).toEqual('Group 3');
+            expect(lookupItems[3].item).toEqual('driver 4');
+            expect(lookupItems[4].header).toEqual('Other');
+            expect(lookupItems[4].item).toEqual('driver 5');
+        });
     });
     
     function initDirective(html) {
@@ -281,6 +311,7 @@
         input.val(value);
         input.trigger($sniffer.hasEvent('input') ? 'input' : 'change');
         $scope.$digest();
+        $timeout.flush();
         if (!manualFlush) {
             $httpBackend.flush();
         }
@@ -292,5 +323,18 @@
 
     function getItemLabel(index) {
         return element.find('ul.dropdown-menu li:eq(' + index + ') a').text();
+    }
+    
+    function getLookupItems() {
+        return element.find('ul.dropdown-menu li').toArray().reduce(function(prev, curr) {
+            var element = angular.element(curr); 
+            
+            prev.push({
+                header: element.find('.typeahead-group-header').html(),
+                item: element.find('a').html()
+            });
+            
+            return prev;
+        }, []);
     }
 });

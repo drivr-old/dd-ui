@@ -63,3 +63,7 @@
   top: 6px;
   z-index: 5;
 }
+.lookup-container .typeahead-group-header {
+  font-weight: bold;
+  padding: .2em .4em;
+}
