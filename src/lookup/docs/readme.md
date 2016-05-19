@@ -50,3 +50,7 @@ Our lookup, based on UI Bootstrap Typeahead directive.
     _(Default: `1`)_ :
     Minimal no of characters that needs to be entered before lookup kicks-in. Must be greater than or equal to 0.
     __IMPORTANT__: Must be an integer value to work correctly.
+    
+ * `lookup-input-class`
+    :
+    HTML class (or classes) to use on lookup input element.

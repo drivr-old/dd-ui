@@ -42,6 +42,7 @@ angular.module('dd.ui.lookup', ['ui.bootstrap'])
             /* --------------- read-only attributes --------------- */
 
             $scope.placeholder = attrs.placeholder;
+            $scope.inputClass = attrs.lookupInputClass;
 
             if (attrs.lookupAddon) {
                 var addonContainer = angular.element('<span class="input-group-addon"></span>');

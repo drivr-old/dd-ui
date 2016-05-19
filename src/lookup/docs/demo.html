@@ -50,7 +50,8 @@
     <div class="form-group">
         <h4>Lookup with empty list response</h4>
         <div dd-lookup 
-            ng-model="emptyModel" 
+            ng-model="emptyModel"
+            lookup-input-class="empty-input" 
             url="'http://server/api/emptyList'">
         </div>
     </div>
@@ -62,4 +63,10 @@
             lookup-data-provider="getGroupedData($query)">
         </div>
     </div>
+    
+    <style>
+        .empty-input {
+            border-color: grey;
+        }
+    </style>
 </div>
