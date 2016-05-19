@@ -45,3 +45,8 @@ Our lookup, based on UI Bootstrap Typeahead directive.
  * `lookup-grouping`
     _(Default: 'group')_ :
     If set enables result grouping by exploiting provided model property.
+    
+ * `lookup-min-length`
+    _(Default: `1`)_ :
+    Minimal no of characters that needs to be entered before lookup kicks-in. Must be greater than or equal to 0.
+    __IMPORTANT__: Must be an integer value to work correctly.

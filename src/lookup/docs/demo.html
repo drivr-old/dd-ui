@@ -42,7 +42,8 @@
     <div class="form-group">
         <h4>Lookup with a data provider</h4>
         <div dd-lookup 
-            ng-model="dataProviderModel" 
+            ng-model="dataProviderModel"
+            lookup-min-length="minLength" 
             lookup-data-provider="getLookupData($query)">
         </div>
     </div>           

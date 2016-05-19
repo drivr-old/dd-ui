@@ -12,7 +12,8 @@ angular.module('dd.ui.lookup', ['ui.bootstrap'])
             lookupOnSelect: '&',
             lookupResponseTransform: '&',
             lookupDataProvider: '&',
-            lookupGrouping: '=?'
+            lookupGrouping: '=?',
+            lookupMinLength: '=?'
         },
         templateUrl: function (element, attrs) {
             return attrs.templateUrl || 'template/lookup/lookup.html';
