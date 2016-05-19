@@ -134,10 +134,10 @@
 
         beforeEach(function() {
             label = element.find('.lookup-no-results');
+            $httpBackend.expectGET('/api/drivers/lookup?limit=10&query=ab').respond(200);
         });
 
-        it('is shown when no results are available.', function() {
-            $httpBackend.expectGET('/api/drivers/lookup?limit=10&query=ab').respond(200);
+        it('is shown when no results are available.', function() {            
             lookup('ab');
             
             expect(label.is(':visible')).toBeTruthy();
@@ -149,11 +149,27 @@
         });
 
         it('is cleared when clear button is pressed.', function() {
-            $httpBackend.expectGET('/api/drivers/lookup?limit=10&query=ab').respond(200);
             lookup('ab');
 
             element.find('.lookup-clear').click();
 
+            expect(label.is(':visible')).toBeFalsy();
+        });
+        
+        it('is cleared when input text is cleared.', function() {
+            lookup('ab');
+            expect(label.is(':visible')).toBeTruthy();
+            
+            lookup('', true);
+            expect(label.is(':visible')).toBeFalsy();
+        });
+        
+        it('is cleared when input focus is lost.', function() {
+            lookup('ab');
+            expect(label.is(':visible')).toBeTruthy();
+            
+            input.blur();
+            $scope.$digest();
             expect(label.is(':visible')).toBeFalsy();
         });
     });

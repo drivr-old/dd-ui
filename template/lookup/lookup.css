@@ -29,7 +29,7 @@
 .lookup-container .lookup-no-results {
   position: absolute;
   background-color: #fff;
-  z-index: 1;
+  z-index: 100;
   padding: 4px;
   width: 100%;
   border: 1px solid #ddd;
