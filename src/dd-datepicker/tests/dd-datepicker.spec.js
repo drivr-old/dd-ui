@@ -178,6 +178,22 @@ describe('datetimepicker', function () {
             expect($scope.date.getDate()).toBe(24);
         });
 
+        it('invalidate date on arrow key down click if date is to become invalid', function () {
+            $scope.dateDisabled = function (date, mode) {
+                var d = new Date('2016-08-25T15:00:00+00:00');
+                d.setHours(0, 0, 0, 0);
+                return mode === 'day' && date < d;
+            };
+            $scope.date = new Date('2016-08-25');
+            $scope.$digest();
+
+            var input = element.find('.display-input');
+            var keyDownCode = 40;
+            triggerKeyDown(input, keyDownCode);
+
+            expect(element.isolateScope().ngModel).toBe(null);
+        });
+
         it('dont change date if alt key clicked', function () {
             $scope.date = new Date('2016-08-25');
             $scope.$digest();
@@ -208,6 +224,44 @@ describe('datetimepicker', function () {
             expect($scope.date).toBeDefined();
         });
 
+    });
+
+    describe('ddDatepicker:setDate event', function () {
+        it('sets date if valid', function() {
+            $scope.date = new Date('2016-08-25');
+            $scope.$digest();
+
+            $scope.$broadcast('ddDatepicker:setDate', { date: new Date('2016-08-26') });
+            $scope.$digest();
+
+            expect($scope.date.getDate()).toBe(26);
+        });
+
+        it('does not set date if date invalid', function () {
+            $scope.date = new Date('2016-08-25');
+            $scope.$digest();
+
+            $scope.$broadcast('ddDatepicker:setDate', { date: new Date('invalid') });
+            $scope.$digest();
+
+            expect($scope.date).toBe(null);
+        });
+
+        it('does not set date if date is in disabled range', function () {
+            $scope.dateDisabled = function (date, mode) {
+                var d = new Date('2016-08-25T15:00:00+00:00');
+                d.setHours(0, 0, 0, 0);
+                return mode === 'day' && date < d;
+            };
+
+            $scope.date = new Date('2016-08-25');
+            $scope.$digest();
+
+            $scope.$broadcast('ddDatepicker:setDate', { date: new Date('2016-08-24') });
+            $scope.$digest();
+
+            expect($scope.date).toBe(null);
+        });
     });
 
     function expectDate(el, month, day) {

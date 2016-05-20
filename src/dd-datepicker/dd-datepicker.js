@@ -57,6 +57,12 @@
                     scope.ngModel = args.model;
                 });
 
+                scope.$on('ddDatepicker:setDate', function (event, args) {
+                    var validatedDate = datepickerParserService.validateWithDisabledDate(args.date, scope.dateDisabled);
+                    setDate(validatedDate);
+                    $timeout(updateDisplayModel, 0);
+                });
+
                 input.on('blur', function () {
                     if (isDateChanged()) {
                         parseUserInput();
@@ -101,25 +107,36 @@
 
                 function onCalendarClosed() {
                     if (scope.bootstrapDateModel) {
-                        updateMainModel(scope.bootstrapDateModel);
+                        var validatedDate = datepickerParserService.validateWithDisabledDate(scope.bootstrapDateModel, scope.dateDisabled);
+                        updateMainModel(validatedDate);
                         if (canUpdateDisplayModel) {
-                            updateDisplayModel(scope.bootstrapDateModel);
+                            updateDisplayModel(validatedDate);
                         }
+                        syncBootstrapDateModel();
                     }
                 }
 
                 function parseUserInput() {
                     var parsedDate = datepickerParserService.parse(scope.displayModel, scope.dateFormat, scope.dateDisabled, ctrl.$modelValue);
-                    updateMainModel(parsedDate);
-                    syncBootstrapDateModel();
+                    setDate(parsedDate);
                 }
 
                 function changeDate(delta) {
                     var parsedDate = scope.displayModel ? datepickerParserService.parse(scope.displayModel, scope.dateFormat, scope.dateDisabled, ctrl.$modelValue) : new Date();
                     datepickerParserService.changeDate(parsedDate, delta);
-                    updateMainModel(parsedDate);
-                    syncBootstrapDateModel();
+                    var validatedDate = datepickerParserService.validateWithDisabledDate(parsedDate, scope.dateDisabled);
+                    setDate(validatedDate);
                     $timeout(updateDisplayModel, 0);
+                }
+
+                function setDate(date) {
+                    // chek if date is 'indvalid date' and make it null for consistency
+                    if (!angular.isUndefined(date) && date !== null && isNaN(date.getDate())) {
+                        date = null;
+                    }
+
+                    updateMainModel(date);
+                    syncBootstrapDateModel();
                 }
 
                 function openCalendar($event) {
@@ -172,7 +189,8 @@
 
         self.parse = parse;
         self.changeDate = changeDate;
-
+        self.validateWithDisabledDate = validateWithDisabledDate;
+		
         function parse(input, format, dateDisabled, time) {
             var parsedDate = parseInternal(input, format);
             
@@ -183,7 +201,7 @@
                 parsedDate = validateWithDisabledDate(parsedDate, dateDisabled);
             }
 
-            if (time){
+            if (time && parsedDate) {
                 parsedDate.setHours(time.getHours(), time.getMinutes(), 0, 0);
             }
             
@@ -199,6 +217,15 @@
             currentDate.setDate(day);
         }
     
+        function validateWithDisabledDate(parsedDate, dateDisabled) {
+            var disabled = dateDisabled({ date: parsedDate, mode: 'day' });
+            if (disabled) {
+                return null;
+            }
+
+            return parsedDate;
+        }
+	
         // private
     
         function parseInternal(input, format) {
@@ -213,15 +240,6 @@
             }
 
             return uibDateParser.parse(input, format);
-        }
-
-        function validateWithDisabledDate(parsedDate, dateDisabled) {
-            var disabled = dateDisabled({ date: parsedDate, mode: 'day' });
-            if (disabled) {
-                return null;
-            }
-
-            return parsedDate;
         }
 
         function buildNewDate(input) {

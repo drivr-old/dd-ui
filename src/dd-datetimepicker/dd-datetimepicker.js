@@ -100,18 +100,21 @@ angular.module('dd.ui.dd-datetimepicker', ['ui.bootstrap'])
                     oldTime = new Date(oldTime);
 
                     var hoursDelta = newTime.getHours() - oldTime.getHours();
-                    var currentDate = scope.ngModel.getDate();
-                    if (hoursDelta === -23) {
-                        adjustDateByDay(currentDate + 1);
-                    } else if (hoursDelta === 23) {
-                        adjustDateByDay(currentDate - 1);
-                    }
 
+                    if (hoursDelta === -23) {
+                        adjustDateByDay(1);
+                    } else if (hoursDelta === 23) {
+                        adjustDateByDay(-1);
+                    }
                 }
 
-                function adjustDateByDay(day) {
-                    scope.ngModel.setDate(day);
-                    scope.date = angular.copy(scope.ngModel);
+                function adjustDateByDay(delta) {
+                    var dateToSet = new Date(scope.ngModel.getTime());
+                    var day = dateToSet.getDate() + delta;
+                    dateToSet.setDate(day);
+
+                    scope.$broadcast('ddDatepicker:setDate', { date: dateToSet });
+
                     notifyAboutDatepickerChange();
                 }
 
