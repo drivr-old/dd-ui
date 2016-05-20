@@ -1,3 +1,19 @@
+<a name="0.4.6"></a>
+## [0.4.6](//compare/0.4.4...v0.4.6) (2016-05-20)
+
+
+### Bug Fixes
+
+* **datetimepicker_datepicker:** validations. 83bea72
+* **lookup:** hide no results label 1509ddc
+
+### Features
+
+* **lookup:** lookup input class c9dc73d
+* **lookup:** lookup minimum length bdf04d5
+
+
+
 <a name="0.4.5"></a>
 ## [0.4.5](//compare/0.4.3...v0.4.5) (2016-05-20)
 
