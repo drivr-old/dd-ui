@@ -1,3 +1,23 @@
+<a name="0.4.5"></a>
+## [0.4.5](//compare/0.4.3...v0.4.5) (2016-05-20)
+
+
+### Bug Fixes
+
+* **datetimepicker_datepicker:** validations. 83bea72
+* **lookup:** hide no results label 1509ddc
+
+### Features
+
+* **lookup:** dynamic grouping property 7b3c97d
+* **lookup:** lookup item grouping 6590f1a
+
+### Performance Improvements
+
+* **lookup:** 500ms delay before request is made ca7f8c8
+
+
+
 <a name="0.4.4"></a>
 ## 0.4.4 (2016-05-19)
 
