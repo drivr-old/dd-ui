@@ -9,9 +9,10 @@
            typeahead-no-results="noResults"
            typeahead-template-url="template/lookup/lookup-item.html"
            typeahead-wait-ms="500"
+           typeahead-min-length="lookupMinLength"
            ng-disabled="ngDisabled"
            placeholder="{{placeholder}}"
-           class="form-control" />
+           class="form-control {{inputClass}}" />
     <span class="lookup-legend">
       <div class="lookup-icon" ng-show="!isBusy"></div>
       <div class="spinner-icon" ng-show="isBusy"></div>

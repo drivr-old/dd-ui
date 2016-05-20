@@ -3,7 +3,8 @@ angular.module('dd.ui.demo').controller('LookupDemoCtrl', ['$scope', '$http', '$
     $scope.lookupParams = {
         currentVehicle: 'BMW'
     };
-
+    $scope.minLength = 0;
+    
     // Fake backend
     $httpBackend.whenGET(function(url) { return url.startsWith('http://server/api/drivers'); }).respond(function(method, url) {
         var drivers = [

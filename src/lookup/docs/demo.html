@@ -42,14 +42,16 @@
     <div class="form-group">
         <h4>Lookup with a data provider</h4>
         <div dd-lookup 
-            ng-model="dataProviderModel" 
+            ng-model="dataProviderModel"
+            lookup-min-length="minLength" 
             lookup-data-provider="getLookupData($query)">
         </div>
     </div>           
     <div class="form-group">
         <h4>Lookup with empty list response</h4>
         <div dd-lookup 
-            ng-model="emptyModel" 
+            ng-model="emptyModel"
+            lookup-input-class="empty-input" 
             url="'http://server/api/emptyList'">
         </div>
     </div>
@@ -61,4 +63,10 @@
             lookup-data-provider="getGroupedData($query)">
         </div>
     </div>
+    
+    <style>
+        .empty-input {
+            border-color: grey;
+        }
+    </style>
 </div>
