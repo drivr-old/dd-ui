@@ -20,6 +20,24 @@ angular.module('dd.ui.lookup', ['ui.bootstrap'])
         link: function ($scope, element, attrs, ctrl) {
             $scope.isBusy = false;
             
+            /* --------------- typeahead extension --------------- */
+            
+            var typeaheadInput = element.find('input');
+            var typeaheadNgModelCtrl = typeaheadInput.controller('ngModel');
+            
+            // clear no results on blur
+            typeaheadInput.on('blur', function() {
+               $scope.noResults = false; 
+            });
+               
+            // clear no results label on input clear         
+            typeaheadNgModelCtrl.$parsers.unshift(function(inputValue) {                
+               if (inputValue.length === 0) {
+                   $scope.noResults = false;
+               }               
+               return inputValue;
+            });
+            
             /* --------------- read-only attributes --------------- */
 
             $scope.placeholder = attrs.placeholder;
