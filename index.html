@@ -13,7 +13,7 @@
     <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular-touch.min.js"></script>
     <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular-animate.min.js"></script>
 	<script src="assets/ui-bootstrap-tpls.js"></script>
-    <script src="dd-ui-tpls-0.4.5.min.js"></script>
+    <script src="dd-ui-tpls-0.4.6.min.js"></script>
     <script src="assets/angular-mocks.js"></script>
     <script src="assets/plunker.js"></script>
     <script src="assets/app.js"></script>
@@ -235,7 +235,7 @@
                         <div class="row code">
                             <div class="col-md-12" ng-controller="PlunkerCtrl">
                                 <div class="pull-right">
-                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.4.3', '3.1.1', '0.4.5', 'arrow-key-nav')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
+                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.4.3', '3.1.1', '0.4.6', 'arrow-key-nav')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
                                 </div>
                                 <uib-tabset>
                                     <uib-tab heading="Markup">
@@ -384,7 +384,7 @@
                         <div class="row code">
                             <div class="col-md-12" ng-controller="PlunkerCtrl">
                                 <div class="pull-right">
-                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.4.3', '3.1.1', '0.4.5', 'busy-element')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
+                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.4.3', '3.1.1', '0.4.6', 'busy-element')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
                                 </div>
                                 <uib-tabset>
                                     <uib-tab heading="Markup">
@@ -567,7 +567,7 @@ Allows overriding of default template of the datetimepicker</p>
                         <div class="row code">
                             <div class="col-md-12" ng-controller="PlunkerCtrl">
                                 <div class="pull-right">
-                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.4.3', '3.1.1', '0.4.5', 'datetimepicker')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
+                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.4.3', '3.1.1', '0.4.6', 'datetimepicker')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
                                 </div>
                                 <uib-tabset>
                                     <uib-tab heading="Markup">
@@ -682,7 +682,7 @@ Text to default if empty</p>
                         <div class="row code">
                             <div class="col-md-12" ng-controller="PlunkerCtrl">
                                 <div class="pull-right">
-                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.4.3', '3.1.1', '0.4.5', 'dd-datepicker')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
+                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.4.3', '3.1.1', '0.4.6', 'dd-datepicker')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
                                 </div>
                                 <uib-tabset>
                                     <uib-tab heading="Markup">
@@ -881,7 +881,7 @@ Allows overriding of default template of the datetimepicker</p>
                         <div class="row code">
                             <div class="col-md-12" ng-controller="PlunkerCtrl">
                                 <div class="pull-right">
-                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.4.3', '3.1.1', '0.4.5', 'dd-datetimepicker')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
+                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.4.3', '3.1.1', '0.4.6', 'dd-datetimepicker')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
                                 </div>
                                 <uib-tabset>
                                     <uib-tab heading="Markup">
@@ -1074,7 +1074,7 @@ Allows overriding of default template of the datetimepicker</p>
                         <div class="row code">
                             <div class="col-md-12" ng-controller="PlunkerCtrl">
                                 <div class="pull-right">
-                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.4.3', '3.1.1', '0.4.5', 'dd-timepicker')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
+                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.4.3', '3.1.1', '0.4.6', 'dd-timepicker')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
                                 </div>
                                 <uib-tabset>
                                     <uib-tab heading="Markup">
@@ -1182,14 +1182,16 @@ Allows overriding of default template of the datetimepicker</p>
     <div class="form-group">
         <h4>Lookup with a data provider</h4>
         <div dd-lookup 
-            ng-model="dataProviderModel" 
+            ng-model="dataProviderModel"
+            lookup-min-length="minLength" 
             lookup-data-provider="getLookupData($query)">
         </div>
     </div>           
     <div class="form-group">
         <h4>Lookup with empty list response</h4>
         <div dd-lookup 
-            ng-model="emptyModel" 
+            ng-model="emptyModel"
+            lookup-input-class="empty-input" 
             url="'http://server/api/emptyList'">
         </div>
     </div>
@@ -1201,6 +1203,12 @@ Allows overriding of default template of the datetimepicker</p>
             lookup-data-provider="getGroupedData($query)">
         </div>
     </div>
+    
+    <style>
+        .empty-input {
+            border-color: grey;
+        }
+    </style>
 </div>
                             </div>
                             <div class="col-md-6">
@@ -1251,6 +1259,15 @@ Allows overriding of default template of the datetimepicker</p>
  <em>(Default: &#39;group&#39;)</em> :
  If set enables result grouping by exploiting provided model property.</p>
 </li>
+<li><p><code>lookup-min-length</code>
+ <em>(Default: <code>1</code>)</em> :
+ Minimal no of characters that needs to be entered before lookup kicks-in. Must be greater than or equal to 0.
+ <strong>IMPORTANT</strong>: Must be an integer value to work correctly.</p>
+</li>
+<li><p><code>lookup-input-class</code>
+ :
+ HTML class (or classes) to use on lookup input element.</p>
+</li>
 </ul>
 
                             </div>
@@ -1259,7 +1276,7 @@ Allows overriding of default template of the datetimepicker</p>
                         <div class="row code">
                             <div class="col-md-12" ng-controller="PlunkerCtrl">
                                 <div class="pull-right">
-                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.4.3', '3.1.1', '0.4.5', 'lookup')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
+                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.4.3', '3.1.1', '0.4.6', 'lookup')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
                                 </div>
                                 <uib-tabset>
                                     <uib-tab heading="Markup">
@@ -1308,14 +1325,16 @@ Allows overriding of default template of the datetimepicker</p>
     &lt;div class=&quot;form-group&quot;&gt;
         &lt;h4&gt;Lookup with a data provider&lt;/h4&gt;
         &lt;div dd-lookup 
-            ng-model=&quot;dataProviderModel&quot; 
+            ng-model=&quot;dataProviderModel&quot;
+            lookup-min-length=&quot;minLength&quot; 
             lookup-data-provider=&quot;getLookupData($query)&quot;&gt;
         &lt;/div&gt;
     &lt;/div&gt;           
     &lt;div class=&quot;form-group&quot;&gt;
         &lt;h4&gt;Lookup with empty list response&lt;/h4&gt;
         &lt;div dd-lookup 
-            ng-model=&quot;emptyModel&quot; 
+            ng-model=&quot;emptyModel&quot;
+            lookup-input-class=&quot;empty-input&quot; 
             url=&quot;&#x27;http://server/api/emptyList&#x27;&quot;&gt;
         &lt;/div&gt;
     &lt;/div&gt;
@@ -1327,6 +1346,12 @@ Allows overriding of default template of the datetimepicker</p>
             lookup-data-provider=&quot;getGroupedData($query)&quot;&gt;
         &lt;/div&gt;
     &lt;/div&gt;
+    
+    &lt;style&gt;
+        .empty-input {
+            border-color: grey;
+        }
+    &lt;/style&gt;
 &lt;/div&gt;</code></pre>
                                         </div>
                                     </uib-tab>
@@ -1337,7 +1362,8 @@ Allows overriding of default template of the datetimepicker</p>
     $scope.lookupParams = {
         currentVehicle: &#x27;BMW&#x27;
     };
-
+    $scope.minLength = 0;
+    
     // Fake backend
     $httpBackend.whenGET(function(url) { return url.startsWith(&#x27;http://server/api/drivers&#x27;); }).respond(function(method, url) {
         var drivers = [
@@ -1418,7 +1444,8 @@ Allows overriding of default template of the datetimepicker</p>
     $scope.lookupParams = {
         currentVehicle: 'BMW'
     };
-
+    $scope.minLength = 0;
+    
     // Fake backend
     $httpBackend.whenGET(function(url) { return url.startsWith('http://server/api/drivers'); }).respond(function(method, url) {
         var drivers = [
@@ -1538,7 +1565,7 @@ Allows overriding of default template of the datetimepicker</p>
                         <div class="row code">
                             <div class="col-md-12" ng-controller="PlunkerCtrl">
                                 <div class="pull-right">
-                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.4.3', '3.1.1', '0.4.5', 'validation')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
+                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.4.3', '3.1.1', '0.4.6', 'validation')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
                                 </div>
                                 <uib-tabset>
                                     <uib-tab heading="Markup">
