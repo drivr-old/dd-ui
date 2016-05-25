@@ -10,6 +10,7 @@ angular.module('dd.ui.lookup', ['ui.bootstrap'])
             lookupFormat: '&',
             ngDisabled: '=?',
             lookupOnSelect: '&',
+            lookupOnClear: '&',
             lookupResponseTransform: '&',
             lookupDataProvider: '&',
             lookupGrouping: '=?',
@@ -30,12 +31,15 @@ angular.module('dd.ui.lookup', ['ui.bootstrap'])
             typeaheadInput.on('blur', function() {
                $scope.noResults = false; 
             });
-               
-            // clear no results label on input clear         
+                       
             typeaheadNgModelCtrl.$parsers.unshift(function(inputValue) {                
                if (inputValue.length === 0) {
+                   // clear no results label on input clear
                    $scope.noResults = false;
-               }               
+                   
+                   // notify that lookup value has been cleared
+                   $timeout($scope.lookupOnClear);
+               }
                return inputValue;
             });
             
@@ -102,6 +106,7 @@ angular.module('dd.ui.lookup', ['ui.bootstrap'])
                 element.find('input').val('');
                 ctrl.$setDirty(true);
                 $scope.noResults = false;
+                $timeout($scope.lookupOnClear);
             };
 
             $scope.getLabel = function (item) {

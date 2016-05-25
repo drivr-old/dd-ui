@@ -316,6 +316,33 @@
         });
     });
     
+    describe('Lookup on clear callback', function() {
+        beforeEach(function() {
+            $scope.onClear = jasmine.createSpy('onClear');
+            initDirective('<div dd-lookup ng-model="model" lookup-on-clear="onClear()" url="\'/api/drivers/lookup\'"></div>');
+        });
+        
+        it('is called when clear button is pressed.', function() {
+            element.find('.lookup-clear').click();
+            $timeout.flush();
+            
+            expect($scope.onClear).toHaveBeenCalled();
+        });
+        
+        it('is called when user clears the input text.', function() {
+            $httpBackend.expectGET('/api/drivers/lookup?limit=10&query=ab').respond(200);
+                        
+            lookup('ab');
+            lookup('', true);
+            
+            expect($scope.onClear).toHaveBeenCalled();
+        });
+        
+        it('is not called on initial load.', function() {
+           expect($scope.onClear).not.toHaveBeenCalled(); 
+        });
+    });
+    
     function initDirective(html) {
         element = $compile(html)($scope);
         element.appendTo($document[0].body);

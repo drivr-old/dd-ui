@@ -13,6 +13,10 @@ Our lookup, based on UI Bootstrap Typeahead directive.
  * `lookup-on-select`
  	:
  	An optional attribute that can be used to specify a callback for the select event.
+     
+ * `lookup-on-clear`
+ 	:
+ 	Can be used to specify a callback that is fired when input is cleared either by button or keyboard.
 
  * `lookup-params`
  	_(Default: null)_ :
