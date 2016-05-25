@@ -1,3 +1,13 @@
+<a name="0.4.7"></a>
+## [0.4.7](//compare/0.4.6...v0.4.7) (2016-05-25)
+
+
+### Features
+
+* **lookup:** lookup-on-clear attribute a6984cc
+
+
+
 <a name="0.4.6"></a>
 ## [0.4.6](//compare/0.4.4...v0.4.6) (2016-05-20)
 
