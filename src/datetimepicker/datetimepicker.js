@@ -13,7 +13,8 @@ angular.module('dd.ui.datetimepicker', ['ui.bootstrap'])
 			showSpinners: '=?',
 			showMeridian: '=?',
 			ngDisabled: '=?',
-			dateDisabled: '&'
+			dateDisabled: '&',
+			popupPlacement: '@?'
 		},
 
 		link: function(scope, element, attrs, ctrl) {

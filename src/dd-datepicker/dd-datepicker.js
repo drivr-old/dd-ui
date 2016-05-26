@@ -26,7 +26,8 @@
                 ngDisabled: '=?',
                 dateDisabled: '&',
                 showDayName: '=?',
-                placeholder: '@?'
+                placeholder: '@?',
+                popupPlacement: '@?'
             },
             link: function (scope, element, attrs, ctrl) {
 
