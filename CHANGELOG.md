@@ -1,3 +1,13 @@
+<a name="0.4.8"></a>
+## [0.4.8](//compare/0.4.7...v0.4.8) (2016-05-26)
+
+
+### Bug Fixes
+
+* **lookup:** grouping fix in item template 3770363
+
+
+
 <a name="0.4.7"></a>
 ## [0.4.7](//compare/0.4.6...v0.4.7) (2016-05-25)
 
