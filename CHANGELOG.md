@@ -1,3 +1,139 @@
+<a name="0.4.9"></a>
+## 0.4.9 (2016-05-26)
+
+
+### Bug Fixes
+
+* **arrowKeyNav:** code improvements 1eaac99
+* **build:** run tests on chrome e4bdf39
+* **datepicker:** docs 733da3e
+* **datepicker:** fix changing date not to change initial time 88a3d7c
+* **datepicker:** fix test 5b6a8e7
+* **datepicker:** fix test 38b9ef3
+* **datepicker:** fix test 43864a1
+* **datepicker:** remove unneeded watches 9f209e7
+* **datepicker:** set day label with important 928723b
+* **datepicker:** set input on focus after calendar is closed 8a15016
+* **datepicker:** undo test 18bea5a
+* **datepicker:** update day name label eef6eb3
+* **datepicker:** use arrow keys to add/substract date 2db4240
+* **datetimepicker:** 23:59->00:01=+1 day and 00:01->23:59=-1 day b2bd04c
+* **datetimepicker:** add modules dep for unit test 6c2e784
+* **datetimepicker:** add semicolon eb1b5e0
+* **datetimepicker:** add time to Date object 778428f
+* **datetimepicker:** adjust date forward if current date ebc880a
+* **datetimepicker:** change replace type to bool 7700414
+* **datetimepicker:** check if time is changed 9ff3cec
+* **datetimepicker:** fix es lint 2a2ea9b
+* **datetimepicker:** fix es lint 7f39202
+* **datetimepicker:** if date is cleared do not change time 6c75723
+* **datetimepicker:** if ngModel changes rerun internal logic 5c7dc56
+* **datetimepicker:** init values from ngWatch 8027068
+* **datetimepicker:** parse user input on blur 460b56d
+* **datetimepicker:** remove uneeded watches and timeouts 73a3293
+* **datetimepicker:** remove unused param ad3be57
+* **datetimepicker:** rename to allow-forward-date-adjustment 730d7f2
+* **datetimepicker:** set seconds and miliseconds to 0 for currentTime a79c5c8
+* **datetimepicker_datepicker:** validations. 83bea72
+* **docs:** toogle menu 271de7b
+* **infra:** validate commit msg added 3bb3278
+* **lookup:** Allow override of limit parameter. b00611d
+* **lookup:** grouping fix in item template 3770363
+* **lookup:** hide no results label 1509ddc
+* **lookup:** set dirty on load 96bd5b8
+* **lookup:** set dirty on load 4d3c817
+* **lookup:** v0.4.0 remove ng required in template 67fa9ef
+* **sameAs:** Fixes to same as a8d0dce
+* **timepicker:** add default value if not exsist 54ac6a5
+* **timepicker:** be should default return null 40126ba
+* **timepicker:** check if value is changed f886768
+* **timepicker:** handle 12a/12p time parsing 4623edf
+* **timepicker:** remove uneeded code 11c641d
+
+### Features
+
+* **arrowKeyNav:** arrow key navigation directive 010ae0e
+* **bootstrap:** revert update ui-bootstrap to latests version 84f6c00
+* **bootstrap:** update ui-bootstrap to latests version 52ca9ea
+* **busyelement:** bug fix 44be205
+* **busyElement:** Implemented new directive busy-element 955a83a
+* **busyElement:** implemented selector for specifying a container dec07c3
+* **busyElement:** timeout property added cccb012
+* **datepicker:** add datepicker boilerplate 2429d14
+* **datepicker:** add placeholder for datetime pickers 0eb9fd6
+* **datepicker:** allow add date by arrow keys ff4a718
+* **datepicker:** datepicker directive da65a35
+* **datepicker:** expose popup-placement d0a030a
+* **datepicker:** implement custom date parsing 94f964f
+* **datepicker:** popup-placement documentation c5240bd
+* **datepicker:** unit tests 0718cac
+* **datepicker:** update docs fb8fb9e
+* **datetimepicker:** added dd-datetimepicker directive a60d638
+* **datetimepicker:** added scope.allowAdjustDate property and logic e78b60e
+* **datetimepicker:** added template 79df8f5
+* **datetimepicker:** change date and show green bg 9c5b003
+* **datetimepicker:** classes on containers for easier manipulation 913557e
+* **datetimepicker:** combined date and time picker 55e07b4
+* **datetimepicker:** html and css cleanup 3a4f0c7
+* **datetimepicker:** move week day label to dd-datepicker ec520cc
+* **datetimepicker:** ng-change implemented 495c3c7
+* **datetimepicker:** update docs 8505e39
+* **datetimepicker:** update docs for datetimepicker ab87afe
+* **fix:** add important to datepicker width e066093
+* **fix:** added ngRequired support for dd-datetimepicker 7293f4e
+* **fix:** change back to white color e40c05f
+* **fix:** change to white color e962484
+* **fix:** eslint fixes 9398d17
+* **fix:** fix eslint warnings and unit tests 768d3f4
+* **fix:** fix invalid demo html markup a3513c3
+* **fix:** load css files for karma 4bda704
+* **fix:** sync dd-datepicker after dd-datetimepicker time change 63684ec
+* **fix:** update docs 4ecd216
+* **fix:** update package.json 8692d14
+* **fix:** update travis compiler b11270c
+* **fix:** validate custom user date using dateDisabled 54589fb
+* **fix:** wrap to iife c2bafe4
+* **grunt:** move css to separate files d6bab2f
+* **grunt:** update grunt tasks 2029a78
+* **lookup:** changed the way label formatting works 1e1efb1
+* **lookup:** dd-lookup directive 7c357b5
+* **lookup:** display no result in absolute position b167f18
+* **lookup:** dynamic grouping property 7b3c97d
+* **lookup:** lookup data provider e6b49be
+* **lookup:** lookup input class c9dc73d
+* **lookup:** lookup item grouping 6590f1a
+* **lookup:** lookup minimum length bdf04d5
+* **lookup:** lookup-on-clear attribute a6984cc
+* **lookup:** response transformer 1e8ec89
+* **phone:** Phone and same-as validation directives 1482bb1
+* **timepicker:** add time ranges validation 29e9e94
+* **timepicker:** add unit test for date conversion check a13a8e7
+* **timepicker:** added timepicker directive and parse boilerplate 30ecddf
+* **timepicker:** allow to work with date object 93c4305
+* **timepicker:** allow to work with date object 95a9071
+* **timepicker:** allow to work with date object 96b2798
+* **timepicker:** change from bind to on 64f4538
+* **timepicker:** fix exposed function name 4baac65
+* **timepicker:** fixed broken tests and update docs a91a56b
+* **timepicker:** if user enter 8:15 convert to 08:15 c8da6e8
+* **timepicker:** implement arrow up/down for time cbd94a6
+* **timepicker:** move timepicker to dd-timepicker folder 7bfe25c
+* **timepicker:** parse all possible cases for time input 445d9f5
+* **timepicker:** rename file to dd-timepicker aecbe11
+* **timepicker:** rename method to getFormattedTime 96b5fba
+* **timepicker:** return min version for demo template db43482
+* **timepicker:** some small fixes after code review 8541ee5
+* **timepicker:** update docs with formats explanation c96ced2
+* **timepicker:** update documentation 3fcd40a
+* **timepicker:** update view value on blur 0ddf0d1
+* **uibootstrap:** update ui-bootstrap-tpls to latest 8ddf28c
+
+### Performance Improvements
+
+* **lookup:** 500ms delay before request is made ca7f8c8
+
+
+
 <a name="0.4.8"></a>
 ## [0.4.8](//compare/0.4.7...v0.4.8) (2016-05-26)
 
