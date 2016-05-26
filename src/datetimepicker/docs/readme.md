@@ -31,5 +31,5 @@ Combined UI Bootstrap Timepicker and Datepicker that uses a single Date model.
      Shows spinner arrows above and below the inputs
 
  * `popup-placement`
-  _(Default: 'bottom-left') :
+  (Default: 'bottom-left') :
   Calendar popup placement
