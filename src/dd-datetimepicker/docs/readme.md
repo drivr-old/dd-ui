@@ -43,5 +43,5 @@ Combined dd-timepicker and dd-datepicker that uses a single Date model.
  	Set time placeholder
 
  * `popup-placement`
-    (Default: 'bottom-left') :
+    (Default: 'bottom-left auto') :
     Calendar popup placement

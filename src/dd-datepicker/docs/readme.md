@@ -31,7 +31,7 @@ dd-ui Datepicker allows to enter custom date formats and use original bootstrap 
   Text to default if empty
  
  * `popup-placement`
- (Default: 'bottom-left') :
+ (Default: 'bottom-left auto') :
  Calendar popup placement
   
 ### dd-ui Datepicker supports custom users date input depending on given date format ###
