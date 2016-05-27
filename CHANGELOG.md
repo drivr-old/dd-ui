@@ -1,3 +1,20 @@
+<a name="0.5.0"></a>
+# [0.5.0](//compare/0.4.8...v0.5.0) (2016-05-27)
+
+
+### Bug Fixes
+
+* **datepicker:** docs 733da3e
+* **doc:** datepicker default 936d7a0
+
+### Features
+
+* **datepicker:** expose popup-placement d0a030a
+* **datepicker:** popup-placement documentation c5240bd
+* **lookup:** smaller typing delay for better UX f8a8cda
+
+
+
 <a name="0.4.9"></a>
 ## 0.4.9 (2016-05-26)
 
