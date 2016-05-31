@@ -7,8 +7,8 @@
 
     var KEY_ENTER = 13, KEY_UP = 38, KEY_DOWN = 40;
 
-    TimepickerDirective.$inject = ['$timeout', 'dateFilter', 'timeparserService'];
-    function TimepickerDirective($timeout, dateFilter, timeparserService) {
+    TimepickerDirective.$inject = ['timeparserService'];
+    function TimepickerDirective(timeparserService) {
 
         var directive = {
             restrict: 'A',
@@ -33,6 +33,7 @@
                 });
             
                 ctrl.$formatters.push(function (value) {
+                    canUpdateNgModel = false;
                     return timeparserService.toView(value);
                 });
 
