@@ -1,4 +1,4 @@
-module.exports = function(config) {
+module.exports = function (config) {
   config.set({
     // base path, that will be used to resolve files and exclude
     basePath: '.',
@@ -24,6 +24,8 @@ module.exports = function(config) {
       'src/**/docs/*'
     ],
 
+    preprocessors: isDebug() ? {} : { 'src/!(docs)/**/!(*.spec)+(.js)': 'coverage', },
+
     // Start these browsers, currently available:
     // - Chrome
     // - ChromeCanary
@@ -37,7 +39,12 @@ module.exports = function(config) {
 
     // test results reporter to use
     // possible values: dots || progress
-    reporters: ['progress'],
+    reporters: ['progress', 'coverage'],
+
+    coverageReporter: {
+      type: 'html',
+      dir: 'coverage/'
+    },
 
     reportSlowerThan: 100,
 
@@ -63,3 +70,9 @@ module.exports = function(config) {
 
   });
 };
+
+function isDebug() {
+  return process.argv.some(function (arg) {
+    return arg === '--debug' || arg === '-d';
+  });
+}
