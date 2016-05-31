@@ -1,3 +1,24 @@
+<a name="0.5.1"></a>
+## [0.5.1](//compare/0.4.5...v0.5.1) (2016-05-31)
+
+
+### Bug Fixes
+
+* **datepicker:** docs 733da3e
+* **doc:** datepicker default 936d7a0
+* **lookup:** grouping fix in item template 3770363
+
+### Features
+
+* **datepicker:** expose popup-placement d0a030a
+* **datepicker:** popup-placement documentation c5240bd
+* **lookup:** lookup input class c9dc73d
+* **lookup:** lookup minimum length bdf04d5
+* **lookup:** lookup-on-clear attribute a6984cc
+* **lookup:** smaller typing delay for better UX f8a8cda
+
+
+
 <a name="0.5.0"></a>
 # [0.5.0](//compare/0.4.8...v0.5.0) (2016-05-27)
 
