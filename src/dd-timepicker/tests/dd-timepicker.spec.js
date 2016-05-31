@@ -1,4 +1,4 @@
-describe('ddTimepicker', function () {
+describe('ddTimepicker', function() {
     var $scope,
         $sniffer,
         $document,
@@ -6,10 +6,10 @@ describe('ddTimepicker', function () {
         $compile,
         element;
 
-    beforeEach(function () {
+    beforeEach(function() {
         module('dd.ui.dd-timepicker');
 
-        inject(function ($rootScope, _$compile_, _$timeout_, _$sniffer_, _$document_) {
+        inject(function($rootScope, _$compile_, _$timeout_, _$sniffer_, _$document_) {
             $scope = $rootScope.$new();
             $sniffer = _$sniffer_;
             $timeout = _$timeout_;
@@ -18,9 +18,9 @@ describe('ddTimepicker', function () {
         });
     });
 
-    describe('Change model value', function () {
+    describe('Change model value', function() {
 
-        it('apply parsed user input for model', function () {
+        it('apply parsed user input for model', function() {
             element = buildDirective($scope);
 
             changeInputValue(element, '8a');
@@ -28,7 +28,7 @@ describe('ddTimepicker', function () {
             expect($scope.time).toEqual('08:00');
         });
 
-        it('clear model if invalid time', function () {
+        it('clear model if invalid time', function() {
             element = buildDirective($scope);
 
             changeInputValue(element, 'kepalas');
@@ -36,7 +36,7 @@ describe('ddTimepicker', function () {
             expect($scope.time).toBeNull();
         });
 
-        it('do not change model if not blured', function () {
+        it('do not change model if not blured', function() {
 
             $scope.time = '10:15';
             element = buildDirective($scope);
@@ -46,7 +46,7 @@ describe('ddTimepicker', function () {
             expect($scope.time).toBe($scope.time);
         });
 
-        it('return model as Date if is-date-type="true"', function () {
+        it('return model as Date if is-date-type="true"', function() {
 
             $scope.time = '10:15';
             element = $compile(angular.element('<input id="time1" is-date-type="true" class="form-control" dd-timepicker type="text" ng-model="time" />'))($scope);
@@ -60,9 +60,8 @@ describe('ddTimepicker', function () {
         });
     });
 
-    describe('Keyboard', function () {
-        it('arrow up increase time', function () {
-
+    describe('Keyboard arrow up', function() {
+        it('increase time by one minute', function() {
             $scope.time = '10:15';
             element = buildDirective($scope);
 
@@ -70,9 +69,10 @@ describe('ddTimepicker', function () {
 
             expect($scope.time).toBe('10:16');
         });
+    });
 
-        it('arrow down decreaes time', function () {
-
+    describe('Keyboard arrow down', function() {
+        it('decreaes time by one minute', function() {
             $scope.time = '10:15';
             element = buildDirective($scope);
 
@@ -80,8 +80,10 @@ describe('ddTimepicker', function () {
 
             expect($scope.time).toBe('10:14');
         });
+    });
 
-        it('on enter should create time from current datetime if input is empty', function () {
+    describe('Keyboard enter', function() {
+        it('create time from current datetime if input is empty', function() {
 
             $scope.time = '';
             element = buildDirective($scope);
@@ -91,7 +93,7 @@ describe('ddTimepicker', function () {
             expect($scope.time).toBeDefined();
         });
 
-        it('on enter not create time if input not empty', function () {
+        it('dont create time if input not empty', function() {
 
             $scope.time = '10:10';
             element = buildDirective($scope);
