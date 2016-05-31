@@ -72,7 +72,7 @@ describe('ddTimepicker', function() {
     });
 
     describe('Keyboard arrow down', function() {
-        it('decreaes time by one minute', function() {
+        it('decrease time by one minute', function() {
             $scope.time = '10:15';
             element = buildDirective($scope);
 
