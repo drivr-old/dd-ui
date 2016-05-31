@@ -60,7 +60,7 @@ describe('ddTimepicker', function () {
         });
     });
 
-    describe('Keyboard keys', function () {
+    describe('Keyboard', function () {
         it('arrow up press increase time', function () {
 
             $scope.time = '10:15';
@@ -81,7 +81,7 @@ describe('ddTimepicker', function () {
             expect($scope.time).toBe('10:14');
         });
 
-        it('enter press should create time from current datetime if input is empty', function () {
+        it('on enter press should create time from current datetime if input is empty', function () {
 
             $scope.time = '';
             element = buildDirective($scope);
@@ -91,7 +91,7 @@ describe('ddTimepicker', function () {
             expect($scope.time).toBeDefined();
         });
 
-        it('enter should not create time if input not empty', function () {
+        it('on enter should not create time if input not empty', function () {
 
             $scope.time = '10:10';
             element = buildDirective($scope);
