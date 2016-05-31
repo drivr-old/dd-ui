@@ -1,4 +1,4 @@
-describe('datetimepicker', function () {
+describe('dd-datetimepicker', function () {
     var $scope,
         $sniffer,
         $document,
@@ -53,7 +53,7 @@ describe('datetimepicker', function () {
         });
 
         it('set current date and time', function () {
-            
+
             $scope.dateTime = null;
             $scope.$digest();
 
@@ -142,12 +142,12 @@ describe('datetimepicker', function () {
 
     describe('Adjust date', function () {
         it('set next day if allowForwardDateAdjustment=true', function () {
- 
+
             $scope.dateTime = new Date();
             $scope.allowForwardDateAdjustment = true;
             $scope.$digest();
 
-            changeInputValue(timepickerElement, $scope.dateTime.getHours() - 1 +':30');
+            changeInputValue(timepickerElement, $scope.dateTime.getHours() - 1 + ':30');
             timepickerElement.blur();
 
             var tomorrow = new Date();
@@ -156,7 +156,7 @@ describe('datetimepicker', function () {
         });
 
         it('dont set next day allowForwardDateAdjustment=false', function () {
-      
+
             $scope.dateTime = new Date('2015-08-30T15:00:00+00:00');
             $scope.allowForwardDateAdjustment = false;
             $scope.$digest();
@@ -166,32 +166,30 @@ describe('datetimepicker', function () {
 
             expect(element.isolateScope().ngModel.getDate()).toBe(30);
         });
-        
-        it('23:59->00:01 = +1 day', function () {
-    
+
+        it('23:59->00:00 = +1 day', function () {
+
             $scope.dateTime = new Date('2015-08-25T15:00:00+00:00');
             $scope.$digest();
 
             changeInputValue(timepickerElement, '23:59');
             timepickerElement.blur();
-            changeInputValue(timepickerElement, '00:01');
-            timepickerElement.blur();
-            
+            triggerKeypress(timepickerElement, 38);
+
             console.log($scope.dateTime);
 
             expect($scope.dateTime.getDate()).toBe(26);
         });
-        
-        it('00:01->23:59 = -1 day', function () {
-  
+
+        it('00:00->23:59 = -1 day', function () {
+
             $scope.dateTime = new Date('2015-08-25T15:00:00+00:00');
             $scope.$digest();
 
-            changeInputValue(timepickerElement, '00:01');
+            changeInputValue(timepickerElement, '00:00');
             timepickerElement.blur();
-            changeInputValue(timepickerElement, '23:59');
-            timepickerElement.blur();
-            
+            triggerKeypress(timepickerElement, 40);
+
             expect($scope.dateTime.getDate()).toBe(24);
         });
     });
@@ -208,4 +206,9 @@ describe('datetimepicker', function () {
         return element;
     }
 
+    function triggerKeypress(el, keycode) {
+        var e = angular.element.Event("keypress");
+        e.which = keycode;
+        el.trigger(e);
+    }
 });
