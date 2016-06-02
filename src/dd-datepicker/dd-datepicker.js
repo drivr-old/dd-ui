@@ -114,6 +114,9 @@
                             updateDisplayModel(validatedDate);
                         }
                         syncBootstrapDateModel();
+                    } else {
+                        updateMainModel(null);
+                        updateDisplayModel(null);
                     }
                 }
 
