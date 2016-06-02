@@ -1,3 +1,14 @@
+<a name="0.5.3"></a>
+## [0.5.3](//compare/0.5.2...v0.5.3) (2016-06-02)
+
+
+### Features
+
+* **timepicker:** added more tests 3359d20
+* **timepicker:** added on-change event 7527a14
+
+
+
 <a name="0.5.2"></a>
 ## [0.5.2](//compare/0.4.5...v0.5.2) (2016-05-31)
 
