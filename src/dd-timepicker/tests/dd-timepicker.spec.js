@@ -1,4 +1,4 @@
-describe('ddTimepicker', function() {
+describe('ddTimepicker', function () {
     var $scope,
         $sniffer,
         $document,
@@ -6,10 +6,10 @@ describe('ddTimepicker', function() {
         $compile,
         element;
 
-    beforeEach(function() {
+    beforeEach(function () {
         module('dd.ui.dd-timepicker');
 
-        inject(function($rootScope, _$compile_, _$timeout_, _$sniffer_, _$document_) {
+        inject(function ($rootScope, _$compile_, _$timeout_, _$sniffer_, _$document_) {
             $scope = $rootScope.$new();
             $sniffer = _$sniffer_;
             $timeout = _$timeout_;
@@ -18,9 +18,9 @@ describe('ddTimepicker', function() {
         });
     });
 
-    describe('Change model value', function() {
+    describe('Change model value', function () {
 
-        it('apply parsed user input for model', function() {
+        it('apply parsed user input for model', function () {
             element = buildDirective($scope);
 
             changeInputValue(element, '8a');
@@ -28,7 +28,7 @@ describe('ddTimepicker', function() {
             expect($scope.time).toEqual('08:00');
         });
 
-        it('clear model if invalid time', function() {
+        it('clear model if invalid time', function () {
             element = buildDirective($scope);
 
             changeInputValue(element, 'kepalas');
@@ -36,7 +36,7 @@ describe('ddTimepicker', function() {
             expect($scope.time).toBeNull();
         });
 
-        it('do not change model if not blured', function() {
+        it('do not change model if not blured', function () {
 
             $scope.time = '10:15';
             element = buildDirective($scope);
@@ -46,7 +46,7 @@ describe('ddTimepicker', function() {
             expect($scope.time).toBe($scope.time);
         });
 
-        it('return model as Date if is-date-type="true"', function() {
+        it('return model as Date if is-date-type="true"', function () {
 
             $scope.time = '10:15';
             element = $compile(angular.element('<input id="time1" is-date-type="true" class="form-control" dd-timepicker type="text" ng-model="time" />'))($scope);
@@ -60,8 +60,8 @@ describe('ddTimepicker', function() {
         });
     });
 
-    describe('Keyboard arrow up', function() {
-        it('increase time by one minute', function() {
+    describe('Keyboard arrow up', function () {
+        it('increase time by one minute', function () {
             $scope.time = '10:15';
             element = buildDirective($scope);
 
@@ -71,8 +71,8 @@ describe('ddTimepicker', function() {
         });
     });
 
-    describe('Keyboard arrow down', function() {
-        it('decrease time by one minute', function() {
+    describe('Keyboard arrow down', function () {
+        it('decrease time by one minute', function () {
             $scope.time = '10:15';
             element = buildDirective($scope);
 
@@ -82,8 +82,8 @@ describe('ddTimepicker', function() {
         });
     });
 
-    describe('Keyboard enter', function() {
-        it('create time from current datetime if input is empty', function() {
+    describe('Keyboard enter', function () {
+        it('create time from current datetime if input is empty', function () {
 
             $scope.time = '';
             element = buildDirective($scope);
@@ -93,7 +93,7 @@ describe('ddTimepicker', function() {
             expect($scope.time).toBeDefined();
         });
 
-        it('dont create time if input not empty', function() {
+        it('dont create time if input not empty', function () {
 
             $scope.time = '10:10';
             element = buildDirective($scope);
@@ -104,8 +104,35 @@ describe('ddTimepicker', function() {
         });
     });
 
+    describe('on-change callback', function () {
+        it('is called when model is changed', function () {
+
+            $scope.onChange = jasmine.createSpy('onChange');
+            element = buildDirective($scope);
+
+            changeInputValue(element, '8p');
+            $timeout.flush();
+            changeInputValue(element, '8p');
+            $timeout.flush();
+
+            expect($scope.onChange).toHaveBeenCalledTimes(2);
+        });
+
+        it('is called onces if model is changed to same value', function () {
+
+            $scope.onChange = jasmine.createSpy('onChange');
+            element = buildDirective($scope);
+
+            changeInputValue(element, '10:00');
+            $timeout.flush();
+            changeInputValue(element, '10:00');
+
+            expect($scope.onChange).toHaveBeenCalledTimes(1);
+        });
+    });
+
     function buildDirective(scope) {
-        var element = $compile(angular.element('<input id="time1" class="form-control" dd-timepicker type="text" ng-model="time" />'))($scope);
+        var element = $compile(angular.element('<input id="time1" on-change="onChange()" class="form-control" dd-timepicker type="text" ng-model="time" />'))($scope);
         $scope.$digest();
         return element;
     }
