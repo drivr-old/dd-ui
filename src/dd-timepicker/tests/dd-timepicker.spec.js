@@ -129,6 +129,18 @@ describe('ddTimepicker', function () {
 
             expect($scope.onChange).toHaveBeenCalledTimes(1);
         });
+        
+        it('is not called if model changed from code', function () {
+
+            $scope.onChange = jasmine.createSpy('onChange');
+            $scope.time = '10:15';
+            element = buildDirective($scope);
+            
+            $scope.time = '10:10';
+            $scope.$digest();
+
+            expect($scope.onChange).not.toHaveBeenCalled();
+        });
     });
 
     function buildDirective(scope) {
