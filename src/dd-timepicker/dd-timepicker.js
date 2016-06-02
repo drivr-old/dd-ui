@@ -7,8 +7,8 @@
 
     var KEY_ENTER = 13, KEY_UP = 38, KEY_DOWN = 40;
 
-    TimepickerDirective.$inject = ['timeparserService'];
-    function TimepickerDirective(timeparserService) {
+    TimepickerDirective.$inject = ['$timeout', 'timeparserService'];
+    function TimepickerDirective($timeout, timeparserService) {
 
         var directive = {
             restrict: 'A',
@@ -16,11 +16,12 @@
             replace: true,
             scope: {
                 ngModel: '=',
+                onChange: '&',
                 minuteStep: '=?',
                 isDateType: '=?'
             },
             link: function (scope, element, attrs, ctrl) {
-
+                
                 var dateTime = scope.isDateType && scope.ngModel instanceof Date ? scope.ngModel : new Date();
                 var canUpdateNgModel = false;
 
@@ -31,7 +32,7 @@
                     canUpdateNgModel = false;
                     return value || null;
                 });
-            
+
                 ctrl.$formatters.push(function (value) {
                     canUpdateNgModel = false;
                     return timeparserService.toView(value);
@@ -54,6 +55,7 @@
                         canUpdateNgModel = true;
                         scope.ngModel = timeparserService.toModel(ctrl.$viewValue, scope.isDateType, dateTime);
                         updateViewValue(timeparserService.toView(scope.ngModel));
+                        applyOnChange();
                     }
                 });
 
@@ -66,10 +68,17 @@
                     canUpdateNgModel = true;
                     updateViewValue(customDate || timeparserService.changeTime(scope.ngModel, delta));
                     event.preventDefault();
+                    applyOnChange();
                 }
 
                 function isValueChanged() {
                     return ctrl.$viewValue !== timeparserService.toView(scope.ngModel);
+                }
+                
+                function applyOnChange() {
+                    if (scope.onChange) {
+                        $timeout(scope.onChange);
+                    }
                 }
             }
         };
@@ -140,9 +149,9 @@
             var date = dateInstance || new Date();
             return dateFilter(date, 'HH:mm');
         }
-    
+
         //private
-    
+
         function parsedTimeToModel(parsedTime, isDateModel, dateTime) {
 
             if (!parsedTime) {
@@ -188,7 +197,7 @@
             var val = parseInt(inputTime, 10),
                 hours = 0,
                 minutes = 0;
-        
+
             //user enter only minutes (mm)
             if (inputTime[0] === '0') {
                 minutes = parseInt(inputTime, 10);
@@ -207,7 +216,7 @@
                 hours = parseInt(inputTime.substr(0, 2), 10);
                 minutes = parseInt(inputTime.substr(2, 4), 10);
             }
-            
+
             if (mode === 'p' && hours !== 12) {
                 hours += 12;
             } else if (mode === 'a' && hours === 12) {
