@@ -11,20 +11,22 @@ describe('datetimepicker', function () {
         module('dd.ui.dd-datepicker');
         module('template/dd-datepicker/dd-datepicker.html');
 
-        inject(function ($rootScope, _$compile_, _$sniffer_, _$document_, _$timeout_) {
+        inject(function ($rootScope, _$compile_, _$sniffer_, _$document_, _$timeout_, $locale) {
             $scope = $rootScope.$new();
             $sniffer = _$sniffer_;
             $document = _$document_;
             $compile = _$compile_;
             $timeout = _$timeout_;
 
+            $locale.DATETIME_FORMATS.FIRSTDAYOFWEEK = 1;
+            
             $scope.dateFormat = 'yyyy-MM-dd';
             element = compileElement($scope);
         });
     });
 
     function compileElement($scope) {
-        var element = $compile('<input dd-datepicker date-format="{{dateFormat}}" date-disabled="dateDisabled(date, mode)" ng-model="date" />')($scope);
+        var element = $compile('<input dd-datepicker show-day-name="true" date-format="{{dateFormat}}" date-disabled="dateDisabled(date, mode)" ng-model="date" />')($scope);
         element.appendTo($document[0].body);
         $scope.$digest();
         return element;
@@ -261,6 +263,39 @@ describe('datetimepicker', function () {
             $scope.$digest();
 
             expect($scope.date).toBe(null);
+        });
+    });
+    
+    describe('calendar popup', function() {
+        it('should open calendar popup on btn click', function() {
+            
+            var elementScope = element.isolateScope();
+            
+            element.find('.open-calendar-btn').trigger('click');
+
+            expect(elementScope.calendarOpened).toBe(true);
+        });
+        
+        it('on clear should close calendar', function() {
+            
+            var elementScope = element.isolateScope();
+            
+            element.find('.open-calendar-btn').trigger('click');
+            element.find('.uib-clear').trigger('click');
+            
+            expect(elementScope.calendarOpened).toBe(false);
+        });
+        
+        it('set ngModel from popup selected value', function() {
+            
+            var elementScope = element.isolateScope();
+            
+            element.find('.open-calendar-btn').trigger('click');
+            element.find('.btn.btn-default.btn-sm.active').trigger('click');
+            $scope.$digest();
+
+            expect(elementScope.calendarOpened).toBe(false);
+            expect(elementScope.ngModel).toBeDefined();
         });
     });
 
