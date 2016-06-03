@@ -1,3 +1,15 @@
+<a name="0.5.4"></a>
+## [0.5.4](//compare/0.5.3...v0.5.4) (2016-06-03)
+
+
+### Features
+
+* **datepicker:** on pupup clear set ngModel to null b037923
+* **datetimepicker:** remove old unused logic f0b73ae
+* **timepicker:** fire time change event on only blur d3a3816
+
+
+
 <a name="0.5.3"></a>
 ## [0.5.3](//compare/0.5.2...v0.5.3) (2016-06-02)
 
