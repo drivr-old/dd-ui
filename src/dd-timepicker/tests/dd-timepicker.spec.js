@@ -18,7 +18,7 @@ describe('ddTimepicker', function () {
         });
     });
 
-    describe('Change model value', function () {
+    describe('change model value', function () {
 
         it('apply parsed user input for model', function () {
             element = buildDirective($scope);
@@ -60,47 +60,52 @@ describe('ddTimepicker', function () {
         });
     });
 
-    describe('Keyboard arrow up', function () {
-        it('increase time by one minute', function () {
-            $scope.time = '10:15';
-            element = buildDirective($scope);
+    describe('keyboard', function () {
 
-            triggerKeypress(element, 38);
+        describe('keyboard arrow up', function () {
+            it('increase time by one minute', function () {
+                $scope.time = '10:15';
+                element = buildDirective($scope);
 
-            expect($scope.time).toBe('10:16');
-        });
-    });
+                triggerKeypress(element, 38);
 
-    describe('Keyboard arrow down', function () {
-        it('decrease time by one minute', function () {
-            $scope.time = '10:15';
-            element = buildDirective($scope);
-
-            triggerKeypress(element, 40);
-
-            expect($scope.time).toBe('10:14');
-        });
-    });
-
-    describe('Keyboard enter', function () {
-        it('create time from current datetime if input is empty', function () {
-
-            $scope.time = '';
-            element = buildDirective($scope);
-
-            triggerKeypress(element, 13);
-
-            expect($scope.time).toBeDefined();
+                expect(element.val()).toBe('10:16');
+                expect($scope.time).toBe('10:16');
+            });
         });
 
-        it('dont create time if input not empty', function () {
+        describe('keyboard arrow down', function () {
+            it('decrease time by one minute', function () {
+                $scope.time = '10:15';
+                element = buildDirective($scope);
 
-            $scope.time = '10:10';
-            element = buildDirective($scope);
+                triggerKeypress(element, 40);
 
-            triggerKeypress(element, 13);
+                expect(element.val()).toBe('10:14');
+                expect($scope.time).toBe('10:14');
+            });
+        });
 
-            expect($scope.time).toBe('10:10');
+        describe('keyboard enter', function () {
+            it('create time from current datetime if input is empty', function () {
+
+                $scope.time = '';
+                element = buildDirective($scope);
+
+                triggerKeypress(element, 13);
+
+                expect($scope.time).toBeDefined();
+            });
+
+            it('dont create time if input not empty', function () {
+
+                $scope.time = '10:10';
+                element = buildDirective($scope);
+
+                triggerKeypress(element, 13);
+
+                expect($scope.time).toBe('10:10');
+            });
         });
     });
 
@@ -129,15 +134,39 @@ describe('ddTimepicker', function () {
 
             expect($scope.onChange).toHaveBeenCalledTimes(1);
         });
-        
+
         it('is not called if model changed from code', function () {
 
             $scope.onChange = jasmine.createSpy('onChange');
             $scope.time = '10:15';
             element = buildDirective($scope);
-            
+
             $scope.time = '10:10';
             $scope.$digest();
+
+            expect($scope.onChange).not.toHaveBeenCalled();
+        });
+
+        it('is called on arrow up when blur event fired', function () {
+
+            $scope.onChange = jasmine.createSpy('onChange');
+            $scope.time = '10:15';
+            element = buildDirective($scope);
+
+            triggerKeypress(element, 38);
+            element.trigger('blur');
+            $timeout.flush();
+
+            expect($scope.onChange).toHaveBeenCalled();
+        });
+
+        it('is not called on arrow up when no blur event fired', function () {
+
+            $scope.onChange = jasmine.createSpy('onChange');
+            $scope.time = '10:15';
+            element = buildDirective($scope);
+
+            triggerKeypress(element, 38);
 
             expect($scope.onChange).not.toHaveBeenCalled();
         });

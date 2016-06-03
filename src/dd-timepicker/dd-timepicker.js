@@ -6,7 +6,7 @@
         .service('timeparserService', timeparserService);
 
     var KEY_ENTER = 13, KEY_UP = 38, KEY_DOWN = 40;
-
+    
     TimepickerDirective.$inject = ['$timeout', 'timeparserService'];
     function TimepickerDirective($timeout, timeparserService) {
 
@@ -24,6 +24,7 @@
                 
                 var dateTime = scope.isDateType && scope.ngModel instanceof Date ? scope.ngModel : new Date();
                 var canUpdateNgModel = false;
+                var lastActionFromArrowKey = false;
 
                 scope.minuteStep = scope.minuteStep || 1;
 
@@ -57,6 +58,11 @@
                         updateViewValue(timeparserService.toView(scope.ngModel));
                         applyOnChange();
                     }
+
+                    if (lastActionFromArrowKey) {
+                        lastActionFromArrowKey = false;
+                        applyOnChange();
+                    }
                 });
 
                 function updateViewValue(value) {
@@ -65,10 +71,9 @@
                 }
 
                 function updateModelOnKeypress(event, delta, customDate) {
-                    canUpdateNgModel = true;
+                    canUpdateNgModel = lastActionFromArrowKey = true;
                     updateViewValue(customDate || timeparserService.changeTime(scope.ngModel, delta));
                     event.preventDefault();
-                    applyOnChange();
                 }
 
                 function isValueChanged() {
