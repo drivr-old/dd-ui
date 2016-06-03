@@ -141,39 +141,13 @@ describe('dd-datetimepicker', function () {
     });
 
     describe('Adjust date', function () {
-        it('set next day if allowForwardDateAdjustment=true', function () {
-
-            $scope.dateTime = new Date();
-            $scope.allowForwardDateAdjustment = true;
-            $scope.$digest();
-
-            changeInputValue(timepickerElement, $scope.dateTime.getHours() - 1 + ':30');
-            timepickerElement.blur();
-
-            var tomorrow = new Date();
-            tomorrow.setDate(new Date().getDate() + 1);
-            expect(element.isolateScope().ngModel.getDate()).toBe(tomorrow.getDate());
-        });
-
-        it('dont set next day allowForwardDateAdjustment=false', function () {
-
-            $scope.dateTime = new Date('2015-08-30T15:00:00+00:00');
-            $scope.allowForwardDateAdjustment = false;
-            $scope.$digest();
-
-            changeInputValue(timepickerElement, '08:30');
-            timepickerElement.blur();
-
-            expect(element.isolateScope().ngModel.getDate()).toBe(30);
-        });
-
         it('23:59->00:00 = +1 day', function () {
 
             $scope.dateTime = new Date('2015-08-25T15:00:00+00:00');
             $scope.$digest();
 
             changeInputValue(timepickerElement, '23:59');
-            timepickerElement.blur();
+            timepickerElement.trigger('blur');
             triggerKeypress(timepickerElement, 38);
 
             console.log($scope.dateTime);
@@ -187,7 +161,7 @@ describe('dd-datetimepicker', function () {
             $scope.$digest();
 
             changeInputValue(timepickerElement, '00:00');
-            timepickerElement.blur();
+            timepickerElement.trigger('blur');
             triggerKeypress(timepickerElement, 40);
 
             expect($scope.dateTime.getDate()).toBe(24);

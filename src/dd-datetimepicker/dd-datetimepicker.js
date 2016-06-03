@@ -47,7 +47,6 @@ angular.module('dd.ui.dd-datetimepicker', ['ui.bootstrap'])
                         
                         updateMainModel();
                         setValidity();
-                        adjustToNextDayIfPossible();
                         adjustDate(newTime, oldTime);
 
                         timepickerBlurEventFired = false;
@@ -117,32 +116,6 @@ angular.module('dd.ui.dd-datetimepicker', ['ui.bootstrap'])
                     scope.$broadcast('ddDatepicker:setDate', { date: dateToSet });
 
                     notifyAboutDatepickerChange();
-                }
-
-                function adjustToNextDayIfPossible() {
-                    if (!scope.date || !scope.time) {
-                        return;
-                    }
-
-                    var currentDay = scope.date.getDate();
-
-                    if (canAddDayIfUserDecreaseTime()) {
-                        scope.date.setDate(currentDay + 1);
-                        updateMainModel();
-                        syncDatepickerModel();
-                        notifyAboutDatepickerChange();
-                    }
-                }
-
-                function canAddDayIfUserDecreaseTime() {
-                    var currentDate = new Date();
-                    currentDate.setSeconds(0);
-                    currentDate.setMilliseconds(0);
-
-                    return scope.allowForwardDateAdjustment &&
-                        sameDay(currentDate, ctrl.$modelValue) &&
-                        timeChanged &&
-                        ctrl.$modelValue.getTime() < currentDate.getTime();
                 }
 
                 function notifyAboutDatepickerChange() {
