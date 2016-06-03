@@ -18,7 +18,7 @@ describe('ddTimepicker', function () {
         });
     });
 
-    describe('change model value', function () {
+    describe('Change model value', function () {
 
         it('apply parsed user input for model', function () {
             element = buildDirective($scope);
@@ -60,9 +60,9 @@ describe('ddTimepicker', function () {
         });
     });
 
-    describe('keyboard', function () {
+    describe('Keyboard', function () {
 
-        describe('keyboard arrow up', function () {
+        describe('Arrow up', function () {
             it('increase time by one minute', function () {
                 $scope.time = '10:15';
                 element = buildDirective($scope);
@@ -74,7 +74,7 @@ describe('ddTimepicker', function () {
             });
         });
 
-        describe('keyboard arrow down', function () {
+        describe('Arrow down', function () {
             it('decrease time by one minute', function () {
                 $scope.time = '10:15';
                 element = buildDirective($scope);
@@ -86,8 +86,8 @@ describe('ddTimepicker', function () {
             });
         });
 
-        describe('keyboard enter', function () {
-            it('create time from current datetime if input is empty', function () {
+        describe('Enter', function () {
+            it('creates time from current datetime if input is empty', function () {
 
                 $scope.time = '';
                 element = buildDirective($scope);
@@ -97,7 +97,7 @@ describe('ddTimepicker', function () {
                 expect($scope.time).toBeDefined();
             });
 
-            it('dont create time if input not empty', function () {
+            it('doesnt creates time if input not empty', function () {
 
                 $scope.time = '10:10';
                 element = buildDirective($scope);
