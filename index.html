@@ -13,7 +13,7 @@
     <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular-touch.min.js"></script>
     <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular-animate.min.js"></script>
 	<script src="assets/ui-bootstrap-tpls.js"></script>
-    <script src="dd-ui-tpls-0.5.4.min.js"></script>
+    <script src="dd-ui-tpls-0.5.5.min.js"></script>
     <script src="assets/angular-mocks.js"></script>
     <script src="assets/plunker.js"></script>
     <script src="assets/app.js"></script>
@@ -235,7 +235,7 @@
                         <div class="row code">
                             <div class="col-md-12" ng-controller="PlunkerCtrl">
                                 <div class="pull-right">
-                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.4.3', '3.1.1', '0.5.4', 'arrow-key-nav')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
+                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.4.3', '3.1.1', '0.5.5', 'arrow-key-nav')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
                                 </div>
                                 <uib-tabset>
                                     <uib-tab heading="Markup">
@@ -384,7 +384,7 @@
                         <div class="row code">
                             <div class="col-md-12" ng-controller="PlunkerCtrl">
                                 <div class="pull-right">
-                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.4.3', '3.1.1', '0.5.4', 'busy-element')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
+                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.4.3', '3.1.1', '0.5.5', 'busy-element')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
                                 </div>
                                 <uib-tabset>
                                     <uib-tab heading="Markup">
@@ -571,7 +571,7 @@ Calendar popup placement</p>
                         <div class="row code">
                             <div class="col-md-12" ng-controller="PlunkerCtrl">
                                 <div class="pull-right">
-                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.4.3', '3.1.1', '0.5.4', 'datetimepicker')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
+                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.4.3', '3.1.1', '0.5.5', 'datetimepicker')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
                                 </div>
                                 <uib-tabset>
                                     <uib-tab heading="Markup">
@@ -627,11 +627,11 @@ Calendar popup placement</p>
 
         <div class="form-group">
             <h4>Basic usage <small><a href="#" ng-click="setToNow()">Set to now</a> | <a href="#" ng-click="setToEmpty()">Set to empty</a></small></h4>
-            <div placeholder="insert date" type="text" style="width:150px" dd-datepicker ng-model="date" ng-change="change()" date-disabled="disabled(date, mode)"></div>
+            <dd-datepicker placeholder="insert date" type="text" style="width:150px" ng-model="date" ng-change="change()" date-disabled="disabled(date, mode)"></dd-datepicker>
         </div>
         <div class="form-group">
             <h4>Display week day name with custom MM/dd/yyyy format</h4>
-            <div placeholder="insert date" type="text" style="width:250px" dd-datepicker show-day-name="true" date-format="MM/dd/yyyy" ng-model="date" ng-change="change()" date-disabled="disabled(date, mode)"></div>
+            <dd-datepicker placeholder="insert date" type="text" style="width:250px" show-day-name="true" date-format="MM/dd/yyyy" ng-model="date" ng-change="change()" date-disabled="disabled(date, mode)"></dd-datepicker>
         </div>
         <div class="form-group">
              <label>Datetime model:&nbsp;</label><span>{{date}}</span>
@@ -683,6 +683,14 @@ Calendar popup placement</p>
 <li>21/08 OR 08/21 = 21.08 (21st of August)</li>
 <li>21 08 OR 08 21 = 21.08 (21st of August)</li>
 </ul>
+<h3 id="datepickerconfigprovider">datepickerConfigProvider</h3>
+<ul>
+<li>you can use datepickerConfigProvider.setDateFormat method to set date format globally.<pre><code class="lang-js">myModule.config([&quot;datepickerConfigProvider&quot;, function (datepickerConfigProvider) {
+  datepickerConfigProvider.setDateFormat(&#39;yyyy-MM-dd&#39;);
+}]);
+</code></pre>
+</li>
+</ul>
 
                             </div>
                         </div>
@@ -690,7 +698,7 @@ Calendar popup placement</p>
                         <div class="row code">
                             <div class="col-md-12" ng-controller="PlunkerCtrl">
                                 <div class="pull-right">
-                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.4.3', '3.1.1', '0.5.4', 'dd-datepicker')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
+                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.4.3', '3.1.1', '0.5.5', 'dd-datepicker')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
                                 </div>
                                 <uib-tabset>
                                     <uib-tab heading="Markup">
@@ -701,11 +709,11 @@ Calendar popup placement</p>
 
         &lt;div class=&quot;form-group&quot;&gt;
             &lt;h4&gt;Basic usage &lt;small&gt;&lt;a href=&quot;#&quot; ng-click=&quot;setToNow()&quot;&gt;Set to now&lt;/a&gt; | &lt;a href=&quot;#&quot; ng-click=&quot;setToEmpty()&quot;&gt;Set to empty&lt;/a&gt;&lt;/small&gt;&lt;/h4&gt;
-            &lt;div placeholder=&quot;insert date&quot; type=&quot;text&quot; style=&quot;width:150px&quot; dd-datepicker ng-model=&quot;date&quot; ng-change=&quot;change()&quot; date-disabled=&quot;disabled(date, mode)&quot;&gt;&lt;/div&gt;
+            &lt;dd-datepicker placeholder=&quot;insert date&quot; type=&quot;text&quot; style=&quot;width:150px&quot; ng-model=&quot;date&quot; ng-change=&quot;change()&quot; date-disabled=&quot;disabled(date, mode)&quot;&gt;&lt;/dd-datepicker&gt;
         &lt;/div&gt;
         &lt;div class=&quot;form-group&quot;&gt;
             &lt;h4&gt;Display week day name with custom MM/dd/yyyy format&lt;/h4&gt;
-            &lt;div placeholder=&quot;insert date&quot; type=&quot;text&quot; style=&quot;width:250px&quot; dd-datepicker show-day-name=&quot;true&quot; date-format=&quot;MM/dd/yyyy&quot; ng-model=&quot;date&quot; ng-change=&quot;change()&quot; date-disabled=&quot;disabled(date, mode)&quot;&gt;&lt;/div&gt;
+            &lt;dd-datepicker placeholder=&quot;insert date&quot; type=&quot;text&quot; style=&quot;width:250px&quot; show-day-name=&quot;true&quot; date-format=&quot;MM/dd/yyyy&quot; ng-model=&quot;date&quot; ng-change=&quot;change()&quot; date-disabled=&quot;disabled(date, mode)&quot;&gt;&lt;/dd-datepicker&gt;
         &lt;/div&gt;
         &lt;div class=&quot;form-group&quot;&gt;
              &lt;label&gt;Datetime model:&amp;nbsp;&lt;/label&gt;&lt;span&gt;{{date}}&lt;/span&gt;
@@ -739,7 +747,10 @@ Calendar popup placement</p>
         console.log(&#x27;setToEmpty&#x27;);
         $scope.date = null;
     };
-});</code></pre>
+})
+.config([&quot;datepickerConfigProvider&quot;, function (datepickerConfigProvider) {
+    datepickerConfigProvider.setDateFormat(&#x27;yyyy-MM-dd&#x27;);
+}]);</code></pre>
                                         </div>
                                     </uib-tab>
                                 </uib-tabset>
@@ -769,7 +780,10 @@ Calendar popup placement</p>
         console.log('setToEmpty');
         $scope.date = null;
     };
-});</script>
+})
+.config(["datepickerConfigProvider", function (datepickerConfigProvider) {
+    datepickerConfigProvider.setDateFormat('yyyy-MM-dd');
+}]);</script>
                 
                     <section id="dd-datetimepicker">
                         <div class="page-header">
@@ -889,7 +903,7 @@ Allows overriding of default template of the datetimepicker</p>
                         <div class="row code">
                             <div class="col-md-12" ng-controller="PlunkerCtrl">
                                 <div class="pull-right">
-                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.4.3', '3.1.1', '0.5.4', 'dd-datetimepicker')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
+                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.4.3', '3.1.1', '0.5.5', 'dd-datetimepicker')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
                                 </div>
                                 <uib-tabset>
                                     <uib-tab heading="Markup">
@@ -1085,7 +1099,7 @@ Allows overriding of default template of the datetimepicker</p>
                         <div class="row code">
                             <div class="col-md-12" ng-controller="PlunkerCtrl">
                                 <div class="pull-right">
-                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.4.3', '3.1.1', '0.5.4', 'dd-timepicker')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
+                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.4.3', '3.1.1', '0.5.5', 'dd-timepicker')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
                                 </div>
                                 <uib-tabset>
                                     <uib-tab heading="Markup">
@@ -1291,7 +1305,7 @@ Allows overriding of default template of the datetimepicker</p>
                         <div class="row code">
                             <div class="col-md-12" ng-controller="PlunkerCtrl">
                                 <div class="pull-right">
-                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.4.3', '3.1.1', '0.5.4', 'lookup')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
+                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.4.3', '3.1.1', '0.5.5', 'lookup')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
                                 </div>
                                 <uib-tabset>
                                     <uib-tab heading="Markup">
@@ -1580,7 +1594,7 @@ Allows overriding of default template of the datetimepicker</p>
                         <div class="row code">
                             <div class="col-md-12" ng-controller="PlunkerCtrl">
                                 <div class="pull-right">
-                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.4.3', '3.1.1', '0.5.4', 'validation')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
+                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.4.3', '3.1.1', '0.5.5', 'validation')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
                                 </div>
                                 <uib-tabset>
                                     <uib-tab heading="Markup">
