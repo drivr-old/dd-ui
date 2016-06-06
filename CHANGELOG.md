@@ -1,3 +1,13 @@
+<a name="0.5.5"></a>
+## [0.5.5](//compare/0.5.4...v0.5.5) (2016-06-06)
+
+
+### Features
+
+* **datepicker:** added datepickerConfigProvider 0211b86
+
+
+
 <a name="0.5.4"></a>
 ## [0.5.4](//compare/0.5.3...v0.5.4) (2016-06-03)
 
