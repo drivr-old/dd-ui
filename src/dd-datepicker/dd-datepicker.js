@@ -4,12 +4,13 @@
     angular.module('dd.ui.dd-datepicker', ['ui.bootstrap'])
         .constant('days', ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'])
         .directive('ddDatepicker', DatepickerDirective)
-        .service('datepickerParserService', datepickerParserService);
+        .service('datepickerParserService', datepickerParserService)
+        .provider('datepickerConfig', datepickerConfigProvider);
 
     var KEY_ENTER = 13, KEY_UP = 38, KEY_DOWN = 40;
 
-    DatepickerDirective.$inject = ['$timeout', 'dateFilter', 'datepickerParserService', 'days'];
-    function DatepickerDirective($timeout, dateFilter, datepickerParserService, days) {
+    DatepickerDirective.$inject = ['$timeout', 'dateFilter', 'datepickerParserService', 'days', 'datepickerConfig'];
+    function DatepickerDirective($timeout, dateFilter, datepickerParserService, days, datepickerConfig) {
 
         var directive = {
             restrict: 'EA',
@@ -36,17 +37,17 @@
                 var canExecuteNgModelChanges = true;
 
                 scope.dayName = null;
-                scope.dateFormat = attrs.dateFormat || 'yyyy-MM-dd';
+                scope.dateFormat = attrs.dateFormat || datepickerConfig.dateFormat;
                 scope.useShortDateFormat = scope.dateFormat.length < 6;
 
                 scope.calendarOpened = false;
                 scope.openCalendar = openCalendar;
 
-                ctrl.$formatters.push(function(value) {
+                ctrl.$formatters.push(function (value) {
                     init(value);
                     return value;
                 });
-                
+
                 scope.$watch('calendarOpened', function (newValue, oldValue) {
                     if (!newValue && oldValue) {
                         onCalendarClosed();
@@ -85,7 +86,7 @@
                         event.preventDefault();
                     }
                 });
-                
+
                 function init(model) {
                     ctrl.$modelValue = model;
                     updateDisplayModel();
@@ -194,10 +195,10 @@
         self.parse = parse;
         self.changeDate = changeDate;
         self.validateWithDisabledDate = validateWithDisabledDate;
-		
+
         function parse(input, format, dateDisabled, time) {
             var parsedDate = parseInternal(input, format);
-            
+
             if (!parsedDate) {
                 return null;
             }
@@ -208,7 +209,7 @@
             if (time && parsedDate) {
                 parsedDate.setHours(time.getHours(), time.getMinutes(), 0, 0);
             }
-            
+
             return parsedDate || null;
         }
 
@@ -220,7 +221,7 @@
             var day = currentDate.getDate() + delta;
             currentDate.setDate(day);
         }
-    
+
         function validateWithDisabledDate(parsedDate, dateDisabled) {
             var disabled = dateDisabled({ date: parsedDate, mode: 'day' });
             if (disabled) {
@@ -229,9 +230,9 @@
 
             return parsedDate;
         }
-	
+
         // private
-    
+
         function parseInternal(input, format) {
             var useMmDdPattern = mmDdFormatPattern.test(format);
 
@@ -262,6 +263,20 @@
         function tokenize(input) {
             return mmDdPattern.exec(input);
         }
+    }
+
+    function datepickerConfigProvider() {
+        var config = {
+            dateFormat: 'yyyy-MM-dd'
+        };
+
+        this.setDateFormat = function (value) {
+            config.dateFormat = value;
+        };
+
+        this.$get = function() {
+            return config;
+        };
     }
 
 })();

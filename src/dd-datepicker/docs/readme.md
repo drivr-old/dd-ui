@@ -39,4 +39,12 @@ dd-ui Datepicker allows to enter custom date formats and use original bootstrap 
 * 21-08 OR 08-21 = 21.08 (21st of August)
 * 21/08 OR 08/21 = 21.08 (21st of August)
 * 21 08 OR 08 21 = 21.08 (21st of August)
+
+### datepickerConfigProvider
+* you can use datepickerConfigProvider.setDateFormat method to set date format globally.
+```js
+myModule.config(["datepickerConfigProvider", function (datepickerConfigProvider) {
+    datepickerConfigProvider.setDateFormat('yyyy-MM-dd');
+}]);
+```
  
