@@ -21,4 +21,7 @@ angular.module('dd.ui.demo').controller('DatepickerDemoCtrl', function ($scope) 
         console.log('setToEmpty');
         $scope.date = null;
     };
-});
+})
+.config(["datepickerConfigProvider", function (datepickerConfigProvider) {
+    datepickerConfigProvider.setDateFormat('yyyy-MM-dd');
+}]);
