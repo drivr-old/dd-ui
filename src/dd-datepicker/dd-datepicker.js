@@ -269,8 +269,8 @@
     function datepickerConfigProvider() {
         var config = {
             dateFormat: 'yyyy-MM-dd',
-            dateOptions: { 
-                startingDay: 1
+            dateOptions: {
+                startingDay: 0
             }
         };
 
@@ -278,7 +278,11 @@
             config.dateFormat = value;
         };
 
-        this.$get = function() {
+        this.setDateOptions = function (dateOptions) {
+            config.dateOptions = dateOptions;
+        }
+
+        this.$get = function () {
             return config;
         };
     }
