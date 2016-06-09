@@ -34,8 +34,8 @@
         it('are added to the request.', function () {
             $scope.lookupParams = {};
 
-            $httpBackend.expectGET('/api/drivers/lookup?limit=10&query=ab').respond(200);
-            lookup('ab');
+            $httpBackend.expectGET('/api/drivers/lookup?limit=10&query=ab+ac').respond(200);
+            lookup('ab ac');
             
             $httpBackend.expectGET('/api/drivers/lookup?driverId=123&limit=10&query=ac').respond(200);
             $scope.lookupParams.driverId = '123';

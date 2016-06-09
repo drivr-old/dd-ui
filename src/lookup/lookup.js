@@ -155,7 +155,7 @@ angular.module('dd.ui.lookup', ['ui.bootstrap'])
             
             function getHttpItems(query) {
                 var requestParams = $scope.lookupParams || {};
-                requestParams.query = encodeURIComponent(query);
+                requestParams.query = query;
                 
                 if(angular.isUndefined(requestParams.limit)){
                     requestParams.limit = 10;
