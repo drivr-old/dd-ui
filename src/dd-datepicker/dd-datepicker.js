@@ -38,6 +38,7 @@
 
                 scope.dayName = null;
                 scope.dateFormat = attrs.dateFormat || datepickerConfig.dateFormat;
+                scope.dateOptions = attrs.dateOptions || datepickerConfig.dateOptions;
                 scope.useShortDateFormat = scope.dateFormat.length < 6;
 
                 scope.calendarOpened = false;
@@ -267,7 +268,10 @@
 
     function datepickerConfigProvider() {
         var config = {
-            dateFormat: 'yyyy-MM-dd'
+            dateFormat: 'yyyy-MM-dd',
+            dateOptions: { 
+                startingDay: 1
+            }
         };
 
         this.setDateFormat = function (value) {
