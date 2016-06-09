@@ -1,3 +1,23 @@
+<a name="0.5.6"></a>
+## [0.5.6](//compare/0.5.0...v0.5.6) (2016-06-09)
+
+
+### Bug Fixes
+
+* **lookup:** remove double query encoding 4436321
+
+### Features
+
+* **datepicker:** added datepickerConfigProvider 0211b86
+* **datepicker:** on pupup clear set ngModel to null b037923
+* **datetimepicker:** remove old unused logic f0b73ae
+* **ddTimepicker:** change model value only on blur 9cfe9da
+* **timepicker:** added more tests 3359d20
+* **timepicker:** added on-change event 7527a14
+* **timepicker:** fire time change event on only blur d3a3816
+
+
+
 <a name="0.5.5"></a>
 ## [0.5.5](//compare/0.5.4...v0.5.5) (2016-06-06)
 
