@@ -1,3 +1,14 @@
+<a name="0.6.0"></a>
+# [0.6.0](//compare/0.5.6...v0.6.0) (2016-06-09)
+
+
+### Features
+
+* **datepicker:** add method to set global date options 196524e
+* **datepicker:** set date options f4a2231
+
+
+
 <a name="0.5.6"></a>
 ## [0.5.6](//compare/0.5.0...v0.5.6) (2016-06-09)
 
