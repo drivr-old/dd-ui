@@ -270,7 +270,7 @@
         var config = {
             dateFormat: 'yyyy-MM-dd',
             dateOptions: {
-                startingDay: 0
+                startingDay: 1
             }
         };
 
