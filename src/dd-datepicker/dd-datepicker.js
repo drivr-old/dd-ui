@@ -280,7 +280,7 @@
 
         this.setDateOptions = function (dateOptions) {
             config.dateOptions = dateOptions;
-        }
+        };
 
         this.$get = function () {
             return config;
