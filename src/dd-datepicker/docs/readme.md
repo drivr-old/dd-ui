@@ -33,6 +33,15 @@ dd-ui Datepicker allows to enter custom date formats and use original bootstrap 
  * `popup-placement`
  (Default: 'bottom-left auto') :
  Calendar popup placement
+ 
+ * `datepicker-options`
+  <small class="badge">$</small> -
+  An object to configure the datepicker.
+
+  * `startingDay`
+    <small class="badge">C</small>
+    *(Default: `$locale.DATETIME_FORMATS.FIRSTDAYOFWEEK`)* -
+    Starting day of the week from 0-6 (0=Sunday, ..., 6=Saturday).
   
 ### dd-ui Datepicker supports custom users date input depending on given date format ###
 * 2108 OR 0821 = 21.08 (21st of August)
