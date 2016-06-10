@@ -1,4 +1,20 @@
 <a name="0.6.1"></a>
+## [0.6.1](//compare/0.5.6...v0.6.1) (2016-06-10)
+
+
+### Bug Fixes
+
+* **datepicker:** set default first day 9a3aa93
+* **datepicker:** set default picker options abd627d
+
+### Features
+
+* **datepicker:** add method to set global date options 196524e
+* **datepicker:** set date options f4a2231
+
+
+
+<a name="0.6.1"></a>
 ## [0.6.1](//compare/0.6.0...v0.6.1) (2016-06-09)
 
 
