@@ -30,16 +30,14 @@
     "shelljs": "^0.5.1"
   },
   "license": "MIT",
-  "files": [
-    "dist/dd-ui-tpls-0.5.5.js"
-  ],
   "main": "dist/dd-ui-tpls-0.5.5.js",
   "jspm": {
     "main": "dd-ui-tpls-0.5.5.js",
     "format": "global",
     "registry": "jspm",
     "files": [
-      //"dist/dd-ui-tpls-0.5.5.js"
+      "dist/dd-ui-tpls-0.5.5.js",
+      "dist/dd-ui-0.5.5-csp.css"
     ],
     "dependencies": {
       "angular-ui-bootstrap": "npm:angular-ui-bootstrap@1.3.3"
