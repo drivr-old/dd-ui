@@ -31,15 +31,14 @@
   },
   "license": "MIT",
   "files": [
-    "dist"
+    "dist/dd-ui-tpls-0.5.5.js"
   ],
   "jspm": {
     "main": "dd-ui-tpls-0.5.5.js",
     "format": "global",
     "registry": "jspm",
     "files": [
-      "dd-ui-tpls-0.5.5.js",
-      "dist"
+      "dist/dd-ui-tpls-0.5.5.js"
     ],
     "dependencies": {
       "angular-ui-bootstrap": "npm:angular-ui-bootstrap@1.3.3"
