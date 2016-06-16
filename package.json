@@ -30,7 +30,7 @@
     "shelljs": "^0.5.1"
   },
   "license": "MIT",
-  "main": "dist/dd-ui-tpls-0.5.5.js",
+  "main": "false",
   "jspm": {
     "main": "dd-ui-tpls-0.5.5.js",
     "directories": {
