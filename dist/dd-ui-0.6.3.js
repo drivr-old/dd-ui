@@ -2,7 +2,7 @@
  * dd-ui
  * http://clickataxi.github.io/dd-ui/
 
- * Version: 0.6.2 - 2016-06-20
+ * Version: 0.6.3 - 2016-06-20
  * License: MIT
  */angular.module("dd.ui", ["dd.ui.arrow-key-nav","dd.ui.busy-element","dd.ui.datetimepicker","dd.ui.dd-datepicker","dd.ui.dd-datetimepicker","dd.ui.dd-timepicker","dd.ui.lookup","dd.ui.validation.phone","dd.ui.validation.sameAs","dd.ui.validation"]);
 angular.module('dd.ui.arrow-key-nav', [])

@@ -174,11 +174,14 @@ module.exports = function (grunt) {
                 'grunt conventionalChangelog'
             ],
             'release-complete': [
-                //'git commit CHANGELOG.md package.json -m "chore(release): v%version%"'
+                'git add -A && git commit -m "chore(release): v%version%"',
+                'git tag %version%',
+                'git pull',
+                'git push origin master'
             ],
             'release-start': [
-                //'grunt version:minor:"SNAPSHOT"',
-                //'git commit package.json -m "chore(release): Starting v%version%"'
+                'grunt version:minor:"SNAPSHOT"',
+                'git commit package.json -m "chore(release): Starting v%version%"'
             ]
         },
         'ddescribe-iit': {
