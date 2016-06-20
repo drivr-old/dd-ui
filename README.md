@@ -10,6 +10,8 @@ Do you want to see directives in action? Visit http://clickataxi.github.io/dd-ui
 
 ## Installation
 
+`jspm install dd-ui=github:clickataxi/dd-ui@0.6.2`
+
 Installation is easy as dd-ui has minimal dependencies - only the AngularJS is required.
 After downloading dependencies (or better yet, referencing them from your favourite CDN) you need to download build version of this project. All the files and their purposes are described here: 
 https://github.com/clickataxi/dd-ui/tree/gh-pages#build-files
