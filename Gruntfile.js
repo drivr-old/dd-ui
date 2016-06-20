@@ -177,11 +177,13 @@ module.exports = function (grunt) {
                 'git add -A && git commit -m "chore(release): v%version%"',
                 'git tag %version%',
                 'git pull',
-                'git push origin master'
+                'git push origin master',
+                'git push --tags'
             ],
             'release-start': [
                 'grunt version:minor:"SNAPSHOT"',
-                'git commit package.json -m "chore(release): Starting v%version%"'
+                'git commit package.json -m "chore(release): Starting v%version%"',
+                'git push origin master'
             ]
         },
         'ddescribe-iit': {
