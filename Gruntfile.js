@@ -4,7 +4,7 @@ var _ = require('lodash');
 
 module.exports = function (grunt) {
     require('load-grunt-tasks')(grunt);
-
+    grunt.loadNpmTasks('grunt-contrib-clean');
     // Project configuration.
     grunt.util.linefeed = '\n';
 
@@ -168,13 +168,13 @@ module.exports = function (grunt) {
             //We use %version% and evaluate it at run-time, because <%= pkg.version %>
             //is only evaluated once
             'release-prepare': [
+                'grunt clean',
                 'grunt before-test after-test',
                 'grunt version', //remove "-SNAPSHOT"
                 'grunt conventionalChangelog'
             ],
             'release-complete': [
-                'git commit CHANGELOG.md package.json -m "chore(release): v%version%"',
-                'git tag %version%'
+                'git commit CHANGELOG.md package.json -m "chore(release): v%version%"'
             ],
             'release-start': [
                 'grunt version:minor:"SNAPSHOT"',
@@ -200,7 +200,8 @@ module.exports = function (grunt) {
                 },
                 openBrowser: true
             }
-        }
+        },
+        clean: ['dist']
     });
 
     //register before and after test tasks so we've don't have to change cli

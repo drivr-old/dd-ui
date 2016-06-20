@@ -18,5 +18,5 @@ coverage/
 
 node_modules
 npm-debug.log
-
+dist/assets
 template/**/*.js
