@@ -10,7 +10,7 @@ Do you want to see directives in action? Visit http://clickataxi.github.io/dd-ui
 
 ## Installation
 
-`jspm install dd-ui=github:clickataxi/dd-ui@0.6.2`
+If you use jspm run `jspm install dd-ui=github:clickataxi/dd-ui@0.6.2`
 
 Installation is easy as dd-ui has minimal dependencies - only the AngularJS is required.
 After downloading dependencies (or better yet, referencing them from your favourite CDN) you need to download build version of this project. All the files and their purposes are described here: 
@@ -22,6 +22,11 @@ When you are done downloading all the dependencies and project files the only re
 ```javascript
 angular.module('myModule', ['dd.ui']);
 ```
+## Release
+* Bump up version and jspm main file number in `package.json`
+* Run cmd `grunt shell`
+* Commit changes and push to origin
+* Add tag for this new version and push it to origin
 
 ## Supported browsers
 
@@ -34,14 +39,10 @@ Directives from this repository are automatically tested with the following brow
 
 Modern mobile browsers should work without problems.
 
-**IE 8 is not officially supported at the moment**
-We are not in the position to guarantee IE8 support. If you need support for IE8 we would welcome a contributor who would like to take care about IE8.
 
 We believe that most of the directives would work OK after:
 * including relevant shims (for ES5 we recommend https://github.com/kriskowal/es5-shim)
 * taking care of the steps described in http://docs.angularjs.org/guide/ie
-
-We are simply not regularly testing against IE8.
 
 ## Project philosophy
 
@@ -157,9 +158,4 @@ Then it will work fine!
 
 For more information visit: https://github.com/karlgoldstein/grunt-html2js
 
-### Release
-* Bump up version and jspm main file number in `package.json`
-* Run cmd `grunt shell`
-* Commit changes and push to origin
-* Add tag for this new version and push it to origin
 
