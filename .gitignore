@@ -20,3 +20,5 @@ node_modules
 npm-debug.log
 dist/assets
 template/**/*.js
+dist/versions-mapping.json
+dist/index.html
