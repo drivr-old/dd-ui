@@ -25,8 +25,6 @@ angular.module('myModule', ['dd.ui']);
 ## Release
 * Bump up version and jspm main file number in `package.json`
 * Run cmd `grunt shell`
-* Commit changes and push to origin
-* Add tag for this new version and push it to origin
 
 ## Supported browsers
 
