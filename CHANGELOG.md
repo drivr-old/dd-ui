@@ -1,3 +1,13 @@
+<a name="0.6.4"></a>
+## [0.6.4](//compare/0.6.3...v0.6.4) (2016-06-27)
+
+
+### Bug Fixes
+
+* **datepicker:** use new api for date disabled 6f9defa
+
+
+
 <a name="0.6.3"></a>
 ## [0.6.3](//compare/0.6.2...v0.6.3) (2016-06-20)
 
