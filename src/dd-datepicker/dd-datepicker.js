@@ -41,6 +41,8 @@
                 scope.dateOptions = attrs.dateOptions || datepickerConfig.dateOptions;
                 scope.useShortDateFormat = scope.dateFormat.length < 6;
 
+                scope.dateOptions.dateDisabled = scope.dateDisabled;
+
                 scope.calendarOpened = false;
                 scope.openCalendar = openCalendar;
 
