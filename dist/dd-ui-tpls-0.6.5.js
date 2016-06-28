@@ -2,7 +2,7 @@
  * dd-ui
  * http://clickataxi.github.io/dd-ui/
 
- * Version: 0.6.4 - 2016-06-27
+ * Version: 0.6.5 - 2016-06-28
  * License: MIT
  */angular.module("dd.ui", ["dd.ui.tpls", "dd.ui.arrow-key-nav","dd.ui.busy-element","dd.ui.datetimepicker","dd.ui.dd-datepicker","dd.ui.dd-datetimepicker","dd.ui.dd-timepicker","dd.ui.lookup","dd.ui.validation.phone","dd.ui.validation.sameAs","dd.ui.validation"]);
 angular.module("dd.ui.tpls", ["template/busy-element/busy-element.html","template/datetimepicker/datetimepicker.html","template/dd-datepicker/dd-datepicker.html","template/dd-datetimepicker/dd-datetimepicker.html","template/lookup/lookup-item.html","template/lookup/lookup.html"]);
@@ -264,7 +264,7 @@ angular.module('dd.ui.datetimepicker', ['ui.bootstrap'])
 
                 scope.dayName = null;
                 scope.dateFormat = attrs.dateFormat || datepickerConfig.dateFormat;
-                scope.dateOptions = attrs.dateOptions || datepickerConfig.dateOptions;
+                scope.dateOptions = attrs.dateOptions || angular.copy(datepickerConfig.dateOptions);
                 scope.useShortDateFormat = scope.dateFormat.length < 6;
 
                 scope.dateOptions.dateDisabled = scope.dateDisabled;

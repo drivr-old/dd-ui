@@ -1,3 +1,13 @@
+<a name="0.6.5"></a>
+## [0.6.5](//compare/0.6.4...v0.6.5) (2016-06-28)
+
+
+### Bug Fixes
+
+* **datepicker:** dont use same obj reference for dateOptions 5635238
+
+
+
 <a name="0.6.4"></a>
 ## [0.6.4](//compare/0.6.3...v0.6.4) (2016-06-27)
 
