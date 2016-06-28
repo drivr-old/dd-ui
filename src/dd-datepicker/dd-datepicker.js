@@ -38,7 +38,7 @@
 
                 scope.dayName = null;
                 scope.dateFormat = attrs.dateFormat || datepickerConfig.dateFormat;
-                scope.dateOptions = attrs.dateOptions || datepickerConfig.dateOptions;
+                scope.dateOptions = attrs.dateOptions || angular.copy(datepickerConfig.dateOptions);
                 scope.useShortDateFormat = scope.dateFormat.length < 6;
 
                 scope.dateOptions.dateDisabled = scope.dateDisabled;
