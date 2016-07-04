@@ -178,7 +178,7 @@ module.exports = function (grunt) {
                 'git tag %version%',
                 'git pull',
                 'git push origin master',
-                'git push --tags'
+                'git push origin --tags'
             ],
             'release-start': [
                 'grunt version:minor:"SNAPSHOT"',

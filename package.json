@@ -46,7 +46,7 @@
       "dist/versions-mapping.json"
     ],
     "dependencies": {
-      "angular-ui-bootstrap": "npm:angular-ui-bootstrap@1.3.3"
+      "angular-bootstrap": "github:angular-ui/bootstrap-bower@1.3.3"
     }
   }
 }
