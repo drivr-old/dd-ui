@@ -330,7 +330,7 @@
         });
         
         it('is called when user clears the input text.', function() {
-           var items = [{ id: 1,  name: 'item 1' }];
+            var items = [{ id: 1, name: 'item 1' }];
             
             $httpBackend.expectGET('/api/drivers/lookup?limit=10&query=ab').respond(200, items);
                         
