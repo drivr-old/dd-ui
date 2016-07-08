@@ -1,3 +1,13 @@
+<a name="0.6.6"></a>
+## [0.6.6](//compare/0.6.5...v0.6.6) (2016-07-08)
+
+
+### Bug Fixes
+
+* **arrow_key_nav:** navigation for elements under hidden containers 40535dd
+
+
+
 <a name="0.6.5"></a>
 ## [0.6.5](//compare/0.6.4...v0.6.5) (2016-06-28)
 
