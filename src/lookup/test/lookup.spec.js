@@ -330,9 +330,13 @@
         });
         
         it('is called when user clears the input text.', function() {
-            $httpBackend.expectGET('/api/drivers/lookup?limit=10&query=ab').respond(200);
+           var items = [{ id: 1,  name: 'item 1' }];
+            
+            $httpBackend.expectGET('/api/drivers/lookup?limit=10&query=ab').respond(200, items);
                         
             lookup('ab');
+            selectItem(0);
+            
             lookup('', true);
             
             expect($scope.onClear).toHaveBeenCalled();
