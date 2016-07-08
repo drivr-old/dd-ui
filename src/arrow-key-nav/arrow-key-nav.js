@@ -77,7 +77,7 @@ angular.module('dd.ui.arrow-key-nav', [])
                                 element.href || !isNaN(tabIndex) :
                                 !isNaN(tabIndex)
                        ) &&
-                       !jElement['area' === nodeName ? 'parents' : 'closest'](':hidden').length;
+                       !jElement.is(':hidden');
             }
         }
     };
