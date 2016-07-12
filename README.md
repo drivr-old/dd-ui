@@ -11,8 +11,9 @@ Do you want to see directives in action? Visit http://clickataxi.github.io/dd-ui
 ## Installation
 If you use jspm run `jspm install dd-ui=github:clickataxi/dd-ui`
 
-
 ```javascript
+import 'dd-ui';
+// ...
 angular.module('myModule', ['dd.ui']);
 ```
 ## Release
