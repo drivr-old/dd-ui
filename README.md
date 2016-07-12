@@ -9,21 +9,14 @@
 Do you want to see directives in action? Visit http://clickataxi.github.io/dd-ui/!
 
 ## Installation
-
 If you use jspm run `jspm install dd-ui=github:clickataxi/dd-ui`
 
-Installation is easy as dd-ui has minimal dependencies - only the AngularJS is required.
-After downloading dependencies (or better yet, referencing them from your favourite CDN) you need to download build version of this project. All the files and their purposes are described here: 
-https://github.com/clickataxi/dd-ui/tree/gh-pages#build-files
-Don't worry, if you are not sure which file to take, opt for `dd-ui-tpls-[version].min.js`.
-
-When you are done downloading all the dependencies and project files the only remaining part is to add dependencies on the `dd.ui` AngularJS module:
 
 ```javascript
 angular.module('myModule', ['dd.ui']);
 ```
 ## Release
-* Bump up version and jspm main file number in `package.json`
+* Bump up version and <b>jspm main file number</b> in `package.json`
 * Run cmd `grunt shell`
 
 ## Supported browsers
