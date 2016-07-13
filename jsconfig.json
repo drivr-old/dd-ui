@@ -1,0 +1,13 @@
+{
+    "compilerOptions": {
+        "target": "ES5"
+    },
+    "exclude": [
+        ".vscode",
+        "coverage",
+        "dist",
+        "misc",
+        "node_modules",
+        "templates"
+    ]
+}
