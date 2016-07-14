@@ -177,14 +177,15 @@ module.exports = function (grunt) {
             'release-complete': [
                 'git add -A && git commit -m "chore(release): v%version%"',
                 'git tag %version%',
-                'git pull',
-                'git push origin master',
-                'git push origin --tags'
+                'git pull'
             ],
             'release-start': [
                 'grunt version:minor:"SNAPSHOT"',
                 'git commit package.json -m "chore(release): Starting v%version%"',
-                'git push origin master'
+            ],
+            'release-push': [
+                'git push origin master',
+                'git push origin --tags'
             ]
         },
         'ddescribe-iit': {
@@ -242,6 +243,9 @@ module.exports = function (grunt) {
             require('fs').chmodSync('.git/hooks/commit-msg', '0755');
         }
     });
+
+    grunt.registerTask('release-start', ['shell:release-prepare', 'shell:release-complete', 'shell:release-start']);
+    grunt.registerTask('release-push', ['shell:release-push']);
 
     //Common dd.ui module containing all modules for src and templates
     //findModule: Adds a given module to config
