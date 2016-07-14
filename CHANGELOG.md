@@ -1,3 +1,18 @@
+<a name="0.6.8"></a>
+## [0.6.8](//compare/0.6.7...v0.6.8) (2016-07-14)
+
+
+### Bug Fixes
+
+* **forms:** fixes after code review 8e06094
+
+### Features
+
+* **formActions:** form actions component 001ca56
+* **forms:** form validatation errors directive e79abcc
+
+
+
 <a name="0.6.7"></a>
 ## [0.6.7](//compare/0.6.6...v0.6.7) (2016-07-12)
 
