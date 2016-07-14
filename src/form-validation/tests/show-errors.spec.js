@@ -68,6 +68,23 @@ describe('Directive show-errors tests.', function () {
         expect(element.find('.form-group').hasClass('has-error')).toBeFalsy();
     });
 
+    it('throw error if form-group do not have input', function () {
+        var compile = $compile('<form><div class="form-group" show-errors></div></form>');
+
+        $scope.$digest();
+
+        expect(function () { 
+             compile($scope);
+             $timeout.flush();
+        }).toThrowError();
+    });
+
+    it('throw error if element do not have form-group class', function () {
+        expect(function () {
+            $compile('<form><div class="form-group-wtf" show-errors><input name="name" /></div></form>');
+        }).toThrowError();
+    });
+
     function initDirective($scope, $compile) {
         var html = '<form name="form">' +
             '<div class="form-group" show-errors>' +

@@ -62,9 +62,15 @@ describe('Form actions bar tests.', function () {
 
     describe('Custom style', function () {
         it('set transform if element attr is defined', function() {
-            var element = $compile(angular.element('<form id="myForm"><form-actions append="body"></form-actions></form>'))($scope);
+            var element = $compile(angular.element('<form id="myForm"><form-actions append-to="body"></form-actions></form>'))($scope);
             $scope.$digest();
             expect(element.find('.fixed-form-actions-bar')[0].style.transform).toContain('translateX');
+        });
+
+        it('throw error if apent-to element do not exsist', function() {
+            var compile = $compile(angular.element('<form id="myForm"><form-actions append-to="wtf"></form-actions></form>'));
+            $scope.$digest();
+            expect(function() { return compile($scope); }).toThrowError();
         });
     });
 });
