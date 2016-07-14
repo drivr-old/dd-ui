@@ -181,7 +181,7 @@ module.exports = function (grunt) {
             ],
             'release-start': [
                 'grunt version:minor:"SNAPSHOT"',
-                'git commit package.json -m "chore(release): Starting v%version%"',
+                'git commit package.json -m "chore(release): Starting v%version%"'
             ],
             'release-push': [
                 'git push origin master',
