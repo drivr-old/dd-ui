@@ -7,12 +7,12 @@ Form actions bar allows to show form actions bar then form is dirty.
 ```
 
 ### Form actions bar settings ###
- * `append-to`
+ * `absolute`
  	:
- 	By default form actions bar is fixed to window bottom. If element is specified it will be fixed to that element.
+ 	By default form actions bar is fixed to window bottom. If absolute="true" form actions are related to it's relative container.
 
 ```html
-<form-actions append-to=".side-panel">
+<form-actions absolute="true">
 // any content here
 </form-actions>
 ```
