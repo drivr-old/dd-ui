@@ -5,8 +5,8 @@ Form validations UX.
  * Always add validation messages.
  * If user click save button show all validation errors.
  * If user click cancel hide all validation errors.
-### `show-errors` directive
-Apply this directive to form control and it will take care of showing and hiding error.
+### Use show-errors directive for form groups
+Apply this directive to form group and it will take care of showing and hiding errors.
 
 ### Use formValidationService for show/hide all errors
  * `showErrors(formName)`
