@@ -22,3 +22,4 @@ dist/assets
 template/**/*.js
 dist/versions-mapping.json
 dist/index.html
+.grunt/grunt-gh-pages/
