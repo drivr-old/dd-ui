@@ -19,6 +19,7 @@ angular.module('myModule', ['dd.ui']);
 ## Release
 * Bump up version and <b>jspm main file number</b> in `package.json`
 * Run cmd `grunt shell`
+* Run cmd `grunt gh-pages` to update demo site
 
 ## Supported browsers
 
