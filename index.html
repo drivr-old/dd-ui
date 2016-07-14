@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <title>Drivr directives</title>
-    <meta name="description" content="AngularJS (Angular) native directives. Widgets: Arrow-key-nav, Busy-element, Datetimepicker, Dd-datepicker, Dd-datetimepicker, Dd-timepicker, Lookup, Validation, ">
+    <meta name="description" content="AngularJS (Angular) native directives. Widgets: Arrow-key-nav, Busy-element, Datetimepicker, Dd-datepicker, Dd-datetimepicker, Dd-timepicker, Form-actions, Form-validation, Lookup, Validation, ">
 
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/fastclick/0.6.7/fastclick.min.js"></script>
@@ -13,7 +13,7 @@
     <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular-touch.min.js"></script>
     <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular-animate.min.js"></script>
 	<script src="assets/ui-bootstrap-tpls.js"></script>
-    <script src="dd-ui-tpls-0.6.1.min.js"></script>
+    <script src="dd-ui-tpls-0.6.8.min.js"></script>
     <script src="assets/angular-mocks.js"></script>
     <script src="assets/plunker.js"></script>
     <script src="assets/app.js"></script>
@@ -46,7 +46,7 @@
                             Directives <b class="caret"></b>
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a href="#arrow-key-nav">Arrow-key-nav</a></li><li><a href="#busy-element">Busy-element</a></li><li><a href="#datetimepicker">Datetimepicker</a></li><li><a href="#dd-datepicker">Dd-datepicker</a></li><li><a href="#dd-datetimepicker">Dd-datetimepicker</a></li><li><a href="#dd-timepicker">Dd-timepicker</a></li><li><a href="#lookup">Lookup</a></li><li><a href="#validation">Validation</a></li>
+                            <li><a href="#arrow-key-nav">Arrow-key-nav</a></li><li><a href="#busy-element">Busy-element</a></li><li><a href="#datetimepicker">Datetimepicker</a></li><li><a href="#dd-datepicker">Dd-datepicker</a></li><li><a href="#dd-datetimepicker">Dd-datetimepicker</a></li><li><a href="#dd-timepicker">Dd-timepicker</a></li><li><a href="#form-actions">Form-actions</a></li><li><a href="#form-validation">Form-validation</a></li><li><a href="#lookup">Lookup</a></li><li><a href="#validation">Validation</a></li>
                         </ul>
                     </li>
                     <li><a href="#getting_started">Getting started</a></li>
@@ -136,6 +136,10 @@
                             <li><a href="#dd-datetimepicker">Dd-datetimepicker</a></li>
                         
                             <li><a href="#dd-timepicker">Dd-timepicker</a></li>
+                        
+                            <li><a href="#form-actions">Form-actions</a></li>
+                        
+                            <li><a href="#form-validation">Form-validation</a></li>
                         
                             <li><a href="#lookup">Lookup</a></li>
                         
@@ -235,7 +239,7 @@
                         <div class="row code">
                             <div class="col-md-12" ng-controller="PlunkerCtrl">
                                 <div class="pull-right">
-                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.4.3', '3.1.1', '0.6.1', 'arrow-key-nav')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
+                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.4.3', '3.1.1', '0.6.8', 'arrow-key-nav')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
                                 </div>
                                 <uib-tabset>
                                     <uib-tab heading="Markup">
@@ -384,7 +388,7 @@
                         <div class="row code">
                             <div class="col-md-12" ng-controller="PlunkerCtrl">
                                 <div class="pull-right">
-                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.4.3', '3.1.1', '0.6.1', 'busy-element')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
+                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.4.3', '3.1.1', '0.6.8', 'busy-element')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
                                 </div>
                                 <uib-tabset>
                                     <uib-tab heading="Markup">
@@ -571,7 +575,7 @@ Calendar popup placement</p>
                         <div class="row code">
                             <div class="col-md-12" ng-controller="PlunkerCtrl">
                                 <div class="pull-right">
-                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.4.3', '3.1.1', '0.6.1', 'datetimepicker')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
+                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.4.3', '3.1.1', '0.6.8', 'datetimepicker')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
                                 </div>
                                 <uib-tabset>
                                     <uib-tab heading="Markup">
@@ -708,7 +712,7 @@ Starting day of the week from 0-6 (0=Sunday, ..., 6=Saturday).</li>
                         <div class="row code">
                             <div class="col-md-12" ng-controller="PlunkerCtrl">
                                 <div class="pull-right">
-                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.4.3', '3.1.1', '0.6.1', 'dd-datepicker')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
+                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.4.3', '3.1.1', '0.6.8', 'dd-datepicker')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
                                 </div>
                                 <uib-tabset>
                                     <uib-tab heading="Markup">
@@ -913,7 +917,7 @@ Allows overriding of default template of the datetimepicker</p>
                         <div class="row code">
                             <div class="col-md-12" ng-controller="PlunkerCtrl">
                                 <div class="pull-right">
-                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.4.3', '3.1.1', '0.6.1', 'dd-datetimepicker')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
+                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.4.3', '3.1.1', '0.6.8', 'dd-datetimepicker')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
                                 </div>
                                 <uib-tabset>
                                     <uib-tab heading="Markup">
@@ -1109,7 +1113,7 @@ Allows overriding of default template of the datetimepicker</p>
                         <div class="row code">
                             <div class="col-md-12" ng-controller="PlunkerCtrl">
                                 <div class="pull-right">
-                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.4.3', '3.1.1', '0.6.1', 'dd-timepicker')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
+                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.4.3', '3.1.1', '0.6.8', 'dd-timepicker')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
                                 </div>
                                 <uib-tabset>
                                     <uib-tab heading="Markup">
@@ -1164,6 +1168,363 @@ Allows overriding of default template of the datetimepicker</p>
     };
     
 });</script>
+                
+                    <section id="form-actions">
+                        <div class="page-header">
+                          <h1>Form-actions<small>
+                              (<a target="_blank" href="https://github.com/clickataxi/dd-ui/tree/master/src/form-actions">dd.ui.form-actions</a>)
+                          </small></h1>
+                          </div>
+                          <div class="row">
+                            <div class="col-md-6 show-grid">
+                                <div ng-controller="FormActionsDemoCtrl">
+
+    <form id="form-actions-form" name="form" class="well well-small">
+        <h3>Using in forms</h3>
+        <div class="form-group">
+            <label for="name">Name</label>
+            <input name="name" ng-required="true" class="form-control" ng-model="model.name" />
+        </div>
+        <div class="form-group">
+            <label for="exampleInputEmail1">Date</label>
+            <div dd-datepicker name="date" ng-model="model.date" style="width: 200px"></div>
+        </div>
+        <div class="checkbox">
+            <label>
+            <input type="checkbox" ng-model="model.checkboxOne" name="one" value="one">
+                Option one is this and that&mdash;be sure to include why it's great
+            </label>
+        </div>
+        <div class="checkbox disabled">
+            <label>
+                <input type="checkbox" ng-model="model.checkboxTwo" name="two" value="two">
+                Option two
+                </label>
+        </div>
+        <form-actions>
+            <div class="container">
+                <button ng-click="save()" type="submit" class="btn btn-success" id="save-template"><span class="glyphicon glyphicon-ok"></span> Save changes</button>
+                <button ng-click="cancel()" type="submit" class="btn btn-default"><span class="glyphicon glyphicon-remove"></span> Cancel</button>
+            </div>
+        </form-actions>
+
+    </form>
+
+</div>
+                            </div>
+                            <div class="col-md-6">
+                                <p>Form actions bar allows to show form actions bar then form is dirty.</p>
+<h3 id="usage">Usage</h3>
+<pre><code class="lang-html">&lt;form-actions&gt;
+// any content here
+&lt;/form-actions&gt;
+</code></pre>
+<h3 id="form-actions-bar-settings">Form actions bar settings</h3>
+<ul>
+<li><code>append-to</code>
+  :
+  By default form actions bar is fixed to window bottom. If element is specified it will be fixed to that element.</li>
+</ul>
+<pre><code class="lang-html">&lt;form-actions append-to=&quot;.side-panel&quot;&gt;
+// any content here
+&lt;/form-actions&gt;
+</code></pre>
+
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row code">
+                            <div class="col-md-12" ng-controller="PlunkerCtrl">
+                                <div class="pull-right">
+                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.4.3', '3.1.1', '0.6.8', 'form-actions')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
+                                </div>
+                                <uib-tabset>
+                                    <uib-tab heading="Markup">
+                                        <div plunker-content="markup">
+                                            <pre ng-non-bindable><code data-language="html">&lt;div ng-controller=&quot;FormActionsDemoCtrl&quot;&gt;
+
+    &lt;form id=&quot;form-actions-form&quot; name=&quot;form&quot; class=&quot;well well-small&quot;&gt;
+        &lt;h3&gt;Using in forms&lt;/h3&gt;
+        &lt;div class=&quot;form-group&quot;&gt;
+            &lt;label for=&quot;name&quot;&gt;Name&lt;/label&gt;
+            &lt;input name=&quot;name&quot; ng-required=&quot;true&quot; class=&quot;form-control&quot; ng-model=&quot;model.name&quot; /&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;form-group&quot;&gt;
+            &lt;label for=&quot;exampleInputEmail1&quot;&gt;Date&lt;/label&gt;
+            &lt;div dd-datepicker name=&quot;date&quot; ng-model=&quot;model.date&quot; style=&quot;width: 200px&quot;&gt;&lt;/div&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;checkbox&quot;&gt;
+            &lt;label&gt;
+            &lt;input type=&quot;checkbox&quot; ng-model=&quot;model.checkboxOne&quot; name=&quot;one&quot; value=&quot;one&quot;&gt;
+                Option one is this and that&amp;mdash;be sure to include why it&#x27;s great
+            &lt;/label&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;checkbox disabled&quot;&gt;
+            &lt;label&gt;
+                &lt;input type=&quot;checkbox&quot; ng-model=&quot;model.checkboxTwo&quot; name=&quot;two&quot; value=&quot;two&quot;&gt;
+                Option two
+                &lt;/label&gt;
+        &lt;/div&gt;
+        &lt;form-actions&gt;
+            &lt;div class=&quot;container&quot;&gt;
+                &lt;button ng-click=&quot;save()&quot; type=&quot;submit&quot; class=&quot;btn btn-success&quot; id=&quot;save-template&quot;&gt;&lt;span class=&quot;glyphicon glyphicon-ok&quot;&gt;&lt;/span&gt; Save changes&lt;/button&gt;
+                &lt;button ng-click=&quot;cancel()&quot; type=&quot;submit&quot; class=&quot;btn btn-default&quot;&gt;&lt;span class=&quot;glyphicon glyphicon-remove&quot;&gt;&lt;/span&gt; Cancel&lt;/button&gt;
+            &lt;/div&gt;
+        &lt;/form-actions&gt;
+
+    &lt;/form&gt;
+
+&lt;/div&gt;</code></pre>
+                                        </div>
+                                    </uib-tab>
+                                    <uib-tab heading="JavaScript">
+                                        <div plunker-content="javascript">
+                                            <pre ng-non-bindable><code data-language="javascript">angular.module(&#x27;dd.ui.demo&#x27;).controller(&#x27;FormActionsDemoCtrl&#x27;, [&#x27;$scope&#x27;, function($scope) {
+    $scope.model = {};
+    $scope.save = function () {
+        $scope.form.$setPristine();
+    };
+
+    $scope.cancel = function () {
+        $scope.form.$setPristine();
+    };
+}]);</code></pre>
+                                        </div>
+                                    </uib-tab>
+                                </uib-tabset>
+                            </div>
+                        </div>
+                    </section>
+                    <script>angular.module('dd.ui.demo').controller('FormActionsDemoCtrl', ['$scope', function($scope) {
+    $scope.model = {};
+    $scope.save = function () {
+        $scope.form.$setPristine();
+    };
+
+    $scope.cancel = function () {
+        $scope.form.$setPristine();
+    };
+}]);</script>
+                
+                    <section id="form-validation">
+                        <div class="page-header">
+                          <h1>Form-validation<small>
+                              (<a target="_blank" href="https://github.com/clickataxi/dd-ui/tree/master/src/form-validation">dd.ui.form-validation</a>)
+                          </small></h1>
+                          </div>
+                          <div class="row">
+                            <div class="col-md-6 show-grid">
+                                <div ng-controller="FormValidationsUxCtrl">
+
+    <form id="form-actions-form" name="form" class="well well-small">
+        <h3>Using in forms</h3>
+        <div class="form-group" show-errors>
+            <label for="firstName">Name <span class="text-danger">*</span></label>
+            <input ng-required="true" name="firstName" class="form-control" ng-model="model.firstName" style="width: 200px" />
+            <p class="field-error" ng-if="form.firstName.$error.required">Name is required.</p>
+        </div>
+        <div class="form-group" show-errors>
+            <label for="name">Last name <span class="text-danger">*</span></label>
+            <input ng-required="true" name="name" class="form-control" ng-model="model.lastName" style="width: 200px" />
+            <p class="field-error" ng-if="form.name.$error.required">Last name is required.</p>
+        </div>
+        <div class="form-group" show-errors>
+            <label for="email">Email <span class="text-danger">*</span></label>
+            <input ng-required="true" name="email" class="form-control" ng-model="model.email" type="email" style="width: 200px" />
+            <p class="field-error" ng-if="form.email.$error.required">Email is required.</p>
+            <p class="field-error" ng-if="form.email.$error.email">Wrong email format.</p>
+        </div>
+        <div class="form-group" show-errors>
+            <label for="name">Option <span class="text-danger">*</span></label>
+            <select ng-required="true" class="form-control" name="option" ng-model="model.selected" style="width: 200px">
+                <option value="item.subItem" ng-repeat="item in items">{{item.label}}</option>
+            </select>
+            <p class="field-error" ng-if="form.option.$error.required">Option is required.</p>
+        </div>
+        <div id="id" class="form-group" show-errors>
+            <label for="exampleInputEmail1">Date <span class="text-danger">*</span></label>
+            <div ng-required="true" name="dateField" dd-datepicker ng-model="model.date" style="width: 200px"></div>
+            <p class="field-error" ng-if="form.dateField.$error.required">Date is required.</p>
+        </div>
+        <div class="checkbox">
+            <label>
+            <input name="one" type="checkbox" ng-model="model.checkboxOne" value="one">
+                Option one is this and that&mdash;be sure to include why it's great
+            </label>
+        </div>
+        <div class="checkbox disabled">
+            <label>
+                <input name="two" type="checkbox" ng-model="model.checkboxTwo" value="two">
+                Option two
+                </label>
+        </div>
+        <form-actions>
+            <div class="container">
+                <button ng-click="save()" type="submit" class="btn btn-success" id="save-template"><span class="glyphicon glyphicon-ok"></span> Save changes</button>
+                <button ng-click="cancel()" type="submit" class="btn btn-default"><span class="glyphicon glyphicon-remove"></span> Cancel</button>
+            </div>
+        </form-actions>
+
+    </form>
+</div>
+                            </div>
+                            <div class="col-md-6">
+                                <p>Form validations UX.</p>
+<h3 id="forms-rules">Forms rules</h3>
+<ul>
+<li>Form save buttons should always be enabled.</li>
+<li>Mark required field with red asterix.</li>
+<li>Always add validation messages.</li>
+<li>If user click save button show all validation errors.</li>
+<li>If user click cancel hide all validation errors.<h3 id="use-show-errors-directive-for-form-groups">Use show-errors directive for form groups</h3>
+Apply this directive to form group and it will take care of showing and hiding errors.</li>
+</ul>
+<h3 id="use-formvalidationservice-for-show-hide-all-errors">Use formValidationService for show/hide all errors</h3>
+<ul>
+<li><code>showErrors(formName)</code>
+  :
+  Trigger to show all validations errors for all fields.</li>
+<li><code>hideErrors(formName)</code>
+  :
+  Trigger to hide all validations errors for all fields.</li>
+</ul>
+
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row code">
+                            <div class="col-md-12" ng-controller="PlunkerCtrl">
+                                <div class="pull-right">
+                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.4.3', '3.1.1', '0.6.8', 'form-validation')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
+                                </div>
+                                <uib-tabset>
+                                    <uib-tab heading="Markup">
+                                        <div plunker-content="markup">
+                                            <pre ng-non-bindable><code data-language="html">&lt;div ng-controller=&quot;FormValidationsUxCtrl&quot;&gt;
+
+    &lt;form id=&quot;form-actions-form&quot; name=&quot;form&quot; class=&quot;well well-small&quot;&gt;
+        &lt;h3&gt;Using in forms&lt;/h3&gt;
+        &lt;div class=&quot;form-group&quot; show-errors&gt;
+            &lt;label for=&quot;firstName&quot;&gt;Name &lt;span class=&quot;text-danger&quot;&gt;*&lt;/span&gt;&lt;/label&gt;
+            &lt;input ng-required=&quot;true&quot; name=&quot;firstName&quot; class=&quot;form-control&quot; ng-model=&quot;model.firstName&quot; style=&quot;width: 200px&quot; /&gt;
+            &lt;p class=&quot;field-error&quot; ng-if=&quot;form.firstName.$error.required&quot;&gt;Name is required.&lt;/p&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;form-group&quot; show-errors&gt;
+            &lt;label for=&quot;name&quot;&gt;Last name &lt;span class=&quot;text-danger&quot;&gt;*&lt;/span&gt;&lt;/label&gt;
+            &lt;input ng-required=&quot;true&quot; name=&quot;name&quot; class=&quot;form-control&quot; ng-model=&quot;model.lastName&quot; style=&quot;width: 200px&quot; /&gt;
+            &lt;p class=&quot;field-error&quot; ng-if=&quot;form.name.$error.required&quot;&gt;Last name is required.&lt;/p&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;form-group&quot; show-errors&gt;
+            &lt;label for=&quot;email&quot;&gt;Email &lt;span class=&quot;text-danger&quot;&gt;*&lt;/span&gt;&lt;/label&gt;
+            &lt;input ng-required=&quot;true&quot; name=&quot;email&quot; class=&quot;form-control&quot; ng-model=&quot;model.email&quot; type=&quot;email&quot; style=&quot;width: 200px&quot; /&gt;
+            &lt;p class=&quot;field-error&quot; ng-if=&quot;form.email.$error.required&quot;&gt;Email is required.&lt;/p&gt;
+            &lt;p class=&quot;field-error&quot; ng-if=&quot;form.email.$error.email&quot;&gt;Wrong email format.&lt;/p&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;form-group&quot; show-errors&gt;
+            &lt;label for=&quot;name&quot;&gt;Option &lt;span class=&quot;text-danger&quot;&gt;*&lt;/span&gt;&lt;/label&gt;
+            &lt;select ng-required=&quot;true&quot; class=&quot;form-control&quot; name=&quot;option&quot; ng-model=&quot;model.selected&quot; style=&quot;width: 200px&quot;&gt;
+                &lt;option value=&quot;item.subItem&quot; ng-repeat=&quot;item in items&quot;&gt;{{item.label}}&lt;/option&gt;
+            &lt;/select&gt;
+            &lt;p class=&quot;field-error&quot; ng-if=&quot;form.option.$error.required&quot;&gt;Option is required.&lt;/p&gt;
+        &lt;/div&gt;
+        &lt;div id=&quot;id&quot; class=&quot;form-group&quot; show-errors&gt;
+            &lt;label for=&quot;exampleInputEmail1&quot;&gt;Date &lt;span class=&quot;text-danger&quot;&gt;*&lt;/span&gt;&lt;/label&gt;
+            &lt;div ng-required=&quot;true&quot; name=&quot;dateField&quot; dd-datepicker ng-model=&quot;model.date&quot; style=&quot;width: 200px&quot;&gt;&lt;/div&gt;
+            &lt;p class=&quot;field-error&quot; ng-if=&quot;form.dateField.$error.required&quot;&gt;Date is required.&lt;/p&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;checkbox&quot;&gt;
+            &lt;label&gt;
+            &lt;input name=&quot;one&quot; type=&quot;checkbox&quot; ng-model=&quot;model.checkboxOne&quot; value=&quot;one&quot;&gt;
+                Option one is this and that&amp;mdash;be sure to include why it&#x27;s great
+            &lt;/label&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;checkbox disabled&quot;&gt;
+            &lt;label&gt;
+                &lt;input name=&quot;two&quot; type=&quot;checkbox&quot; ng-model=&quot;model.checkboxTwo&quot; value=&quot;two&quot;&gt;
+                Option two
+                &lt;/label&gt;
+        &lt;/div&gt;
+        &lt;form-actions&gt;
+            &lt;div class=&quot;container&quot;&gt;
+                &lt;button ng-click=&quot;save()&quot; type=&quot;submit&quot; class=&quot;btn btn-success&quot; id=&quot;save-template&quot;&gt;&lt;span class=&quot;glyphicon glyphicon-ok&quot;&gt;&lt;/span&gt; Save changes&lt;/button&gt;
+                &lt;button ng-click=&quot;cancel()&quot; type=&quot;submit&quot; class=&quot;btn btn-default&quot;&gt;&lt;span class=&quot;glyphicon glyphicon-remove&quot;&gt;&lt;/span&gt; Cancel&lt;/button&gt;
+            &lt;/div&gt;
+        &lt;/form-actions&gt;
+
+    &lt;/form&gt;
+&lt;/div&gt;</code></pre>
+                                        </div>
+                                    </uib-tab>
+                                    <uib-tab heading="JavaScript">
+                                        <div plunker-content="javascript">
+                                            <pre ng-non-bindable><code data-language="javascript">angular.module(&#x27;dd.ui.demo&#x27;).controller(&#x27;FormValidationsUxCtrl&#x27;, [&#x27;$scope&#x27;, &#x27;formValidationService&#x27;, function ($scope, formValidationService) {
+    $scope.model = {};
+
+    $scope.save = function () {
+        if ($scope.form.$invalid) {
+            formValidationService.showErrors($scope.form.$name);
+        } else {
+            $scope.form.$setPristine();
+        }
+    };
+
+    $scope.cancel = function () {
+        $scope.form.$setPristine();
+        formValidationService.hideErrors($scope.form.$name);
+    };
+
+    $scope.items = [
+        {
+            id: 1,
+            label: &#x27;aLabel&#x27;,
+            subItem: null
+        }, {
+            id: 2,
+            label: &#x27;bLabel&#x27;,
+            subItem: { name: &#x27;aSubItem&#x27; }
+        }, {
+            id: 3,
+            label: &#x27;cLabel&#x27;,
+            subItem: { name: &#x27;bSubItem&#x27; }
+        }];
+}]);</code></pre>
+                                        </div>
+                                    </uib-tab>
+                                </uib-tabset>
+                            </div>
+                        </div>
+                    </section>
+                    <script>angular.module('dd.ui.demo').controller('FormValidationsUxCtrl', ['$scope', 'formValidationService', function ($scope, formValidationService) {
+    $scope.model = {};
+
+    $scope.save = function () {
+        if ($scope.form.$invalid) {
+            formValidationService.showErrors($scope.form.$name);
+        } else {
+            $scope.form.$setPristine();
+        }
+    };
+
+    $scope.cancel = function () {
+        $scope.form.$setPristine();
+        formValidationService.hideErrors($scope.form.$name);
+    };
+
+    $scope.items = [
+        {
+            id: 1,
+            label: 'aLabel',
+            subItem: null
+        }, {
+            id: 2,
+            label: 'bLabel',
+            subItem: { name: 'aSubItem' }
+        }, {
+            id: 3,
+            label: 'cLabel',
+            subItem: { name: 'bSubItem' }
+        }];
+}]);</script>
                 
                     <section id="lookup">
                         <div class="page-header">
@@ -1315,7 +1676,7 @@ Allows overriding of default template of the datetimepicker</p>
                         <div class="row code">
                             <div class="col-md-12" ng-controller="PlunkerCtrl">
                                 <div class="pull-right">
-                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.4.3', '3.1.1', '0.6.1', 'lookup')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
+                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.4.3', '3.1.1', '0.6.8', 'lookup')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
                                 </div>
                                 <uib-tabset>
                                     <uib-tab heading="Markup">
@@ -1604,7 +1965,7 @@ Allows overriding of default template of the datetimepicker</p>
                         <div class="row code">
                             <div class="col-md-12" ng-controller="PlunkerCtrl">
                                 <div class="pull-right">
-                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.4.3', '3.1.1', '0.6.1', 'validation')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
+                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.4.3', '3.1.1', '0.6.8', 'validation')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
                                 </div>
                                 <uib-tabset>
                                     <uib-tab heading="Markup">
