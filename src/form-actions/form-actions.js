@@ -16,7 +16,7 @@
                 scope.form = formCtrl;
 
                 if (attrs.absolute) {
-                    var actionBar = element[0].querySelector('.fixed-form-actions-bar');
+                    var actionBar = element[0].querySelector('.form-actions-bar');
                     actionBar.style.position = 'absolute';
                 }
             },
