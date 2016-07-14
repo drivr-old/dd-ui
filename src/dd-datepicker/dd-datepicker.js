@@ -25,6 +25,7 @@
                 showSpinners: '=?',
                 showMeridian: '=?',
                 ngDisabled: '=?',
+                ngRequired: '=?',
                 dateDisabled: '&',
                 showDayName: '=?',
                 placeholder: '@?',
@@ -45,6 +46,7 @@
 
                 scope.calendarOpened = false;
                 scope.openCalendar = openCalendar;
+                scope.name = attrs.name;
 
                 ctrl.$formatters.push(function (value) {
                     init(value);

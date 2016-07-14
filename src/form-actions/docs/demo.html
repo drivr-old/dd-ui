@@ -1,0 +1,34 @@
+<div ng-controller="FormActionsDemoCtrl">
+
+    <form id="form-actions-form" name="form" class="well well-small">
+        <h3>Using in forms</h3>
+        <div class="form-group">
+            <label for="name">Name</label>
+            <input name="name" ng-required="true" class="form-control" ng-model="model.name" />
+        </div>
+        <div class="form-group">
+            <label for="exampleInputEmail1">Date</label>
+            <div dd-datepicker name="date" ng-model="model.date" style="width: 200px"></div>
+        </div>
+        <div class="checkbox">
+            <label>
+            <input type="checkbox" ng-model="model.checkboxOne" name="one" value="one">
+                Option one is this and that&mdash;be sure to include why it's great
+            </label>
+        </div>
+        <div class="checkbox disabled">
+            <label>
+                <input type="checkbox" ng-model="model.checkboxTwo" name="two" value="two">
+                Option two
+                </label>
+        </div>
+        <form-actions>
+            <div class="container">
+                <button ng-click="save()" type="submit" class="btn btn-success" id="save-template"><span class="glyphicon glyphicon-ok"></span> Save changes</button>
+                <button ng-click="cancel()" type="submit" class="btn btn-default"><span class="glyphicon glyphicon-remove"></span> Cancel</button>
+            </div>
+        </form-actions>
+
+    </form>
+
+</div>
