@@ -1,3 +1,17 @@
+<a name="0.7.0"></a>
+# [0.7.0](//compare/0.6.9...v0.7.0) (2016-07-14)
+
+
+### Bug Fixes
+
+* **formActions:** fix form action tests dc990e0
+
+### Features
+
+* **formActions:** add absolute property to use in relative elements c779d4a
+
+
+
 <a name="0.6.9"></a>
 ## [0.6.9](//compare/0.6.8...v0.6.9) (2016-07-14)
 
