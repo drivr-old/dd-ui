@@ -165,7 +165,7 @@ module.exports = function (grunt) {
                 src: 'CHANGELOG.md'
             }
         },
-        shell: {
+        shelljs: {
             //We use %version% and evaluate it at run-time, because <%= pkg.version %>
             //is only evaluated once
             'release-prepare': [
@@ -244,8 +244,8 @@ module.exports = function (grunt) {
         }
     });
 
-    grunt.registerTask('release-start', ['shell:release-prepare', 'shell:release-complete', 'shell:release-start']);
-    grunt.registerTask('release-push', ['shell:release-push']);
+    grunt.registerTask('release-start', ['shelljs:release-prepare', 'shelljs:release-complete', 'shelljs:release-start']);
+    grunt.registerTask('release-push', ['shelljs:release-push']);
 
     //Common dd.ui module containing all modules for src and templates
     //findModule: Adds a given module to config
@@ -510,7 +510,7 @@ module.exports = function (grunt) {
         setVersion(this.args[0], this.args[1]);
     });
 
-    grunt.registerMultiTask('shell', 'run shell commands', function () {
+    grunt.registerMultiTask('shelljs', 'run shell commands', function () {
         var self = this;
         var sh = require('shelljs');
         self.data.forEach(function (cmd) {
