@@ -16,7 +16,7 @@
     }
 }
 
-.fixed-form-actions-bar {
+.form-actions-bar {
     position: fixed;
     left:0;
     bottom:0;
@@ -28,10 +28,10 @@
     animation: formBarMoveIn 0.3s ease-out;
 }
 
-.fixed-form-actions-bar.ng-hide {
+.form-actions-bar.ng-hide {
     animation: formBarMoveOut 0.3s ease-out;
 }
 
-.fixed-form-actions-bar button {
+.form-actions-bar button {
     margin-right:10px;
 }

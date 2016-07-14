@@ -23,7 +23,7 @@ describe('Form actions bar tests.', function () {
         it('compile and create form actions bar', function () {
             var element = $compile(angular.element('<form><form-actions></form-actions></form>'))($scope);
             $scope.$digest();
-            expect(element.find('.fixed-form-actions-bar').length).toBe(1);
+            expect(element.find('.form-actions-bar').length).toBe(1);
         });
 
         it('throw error if placed outside form', function () {
@@ -43,7 +43,7 @@ describe('Form actions bar tests.', function () {
             input.trigger('input');
             $scope.$digest();
 
-            expect(element.find('.fixed-form-actions-bar').hasClass('ng-hide')).toBeFalsy();
+            expect(element.find('.form-actions-bar').hasClass('ng-hide')).toBeFalsy();
         });
 
         it('hide if form is prestine', function () {
@@ -56,21 +56,15 @@ describe('Form actions bar tests.', function () {
             $scope.myForm.$setPristine();
             $scope.$digest();
 
-           expect(element.find('.fixed-form-actions-bar').hasClass('ng-hide')).toBeTruthy();
+           expect(element.find('.form-actions-bar').hasClass('ng-hide')).toBeTruthy();
         });
     });
 
     describe('Custom style', function () {
-        it('set transform if element attr is defined', function() {
-            var element = $compile(angular.element('<form id="myForm"><form-actions append-to="body"></form-actions></form>'))($scope);
+        it('set absolute position if abosulte attr is defined', function() {
+            var element = $compile(angular.element('<form id="myForm"><form-actions absolute="true"></form-actions></form>'))($scope);
             $scope.$digest();
-            expect(element.find('.fixed-form-actions-bar')[0].style.transform).toContain('translateX');
-        });
-
-        it('throw error if apent-to element do not exsist', function() {
-            var compile = $compile(angular.element('<form id="myForm"><form-actions append-to="wtf"></form-actions></form>'));
-            $scope.$digest();
-            expect(function() { return compile($scope); }).toThrowError();
+            expect(element.find('.form-actions-bar')[0].style.position).toBe('absolute');
         });
     });
 });
