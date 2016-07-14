@@ -214,7 +214,7 @@ module.exports = function (grunt) {
                 base: 'dist',
                 add: true
             },
-            src: ['**']
+            src: ['**/*']
         }
     });
 
