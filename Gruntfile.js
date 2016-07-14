@@ -5,6 +5,7 @@ var _ = require('lodash');
 module.exports = function (grunt) {
     require('load-grunt-tasks')(grunt);
     grunt.loadNpmTasks('grunt-contrib-clean');
+    grunt.loadNpmTasks('grunt-gh-pages');
     // Project configuration.
     grunt.util.linefeed = '\n';
 
@@ -206,7 +207,14 @@ module.exports = function (grunt) {
                 openBrowser: true
             }
         },
-        clean: ['dist']
+        clean: ['dist'],
+        'gh-pages': {
+            options: {
+                base: 'dist',
+                add: true
+            },
+            src: ['**']
+        }
     });
 
     //register before and after test tasks so we've don't have to change cli
@@ -218,10 +226,10 @@ module.exports = function (grunt) {
     //task build things, then start test server
     grunt.renameTask('watch', 'delta');
     grunt.registerTask('watch', ['before-test', 'after-test', 'karma:watch', 'delta:js', 'delta:html']);
-    
+
     // For development and debugging. Builds everything, but doesn't run tests.
     grunt.registerTask('notest', ['before-test', 'after-test']);
-    
+
     // For development and watch dd-ui demo page
     grunt.registerTask('server', ['before-test', 'after-test', 'http-server', 'delta:demo', 'delta:html']);
 
@@ -348,7 +356,7 @@ module.exports = function (grunt) {
                 if (a.name > b.name) { return 1; }
                 return 0;
             })
-            );
+        );
 
         var cssStrings = _.flatten(_.compact(_.pluck(modules, 'css')));
         var cssJsStrings = _.flatten(_.compact(_.pluck(modules, 'cssJs')));
