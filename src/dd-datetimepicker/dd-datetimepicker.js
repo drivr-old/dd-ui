@@ -27,6 +27,7 @@ angular.module('dd.ui.dd-datetimepicker', ['ui.bootstrap'])
 
                 scope.time = null;
                 scope.date = null;
+                scope.name = attrs.name;
                 
                 ctrl.$formatters.push(function(value) {
                     init(value);

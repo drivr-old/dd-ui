@@ -1,0 +1,53 @@
+<div ng-controller="FormValidationsUxCtrl">
+
+    <form id="form-actions-form" name="form" class="well well-small">
+        <h3>Using in forms</h3>
+        <div class="form-group" show-errors>
+            <label for="firstName">Name <span class="text-danger">*</span></label>
+            <input ng-required="true" name="firstName" class="form-control" ng-model="model.firstName" style="width: 200px" />
+            <p class="field-error" ng-if="form.firstName.$error.required">Name is required.</p>
+        </div>
+        <div class="form-group" show-errors>
+            <label for="name">Last name <span class="text-danger">*</span></label>
+            <input ng-required="true" name="name" class="form-control" ng-model="model.lastName" style="width: 200px" />
+            <p class="field-error" ng-if="form.name.$error.required">Last name is required.</p>
+        </div>
+        <div class="form-group" show-errors>
+            <label for="email">Email <span class="text-danger">*</span></label>
+            <input ng-required="true" name="email" class="form-control" ng-model="model.email" type="email" style="width: 200px" />
+            <p class="field-error" ng-if="form.email.$error.required">Email is required.</p>
+            <p class="field-error" ng-if="form.email.$error.email">Wrong email format.</p>
+        </div>
+        <div class="form-group" show-errors>
+            <label for="name">Option <span class="text-danger">*</span></label>
+            <select ng-required="true" class="form-control" name="option" ng-model="model.selected" style="width: 200px">
+                <option value="item.subItem" ng-repeat="item in items">{{item.label}}</option>
+            </select>
+            <p class="field-error" ng-if="form.option.$error.required">Option is required.</p>
+        </div>
+        <div id="id" class="form-group" show-errors>
+            <label for="exampleInputEmail1">Date <span class="text-danger">*</span></label>
+            <div ng-required="true" name="dateField" dd-datepicker ng-model="model.date" style="width: 200px"></div>
+            <p class="field-error" ng-if="form.dateField.$error.required">Date is required.</p>
+        </div>
+        <div class="checkbox">
+            <label>
+            <input name="one" type="checkbox" ng-model="model.checkboxOne" value="one">
+                Option one is this and that&mdash;be sure to include why it's great
+            </label>
+        </div>
+        <div class="checkbox disabled">
+            <label>
+                <input name="two" type="checkbox" ng-model="model.checkboxTwo" value="two">
+                Option two
+                </label>
+        </div>
+        <form-actions>
+            <div class="container">
+                <button ng-click="save()" type="submit" class="btn btn-success" id="save-template"><span class="glyphicon glyphicon-ok"></span> Save changes</button>
+                <button ng-click="cancel()" type="submit" class="btn btn-default"><span class="glyphicon glyphicon-remove"></span> Cancel</button>
+            </div>
+        </form-actions>
+
+    </form>
+</div>

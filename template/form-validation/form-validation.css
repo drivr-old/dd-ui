@@ -1,0 +1,10 @@
+.form-group .field-error {
+  display: none;
+  margin-top: 5px;
+  margin-bottom: 10px;
+}
+
+.form-group.has-error .field-error {
+  display: block;
+  color:#a94442;
+}

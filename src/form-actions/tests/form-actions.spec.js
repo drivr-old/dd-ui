@@ -29,7 +29,7 @@ describe('Form actions bar tests.', function () {
         it('throw error if placed outside form', function () {
             var compile = $compile(angular.element('<form></form><form-actions></form-actions>'));
             $scope.$digest();
-            expect(function() { return compile($scope)}).toThrowError();
+            expect(function() { return compile($scope); }).toThrowError();
         });
     });
 
@@ -64,7 +64,7 @@ describe('Form actions bar tests.', function () {
         it('set transform if element attr is defined', function() {
             var element = $compile(angular.element('<form id="myForm"><form-actions append="body"></form-actions></form>'))($scope);
             $scope.$digest();
-            expect(element.find('.fixed-form-actions-bar')[0].style.transform).toContain('translateX')
+            expect(element.find('.fixed-form-actions-bar')[0].style.transform).toContain('translateX');
         });
-    })
+    });
 });
