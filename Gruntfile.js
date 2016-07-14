@@ -165,7 +165,7 @@ module.exports = function (grunt) {
                 src: 'CHANGELOG.md'
             }
         },
-        shell: {
+        shelljs: {
             //We use %version% and evaluate it at run-time, because <%= pkg.version %>
             //is only evaluated once
             'release-prepare': [
@@ -177,14 +177,15 @@ module.exports = function (grunt) {
             'release-complete': [
                 'git add -A && git commit -m "chore(release): v%version%"',
                 'git tag %version%',
-                'git pull',
-                'git push origin master',
-                'git push origin --tags'
+                'git pull'
             ],
             'release-start': [
                 'grunt version:minor:"SNAPSHOT"',
-                'git commit package.json -m "chore(release): Starting v%version%"',
-                'git push origin master'
+                'git commit package.json -m "chore(release): Starting v%version%"'
+            ],
+            'release-push': [
+                'git push origin master',
+                'git push origin --tags'
             ]
         },
         'ddescribe-iit': {
@@ -242,6 +243,9 @@ module.exports = function (grunt) {
             require('fs').chmodSync('.git/hooks/commit-msg', '0755');
         }
     });
+
+    grunt.registerTask('release-start', ['shelljs:release-prepare', 'shelljs:release-complete', 'shelljs:release-start']);
+    grunt.registerTask('release-push', ['shelljs:release-push']);
 
     //Common dd.ui module containing all modules for src and templates
     //findModule: Adds a given module to config
@@ -506,7 +510,7 @@ module.exports = function (grunt) {
         setVersion(this.args[0], this.args[1]);
     });
 
-    grunt.registerMultiTask('shell', 'run shell commands', function () {
+    grunt.registerMultiTask('shelljs', 'run shell commands', function () {
         var self = this;
         var sh = require('shelljs');
         self.data.forEach(function (cmd) {
