@@ -14,6 +14,11 @@ angular.module('dd.ui.demo').controller('FormValidationsUxCtrl', ['$scope', 'for
         formValidationService.hideErrors($scope.form.$name);
     };
 
+    $scope.showCustomErrorMessage = false;
+    $scope.toggleCustomErrorMessage = function() {
+        $scope.showCustomErrorMessage = !$scope.showCustomErrorMessage;
+    };
+
     $scope.items = [
         {
             id: 1,

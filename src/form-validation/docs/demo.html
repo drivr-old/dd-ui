@@ -16,7 +16,7 @@
             <label for="email">Email <span class="text-danger">*</span></label>
             <input ng-required="true" name="email" class="form-control" ng-model="model.email" type="email" style="width: 200px" />
             <p class="field-error" ng-if="form.email.$error.required">Email is required.</p>
-            <p class="field-error" ng-if="form.email.$error.email">Wrong email format.</p>
+            <p class="field-error" ng-if="form.email.$error.email">Enter valid email address.</p>
         </div>
         <div class="form-group" show-errors>
             <label for="name">Option <span class="text-danger">*</span></label>
@@ -29,6 +29,27 @@
             <label for="exampleInputEmail1">Date <span class="text-danger">*</span></label>
             <div ng-required="true" name="dateField" dd-datepicker ng-model="model.date" style="width: 200px"></div>
             <p class="field-error" ng-if="form.dateField.$error.required">Date is required.</p>
+        </div>
+        <div class="form-group">
+            <label>Elements inside form group</label>
+            <div show-errors>
+                <input placeholder="Country" ng-required="true" name="country" class="form-control" ng-model="model.country" type="text"
+                    style="width: 200px" />
+                <p class="field-error" ng-if="form.country.$error.required">Country is required.</p>
+            </div>
+            <br />
+            <div show-errors>
+                <input placeholder="City" ng-required="true" name="city" class="form-control" ng-model="model.city" type="text" style="width: 200px"
+                />
+                <p class="field-error" ng-if="form.city.$error.required">City is required.</p>
+            </div>
+        </div>
+        <div id="id" class="form-group">
+            <label>Manual error message toggle</label>
+            <div show-errors="{{showCustomErrorMessage}}" custom="true">
+                Simple div with no input inside <a class="btn btn-link" ng-click="toggleCustomErrorMessage()">Toggle error</a>
+                <p class="field-error" ng-if="showCustomErrorMessage">Hm. I custom error right here.</p>
+            </div>
         </div>
         <div class="checkbox">
             <label>

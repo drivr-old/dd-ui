@@ -68,21 +68,55 @@ describe('Directive show-errors tests.', function () {
         expect(element.find('.form-group').hasClass('has-error')).toBeFalsy();
     });
 
+    it('should add form-fields-group on compile step', function () {
+        var element = $compile('<form><div show-errors><input name="name" /></div></form>')($scope);
+
+        $scope.$digest();
+
+        expect(element.find('[show-errors]').hasClass('form-fields-group')).toBeTruthy();
+    });
+
     it('throw error if form-group do not have input', function () {
         var compile = $compile('<form><div class="form-group" show-errors></div></form>');
 
         $scope.$digest();
 
-        expect(function () { 
-             compile($scope);
-             $timeout.flush();
+        expect(function () {
+            compile($scope);
+            $timeout.flush();
         }).toThrowError();
     });
 
-    it('throw error if element do not have form-group class', function () {
-        expect(function () {
-            $compile('<form><div class="form-group-wtf" show-errors><input name="name" /></div></form>');
-        }).toThrowError();
+    describe('Custom error toggle', function () {
+        it('should not throw exception if custom=[true]', function () {
+            $scope.showError = true;
+
+            var element = $compile('<form><div show-errors="{{showError}}" custom="true"></div></form>')($scope);
+            $scope.$digest();
+            $timeout.flush();
+            expect(element.find('[show-errors]').hasClass('has-error')).toBeTruthy();
+        });
+
+        it('should add has-error class if show-errors=[true]', function () {
+            $scope.showError = true;
+
+            var element = $compile('<form><div show-errors="{{showError}}" custom="true"><input name="name" /></div></form>')($scope);
+            $scope.$digest();
+            $timeout.flush();
+            expect(element.find('[show-errors]').hasClass('has-error')).toBeTruthy();
+        });
+
+        it('should toggle has-error class if show-errors=[true|false]', function () {
+            $scope.showError = true;
+
+            var element = $compile('<form><div show-errors="{{showError}}" custom="true"><input name="name" /></div></form>')($scope);
+            $scope.$digest();
+            $timeout.flush();
+            $scope.showError = false;
+            $scope.$digest();
+
+            expect(element.find('[show-errors]').hasClass('has-error')).toBeFalsy();
+        });
     });
 
     function initDirective($scope, $compile) {
