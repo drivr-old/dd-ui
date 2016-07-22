@@ -27,7 +27,7 @@
 
                 function initInputElementWatches() {
                     blurred = false;
-                    inputEl = el[0].querySelector('[name]:not(div)');
+                    inputEl = findInputElement(el[0]);
                     inputNgEl = angular.element(inputEl);
                     inputName = inputNgEl.attr('name');
 
@@ -70,6 +70,10 @@
                             return toggleClasses(invalid);
                         }
                     });
+                }
+
+                function findInputElement(group) {
+                    return group.querySelector('input[name], textarea[name], select[name]')
                 }
             });
         };
