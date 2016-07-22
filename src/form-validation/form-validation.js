@@ -73,7 +73,7 @@
                 }
 
                 function findInputElement(group) {
-                    return group.querySelector('input[name], textarea[name], select[name]')
+                    return group.querySelector('input[name], textarea[name], select[name]');
                 }
             });
         };
