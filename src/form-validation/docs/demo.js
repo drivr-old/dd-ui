@@ -33,4 +33,15 @@ angular.module('dd.ui.demo').controller('FormValidationsUxCtrl', ['$scope', 'for
             label: 'cLabel',
             subItem: { name: 'bSubItem' }
         }];
+
+    $scope.waypoints = [
+        {
+            id: 'v1',
+            value: ''
+        },
+        {
+            id: 'v2',
+            value: 'Point 2'
+        }
+    ];
 }]);
