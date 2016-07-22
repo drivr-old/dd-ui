@@ -51,6 +51,14 @@
                 <p class="field-error" ng-if="showCustomErrorMessage">Hm. I custom error right here.</p>
             </div>
         </div>
+        <div id="id" class="form-group">
+            <label>Dynamic fields</label>
+            <div show-errors ng-repeat="item in waypoints">
+                <input placeholder="Insert waypoint" ng-required="true" name="wp{{$index}}" class="form-control" ng-model="item.value" type="text" style="width: 200px" />
+                <p class="field-error" ng-if="form['wp'+$index].$error.required">Waypoint {{$index}} is required.</p>
+                <br />
+            </div>
+        </div>
         <div class="checkbox">
             <label>
             <input name="one" type="checkbox" ng-model="model.checkboxOne" value="one">
