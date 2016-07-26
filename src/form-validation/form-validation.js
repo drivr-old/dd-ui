@@ -11,10 +11,10 @@
 
     function showErrors($timeout) {
         var linkFn = function (scope, el, attrs, formCtrl) {
-            var blurred, inputEl, inputName, inputNgEl;
+            var blurred, inputNgEl, ngModelElement, ngModelCtrl;
 
             $timeout(function () {
-                
+
                 if (attrs.custom) {
                     initCustomWatches();
                 } else {
@@ -27,21 +27,23 @@
 
                 function initInputElementWatches() {
                     blurred = false;
-                    inputEl = findInputElement(el[0]);
-                    inputNgEl = angular.element(inputEl);
-                    inputName = inputNgEl.attr('name');
+                    inputNgEl = angular.element(findInputElement(el[0]));
+                    ngModelElement = angular.element(el[0].querySelector('[ng-model][name]'));
+                    ngModelCtrl = ngModelElement ? ngModelElement.controller('ngModel') : null;
 
-                    if (!inputName) {
-                        throw new Error('show-errors element has no child input elements with a \'name\' attribute');
+                    if (!ngModelCtrl) {
+                        throw new Error('show-errors input control element should have [ng-model] and [name]');
                     }
 
-                    inputNgEl.bind('blur', function () {
-                        blurred = true;
-                        return toggleClasses(formCtrl[inputName].$invalid);
-                    });
+                    if (inputNgEl) {
+                        inputNgEl.bind('blur', function () {
+                            blurred = true;
+                            return toggleClasses(ngModelCtrl.$invalid);
+                        });
+                    }
 
                     scope.$watch(function () {
-                        return formCtrl[inputName] && formCtrl[inputName].$invalid;
+                        return ngModelCtrl && ngModelCtrl.$invalid;
                     }, function (invalid) {
                         if (!blurred) {
                             return;
@@ -50,7 +52,7 @@
                     });
 
                     scope.$on(formCtrl.$name + '-show-errors-check-validity', function () {
-                        return toggleClasses(formCtrl[inputName].$invalid);
+                        return toggleClasses(ngModelCtrl.$invalid);
                     });
 
                     scope.$on(formCtrl.$name + '-show-errors-reset', function () {
@@ -73,7 +75,7 @@
                 }
 
                 function findInputElement(group) {
-                    return group.querySelector('input[name], textarea[name], select[name]');
+                    return group.querySelector('input, textarea, select');
                 }
             });
         };
