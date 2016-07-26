@@ -1,3 +1,13 @@
+<a name="0.7.3"></a>
+## [0.7.3](//compare/0.7.2...v0.7.3) (2016-07-26)
+
+
+### Features
+
+* **validation:** add support for non input elements binding 3834a45
+
+
+
 <a name="0.7.2"></a>
 ## [0.7.2](//compare/0.7.1...v0.7.2) (2016-07-22)
 
