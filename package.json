@@ -34,7 +34,7 @@
   "license": "MIT",
   "main": "false",
   "jspm": {
-    "main": "dd-ui-tpls-0.7.0.js",
+    "main": "dd-ui-tpls-0.7.2.js",
     "directories": {
       "lib": "dist"
     },

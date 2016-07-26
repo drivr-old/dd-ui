@@ -122,6 +122,7 @@ describe('Directive show-errors tests.', function () {
     function initDirective($scope, $compile) {
         var html = '<form name="form">' +
             '<div class="form-group" show-errors>' +
+            '<ng-component name="someDiv">Hi</ng-component>' +
             '<label>Input name</label>' +
             '<input required type="text" name="input" ng-model="input" />' +
             '</div>' +

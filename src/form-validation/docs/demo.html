@@ -51,17 +51,25 @@
                 <p class="field-error" ng-if="showCustomErrorMessage">Hm. I custom error right here.</p>
             </div>
         </div>
+        <div id="id" class="form-group">
+            <label>Dynamic fields</label>
+            <div show-errors ng-repeat="item in waypoints">
+                <input placeholder="Insert waypoint" ng-required="true" name="wp{{$index}}" class="form-control" ng-model="item.value" type="text" style="width: 200px" />
+                <p class="field-error" ng-if="form['wp'+$index].$error.required">Waypoint {{$index}} is required.</p>
+                <br />
+            </div>
+        </div>
         <div class="checkbox">
             <label>
             <input name="one" type="checkbox" ng-model="model.checkboxOne" value="one">
                 Option one is this and that&mdash;be sure to include why it's great
             </label>
         </div>
-        <div class="checkbox disabled">
-            <label>
-                <input name="two" type="checkbox" ng-model="model.checkboxTwo" value="two">
-                Option two
-                </label>
+        <div class="form-group" show-errors>
+            <label>Comment</label>
+            <textarea placeholder="Insert waypoint" ng-required="true" ng-maxlength="20" name="comment" class="form-control" ng-model="comment" style="width: 200px"> </textarea>
+            <p class="field-error" ng-if="form.comment.$error.required">Comment is required.</p>
+            <p class="field-error" ng-if="form.comment.$error.maxlength">Max length is 20 symbols.</p>
         </div>
         <form-actions>
             <div class="container">

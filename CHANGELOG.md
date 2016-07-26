@@ -1,3 +1,33 @@
+<a name="0.7.2"></a>
+## [0.7.2](//compare/0.7.1...v0.7.2) (2016-07-22)
+
+
+### Bug Fixes
+
+* **forms:** find only input, textarea ant select elements fab63c0
+
+
+
+<a name="0.8.0"></a>
+# [0.8.0](//compare/0.7.1...v0.8.0) (2016-07-22)
+
+
+### Bug Fixes
+
+* **forms:** find only input, textarea ant select elements fab63c0
+
+
+
+<a name="0.7.1"></a>
+## [0.7.1](//compare/0.7.0...v0.7.1) (2016-07-21)
+
+
+### Features
+
+* **form:** show-errors  to handle custom logic and use on any div b4e303d
+
+
+
 <a name="0.7.0"></a>
 # [0.7.0](//compare/0.6.9...v0.7.0) (2016-07-14)
 

@@ -107,15 +107,15 @@
 .form-actions-bar button {
     margin-right:10px;
 }
-.form-group .field-error {
+.form-fields-group .field-error {
   display: none;
   margin-top: 5px;
   margin-bottom: 10px;
+  color: #a94442
 }
 
-.form-group.has-error .field-error {
+.form-fields-group.has-error .field-error {
   display: block;
-  color:#a94442;
 }
 .lookup-container .input-group {
   width: 100%;

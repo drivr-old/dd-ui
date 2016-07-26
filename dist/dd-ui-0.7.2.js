@@ -2,7 +2,7 @@
  * dd-ui
  * http://clickataxi.github.io/dd-ui/
 
- * Version: 0.7.0 - 2016-07-14
+ * Version: 0.7.2 - 2016-07-22
  * License: MIT
  */angular.module("dd.ui", ["dd.ui.arrow-key-nav","dd.ui.busy-element","dd.ui.datetimepicker","dd.ui.dd-datepicker","dd.ui.dd-datetimepicker","dd.ui.dd-timepicker","dd.ui.form-actions","dd.ui.form-validation","dd.ui.lookup","dd.ui.validation.phone","dd.ui.validation.sameAs","dd.ui.validation"]);
 angular.module('dd.ui.arrow-key-nav', [])
@@ -960,45 +960,69 @@ angular.module('dd.ui.dd-datetimepicker', ['ui.bootstrap'])
 
     function showErrors($timeout) {
         var linkFn = function (scope, el, attrs, formCtrl) {
+            var blurred, inputEl, inputName, inputNgEl;
+
             $timeout(function () {
-                var blurred, inputEl, inputName, inputNgEl, options;
-                blurred = false;
-                options = scope.$eval(attrs.showErrors);
-                inputEl = el[0].querySelector('[name]:not(div)');
-                inputNgEl = angular.element(inputEl);
-                inputName = inputNgEl.attr('name');
-
-                if (!inputName) {
-                    throw new Error('show-errors element has no child input elements with a \'name\' attribute');
+                
+                if (attrs.custom) {
+                    initCustomWatches();
+                } else {
+                    initInputElementWatches();
                 }
-
-                inputNgEl.bind('blur', function () {
-                    blurred = true;
-                    return toggleClasses(formCtrl[inputName].$invalid);
-                });
-
-                scope.$watch(function () {
-                    return formCtrl[inputName] && formCtrl[inputName].$invalid;
-                }, function (invalid) {
-                    if (!blurred) {
-                        return;
-                    }
-                    return toggleClasses(invalid);
-                });
-
-                scope.$on(formCtrl.$name + '-show-errors-check-validity', function () {
-                    return toggleClasses(formCtrl[inputName].$invalid);
-                });
-
-                scope.$on(formCtrl.$name + '-show-errors-reset', function () {
-                    return $timeout(function () {
-                        el.removeClass('has-error');
-                        return blurred = false;
-                    }, 0, false);
-                });
 
                 function toggleClasses(invalid) {
                     el.toggleClass('has-error', invalid);
+                }
+
+                function initInputElementWatches() {
+                    blurred = false;
+                    inputEl = findInputElement(el[0]);
+                    inputNgEl = angular.element(inputEl);
+                    inputName = inputNgEl.attr('name');
+
+                    if (!inputName) {
+                        throw new Error('show-errors element has no child input elements with a \'name\' attribute');
+                    }
+
+                    inputNgEl.bind('blur', function () {
+                        blurred = true;
+                        return toggleClasses(formCtrl[inputName].$invalid);
+                    });
+
+                    scope.$watch(function () {
+                        return formCtrl[inputName] && formCtrl[inputName].$invalid;
+                    }, function (invalid) {
+                        if (!blurred) {
+                            return;
+                        }
+                        return toggleClasses(invalid);
+                    });
+
+                    scope.$on(formCtrl.$name + '-show-errors-check-validity', function () {
+                        return toggleClasses(formCtrl[inputName].$invalid);
+                    });
+
+                    scope.$on(formCtrl.$name + '-show-errors-reset', function () {
+                        return $timeout(function () {
+                            el.removeClass('has-error');
+                            return blurred = false;
+                        }, 0, false);
+                    });
+                }
+
+                function initCustomWatches() {
+                    scope.$watch(function () {
+                        return attrs.showErrors;
+                    }, function (options) {
+                        if (angular.isDefined(options)) {
+                            var invalid = scope.$eval(options);
+                            return toggleClasses(invalid);
+                        }
+                    });
+                }
+
+                function findInputElement(group) {
+                    return group.querySelector('input[name], textarea[name], select[name]');
                 }
             });
         };
@@ -1008,8 +1032,8 @@ angular.module('dd.ui.dd-datetimepicker', ['ui.bootstrap'])
             require: '^form',
             priority: -100,
             compile: function (elem, attrs) {
-                if (!elem.hasClass('form-group')) {
-                    throw new Error('show-errors element does not have the \'form-group\' class');
+                if (!elem.hasClass('form-fields-group')) {
+                    elem.addClass('form-fields-group');
                 }
                 return linkFn;
             }
@@ -1018,11 +1042,11 @@ angular.module('dd.ui.dd-datetimepicker', ['ui.bootstrap'])
 
     formValidationService.$inject = ['$rootScope'];
     function formValidationService($rootScope) {
-        this.showErrors = function(formName) {
+        this.showErrors = function (formName) {
             $rootScope.$broadcast(formName + '-show-errors-check-validity');
         };
 
-        this.hideErrors = function(formName) {
+        this.hideErrors = function (formName) {
             $rootScope.$broadcast(formName + '-show-errors-reset');
         };
     }
@@ -1320,5 +1344,5 @@ angular.module('dd.ui.busy-element').run(function() {!angular.$$csp().noInlineSt
 angular.module('dd.ui.dd-datepicker').run(function() {!angular.$$csp().noInlineStyle && angular.element(document).find('head').prepend('<style type="text/css"> .dd-datepicker .calendar-btn-with-day{border-radius:0;border-left:0;}.dd-datepicker .day-name-label{width:90px !important;font-size:12px;}.dd-datepicker input.short{width:70px;}.dd-datepicker input{width:105px;}</style>'); });
 angular.module('dd.ui.dd-datetimepicker').run(function() {!angular.$$csp().noInlineStyle && angular.element(document).find('head').prepend('<style type="text/css">.dd-datetimepicker{display:inline-flex;}.dd-datetimepicker .timepicker-container{width:100px !important;}.dd-datetimepicker .timepicker-container input{border-bottom-right-radius:0;border-top-right-radius:0;border-right:0;}.dd-datetimepicker .datepicker-container input.short{width:70px !important;}.dd-datetimepicker .datepicker-container input{width:105px !important;border-bottom-left-radius:0;border-top-left-radius:0;}.has-error .dd-datetimepicker .calendar-btn-with-day{border-color:#a94442;}</style>'); });
 angular.module('dd.ui.form-actions').run(function() {!angular.$$csp().noInlineStyle && angular.element(document).find('head').prepend('<style type="text/css">@keyframes formBarMoveIn{from{bottom:-100px;}to{bottom:0;}}@keyframes formBarMoveOut{from{bottom:0;}to{bottom:-100px;}}.form-actions-bar{position:fixed;left:0;bottom:0;background:#eee;border-top:1px solid #ddd;width:100%;padding:10px 5px;z-index:9999;animation:formBarMoveIn 0.3s ease-out;}.form-actions-bar.ng-hide{animation:formBarMoveOut 0.3s ease-out;}.form-actions-bar button{margin-right:10px;}</style>'); });
-angular.module('dd.ui.form-validation').run(function() {!angular.$$csp().noInlineStyle && angular.element(document).find('head').prepend('<style type="text/css">.form-group .field-error{display:none;margin-top:5px;margin-bottom:10px;}.form-group.has-error .field-error{display:block;color:#a94442;}</style>'); });
+angular.module('dd.ui.form-validation').run(function() {!angular.$$csp().noInlineStyle && angular.element(document).find('head').prepend('<style type="text/css">.form-fields-group .field-error{display:none;margin-top:5px;margin-bottom:10px;color:#a94442}.form-fields-group.has-error .field-error{display:block;}</style>'); });
 angular.module('dd.ui.lookup').run(function() {!angular.$$csp().noInlineStyle && angular.element(document).find('head').prepend('<style type="text/css">.lookup-container .input-group{width:100%;}.lookup-container .dropdown-menu{border:1px solid #ccc !important;border-top:none !important;font-size:11px;padding:1px !important;max-height:196px;overflow-y:scroll;overflow-x:hidden;width:100%;}.lookup-container input{background-color:#ffe;}.lookup-container .dropdown-menu > li > a{padding:5px;}.lookup-container .lookup-legend div,.lookup-clear div{width:16px;height:16px;display:inline-block;vertical-align:middle;}.lookup-container a.lookup-clear{outline:0}.lookup-container .lookup-no-results{position:absolute;background-color:#fff;z-index:100;padding:4px;width:100%;border:1px solid #ddd;margin-top:1px;top:100%;}.lookup-container .lookup-no-results span{color:#a94442;font-size:10px;}.lookup-container .lookup-legend .lookup-icon{background-image:url(./assets/img/magnifier-small.png);}.lookup-container .lookup-legend .spinner-icon{background-image:url(./assets/img/spinner.gif);background-size:16px;}.lookup-container .lookup-clear .clear-icon{background-image:url(./assets/img/cross-small-white.png);opacity:0.6;}.lookup-container .lookup-legend{position:absolute;right:6px;top:6px;z-index:5;}.lookup-container .lookup-clear{position:absolute;right:22px;top:6px;z-index:5;}.lookup-container .typeahead-group-header{font-weight:bold;padding:.2em .4em;}</style>'); });
