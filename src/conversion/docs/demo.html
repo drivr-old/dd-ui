@@ -1,0 +1,28 @@
+<div ng-controller="ConversionDemoCtrl">
+  <form role="form" name="form">
+    <h2>Test conversions</h2>
+    <div class="form-group">
+      <label>Convert from</label>
+      <select class="form-control" ng-model="convertFromUnit" ng-options="item.value as item.label for item in units"></select>
+    </div>
+    <div class="form-group">
+      <label>Value</label>
+      <input class="form-control" type="number" ng-model="unitValue" />
+    </div>
+    <div class="form-group">
+      <label>Converted values</label>
+      <table class="table table-bordered">
+        <tr>
+          <td ng-repeat="unit in units">
+            {{ unit.label }}
+          </td>
+        </tr>
+        <tr>
+          <td ng-repeat="unit in units">
+            {{ unitValue | distance : convertFromUnit : unit.value | number : 4 }}
+          </td>
+        </tr>
+      </table>
+    </div>
+  </form>
+</div>
