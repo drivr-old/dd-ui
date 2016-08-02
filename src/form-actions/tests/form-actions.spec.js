@@ -1,4 +1,4 @@
-fdescribe('Form actions bar tests.', function () {
+describe('Form actions bar tests.', function () {
     var $scope,
         $sniffer,
         $document,
