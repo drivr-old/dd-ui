@@ -3,7 +3,7 @@
     'use strict';
 
     angular.module('dd.ui.conversion', [])
-        .filter('distance', function () {
+        .filter('distance', [function () {
             return function (distance, from, to, precision) {
                 var units = ['km', 'm', 'cm', 'mm', 'nm', 'mi', 'yd', 'ft', 'in'];
                 var factors = [1, 1000, 100000, 1000000, 1000000000000, 0.621371192237334, 1093.6132983377078745, 3280.8398950131236234, 39370.078740157485299];
@@ -39,6 +39,6 @@
 
                 return result;
             };
-        });
+        }]);
 
 })();

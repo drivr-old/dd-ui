@@ -7,5 +7,5 @@ km, m, cm, mm, nm, mi, yd, ft, in
 ### Usage ###
 
 ```js
-    {{ expression | distance : 'from_unit' : 'to_unit' }}
+    expression | distance : 'm' : 'km'
 ```
