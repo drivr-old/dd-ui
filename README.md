@@ -17,10 +17,11 @@ import 'dd-ui';
 angular.module('myModule', ['dd.ui']);
 ```
 ## Release
-* Bump up package.json version and <b>jspm main file version</b> in `package.json`
-* Run cmd `grunt release-start`
+* After your PR is merged switch to master and pull latests changes
+* Bump up package.json version and <b>jspm main file version</b> in `package.json`. If you don't understand this please see previous release commits and look at package.json changes.
+* Open command line and run `grunt release-start`
 * Verify changes are correct and run `grunt release-push`
-* Run cmd `grunt gh-pages` to update demo site
+* Run `grunt gh-pages` to update demo site
 
 ## Supported browsers
 
