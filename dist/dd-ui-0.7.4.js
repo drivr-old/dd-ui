@@ -2,9 +2,9 @@
  * dd-ui
  * http://clickataxi.github.io/dd-ui/
 
- * Version: 0.7.3 - 2016-07-26
+ * Version: 0.7.4 - 2016-08-02
  * License: MIT
- */angular.module("dd.ui", ["dd.ui.arrow-key-nav","dd.ui.busy-element","dd.ui.datetimepicker","dd.ui.dd-datepicker","dd.ui.dd-datetimepicker","dd.ui.dd-timepicker","dd.ui.form-actions","dd.ui.form-validation","dd.ui.lookup","dd.ui.validation.phone","dd.ui.validation.sameAs","dd.ui.validation"]);
+ */angular.module("dd.ui", ["dd.ui.arrow-key-nav","dd.ui.busy-element","dd.ui.conversion","dd.ui.datetimepicker","dd.ui.dd-datepicker","dd.ui.dd-datetimepicker","dd.ui.dd-timepicker","dd.ui.form-actions","dd.ui.form-validation","dd.ui.lookup","dd.ui.validation.phone","dd.ui.validation.sameAs","dd.ui.validation"]);
 angular.module('dd.ui.arrow-key-nav', [])
 .directive('ddArrowKeyNav', ['$document', function ($document) {
     return {
@@ -131,6 +131,50 @@ angular.module('dd.ui.busy-element', [])
         }
     };
 }]);
+// copy-paste from https://gist.github.com/letanure/4a81adfbda16b52d25ed
+(function () {
+    'use strict';
+
+    angular.module('dd.ui.conversion', [])
+        .filter('distance', [function () {
+            return function (distance, from, to, precision) {
+                var units = ['km', 'm', 'cm', 'mm', 'nm', 'mi', 'yd', 'ft', 'in'];
+                var factors = [1, 1000, 100000, 1000000, 1000000000000, 0.621371192237334, 1093.6132983377078745, 3280.8398950131236234, 39370.078740157485299];
+
+                var conversionKey = {};
+
+                for (var k = 0; k < units.length; k++) {
+                    conversionKey[units[k]] = {};
+                }
+
+                for (var i = 0; i < units.length; i++) {
+                    for (var j = i; j < units.length; j++) {
+                        var convFactor;
+
+                        if (i === 0) {
+                            convFactor = factors[j];
+                        } else if (units[i] === units[j]) {
+                            convFactor = 1;
+                        } else {
+                            convFactor = conversionKey[units[i]][units[0]] * conversionKey[units[0]][units[j]];
+                        }
+
+                        conversionKey[units[i]][units[j]] = convFactor;
+                        conversionKey[units[j]][units[i]] = 1 / convFactor;
+                    }
+                }
+
+                var result = distance * conversionKey[from][to];
+
+                if (precision) {
+                    parseFloat(result.toFixed(precision));
+                }
+
+                return result;
+            };
+        }]);
+
+})();
 angular.module('dd.ui.datetimepicker', ['ui.bootstrap'])
 
 .directive('datetimepicker', ['$document', function($document) {
