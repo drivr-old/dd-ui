@@ -1,3 +1,19 @@
+<a name="0.8.0"></a>
+# [0.8.0](//compare/0.7.3...v0.8.0) (2016-08-02)
+
+
+### Bug Fixes
+
+* **conversion:** add use strict 7bcd073
+* **di:** fix strict di c53a8fb
+* **docs:** fix filter usage documentation e203012
+
+### Features
+
+* **conversion:** implement conversion filter 2a97d41
+
+
+
 <a name="0.7.4"></a>
 ## [0.7.4](//compare/0.7.3...v0.7.4) (2016-08-02)
 
