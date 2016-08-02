@@ -1,3 +1,13 @@
+<a name="0.7.5"></a>
+## [0.7.5](//compare/0.7.4...v0.7.5) (2016-08-02)
+
+
+### Features
+
+* **formActions:** add class on parent container when form is dirty 5268b62
+
+
+
 <a name="0.7.4"></a>
 ## [0.7.4](//compare/0.7.3...v0.7.4) (2016-08-02)
 
