@@ -60,7 +60,7 @@ describe('Form actions bar tests.', function () {
         });
 
         it('add class to parent container when form is dirty', function () {
-            var element = $compile(angular.element('<form class="form" name="myForm"><input type="text" ng-model="name" /><form-actions parent-container="form"></form-actions></form>'))($scope);
+            var element = $compile(angular.element('<form class="container" name="myForm"><input type="text" ng-model="name" /><form-actions parent-container=".container"></form-actions></form>'))($scope);
             $scope.$digest();
 
             var input = element.find('input');
@@ -68,7 +68,7 @@ describe('Form actions bar tests.', function () {
             input.trigger('input');
             $scope.$digest();
 
-           expect(element.find('.form').hasClass('form-actions-visible')).toBeTruthy();
+           expect(element.find('.container').hasClass('form-actions-visible')).toBeTruthy();
         });
 
 

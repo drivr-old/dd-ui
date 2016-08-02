@@ -14,7 +14,6 @@
             },
             link: function link(scope, element, attrs, formCtrl) {
                 scope.form = formCtrl;
-                var dirtyWatch;
 
                 if (attrs.absolute) {
                     var actionBar = element[0].querySelector('.form-actions-bar');
@@ -22,8 +21,8 @@
                 }
 
                 if (attrs.parentContainer) {
-                    var container = angular.element(document.getElementsByClassName(attrs.parentContainer));
-                    dirtyWatch = scope.$watch('form.$dirty', function (newValue) {
+                    var container = angular.element(document.querySelector(attrs.parentContainer));
+                    scope.$watch('form.$dirty', function (newValue) {
                         if (newValue) {
                             container.addClass('form-actions-visible');
                         } else {
@@ -31,12 +30,6 @@
                         }
                     });
                 }
-
-                scope.$on('$destroy', function () {
-                    if (dirtyWatch) {
-                        dirtyWatch();
-                    }
-                });
             },
             restrict: 'E'
         };
