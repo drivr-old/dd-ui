@@ -1,4 +1,4 @@
-describe('Form actions bar tests.', function () {
+fdescribe('Form actions bar tests.', function () {
     var $scope,
         $sniffer,
         $document,
@@ -58,6 +58,20 @@ describe('Form actions bar tests.', function () {
 
            expect(element.find('.form-actions-bar').hasClass('ng-hide')).toBeTruthy();
         });
+
+        it('add class to parent container when form is dirty', function () {
+            var element = $compile(angular.element('<form class="form" name="myForm"><input type="text" ng-model="name" /><form-actions parent-container="form"></form-actions></form>'))($scope);
+            $scope.$digest();
+
+            var input = element.find('input');
+            input.val('7');
+            input.trigger('input');
+            $scope.$digest();
+
+           expect(element.find('.form').hasClass('form-actions-visible')).toBeTruthy();
+        });
+
+
     });
 
     describe('Custom style', function () {
