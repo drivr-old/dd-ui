@@ -58,6 +58,19 @@ describe('Form actions bar tests.', function () {
 
            expect(element.find('.form-actions-bar').hasClass('ng-hide')).toBeTruthy();
         });
+
+        it('add class to parent container when form is dirty', function () {
+            document.body.innerHTML += '<div class="container"></div>';
+            var element = $compile(angular.element('<form name="myForm"><input type="text" ng-model="name" /><form-actions parent-container=".container"></form-actions></form>'))($scope);
+            $scope.$digest();
+
+            var input = element.find('input');
+            input.val('7');
+            input.trigger('input');
+            $scope.$digest();
+
+            expect(angular.element(document).find('.container').hasClass('form-actions-visible')).toBeTruthy();
+        });
     });
 
     describe('Custom style', function () {

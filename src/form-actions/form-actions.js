@@ -19,6 +19,17 @@
                     var actionBar = element[0].querySelector('.form-actions-bar');
                     actionBar.style.position = 'absolute';
                 }
+
+                if (attrs.parentContainer) {
+                    var container = angular.element(document.querySelector(attrs.parentContainer));
+                    scope.$watch('form.$dirty', function (newValue) {
+                        if (newValue) {
+                            container.addClass('form-actions-visible');
+                        } else {
+                            container.removeClass('form-actions-visible');
+                        }
+                    });
+                }
             },
             restrict: 'E'
         };
