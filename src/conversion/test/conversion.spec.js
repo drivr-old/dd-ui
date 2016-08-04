@@ -24,6 +24,16 @@ describe('conversion', function () {
       var result = $filter('distance')(distance, "m", "yd");
       expect(result).toEqual(1.0936132983377078);
     });
+    it('converts m to yd with precision 0', function () {
+      var distance = '1';
+      var result = $filter('distance')(distance, "m", "yd", 0);
+      expect(result).toEqual(1);
+    });
+    it('converts m to yd with precision 2', function () {
+      var distance = '1';
+      var result = $filter('distance')(distance, "m", "yd", 2);
+      expect(result).toEqual(1.09);
+    });
     it('converts mi to m', function () {
       var distance = '1';
       var result = $filter('distance')(distance, "mi", "m");
