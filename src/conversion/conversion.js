@@ -3,13 +3,58 @@
     'use strict';
 
     angular.module('dd.ui.conversion', [])
-        .filter('distance', [function () {
-            return function (distance, from, to, precision) {
-                var units = ['km', 'm', 'cm', 'mm', 'nm', 'mi', 'yd', 'ft', 'in'];
-                var factors = [1, 1000, 100000, 1000000, 1000000000000, 0.621371192237334, 1093.6132983377078745, 3280.8398950131236234, 39370.078740157485299];
+        .filter('localizedDistance', ['conversionService', function (conversionService) {
+            return function (distance, unit, precision) {
+                if (unit === 'm') {
+                    if (conversionService.isMetric()) {
+                        return distance + ' m';
+                    }
 
-                var conversionKey = {};
+                    return conversionService.convert(distance, 'm', 'yd', precision) + ' yd';
+                }
 
+                if (unit === 'km') {
+                    if (conversionService.isMetric()) {
+                        return distance + ' km';
+                    }
+
+                    return conversionService.convert(distance, 'km', 'mi', precision) + ' mi';
+                }
+
+                throw new Error('Unit ' + unit + ' conversion not supported');
+            };
+        }])
+        .service('conversionService', [function () {
+            var self = this;
+            var unitSystem = 'metric';
+
+            var units = ['km', 'm', 'cm', 'mm', 'nm', 'mi', 'yd', 'ft', 'in'];
+            var factors = [1, 1000, 100000, 1000000, 1000000000000, 0.621371192237334, 1093.6132983377078745, 3280.8398950131236234, 39370.078740157485299];
+
+            var conversionKey = {};
+
+            initDistanceMap();
+
+            self.setUnitSystem = function (value) {
+                unitSystem = value;
+            };
+
+            self.isMetric = function () {
+                return unitSystem === 'metric';
+            };
+
+            self.convert = function (distance, from, to, precision) {
+
+                var result = distance * conversionKey[from][to];
+
+                if (angular.isDefined(precision)) {
+                    return parseFloat(result.toFixed(precision));
+                }
+
+                return result;
+            };
+
+            function initDistanceMap() {
                 for (var k = 0; k < units.length; k++) {
                     conversionKey[units[k]] = {};
                 }
@@ -30,15 +75,6 @@
                         conversionKey[units[j]][units[i]] = 1 / convFactor;
                     }
                 }
-
-                var result = distance * conversionKey[from][to];
-
-                if (angular.isDefined(precision)) {
-                    return parseFloat(result.toFixed(precision));
-                }
-
-                return result;
-            };
+            }
         }]);
-
 })();

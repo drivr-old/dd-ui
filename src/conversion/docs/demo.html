@@ -2,8 +2,8 @@
   <form role="form" name="form">
     <h2>Test conversions</h2>
     <div class="form-group">
-      <label>Convert from</label>
-      <select class="form-control" ng-model="convertFromUnit" ng-options="item.value as item.label for item in units"></select>
+      <label>Unit system</label>
+      <select class="form-control" ng-model="unitSystem" ng-change="updateUnitSystem()" ng-options="item.value as item.label for item in unitSystems"></select>
     </div>
     <div class="form-group">
       <label>Value</label>
@@ -19,7 +19,7 @@
         </tr>
         <tr>
           <td ng-repeat="unit in units">
-            {{ unitValue | distance : convertFromUnit : unit.value | number : 4 }}
+            {{ unitValue | localizedDistance : unit.value }}
           </td>
         </tr>
       </table>
