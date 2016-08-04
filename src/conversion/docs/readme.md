@@ -1,11 +1,20 @@
-This conversion filter is dedicated to convert from/to different units.
+This conversion filter is dedicated to convert distance units to local units.
+
+Default unit system is 'metric'. 
+To display meters or kilometers in imperial distance units, use:
+
+```js
+conversionService.setUnitSystem('imperial');
+```
 
 ### Supported units ###
 
-km, m, cm, mm, nm, mi, yd, ft, in
+km, m
 
 ### Usage ###
 
 ```js
-    {{"{{ expression | distance : 'm' : 'km' }\}"}}
+    {{"{{ expression | localizedDistance : 'm' }\}"}}
 ```
+
+Meters will be shown in yards.
