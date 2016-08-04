@@ -1,3 +1,13 @@
+<a name="0.7.6"></a>
+## [0.7.6](//compare/0.7.5...v0.7.6) (2016-08-04)
+
+
+### Bug Fixes
+
+* **conversion:** fix conversion precision (#59) 610a8b2, closes (#59
+
+
+
 <a name="0.7.5"></a>
 ## [0.7.5](//compare/0.7.4...v0.7.5) (2016-08-02)
 

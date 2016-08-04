@@ -2,10 +2,9 @@
  * dd-ui
  * http://clickataxi.github.io/dd-ui/
 
- * Version: 0.7.5 - 2016-08-02
+ * Version: 0.7.6 - 2016-08-04
  * License: MIT
- */angular.module("dd.ui", ["dd.ui.tpls", "dd.ui.arrow-key-nav","dd.ui.busy-element","dd.ui.conversion","dd.ui.datetimepicker","dd.ui.dd-datepicker","dd.ui.dd-datetimepicker","dd.ui.dd-timepicker","dd.ui.form-actions","dd.ui.form-validation","dd.ui.lookup","dd.ui.validation.phone","dd.ui.validation.sameAs","dd.ui.validation"]);
-angular.module("dd.ui.tpls", ["template/busy-element/busy-element.html","template/datetimepicker/datetimepicker.html","template/dd-datepicker/dd-datepicker.html","template/dd-datetimepicker/dd-datetimepicker.html","template/form-actions/form-actions.html","template/lookup/lookup-item.html","template/lookup/lookup.html"]);
+ */angular.module("dd.ui", ["dd.ui.arrow-key-nav","dd.ui.busy-element","dd.ui.conversion","dd.ui.datetimepicker","dd.ui.dd-datepicker","dd.ui.dd-datetimepicker","dd.ui.dd-timepicker","dd.ui.form-actions","dd.ui.form-validation","dd.ui.lookup","dd.ui.validation.phone","dd.ui.validation.sameAs","dd.ui.validation"]);
 angular.module('dd.ui.arrow-key-nav', [])
 .directive('ddArrowKeyNav', ['$document', function ($document) {
     return {
@@ -167,8 +166,8 @@ angular.module('dd.ui.busy-element', [])
 
                 var result = distance * conversionKey[from][to];
 
-                if (precision) {
-                    parseFloat(result.toFixed(precision));
+                if (angular.isDefined(precision)) {
+                    return parseFloat(result.toFixed(precision));
                 }
 
                 return result;
@@ -1398,162 +1397,6 @@ angular.module('dd.ui.validation.sameAs', [])
 });
 
 angular.module('dd.ui.validation', ['dd.ui.validation.phone', 'dd.ui.validation.sameAs']);
-
-angular.module("template/busy-element/busy-element.html", []).run(["$templateCache", function($templateCache) {
-  $templateCache.put("template/busy-element/busy-element.html",
-    "<div class=\"be-container\" style=\"margin-left: -{{ marginLeft }}; margin-top: -{{ marginTop }}\">\n" +
-    "    <div class=\"be-overlay\" ng-show=\"busy\" style=\"width: {{ width }}px; height: {{ height }}px; line-height: {{ height }}px\">\n" +
-    "        <img src=\"https://drivr.com/img/spinner.gif\" />\n" +
-    "    </div>\n" +
-    "    <div class=\"be-overlay be-animate\" ng-show=\"status\" ng-class=\"statusClass\" style=\"width: {{ width }}px; height: {{ height }}px\"></div>\n" +
-    "</div>");
-}]);
-
-angular.module("template/datetimepicker/datetimepicker.html", []).run(["$templateCache", function($templateCache) {
-  $templateCache.put("template/datetimepicker/datetimepicker.html",
-    "<div class=\"form-inline\">\n" +
-    "	<div class=\"form-group timepicker-container\">\n" +
-    "		<div uib-timepicker\n" +
-    "			ng-model=\"time\"\n" +
-    "			ng-disabled=\"ngDisabled\"\n" +
-    "			show-meridian=\"showMeridian\"\n" +
-    "			minute-step=\"minuteStep\"\n" +
-    "			ng-change=\"timeChange()\"\n" +
-    "			show-spinners=\"showSpinners\">\n" +
-    "		</div>\n" +
-    "	</div>\n" +
-    "	<div class=\"form-group datepicker-container\">\n" +
-    "		<input class=\"form-control datepicker-input\" type=\"text\" style=\"width: 100px\"\n" +
-    "				uib-datepicker-popup\n" +
-    "				ng-click=\"open($event)\"\n" +
-    "				ng-change=\"dateChange($event)\"\n" +
-    "				is-open=\"opened\"\n" +
-    "				ng-model=\"ngModel\"\n" +
-    "				ng-disabled=\"ngDisabled\"				\n" +
-    "				date-disabled=\"dateDisabled({date: date, mode: mode})\"\n" +
-    "				close-text=\"Close\"\n" +
-    "				popup-placement=\"{{popupPlacement}}\"\n" +
-    "				show-weeks=\"showWeeks\" />\n" +
-    "	</div>\n" +
-    "</div>");
-}]);
-
-angular.module("template/dd-datepicker/dd-datepicker.html", []).run(["$templateCache", function($templateCache) {
-  $templateCache.put("template/dd-datepicker/dd-datepicker.html",
-    "<div class=\"input-group dd-datepicker\">\n" +
-    "    <input class=\"form-control display-input datepicker-input\"\n" +
-    "           type=\"text\"\n" +
-    "           name=\"{{name}}\"\n" +
-    "           placeholder=\"{{placeholder}}\"\n" +
-    "           ng-class=\"{'short': useShortDateFormat}\"\n" +
-    "           ng-disabled=\"ngDisabled\"\n" +
-    "           ng-required=\"ngRequired\"\n" +
-    "           ng-model=\"displayModel\" />\n" +
-    "           \n" +
-    "    <div class=\"input-group-btn\">\n" +
-    "        <div type=\"text\"\n" +
-    "           class=\"datepicker-input\" \n" +
-    "           uib-datepicker-popup=\"{{dateFormat}}\"\n" +
-    "           ng-model=\"bootstrapDateModel\"\n" +
-    "           is-open=\"calendarOpened\"\n" +
-    "           date-disabled=\"dateDisabled({date: date, mode: mode})\"\n" +
-    "           datepicker-options=\"dateOptions\"\n" +
-    "           close-text=\"Close\"\n" +
-    "           popup-placement=\"{{popupPlacement}}\"\n" +
-    "           show-weeks=\"showWeeks\"></div>\n" +
-    "        <button ng-disabled=\"ngDisabled\" \n" +
-    "                type=\"button\" \n" +
-    "                class=\"btn btn-default open-calendar-btn\" \n" +
-    "                ng-click=\"openCalendar($event)\"\n" +
-    "                ng-class=\"{'calendar-btn-with-day':showDayName}\">\n" +
-    "                <i class=\"glyphicon glyphicon-calendar\"></i>\n" +
-    "        </button>\n" +
-    "    </div>\n" +
-    "    \n" +
-    "    <div ng-if=\"showDayName\" class=\"input-group-addon day-name-label\">{{dayName}}</span>\n" +
-    "\n" +
-    "</div>\n" +
-    "");
-}]);
-
-angular.module("template/dd-datetimepicker/dd-datetimepicker.html", []).run(["$templateCache", function($templateCache) {
-  $templateCache.put("template/dd-datetimepicker/dd-datetimepicker.html",
-    "<div class=\"dd-datetimepicker\">\n" +
-    "	<div class=\"input-group timepicker-container\">\n" +
-    "         <span class=\"input-group-addon\"><span class=\"glyphicon glyphicon-time\"></span></span>\n" +
-    "         <input class=\"form-control timepicker-input\" \n" +
-    "                dd-timepicker\n" +
-    "                placeholder=\"{{timePlaceholder}}\"\n" +
-    "                is-date-type=\"true\"\n" +
-    "                type=\"text\"\n" +
-    "                ng-blur=\"onTimeBlur()\"\n" +
-    "                ng-disabled=\"ngDisabled\"\n" +
-    "                ng-required=\"ngRequired\"\n" +
-    "                minute-step=\"minuteStep\"\n" +
-    "                ng-model=\"time\" />\n" +
-    "	</div>\n" +
-    "	<div class=\"input-group datepicker-container\">\n" +
-    "        <div dd-datepicker\n" +
-    "               placeholder=\"{{datePlaceholder}}\"\n" +
-    "               ng-disabled=\"ngDisabled\"\n" +
-    "               ng-required=\"ngRequired\"\n" +
-    "               date-format=\"{{::dateFormat}}\"\n" +
-    "               ng-model=\"date\"\n" +
-    "               name=\"{{name}}\"\n" +
-    "               show-day-name=\"showDayName\"\n" +
-    "               close-text=\"Close\"\n" +
-    "               popup-placement=\"{{popupPlacement}}\"\n" +
-    "               date-disabled=\"dateDisabled({date: date, mode: mode})\">\n" +
-    "        </div>\n" +
-    "	</div>\n" +
-    "</div>");
-}]);
-
-angular.module("template/form-actions/form-actions.html", []).run(["$templateCache", function($templateCache) {
-  $templateCache.put("template/form-actions/form-actions.html",
-    "<div id=\"{{form.$name}}-actions-bar\" ng-show=\"form.$dirty\" class=\"form-actions-bar\">\n" +
-    "    <div ng-transclude></div>\n" +
-    "</div>");
-}]);
-
-angular.module("template/lookup/lookup-item.html", []).run(["$templateCache", function($templateCache) {
-  $templateCache.put("template/lookup/lookup-item.html",
-    "<div class=\"typeahead-group-header\" ng-if=\"match.model.firstInGroup\">{{match.model.lookupGroup}}</div>\n" +
-    "<a href tabindex=\"-1\" ng-bind-html=\"match.label | uibTypeaheadHighlight:query\" ng-attr-title=\"{{match.label}}\">\n" +
-    "</a>");
-}]);
-
-angular.module("template/lookup/lookup.html", []).run(["$templateCache", function($templateCache) {
-  $templateCache.put("template/lookup/lookup.html",
-    "<div class=\"lookup-container\" ng-cloak>\n" +
-    "  <div class=\"input-group\">\n" +
-    "    <input type=\"text\"\n" +
-    "           ng-model=\"ngModel\"\n" +
-    "           autocomplete=\"off\"\n" +
-    "           uib-typeahead=\"d as getLabel(d) for d in getItems($viewValue)\"\n" +
-    "           typeahead-on-select=\"onSelect($item, $model, $label)\"\n" +
-    "           typeahead-editable=\"false\"\n" +
-    "           typeahead-no-results=\"noResults\"\n" +
-    "           typeahead-template-url=\"template/lookup/lookup-item.html\"\n" +
-    "           typeahead-wait-ms=\"300\"\n" +
-    "           typeahead-min-length=\"lookupMinLength\"\n" +
-    "           ng-disabled=\"ngDisabled\"\n" +
-    "           placeholder=\"{{placeholder}}\"\n" +
-    "           class=\"form-control {{inputClass}}\" />\n" +
-    "    <span class=\"lookup-legend\">\n" +
-    "      <div class=\"lookup-icon\" ng-show=\"!isBusy\"></div>\n" +
-    "      <div class=\"spinner-icon\" ng-show=\"isBusy\"></div>\n" +
-    "    </span>\n" +
-    "    <a class=\"lookup-clear\" ng-click=\"clear()\" tabindex=\"-1\" ng-class=\"{ 'disabled' : ngDisabled }\">\n" +
-    "      <div class=\"clear-icon\" tooltip=\"Clear\" tooltip-append-to-body=\"true\"></div>\n" +
-    "    </a>\n" +
-    "    <div ng-show=\"noResults\" class=\"lookup-no-results\">\n" +
-    "      <span class=\"detail\"><i class=\"glyphicon glyphicon-remove\"></i> No results found</span>\n" +
-    "    </div>\n" +
-    "  </div>\n" +
-    "</div>\n" +
-    "");
-}]);
 angular.module('dd.ui.busy-element').run(function() {!angular.$$csp().noInlineStyle && angular.element(document).find('head').prepend('<style type="text/css">.be-container{position:absolute;z-index:1;}.be-overlay{background-color:rgba(255,255,255,0.7);text-align:center;}.be-overlay.success{background-color:rgba(0,128,0,0.15);}.be-overlay.fail{background-color:rgba(128,0,0,0.15);}.be-animate{-webkit-transition:opacity 0.5s;transition:opacity 0.5s;opacity:1;}.be-animate.ng-hide-add,.be-animate.ng-hide-remove{display:block !important;}.be-animate.ng-hide{opacity:0;}</style>'); });
 angular.module('dd.ui.dd-datepicker').run(function() {!angular.$$csp().noInlineStyle && angular.element(document).find('head').prepend('<style type="text/css"> .dd-datepicker .calendar-btn-with-day{border-radius:0;border-left:0;}.dd-datepicker .day-name-label{width:90px !important;font-size:12px;}.dd-datepicker input.short{width:70px;}.dd-datepicker input{width:105px;}</style>'); });
 angular.module('dd.ui.dd-datetimepicker').run(function() {!angular.$$csp().noInlineStyle && angular.element(document).find('head').prepend('<style type="text/css">.dd-datetimepicker{display:inline-flex;}.dd-datetimepicker .timepicker-container{width:100px !important;}.dd-datetimepicker .timepicker-container input{border-bottom-right-radius:0;border-top-right-radius:0;border-right:0;}.dd-datetimepicker .datepicker-container input.short{width:70px !important;}.dd-datetimepicker .datepicker-container input{width:105px !important;border-bottom-left-radius:0;border-top-left-radius:0;}.has-error .dd-datetimepicker .calendar-btn-with-day{border-color:#a94442;}</style>'); });
