@@ -33,8 +33,8 @@
 
                 var result = distance * conversionKey[from][to];
 
-                if (precision) {
-                    parseFloat(result.toFixed(precision));
+                if (angular.isDefined(precision)) {
+                    return parseFloat(result.toFixed(precision));
                 }
 
                 return result;
