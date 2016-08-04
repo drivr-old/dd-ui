@@ -26,19 +26,26 @@ angular.module('dd.ui.lookup', ['ui.bootstrap'])
             
             var typeaheadInput = element.find('input');
             var typeaheadNgModelCtrl = typeaheadInput.controller('ngModel');
+
+            $scope.$watch('ngModel', function(newVal, oldVal){
+               if (!newVal && oldVal){
+                    // clear no results label on input clear
+                   $scope.noResults = false;                  
+                   
+                   // notify that lookup value has been cleared
+                   $timeout($scope.lookupOnClear);
+               } 
+            });
             
             // clear no results on blur
             typeaheadInput.on('blur', function() {
-               $scope.noResults = false; 
+               $scope.noResults = false;
             });
-                       
+            
             typeaheadNgModelCtrl.$parsers.unshift(function(inputValue) {                
                if (inputValue.length === 0) {
                    // clear no results label on input clear
                    $scope.noResults = false;
-                   
-                   // notify that lookup value has been cleared
-                   $timeout($scope.lookupOnClear);
                }
                return inputValue;
             });
