@@ -13,7 +13,7 @@
     <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular-touch.min.js"></script>
     <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular-animate.min.js"></script>
 	<script src="assets/ui-bootstrap-tpls.js"></script>
-    <script src="dd-ui-tpls-0.7.6.min.js"></script>
+    <script src="dd-ui-tpls-0.7.7.min.js"></script>
     <script src="assets/angular-mocks.js"></script>
     <script src="assets/plunker.js"></script>
     <script src="assets/app.js"></script>
@@ -241,7 +241,7 @@
                         <div class="row code">
                             <div class="col-md-12" ng-controller="PlunkerCtrl">
                                 <div class="pull-right">
-                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.4.3', '3.1.1', '0.7.6', 'arrow-key-nav')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
+                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.4.3', '3.1.1', '0.7.7', 'arrow-key-nav')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
                                 </div>
                                 <uib-tabset>
                                     <uib-tab heading="Markup">
@@ -390,7 +390,7 @@
                         <div class="row code">
                             <div class="col-md-12" ng-controller="PlunkerCtrl">
                                 <div class="pull-right">
-                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.4.3', '3.1.1', '0.7.6', 'busy-element')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
+                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.4.3', '3.1.1', '0.7.7', 'busy-element')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
                                 </div>
                                 <uib-tabset>
                                     <uib-tab heading="Markup">
@@ -528,8 +528,8 @@
   <form role="form" name="form">
     <h2>Test conversions</h2>
     <div class="form-group">
-      <label>Convert from</label>
-      <select class="form-control" ng-model="convertFromUnit" ng-options="item.value as item.label for item in units"></select>
+      <label>Unit system</label>
+      <select class="form-control" ng-model="unitSystem" ng-change="updateUnitSystem()" ng-options="item.value as item.label for item in unitSystems"></select>
     </div>
     <div class="form-group">
       <label>Value</label>
@@ -545,7 +545,7 @@
         </tr>
         <tr>
           <td ng-repeat="unit in units">
-            {{ unitValue | distance : convertFromUnit : unit.value | number : 4 }}
+            {{ unitValue | localizedDistance : unit.value }}
           </td>
         </tr>
       </table>
@@ -554,12 +554,17 @@
 </div>
                             </div>
                             <div class="col-md-6">
-                                <p>This conversion filter is dedicated to convert from/to different units.</p>
-<h3 id="supported-units">Supported units</h3>
-<p>km, m, cm, mm, nm, mi, yd, ft, in</p>
-<h3 id="usage">Usage</h3>
-<pre><code class="lang-js">    {{&quot;{{ expression | distance : &#39;m&#39; : &#39;km&#39; }\}&quot;}}
+                                <p>This conversion filter is dedicated to convert distance units to local units.</p>
+<p>Default unit system is &#39;metric&#39;. 
+To display meters or kilometers in imperial distance units, use:</p>
+<pre><code class="lang-js">conversionService.setUnitSystem(&#39;imperial&#39;);
 </code></pre>
+<h3 id="supported-units">Supported units</h3>
+<p>km, m</p>
+<h3 id="usage">Usage</h3>
+<pre><code class="lang-js">    {{&quot;{{ expression | localizedDistance : &#39;m&#39; }\}&quot;}}
+</code></pre>
+<p>Meters will be shown in yards.</p>
 
                             </div>
                         </div>
@@ -567,7 +572,7 @@
                         <div class="row code">
                             <div class="col-md-12" ng-controller="PlunkerCtrl">
                                 <div class="pull-right">
-                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.4.3', '3.1.1', '0.7.6', 'conversion')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
+                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.4.3', '3.1.1', '0.7.7', 'conversion')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
                                 </div>
                                 <uib-tabset>
                                     <uib-tab heading="Markup">
@@ -576,8 +581,8 @@
   &lt;form role=&quot;form&quot; name=&quot;form&quot;&gt;
     &lt;h2&gt;Test conversions&lt;/h2&gt;
     &lt;div class=&quot;form-group&quot;&gt;
-      &lt;label&gt;Convert from&lt;/label&gt;
-      &lt;select class=&quot;form-control&quot; ng-model=&quot;convertFromUnit&quot; ng-options=&quot;item.value as item.label for item in units&quot;&gt;&lt;/select&gt;
+      &lt;label&gt;Unit system&lt;/label&gt;
+      &lt;select class=&quot;form-control&quot; ng-model=&quot;unitSystem&quot; ng-change=&quot;updateUnitSystem()&quot; ng-options=&quot;item.value as item.label for item in unitSystems&quot;&gt;&lt;/select&gt;
     &lt;/div&gt;
     &lt;div class=&quot;form-group&quot;&gt;
       &lt;label&gt;Value&lt;/label&gt;
@@ -593,7 +598,7 @@
         &lt;/tr&gt;
         &lt;tr&gt;
           &lt;td ng-repeat=&quot;unit in units&quot;&gt;
-            {{ unitValue | distance : convertFromUnit : unit.value | number : 4 }}
+            {{ unitValue | localizedDistance : unit.value }}
           &lt;/td&gt;
         &lt;/tr&gt;
       &lt;/table&gt;
@@ -604,46 +609,60 @@
                                     </uib-tab>
                                     <uib-tab heading="JavaScript">
                                         <div plunker-content="javascript">
-                                            <pre ng-non-bindable><code data-language="javascript">angular.module(&#x27;dd.ui.demo&#x27;).controller(&#x27;ConversionDemoCtrl&#x27;, function ($scope) {
+                                            <pre ng-non-bindable><code data-language="javascript">angular.module(&#x27;dd.ui.demo&#x27;).controller(&#x27;ConversionDemoCtrl&#x27;, [&#x27;$scope&#x27;, &#x27;conversionService&#x27;, &#x27;$timeout&#x27;, function ($scope, conversionService, $timeout) {
+
+    $scope.unitSystems = [
+        { label: &#x27;Metric&#x27;, value: &#x27;metric&#x27; },
+        { label: &#x27;Imperial&#x27;, value: &#x27;imperial&#x27; }
+    ];
 
     $scope.units = [
         { label: &#x27;Meter&#x27;, value: &#x27;m&#x27; },
-        { label: &#x27;Kilometer&#x27;, value: &#x27;km&#x27; },
-        { label: &#x27;Centimeter&#x27;, value: &#x27;cm&#x27; },
-        { label: &#x27;Milimeter&#x27;, value: &#x27;mm&#x27; },
-        { label: &#x27;Nanometer&#x27;, value: &#x27;nm&#x27; },
-        { label: &#x27;Mile&#x27;, value: &#x27;mi&#x27; },
-        { label: &#x27;Yard&#x27;, value: &#x27;yd&#x27; },
-        { label: &#x27;Foot&#x27;, value: &#x27;ft&#x27; },
-        { label: &#x27;Inch&#x27;, value: &#x27;in&#x27; }
+        { label: &#x27;Kilometer&#x27;, value: &#x27;km&#x27; }
     ];
 
-    $scope.convertFromUnit = &quot;m&quot;;
+    $scope.unitSystem = &#x27;metric&#x27;;
     $scope.unitValue = 1;
-});</code></pre>
+
+    $scope.updateUnitSystem = function () {
+        conversionService.setUnitSystem($scope.unitSystem);
+        $scope.unitValue--;
+
+        $timeout(function () {
+            $scope.unitValue++;   
+        });
+    };
+}]);</code></pre>
                                         </div>
                                     </uib-tab>
                                 </uib-tabset>
                             </div>
                         </div>
                     </section>
-                    <script>angular.module('dd.ui.demo').controller('ConversionDemoCtrl', function ($scope) {
+                    <script>angular.module('dd.ui.demo').controller('ConversionDemoCtrl', ['$scope', 'conversionService', '$timeout', function ($scope, conversionService, $timeout) {
+
+    $scope.unitSystems = [
+        { label: 'Metric', value: 'metric' },
+        { label: 'Imperial', value: 'imperial' }
+    ];
 
     $scope.units = [
         { label: 'Meter', value: 'm' },
-        { label: 'Kilometer', value: 'km' },
-        { label: 'Centimeter', value: 'cm' },
-        { label: 'Milimeter', value: 'mm' },
-        { label: 'Nanometer', value: 'nm' },
-        { label: 'Mile', value: 'mi' },
-        { label: 'Yard', value: 'yd' },
-        { label: 'Foot', value: 'ft' },
-        { label: 'Inch', value: 'in' }
+        { label: 'Kilometer', value: 'km' }
     ];
 
-    $scope.convertFromUnit = "m";
+    $scope.unitSystem = 'metric';
     $scope.unitValue = 1;
-});</script>
+
+    $scope.updateUnitSystem = function () {
+        conversionService.setUnitSystem($scope.unitSystem);
+        $scope.unitValue--;
+
+        $timeout(function () {
+            $scope.unitValue++;   
+        });
+    };
+}]);</script>
                 
                     <section id="datetimepicker">
                         <div class="page-header">
@@ -706,7 +725,7 @@ Calendar popup placement</p>
                         <div class="row code">
                             <div class="col-md-12" ng-controller="PlunkerCtrl">
                                 <div class="pull-right">
-                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.4.3', '3.1.1', '0.7.6', 'datetimepicker')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
+                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.4.3', '3.1.1', '0.7.7', 'datetimepicker')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
                                 </div>
                                 <uib-tabset>
                                     <uib-tab heading="Markup">
@@ -843,7 +862,7 @@ Starting day of the week from 0-6 (0=Sunday, ..., 6=Saturday).</li>
                         <div class="row code">
                             <div class="col-md-12" ng-controller="PlunkerCtrl">
                                 <div class="pull-right">
-                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.4.3', '3.1.1', '0.7.6', 'dd-datepicker')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
+                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.4.3', '3.1.1', '0.7.7', 'dd-datepicker')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
                                 </div>
                                 <uib-tabset>
                                     <uib-tab heading="Markup">
@@ -1048,7 +1067,7 @@ Allows overriding of default template of the datetimepicker</p>
                         <div class="row code">
                             <div class="col-md-12" ng-controller="PlunkerCtrl">
                                 <div class="pull-right">
-                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.4.3', '3.1.1', '0.7.6', 'dd-datetimepicker')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
+                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.4.3', '3.1.1', '0.7.7', 'dd-datetimepicker')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
                                 </div>
                                 <uib-tabset>
                                     <uib-tab heading="Markup">
@@ -1244,7 +1263,7 @@ Allows overriding of default template of the datetimepicker</p>
                         <div class="row code">
                             <div class="col-md-12" ng-controller="PlunkerCtrl">
                                 <div class="pull-right">
-                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.4.3', '3.1.1', '0.7.6', 'dd-timepicker')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
+                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.4.3', '3.1.1', '0.7.7', 'dd-timepicker')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
                                 </div>
                                 <uib-tabset>
                                     <uib-tab heading="Markup">
@@ -1372,7 +1391,7 @@ Allows overriding of default template of the datetimepicker</p>
                         <div class="row code">
                             <div class="col-md-12" ng-controller="PlunkerCtrl">
                                 <div class="pull-right">
-                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.4.3', '3.1.1', '0.7.6', 'form-actions')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
+                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.4.3', '3.1.1', '0.7.7', 'form-actions')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
                                 </div>
                                 <uib-tabset>
                                     <uib-tab heading="Markup">
@@ -1576,7 +1595,7 @@ Allows overriding of default template of the datetimepicker</p>
                         <div class="row code">
                             <div class="col-md-12" ng-controller="PlunkerCtrl">
                                 <div class="pull-right">
-                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.4.3', '3.1.1', '0.7.6', 'form-validation')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
+                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.4.3', '3.1.1', '0.7.7', 'form-validation')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
                                 </div>
                                 <uib-tabset>
                                     <uib-tab heading="Markup">
@@ -1923,7 +1942,7 @@ Allows overriding of default template of the datetimepicker</p>
                         <div class="row code">
                             <div class="col-md-12" ng-controller="PlunkerCtrl">
                                 <div class="pull-right">
-                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.4.3', '3.1.1', '0.7.6', 'lookup')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
+                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.4.3', '3.1.1', '0.7.7', 'lookup')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
                                 </div>
                                 <uib-tabset>
                                     <uib-tab heading="Markup">
@@ -2212,7 +2231,7 @@ Allows overriding of default template of the datetimepicker</p>
                         <div class="row code">
                             <div class="col-md-12" ng-controller="PlunkerCtrl">
                                 <div class="pull-right">
-                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.4.3', '3.1.1', '0.7.6', 'validation')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
+                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.4.3', '3.1.1', '0.7.7', 'validation')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
                                 </div>
                                 <uib-tabset>
                                     <uib-tab heading="Markup">
