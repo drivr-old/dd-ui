@@ -1,3 +1,13 @@
+<a name="0.7.8"></a>
+## [0.7.8](//compare/0.7.7...v0.7.8) (2016-08-16)
+
+
+### Features
+
+* **datetimepicker:** expose property to disable datepicker in datetimepicker 20cc0e9
+
+
+
 <a name="0.7.7"></a>
 ## [0.7.7](//compare/0.7.6...v0.7.7) (2016-08-04)
 
