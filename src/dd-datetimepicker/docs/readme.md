@@ -21,6 +21,14 @@ Combined dd-timepicker and dd-datepicker that uses a single Date model.
  	:
  	Can be used together with `ng-model` to call a function whenever the datetime changes.
 
+ * `ng-disabled`
+ 	:
+ 	Set disabled.
+
+ * `datetpicker-disabled`
+ 	:
+ 	Set datepicker disabled.
+
  * `date-disabled (date, mode)`
  	_(Default: null)_ :
  	An optional expression to disable visible options based on passing date and current mode _(day|month|year)_.
@@ -32,6 +40,7 @@ Combined dd-timepicker and dd-datepicker that uses a single Date model.
  * `minute-step`
  	_(Defaults: 1)_ :
  	 Number of minutes to increase or decrease when using a timepicker.
+
  * `date-placeholder`
  	Set date placeholder
 	 

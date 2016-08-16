@@ -15,7 +15,7 @@
 	<div class="input-group datepicker-container">
         <div dd-datepicker
                placeholder="{{datePlaceholder}}"
-               ng-disabled="ngDisabled"
+               ng-disabled="datepickerDisabled || ngDisabled"
                ng-required="ngRequired"
                date-format="{{::dateFormat}}"
                ng-model="date"
