@@ -147,20 +147,15 @@
             
             expect(label.is(':visible')).toBeFalsy();
         });
-
-        it('is cleared when clear button is pressed.', function() {
-            lookup('ab');
-
-            element.find('.lookup-clear').click();
-
-            expect(label.is(':visible')).toBeFalsy();
-        });
         
-        it('is cleared when input text is cleared.', function() {
+        it('is cleared when model is cleared.', function() {
             lookup('ab');
+            $scope.model = {};
+            $scope.$digest();
             expect(label.is(':visible')).toBeTruthy();
             
-            lookup('', true);
+            $scope.model = null;
+            $scope.$digest();
             expect(label.is(':visible')).toBeFalsy();
         });
         
@@ -322,18 +317,13 @@
             initDirective('<div dd-lookup ng-model="model" lookup-on-clear="onClear()" url="\'/api/drivers/lookup\'"></div>');
         });
         
-        it('is called when clear button is pressed.', function() {
-            element.find('.lookup-clear').click();
+        it('is called when ng-model is cleared.', function() {
+            $scope.model = {};
+            $scope.$digest();
+
+            $scope.model = null;
+            $scope.$digest();
             $timeout.flush();
-            
-            expect($scope.onClear).toHaveBeenCalled();
-        });
-        
-        it('is called when user clears the input text.', function() {
-            $httpBackend.expectGET('/api/drivers/lookup?limit=10&query=ab').respond(200);
-                        
-            lookup('ab');
-            lookup('', true);
             
             expect($scope.onClear).toHaveBeenCalled();
         });

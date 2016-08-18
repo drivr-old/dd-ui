@@ -31,16 +31,15 @@ angular.module('dd.ui.lookup', ['ui.bootstrap'])
             typeaheadInput.on('blur', function() {
                $scope.noResults = false; 
             });
-                       
-            typeaheadNgModelCtrl.$parsers.unshift(function(inputValue) {                
-               if (inputValue.length === 0) {
-                   // clear no results label on input clear
-                   $scope.noResults = false;
-                   
-                   // notify that lookup value has been cleared
-                   $timeout($scope.lookupOnClear);
-               }
-               return inputValue;
+
+            $scope.$watch('ngModel', function(newVal, oldVal) { 
+                if (!newVal && oldVal) {
+                    // clear no results label on input clear
+                    $scope.noResults = false;
+                    
+                    // notify that lookup value has been cleared
+                    $timeout($scope.lookupOnClear);
+                }
             });
             
             /* --------------- read-only attributes --------------- */
@@ -105,8 +104,6 @@ angular.module('dd.ui.lookup', ['ui.bootstrap'])
                 $scope.ngModel = null;
                 element.find('input').val('');
                 ctrl.$setDirty(true);
-                $scope.noResults = false;
-                $timeout($scope.lookupOnClear);
             };
 
             $scope.getLabel = function (item) {

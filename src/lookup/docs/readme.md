@@ -16,7 +16,7 @@ Our lookup, based on UI Bootstrap Typeahead directive.
      
  * `lookup-on-clear`
  	:
- 	Can be used to specify a callback that is fired when input is cleared either by button or keyboard.
+ 	Can be used to specify a callback that is fired when lookup model is cleared.
 
  * `lookup-params`
  	_(Default: null)_ :
