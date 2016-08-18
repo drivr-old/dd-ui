@@ -1,3 +1,13 @@
+<a name="0.7.9"></a>
+## [0.7.9](//compare/0.7.8...v0.7.9) (2016-08-18)
+
+
+### Bug Fixes
+
+* **lookup:** lookup-on-clear is raised when model is cleared bf924c8
+
+
+
 <a name="0.7.8"></a>
 ## [0.7.8](//compare/0.7.7...v0.7.8) (2016-08-16)
 
