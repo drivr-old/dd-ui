@@ -73,7 +73,9 @@ module.exports = function (grunt) {
             demohtml: {
                 options: {
                     //process html files with gruntfile config
-                    processContent: grunt.template.process
+                    process : function (content, srcpath) {
+                        return grunt.template.process(content);
+                    },
                 },
                 files: [{
                     expand: true,
@@ -166,6 +168,7 @@ module.exports = function (grunt) {
             //We use %version% and evaluate it at run-time, because <%= pkg.version %>
             //is only evaluated once
             'release-prepare': [
+                'gulp',
                 'grunt clean',
                 'grunt before-test after-test',
                 'grunt version', //remove "-SNAPSHOT"
@@ -248,10 +251,7 @@ module.exports = function (grunt) {
     //findModule: Adds a given module to config
     var foundModules = {};
     function findModule(name) {
-        if (name === 'typings') {
-            return;
-        }
-        
+
         if (foundModules[name]) { return; }
         foundModules[name] = true;
 
@@ -347,13 +347,16 @@ module.exports = function (grunt) {
             grunt.file.expand({
                 filter: 'isDirectory', cwd: '.'
             }, 'src/*').forEach((dir) => {
-                findModule(dir.split('/')[1]);
+                var name = dir.split('/')[1];
+                if (name !== 'typings') {
+                    findModule(name);
+                }
             });
         }
 
         var modules = grunt.config('modules');
-        grunt.config('srcModules', _.pluck(modules, 'moduleName'));
-        grunt.config('tplModules', _.pluck(modules, 'tplModules').filter((tpls) => tpls.length > 0));
+        grunt.config('srcModules', _.map(modules, 'moduleName'));
+        grunt.config('tplModules', _.map(modules, 'tplModules').filter((tpls) => tpls.length > 0));
         grunt.config('demoModules', modules
             .filter((module) => module.docs.md && module.docs.js && module.docs.html)
             .sort((a, b) => {
@@ -363,8 +366,8 @@ module.exports = function (grunt) {
             })
         );
 
-        var cssStrings = _.flatten(_.compact(_.pluck(modules, 'css')));
-        var cssJsStrings = _.flatten(_.compact(_.pluck(modules, 'cssJs')));
+        var cssStrings = _.flatten(_.compact(_.map(modules, 'css')));
+        var cssJsStrings = _.flatten(_.compact(_.map(modules, 'cssJs')));
         if (cssStrings.length) {
             grunt.config('meta.cssInclude', cssJsStrings.join('\n'));
 
@@ -374,13 +377,13 @@ module.exports = function (grunt) {
             grunt.log.writeln('File ' + grunt.config('meta.cssFileDest') + ' created');
         }
 
-        var moduleFileMapping = _.clone(modules, true);
+        var moduleFileMapping = _.cloneDeep(modules, true);
         moduleFileMapping.forEach((module) => delete module.docs);
 
         grunt.config('moduleFileMapping', moduleFileMapping);
 
-        var srcFiles = _.pluck(modules, 'srcFiles');
-        var tpljsFiles = _.pluck(modules, 'tpljsFiles');
+        var srcFiles = _.map(modules, 'srcFiles');
+        var tpljsFiles = _.map(modules, 'tpljsFiles');
         //Set the concat task to concatenate the given src modules
         grunt.config('concat.dist.src', grunt.config('concat.dist.src')
             .concat(srcFiles));
@@ -412,7 +415,7 @@ module.exports = function (grunt) {
         var _ = grunt.util._;
         var moduleMappingJs = 'dist/assets/module-mapping.json';
         var moduleMappings = grunt.config('moduleFileMapping');
-        var moduleMappingsMap = _.object(_.pluck(moduleMappings, 'name'), moduleMappings);
+        var moduleMappingsMap = _.zipObject(_.map(moduleMappings, 'name'), moduleMappings);
         var jsContent = JSON.stringify(moduleMappingsMap);
         grunt.file.write(moduleMappingJs, jsContent);
         grunt.log.writeln('File ' + moduleMappingJs.cyan + ' created.');

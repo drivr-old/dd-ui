@@ -1,6 +1,16 @@
 {
+    "compileOnSave": true,
     "compilerOptions": {
-        "module": "commonjs"
+        "target": "es5",
+        "module": "commonjs",
+        "sourceMap": true,
+        "emitDecoratorMetadata": true,
+        "experimentalDecorators": true,
+        "removeComments": false,
+        "noImplicitAny": false,
+        "suppressImplicitAnyIndexErrors": true,
+        "allowSyntheticDefaultImports": true,
+        "noEmitOnError": false
     },
     "exclude": [
         ".grunt",
