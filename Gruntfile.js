@@ -121,9 +121,6 @@ module.exports = function (grunt) {
                 }]
             }
         },
-        eslint: {
-            files: ['Gruntfile.js', 'src/**/*.js']
-        },
         karma: {
             options: {
                 configFile: 'karma.conf.js'
@@ -220,7 +217,7 @@ module.exports = function (grunt) {
 
     //register before and after test tasks so we've don't have to change cli
     //options on the google's CI server
-    grunt.registerTask('before-test', ['enforce', 'ddescribe-iit', 'eslint', 'html2js']);
+    grunt.registerTask('before-test', ['enforce', 'ddescribe-iit', 'html2js']);
     grunt.registerTask('after-test', ['build', 'copy']);
 
     //Rename our watch task to 'delta', then make actual 'watch'
@@ -251,6 +248,10 @@ module.exports = function (grunt) {
     //findModule: Adds a given module to config
     var foundModules = {};
     function findModule(name) {
+        if (name === 'typings') {
+            return;
+        }
+        
         if (foundModules[name]) { return; }
         foundModules[name] = true;
 

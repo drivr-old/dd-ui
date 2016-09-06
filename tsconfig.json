@@ -2,8 +2,13 @@
     "compilerOptions": {
         "module": "commonjs"
     },
-    "files": [
-        "typings/angular.d.ts",
-        "typings/jasmine/jasmine.d.ts"
+    "exclude": [
+        ".grunt",
+        ".vscode",
+        "coverage",
+        "dist",
+        "misc",
+        "node_modules",
+        "templates"
     ]
 }

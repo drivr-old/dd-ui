@@ -1,3 +1,2 @@
-angular.module('dd.ui.demo').controller('ArrowKeyNavDemoCtrl', [function() {
-
-}]);
+angular.module('dd.ui.demo').controller('ArrowKeyNavDemoCtrl', [function () {
+    }]);
