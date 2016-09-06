@@ -16,7 +16,8 @@ before_install:
   - npm install --quiet -g grunt-cli gulp karma typescript
 
 script:
+ - gulp clean
+ - gulp tslint
  - tsc
  - grunt
- - gulp
 sudo: false
