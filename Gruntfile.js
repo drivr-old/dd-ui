@@ -136,7 +136,7 @@ module.exports = function (grunt) {
                 autoWatch: false,
                 colors: false,
                 reporters: ['dots', 'junit'],
-                browsers: ['Chrome', 'ChromeCanary', 'Firefox', 'Opera', '/Users/jenkins/bin/safari.sh']
+                browsers: ['Firefox', 'Opera', '/Users/jenkins/bin/safari.sh']
             },
             travis: {
                 singleRun: true,
