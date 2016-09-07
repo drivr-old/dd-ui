@@ -15,31 +15,29 @@ namespace ddui {
 
         id: string;
         rows: T[];
+        selectedRows: T[];
         url: string;
         count: number;
         data: any;
         filter: any;
         paging: boolean;
-        areFiltersSet: boolean;
-        forceListUpdate: boolean;
         selectedAllPages: boolean;
         isLoading: boolean;
-        responseListName: string;
-        responseCountName: string;
 
-        onListResponseSuccess: any;
-        onListResponseError: any;
-
-        initFilterFunc: Function;
+        private responseListName: string;
+        private responseCountName: string;
+        private onListResponseSuccess: any;
+        private onListResponseError: any;
+        private initFilterFunc: Function;
 
         constructor(config: ListConfig, private $http: ng.IHttpService, private $location: ng.ILocationService) {
             this.id = config.id;
             this.rows = [];
+            this.selectedRows = [];
             this.count = 0;
             this.data = null;   // will be assigned raw last response
             this.filter = { skip: 0, limit: 25 };
             this.paging = config.paging;
-            this.areFiltersSet = false;
             this.selectedAllPages = false;
             this.isLoading = false;
             this.url = config.url;
@@ -64,8 +62,6 @@ namespace ddui {
             }
 
             angular.extend(this.filter, filter);
-
-            this.areFiltersSet = this.loadLocationParams(this.filter) > 0;
         }
 
         submitFilter() {
@@ -125,15 +121,17 @@ namespace ddui {
 
         selectAll() {
             this.selectedAllPages = false;
-            for (let a = 0; a < this.rows.length; a++) {
-                this.rows[a].$selected = true;
+            for (let row of this.rows) {
+                row.$selected = true;
+                this.selectedRows.push(row);
             }
         }
 
         deselectAll() {
             this.selectedAllPages = false;
-            for (let a = 0; a < this.rows.length; a++) {
-                this.rows[a].$selected = false;
+            for (let row of this.rows) {
+                row.$selected = false;
+                this.selectedRows = [];
             }
         }
 
@@ -142,12 +140,14 @@ namespace ddui {
             this.selectedAllPages = true;
         }
 
-        toggle(obj) {
+        toggle(row: T) {
             this.selectedAllPages = false;
-            if (obj.$selected) {
-                obj.$selected = false;
+            row.$selected = !row.$selected;
+            if (row.$selected) {
+                this.selectedRows.push(row);
             } else {
-                obj.$selected = true;
+                var selectedRowIndex = this.selectedRows.indexOf(row);
+                this.selectedRows.splice(selectedRowIndex, 1);
             }
         }
 

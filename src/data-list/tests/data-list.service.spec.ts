@@ -39,8 +39,6 @@ describe('Data list tests', function () {
             var obj = listService.init<TestRowItem>(listConfig);
             expect(obj.id).toBe('DataList');
             expect(obj.url).toBe('/api/test');
-            expect(obj.responseListName).toBe('items');
-            expect(obj.responseCountName).toBe('count');
         });
 
         it('should init by custom id', () => {

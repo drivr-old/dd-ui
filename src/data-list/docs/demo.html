@@ -1,3 +1,31 @@
 <div ng-controller="DataListDemoCtrl as ctrl">
-
+    <p>
+        Selected rows: {{ctrl.dataList.selectedRows}}
+    </p>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    <div class="btn-group" uib-dropdown>
+                        <button uib-dropdown-toggle class="btn btn-default btn-xs"><span class="caret"></span></button>
+                        <ul class="dropdown-menu" uib-dropdown-menu>
+                            <li><a href="#" id="select-all" name="select-all" ng-click="ctrl.dataList.selectAll()">Select all</a></li>
+                            <li><a href="#" id="deselect-all" name="deselect-all" ng-click="ctrl.dataList.deselectAll()">Deselect all</a></li>
+                        </ul>
+                    </div>
+                </th>
+                <th>Id</th>
+                <th>Name</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="row in ctrl.dataList.rows">
+                 <td class="checkbox-column">
+                    <input name="record-item" type="checkbox" ng-value="row.id" ng-checked="row.$selected" ng-click="ctrl.dataList.toggle(row)"/>
+                </td>
+                <td>{{row.id}}</td>
+                <td>{{row.name}}</td>
+            </tr>
+        </tbody>
+    </table>
 </div>
