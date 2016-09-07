@@ -3,74 +3,141 @@ interface TestRowItem extends ddui.ListRow {
     name?: string;
 }
 
-fdescribe('Data list tests', function () {
+describe('Data list tests', function () {
     var listService: ddui.DataListService,
-        $httpBackend,
+        $httpBackend: ng.IHttpBackendService,
+        $location,
         dataList: ddui.DataList<TestRowItem>,
-        onsuccess,
-        successCalled,
-        onerror,
-        initFunc,
-        called,
-        filter,
         listConfig: ddui.ListConfig;
 
-    beforeEach(angular.mock.module('dd.ui.data-list'));
+    beforeEach(() => {
+        $location = jasmine.createSpyObj('$location', ['search']);
 
-    beforeEach(inject(function (_dataListService_, _$httpBackend_) {
-        listService = _dataListService_;
-        $httpBackend = _$httpBackend_;
+        angular.mock.module('dd.ui.data-list', ($provide) => {
+            $provide.value('$location', $location);
+        });
 
-        successCalled = false;
-        onsuccess = function () { successCalled = true; };
-        onerror = function () { };
+        inject((_dataListService_, _$httpBackend_) => {
+            listService = _dataListService_;
+            $httpBackend = _$httpBackend_;
 
-        listConfig = {
-            url: '/api/test',
-            responseListName: 'items',
-            responseCountName: 'count',
-        };
-        dataList = listService.init<TestRowItem>('test', listConfig);
-        dataList.onSuccess(onsuccess);
-        dataList.onError(onerror);
-
-        initFilter();
-    }));
+            listConfig = {
+                url: '/api/test',
+                responseListName: 'items',
+                responseCountName: 'count',
+            };
+        });
+    });
 
     afterEach(function () {
         $httpBackend.verifyNoOutstandingExpectation();
         $httpBackend.verifyNoOutstandingRequest();
     });
 
-    it('listServiceFactory should return same object for same id', function () {
-        var obj = listService.get('test');
-        expect(obj).toBe(dataList);
-    });
+    describe('Init list', () => {
+        it('should init by default settings', () => {
+            var obj = listService.init<TestRowItem>(listConfig);
+            expect(obj.id).toBe('DataList');
+            expect(obj.url).toBe('/api/test');
+            expect(obj.responseListName).toBe('items');
+            expect(obj.responseCountName).toBe('count');
+        });
 
-    describe('initList method', function () {
-        it('should init list if not initialized', function () {
-            expect(dataList.onListResponseSuccess).toBe(onsuccess);
-            expect(dataList.onListResponseError).toBe(onerror);
-            expect(dataList.url).toBe('/api/test');
-            expect(dataList.responseListName).toBe('items');
-            expect(dataList.responseCountName).toBe('count');
+        it('should init by custom id', () => {
+            listConfig.id = 'customId';
+            var obj = listService.init<TestRowItem>(listConfig);
+            expect(obj.id).toBe('customId');
+        });
+
+        it('should throw error if config not specified', () => {
+            var action = () => listService.init<TestRowItem>(null);
+            expect(action).toThrowError();
+        });
+
+        it('should throw error if config url is not specified', () => {
+            listConfig.url = null;
+            var action = () => listService.init<TestRowItem>(listConfig);
+            expect(action).toThrowError();
+        });
+
+        it('should throw error list is already created', () => {
+            listConfig.id = 'customId';
+            listService.init<TestRowItem>(listConfig);
+            var action = () => listService.init<TestRowItem>(listConfig);
+            expect(action).toThrowError();
         });
     });
 
-    describe('initFilter method', function () {
-        it('should set filter params and request data', function () {
-            expect(called).toBe(true);
-            expect(dataList.filter).toBe(filter);
+    describe('Get list', () => {
+        beforeEach(() => {
+            dataList = listService.init<TestRowItem>(listConfig);
+        });
 
-            expect(dataList.list.length).toBe(2);
-            expect(dataList.count).toBe(5);
+        it('should get list by default id', () => {
+            var obj = listService.get();
+            expect(obj).toBe(dataList);
+        });
+
+        it('should throw error if list not defined', () => {
+            var action = () => listService.get('list2');
+            expect(action).toThrowError();
         });
     });
 
-    describe('loadMore method', function () {
+    describe('Update list', () => {
+        it('should load list data', function () {
+            $httpBackend.expectGET('/api/test?limit=25&skip=0').respond(200, {
+                items: [
+                    { id: '1' }, { id: '2' }
+                ],
+                count: 5
+            });
+            dataList = listService.init<TestRowItem>(listConfig);
+
+            dataList.updateList();
+            $httpBackend.flush();
+
+            expect(dataList.rows.length).toBe(2);
+            expect(dataList.rows[0].id).toBe('1');
+            expect(dataList.rows[1].id).toBe('2');
+        });
+
+        it('should call onsuccess callback if onSuccess is defined', function () {
+            $httpBackend.expectGET('/api/test?limit=25&skip=0').respond(200, {
+                items: [
+                    { id: '1' }, { id: '2' }
+                ],
+                count: 5
+            });
+            dataList = listService.init<TestRowItem>(listConfig);
+            var onSuccess = jasmine.createSpy('onSuccess').and.callFake(() => { });
+
+            dataList.updateList();
+            dataList.onSuccess(onSuccess);
+            $httpBackend.flush();
+
+            expect(onSuccess).toHaveBeenCalledWith(dataList.rows, 5);
+        });
+
+        it('should call onError callback if onError is defined', function () {
+            $httpBackend.expectGET('/api/test?limit=25&skip=0').respond(500, {});
+            dataList = listService.init<TestRowItem>(listConfig);
+            var onError = jasmine.createSpy('onError').and.callFake(() => { });
+
+            dataList.updateList();
+            dataList.onError(onError);
+            $httpBackend.flush();
+
+            expect(onError).toHaveBeenCalled();
+        });
+
+    });
+
+    describe('Load more', function () {
         it('should add loaded items to current list', function () {
+            dataList = listService.init<TestRowItem>(listConfig);
 
-            dataList.list = [{ id: '1' }, { id: '2' }];
+            dataList.rows = [{ id: '1' }, { id: '2' }];
             $httpBackend.expectGET('/api/test?limit=25&skip=25').respond(200, {
                 items: [
                     { id: '3' }, { id: '4' }
@@ -81,123 +148,215 @@ fdescribe('Data list tests', function () {
             dataList.loadMore();
             $httpBackend.flush();
 
-            expect(successCalled).toBe(true);
-            expect(dataList.list.length).toBe(4);
-            expect(dataList.list[0].id).toBe('1');
-            expect(dataList.list[1].id).toBe('2');
-            expect(dataList.list[2].id).toBe('3');
-            expect(dataList.list[3].id).toBe('4');
+            expect(dataList.rows.length).toBe(4);
+            expect(dataList.rows[0].id).toBe('1');
+            expect(dataList.rows[1].id).toBe('2');
+            expect(dataList.rows[2].id).toBe('3');
+            expect(dataList.rows[3].id).toBe('4');
             expect(dataList.count).toBe(5);
         });
     });
 
-    describe('hasMore method', function () {
+    describe('Has more', function () {
+        beforeEach(() => {
+            dataList = listService.init<TestRowItem>(listConfig);
+        });
+
         it('should return false when items count equal to total count', function () {
             dataList.count = 2;
-            dataList.list = [{}, {}];
+            dataList.rows = [{}, {}];
             expect(dataList.hasMore()).toBe(false);
         });
         it('should return true when items count is less than total count', function () {
             dataList.count = 3;
-            dataList.list = [{}, {}];
+            dataList.rows = [{}, {}];
             expect(dataList.hasMore()).toBe(true);
         });
     });
 
-    describe('selectAll method', function () {
+    describe('Select all', function () {
+        beforeEach(() => {
+            dataList = listService.init<TestRowItem>(listConfig);
+        });
+
         afterEach(function () {
             dataList.selectAll();
 
-            expect(dataList.list[0].$selected).toBe(true);
-            expect(dataList.list[1].$selected).toBe(true);
+            expect(dataList.rows[0].$selected).toBe(true);
+            expect(dataList.rows[1].$selected).toBe(true);
         });
 
         it('should add $selected=true property to all objects', function () {
-            dataList.list = [{}, {}];
+            dataList.rows = [{}, {}];
         });
 
         it('should set $selected=true property to all objects', function () {
-            dataList.list = [{ $selected: false }, { $selected: true }];
+            dataList.rows = [{ $selected: false }, { $selected: true }];
         });
 
         it('should set selectedAllPages to false', function () {
+            dataList.rows = [{}, {}];
             dataList.selectedAllPages = true;
+
             dataList.selectAll();
+
             expect(dataList.selectedAllPages).toBe(false);
         });
     });
 
-    describe('deselectAll method', function () {
+    describe('Deselect all', function () {
+        beforeEach(() => {
+            dataList = listService.init<TestRowItem>(listConfig);
+        });
+
         afterEach(function () {
             dataList.deselectAll();
 
-            expect(dataList.list[0].$selected).toBe(false);
-            expect(dataList.list[1].$selected).toBe(false);
+            expect(dataList.rows[0].$selected).toBe(false);
+            expect(dataList.rows[1].$selected).toBe(false);
             expect(dataList.selectedAllPages).toBe(false);
         });
 
         it('should add $selected=false property to all objects', function () {
             dataList.selectedAllPages = true;
-            dataList.list = [{}, {}];
+            dataList.rows = [{}, {}];
         });
 
         it('should set $selected=false property to all objects', function () {
-            dataList.list = [{ $selected: false }, { $selected: true }];
+            dataList.rows = [{ $selected: false }, { $selected: true }];
         });
     });
 
-    describe('selectAllPages method', function () {
+    describe('Select all pages', function () {
+        beforeEach(() => {
+            dataList = listService.init<TestRowItem>(listConfig);
+        });
+
         afterEach(function () {
             dataList.selectAllPages();
 
-            expect(dataList.list[0].$selected).toBe(true);
-            expect(dataList.list[1].$selected).toBe(true);
+            expect(dataList.rows[0].$selected).toBe(true);
+            expect(dataList.rows[1].$selected).toBe(true);
             expect(dataList.selectedAllPages).toBe(true);
         });
 
         it('should add $selected=true property to all objects and selectedAllPages to true', function () {
-            dataList.list = [{}, {}];
+            dataList.rows = [{}, {}];
         });
     });
 
-    describe('toggle method', function () {
+    describe('Toggle selected', function () {
+        beforeEach(() => {
+            dataList = listService.init<TestRowItem>(listConfig);
+        });
+
         it('should add $selected=true property to object', function () {
-            dataList.list = [{}, {}];
+            dataList.rows = [{}, {}];
 
-            dataList.toggle(dataList.list[1]);
-            expect(dataList.list[1].$selected).toBe(true);
+            dataList.toggle(dataList.rows[1]);
+            expect(dataList.rows[1].$selected).toBe(true);
 
-            dataList.toggle(dataList.list[1]);
-            expect(dataList.list[1].$selected).toBe(false);
+            dataList.toggle(dataList.rows[1]);
+            expect(dataList.rows[1].$selected).toBe(false);
         });
 
         it('should set selectedAllPages to false', function () {
             dataList.selectedAllPages = true;
-            dataList.list = [{}, {}];
+            dataList.rows = [{}, {}];
 
-            dataList.toggle(dataList.list[1]);
+            dataList.toggle(dataList.rows[1]);
 
             expect(dataList.selectedAllPages).toBe(false);
         });
     });
 
-    function initFilter() {
-        called = false;
-        filter = {};
-        initFunc = function () {
-            called = true;
-            return filter;
-        };
-
-        $httpBackend.expectGET('/api/test?limit=25&skip=0').respond(200, {
-            items: [
-                {}, {}
-            ],
-            count: 5
+    describe('Set filter', () => {
+        beforeEach(() => {
+            dataList = listService.init<TestRowItem>(listConfig);
+            $location.search.and.callFake(() => {
+                return {
+                    name: 'Vasia'
+                };
+            });
         });
 
-        dataList.initFilter(initFunc);
+        it('should throw error if init filter func not return object', () => {
+            var filter = () => { return 1; };
 
-        $httpBackend.flush();
-    }
+            var action = () => dataList.setFilter(filter);
+
+            expect(action).toThrowError();
+        });
+
+        it('should extend default filter with custom filter', () => {
+            var filter = () => {
+                return { name: 'Vasia' };
+            };
+
+            dataList.setFilter(filter);
+
+            expect(dataList.filter.name).toBe('Vasia');
+            expect(dataList.filter.limit).toBe(25);
+            expect(dataList.filter.skip).toBe(0);
+        });
+
+        it('should override limit and skip if provided', () => {
+            var filter = () => {
+                return { limit: 10, skip: 10 };
+            };
+
+            dataList.setFilter(filter);
+
+            expect(dataList.filter.limit).toBe(10);
+            expect(dataList.filter.skip).toBe(10);
+        });
+    });
+
+    describe('Submit filter', () => {
+        beforeEach(() => {
+            dataList = listService.init<TestRowItem>(listConfig);
+            $location.search.and.callFake(() => {
+                return {
+                    data: '2016'
+                };
+            });
+        });
+
+        it('should submit filter and set location params', () => {
+            $httpBackend.expectGET('/api/test?arr=1&arr=2&bool=true&date=2016-01-01T00:00:00.000Z&limit=25&name=Vasia&obj=%7B%22n%22:1%7D&skip=0').respond(200, { items: [] });
+            spyOn(dataList, 'updateList').and.callThrough();
+
+            dataList.setFilter(() => {
+                return {
+                    name: 'Vasia',
+                    arr: [1, 2],
+                    bool: true,
+                    date: new Date('2016-01-01'),
+                    obj: { n: 1 }
+                };
+            });
+            dataList.submitFilter();
+            $httpBackend.flush();
+
+            expect(dataList.updateList).toHaveBeenCalled();
+        });
+    });
+
+    describe('Reset filter', () => {
+        beforeEach(() => {
+            dataList = listService.init<TestRowItem>(listConfig);
+            $location.search.and.callFake(() => { return {}; });
+        });
+
+        it('should reset filter and update list', () => {
+            $httpBackend.expectGET('/api/test?limit=25&skip=0').respond(200, { items: [] });
+            spyOn(dataList, 'updateList').and.callThrough();
+
+            dataList.filter.name = 'Vasia';
+            dataList.resetFilter();
+            $httpBackend.flush();
+
+            expect(dataList.updateList).toHaveBeenCalled();
+        });
+    });
 });

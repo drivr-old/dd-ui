@@ -5,6 +5,8 @@ namespace ddui {
 
     export interface ListConfig {
         url: string;
+        id?: string;
+        paging?: boolean;
         responseListName?: string;
         responseCountName?: string;
     }
@@ -12,11 +14,12 @@ namespace ddui {
     export class DataList<T extends ListRow> {
 
         id: string;
-        list: T[];
+        rows: T[];
         url: string;
         count: number;
         data: any;
         filter: any;
+        paging: boolean;
         areFiltersSet: boolean;
         forceListUpdate: boolean;
         selectedAllPages: boolean;
@@ -28,21 +31,21 @@ namespace ddui {
         onListResponseError: any;
 
         initFilterFunc: Function;
-        filterScope: any;
 
-        constructor(id: string, config: ListConfig, private $http: ng.IHttpService, private $timeout: ng.ITimeoutService, private $location: ng.ILocationService) {
-            this.id = id;
-            this.list = [];
+        constructor(config: ListConfig, private $http: ng.IHttpService, private $location: ng.ILocationService) {
+            this.id = config.id;
+            this.rows = [];
             this.count = 0;
             this.data = null;   // will be assigned raw last response
-            this.filter = {};
+            this.filter = { skip: 0, limit: 25 };
+            this.paging = config.paging;
             this.areFiltersSet = false;
-            this.forceListUpdate = false;
             this.selectedAllPages = false;
             this.isLoading = false;
             this.url = config.url;
             this.responseListName = config.responseListName;
             this.responseCountName = config.responseCountName;
+            this.initFilterFunc = () => { return {}; };
         }
 
         onSuccess(callback: (list: T[], count: number) => void) {
@@ -53,39 +56,30 @@ namespace ddui {
             this.onListResponseError = callback;
         }
 
-        initFilter(initFilterFunc, forceListUpdate = false) {
-            this.initFilterFunc = initFilterFunc;
-            this.forceListUpdate = forceListUpdate;
-
-            this.filter = this.initFilterFunc();
-            if (typeof (this.filter) !== 'object') {
+        setFilter(filterFunc) {
+            this.initFilterFunc = filterFunc;
+            var filter = this.initFilterFunc();
+            if (typeof (filter) !== 'object') {
                 throw new Error('initFilterFunc should return object with filter properties');
             }
 
+            angular.extend(this.filter, filter);
+
             this.areFiltersSet = this.loadLocationParams(this.filter) > 0;
-
-            this.updateList();
-
-            return this;
         }
 
         submitFilter() {
             this.setLocationParams(this.filter);
-            if (this.forceListUpdate) {
-                return this.updateList();
-            }
-            return null;
+            return this.updateList();
         }
 
         resetFilter() {
             this.filter = this.initFilterFunc();
             this.setLocationParams(this.filter);
-            if (this.forceListUpdate) {
-                this.updateList();
-            }
+            this.updateList();
         }
 
-        updateList(url = undefined) {
+        updateList() {
             const self = this;
             this.isLoading = true;
 
@@ -101,30 +95,22 @@ namespace ddui {
                 params: this.filter
             };
 
-            return this.$http.get(url || this.url, url ? {} : config)
+            return this.$http.get(this.url, config)
                 .success(data => {
                     self.data = data;
-                    const arr = data[self.responseListName];
                     self.count = data[self.responseCountName];
-
-                    if (!url && (self.filter.skip === 0)) {
-                        self.list = arr;
-                    } else {
-                        for (let a = 0; a < arr.length; a++) {
-                            self.list.push(arr[a]);
-                        }
-                    }
+                    this.updateListCollection(data[self.responseListName]);
 
                     if (self.onListResponseSuccess) {
-                        self.onListResponseSuccess(self.list, self.count);
+                        self.onListResponseSuccess(self.rows, self.count);
                     }
-                    self.isLoading = false;
                 })
                 .error(data => {
                     if (self.onListResponseError) {
                         self.onListResponseError(data);
                     }
-                    self.isLoading = false;
+                }).finally(() => {
+                     self.isLoading = false;
                 });
         }
 
@@ -134,20 +120,20 @@ namespace ddui {
         }
 
         hasMore() {
-            return this.list && this.list.length < this.count;
+            return this.rows && this.rows.length < this.count;
         }
 
         selectAll() {
             this.selectedAllPages = false;
-            for (let a = 0; a < this.list.length; a++) {
-                this.list[a].$selected = true;
+            for (let a = 0; a < this.rows.length; a++) {
+                this.rows[a].$selected = true;
             }
         }
 
         deselectAll() {
             this.selectedAllPages = false;
-            for (let a = 0; a < this.list.length; a++) {
-                this.list[a].$selected = false;
+            for (let a = 0; a < this.rows.length; a++) {
+                this.rows[a].$selected = false;
             }
         }
 
@@ -162,6 +148,16 @@ namespace ddui {
                 obj.$selected = false;
             } else {
                 obj.$selected = true;
+            }
+        }
+
+        private updateListCollection(items: T[]) {
+            if (this.filter.skip === 0 || this.paging) {
+                this.rows = items;
+            } else {
+                for (let a = 0; a < items.length; a++) {
+                    this.rows.push(items[a]);
+                }
             }
         }
 
@@ -237,31 +233,44 @@ namespace ddui {
     }
 
     export class DataListService {
-        constructor(private $http: ng.IHttpService, private $timeout: ng.ITimeoutService, private $location: ng.ILocationService) { }
+        constructor(private $http: ng.IHttpService, private $location: ng.ILocationService) { }
 
-        listServiceHash: { [id: string]: any; } = {};
+        private listServiceHash: { [id: string]: any; } = {};
+        private defaultListId = 'DataList';
 
-        init<T>(id: string, config: ListConfig): DataList<T> {
-            if (typeof (this.listServiceHash[id]) !== 'undefined') {
-                throw new Error(`List with id ${id} is already created`);
-            } else {
-                const listService = new DataList<T>(id, config, this.$http, this.$timeout, this.$location);
-                this.listServiceHash[id] = listService;
-                return listService;
+        init<T>(config: ListConfig): DataList<T> {
+            config.id = config.id || this.defaultListId;
+            this.validateInit(config);
+            const listService = new DataList<T>(config, this.$http, this.$location);
+            this.listServiceHash[config.id] = listService;
+            return listService;
+        }
+
+        get<T>(id?: string): DataList<T> {
+            id = id || this.defaultListId;
+            this.validateGet(id);
+            return this.listServiceHash[id];
+        }
+
+        private validateInit(config: ListConfig) {
+            if (!config || !config.url) {
+                throw new Error('List config url is required');
+            }
+
+            if (this.listServiceHash[config.id]) {
+                throw new Error(`List with id ${config.id} is already created`);
             }
         }
 
-        get<T>(id: string): DataList<T> {
-            if (typeof (this.listServiceHash[id]) !== 'undefined') {
-                return this.listServiceHash[id];
-            } else {
+        private validateGet(id: string) {
+            if (!this.listServiceHash[id]) {
                 throw new Error(`List with id ${id} not found`);
             }
         }
     }
 
     angular.module('dd.ui.data-list', [])
-        .service('dataListService', ['$http', '$timeout', '$location', ($http, $timeout, $location) => {
-            return new DataListService($http, $timeout, $location);
+        .service('dataListService', ['$http', '$location', ($http, $location) => {
+            return new DataListService($http, $location);
         }]);
 }
