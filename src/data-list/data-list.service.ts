@@ -24,8 +24,8 @@ namespace ddui {
         forceListUpdate: boolean;
         selectedAllPages: boolean;
         isLoading: boolean;
-        responseListName: string; //TODO add default
-        responseCountName: string; //TODO add default
+        responseListName: string;
+        responseCountName: string;
 
         onListResponseSuccess: any;
         onListResponseError: any;
@@ -43,8 +43,8 @@ namespace ddui {
             this.selectedAllPages = false;
             this.isLoading = false;
             this.url = config.url;
-            this.responseListName = config.responseListName;
-            this.responseCountName = config.responseCountName;
+            this.responseListName = config.responseListName || 'items';
+            this.responseCountName = config.responseCountName || 'count';
             this.initFilterFunc = () => { return {}; };
         }
 
