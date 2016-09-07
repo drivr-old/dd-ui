@@ -29,7 +29,15 @@ angular.module('myModule', ['dd.ui']);
 
 #### Build
 * Run `gulp` to clean, tslint and compile files
+
+#### Build and watch Typescript files
+* If you are using VSCODE which is recommended simply press `ctrl`+`shift`+`b` and all src files will be compiled in watch mode.
+* You can also run cmd command `tsc -w` from root dd-ui directory.
+
+#### Tests
 * Run `karma-test.bat` to run tests
+
+
 
 #### Demo page
 * Run `grunt-server.bat` to serve demo page
