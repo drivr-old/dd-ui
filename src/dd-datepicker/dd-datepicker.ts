@@ -5,7 +5,7 @@
         .constant('days', ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'])
         .directive('ddDatepicker', DatepickerDirective)
         .service('datepickerParserService', datepickerParserService)
-        .provider('datepickerConfig', datepickerConfigProvider);
+        .provider('datepickerConfig', <any>datepickerConfigProvider);
 
     var KEY_ENTER = 13, KEY_UP = 38, KEY_DOWN = 40;
 
@@ -117,12 +117,12 @@
                         var validatedDate = datepickerParserService.validateWithDisabledDate(scope.bootstrapDateModel, scope.dateDisabled);
                         updateMainModel(validatedDate);
                         if (canUpdateDisplayModel) {
-                            updateDisplayModel(validatedDate);
+                            updateDisplayModel();
                         }
                         syncBootstrapDateModel();
                     } else {
                         updateMainModel(null);
-                        updateDisplayModel(null);
+                        updateDisplayModel();
                     }
                 }
 

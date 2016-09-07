@@ -127,16 +127,6 @@ angular.module('dd.ui.dd-datetimepicker', ['ui.bootstrap'])
                         datepickerElement.css('background-color', '');
                     }, 500);
                 }
-
-                function syncDatepickerModel() {
-                    scope.$broadcast('ddDatepicker:sync', { model: ctrl.$modelValue });
-                }
-
-                function sameDay(d1, d2) {
-                    return d1.getYear() === d2.getYear() &&
-                        d1.getMonth() === d2.getMonth() &&
-                        d1.getDate() === d2.getDate();
-                }
             }
         };
     }]);

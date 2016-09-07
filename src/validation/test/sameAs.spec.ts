@@ -3,7 +3,7 @@ describe('validation', function () {
     $compile,
     element;
 
-  beforeEach(module('dd.ui.validation.sameAs'));
+  beforeEach(angular.mock.module('dd.ui.validation.sameAs'));
 
   beforeEach(inject(function ($rootScope, _$compile_) {
     $scope = $rootScope;
@@ -12,7 +12,7 @@ describe('validation', function () {
 
   describe('same-as', function(){
     beforeEach(function() {
-      var element = $compile('<form name="forma"><input type="text" name="password" ng-model="password" /><input type="text" name="confirmPassword" ng-model="confirmPassword" same-as="password" /></form>')($scope);
+       element = $compile('<form name="forma"><input type="text" name="password" ng-model="password" /><input type="text" name="confirmPassword" ng-model="confirmPassword" same-as="password" /></form>')($scope);
     });
 
     it('should mark valid empty', function(){

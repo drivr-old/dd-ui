@@ -5,7 +5,7 @@ angular.module('dd.ui.validation.sameAs', [])
 .directive('sameAs', function() {
   return {
     require: 'ngModel',
-    link: function(scope, elm, attrs, ctrl) {
+    link: function(scope, elm, attrs, ctrl: any) {
 
       ctrl.$parsers.unshift(validate);
       ctrl.$formatters.unshift(validate);

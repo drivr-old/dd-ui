@@ -3,7 +3,7 @@ describe('Form validation service tests', function () {
     var service,
         $scope;
 
-    beforeEach(module('dd.ui.form-validation', function ($provide) {
+    beforeEach(angular.mock.module('dd.ui.form-validation', function ($provide) {
         $scope = jasmine.createSpyObj('$rootScope', ['$broadcast']);
         $provide.value('$rootScope', $scope);
     }));

@@ -3,12 +3,11 @@ describe('Form actions bar tests.', function () {
         $sniffer,
         $document,
         $timeout,
-        $compile,
-        element;
+        $compile;
 
     beforeEach(function () {
-        module('dd.ui.form-actions');
-        module('template/form-actions/form-actions.html');
+        angular.mock.module('dd.ui.form-actions');
+        angular.mock.module('template/form-actions/form-actions.html');
 
         inject(function ($rootScope, _$compile_, _$timeout_, _$sniffer_, _$document_) {
             $scope = $rootScope.$new();

@@ -35,7 +35,7 @@ angular.module('dd.ui.arrow-key-nav', [])
                 }
             }
 
-            function getNextElement(reverse) {
+            function getNextElement(reverse = undefined) {
                 var focusableElements = getFocusableElements();
                 if (reverse) {
                     focusableElements.reverse();
@@ -74,8 +74,8 @@ angular.module('dd.ui.arrow-key-nav', [])
                        (/input|select|textarea|button|object/.test(nodeName) ?
                             true :
                             nodeName === 'a' || nodeName === 'area' ?
-                                element.href || !isNaN(tabIndex) :
-                                !isNaN(tabIndex)
+                                element.href || !isNaN(<any>tabIndex) :
+                                !isNaN(<any>tabIndex)
                        ) &&
                        !jElement.is(':hidden');
             }

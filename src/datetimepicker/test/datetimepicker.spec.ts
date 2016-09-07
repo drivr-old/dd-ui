@@ -8,8 +8,8 @@ describe('datetimepicker', function() {
 		minuteElement;
 
 	beforeEach(function() {
-		module('dd.ui.datetimepicker');
-		module('template/datetimepicker/datetimepicker.html');
+		angular.mock.module('dd.ui.datetimepicker');
+		angular.mock.module('template/datetimepicker/datetimepicker.html');
 
 		inject(function($rootScope, $compile, _$sniffer_, _$document_) {
 			$scope = $rootScope.$new();

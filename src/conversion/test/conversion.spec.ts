@@ -3,7 +3,7 @@ describe('conversion', function () {
     conversionService;
 
   beforeEach(function () {
-    module('dd.ui.conversion');
+    angular.mock.module('dd.ui.conversion');
     inject(function (_$filter_, _conversionService_) {
       $filter = _$filter_;
       conversionService = _conversionService_;
@@ -78,37 +78,37 @@ describe('conversion', function () {
 
     it('converts m to mi', function () {
       var distance = '1';
-      var result = conversionService.convert(distance, "m", "mi");
+      var result = conversionService.convert(distance, 'm', 'mi');
       expect(result).toEqual(0.0006213711922373339);
     });
 
     it('converts m to yd', function () {
       var distance = '1';
-      var result = conversionService.convert(distance, "m", "yd");
+      var result = conversionService.convert(distance, 'm', 'yd');
       expect(result).toEqual(1.0936132983377078);
     });
 
     it('converts m to yd with precision 0', function () {
       var distance = '1';
-      var result = conversionService.convert(distance, "m", "yd", 0);
+      var result = conversionService.convert(distance, 'm', 'yd', 0);
       expect(result).toEqual(1);
     });
 
     it('converts m to yd with precision 2', function () {
       var distance = '1';
-      var result = conversionService.convert(distance, "m", "yd", 2);
+      var result = conversionService.convert(distance, 'm', 'yd', 2);
       expect(result).toEqual(1.09);
     });
 
     it('converts mi to m', function () {
       var distance = '1';
-      var result = conversionService.convert(distance, "mi", "m");
+      var result = conversionService.convert(distance, 'mi', 'm');
       expect(result).toEqual(1609.344);
     });
 
     it('converts yd to m', function () {
       var distance = '1';
-      var result = conversionService.convert(distance, "yd", "m");
+      var result = conversionService.convert(distance, 'yd', 'm');
       expect(result).toEqual(0.9144);
     });
   });

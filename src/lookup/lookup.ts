@@ -25,7 +25,6 @@ angular.module('dd.ui.lookup', ['ui.bootstrap'])
             /* --------------- typeahead extension --------------- */
             
             var typeaheadInput = element.find('input');
-            var typeaheadNgModelCtrl = typeaheadInput.controller('ngModel');
             
             // clear no results on blur
             typeaheadInput.on('blur', function() {
@@ -67,7 +66,7 @@ angular.module('dd.ui.lookup', ['ui.bootstrap'])
 
             $scope.getItems = function(query) {
                 var dataPromise = null;
-                if($scope.url) {
+                if ($scope.url) {
                     dataPromise = getHttpItems(query).then(function(response) { return response.data; });
                 } else if ($scope.lookupDataProvider) {
                     dataPromise = $q.when($scope.lookupDataProvider({ $query: query }));
@@ -142,7 +141,7 @@ angular.module('dd.ui.lookup', ['ui.bootstrap'])
                 }, {}) : null;
                 
                 var result = [];
-                for(var group in grouped) {
+                for (var group in grouped) {
                     if ({}.hasOwnProperty.call(grouped, group)) {
                         result = result.concat(grouped[group]);
                     }                    
@@ -154,7 +153,7 @@ angular.module('dd.ui.lookup', ['ui.bootstrap'])
                 var requestParams = $scope.lookupParams || {};
                 requestParams.query = query;
                 
-                if(angular.isUndefined(requestParams.limit)){
+                if (angular.isUndefined(requestParams.limit)) {
                     requestParams.limit = 10;
                 }
                 

@@ -9,11 +9,11 @@ describe('dd-datetimepicker', function () {
         timepickerElement;
 
     beforeEach(function () {
-        module('dd.ui.dd-datetimepicker');
-        module('dd.ui.dd-datepicker');
-        module('dd.ui.dd-timepicker');
-        module('template/dd-datetimepicker/dd-datetimepicker.html');
-        module('template/dd-datepicker/dd-datepicker.html');
+        angular.mock.module('dd.ui.dd-datetimepicker');
+        angular.mock.module('dd.ui.dd-datepicker');
+        angular.mock.module('dd.ui.dd-timepicker');
+        angular.mock.module('template/dd-datetimepicker/dd-datetimepicker.html');
+        angular.mock.module('template/dd-datepicker/dd-datepicker.html');
 
         inject(function ($rootScope, _$compile_, _$sniffer_, _$document_, _$timeout_) {
             $scope = $rootScope.$new();
@@ -133,7 +133,7 @@ describe('dd-datetimepicker', function () {
     describe('Init', function () {
         it('sets default time and date from model.', function () {
             $scope.dateTime = new Date();
-            var element = compileElement($scope);
+            element = compileElement($scope);
 
             expect(element.isolateScope().time).toBeDefined();
             expect(element.isolateScope().date).toBeDefined();
@@ -181,7 +181,7 @@ describe('dd-datetimepicker', function () {
     }
 
     function triggerKeypress(el, keycode) {
-        var e = angular.element.Event("keypress");
+        var e = angular.element.Event('keypress');
         e.which = keycode;
         el.trigger(e);
     }

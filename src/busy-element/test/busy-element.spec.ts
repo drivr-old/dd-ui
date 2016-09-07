@@ -8,8 +8,8 @@ describe('busy-element', function () {
     busyElement,
     statusElement;
 
-  beforeEach(module('dd.ui.busy-element'));
-  beforeEach(module('template/busy-element/busy-element.html'));
+  beforeEach(angular.mock.module('dd.ui.busy-element'));
+  beforeEach(angular.mock.module('template/busy-element/busy-element.html'));
 
   beforeEach(inject(function ($rootScope, _$compile_, _$timeout_, _$document_) {
     $scope = $rootScope;

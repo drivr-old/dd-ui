@@ -7,7 +7,7 @@ angular.module('dd.ui.validation.phone', [])
 .directive('phone', function () {
     return {
         require: 'ngModel',
-        link: function (scope, elm, attrs, ctrl) {
+        link: function (scope, elm, attrs, ctrl: any) {
 
             ctrl.$parsers.unshift(validate);
             ctrl.$formatters.unshift(validate);
@@ -32,7 +32,7 @@ angular.module('dd.ui.validation.phone', [])
 .directive('phoneCountryCode', function () {
     return {
         require: 'ngModel',
-        link: function (scope, elm, attrs, ctrl) {
+        link: function (scope, elm, attrs, ctrl: any) {
 
             ctrl.$parsers.unshift(validate);
             ctrl.$formatters.unshift(validate);
@@ -57,7 +57,7 @@ angular.module('dd.ui.validation.phone', [])
 .directive('phoneWoCountryCode', function () {
     return {
         require: 'ngModel',
-        link: function (scope, elm, attrs, ctrl) {
+        link: function (scope, elm, attrs, ctrl: ng.INgModelController) {
 
             ctrl.$parsers.unshift(validate);
             ctrl.$formatters.unshift(validate);

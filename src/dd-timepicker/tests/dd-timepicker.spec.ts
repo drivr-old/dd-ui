@@ -7,7 +7,7 @@ describe('ddTimepicker', function () {
         element;
 
     beforeEach(function () {
-        module('dd.ui.dd-timepicker');
+        angular.mock.module('dd.ui.dd-timepicker');
 
         inject(function ($rootScope, _$compile_, _$timeout_, _$sniffer_, _$document_) {
             $scope = $rootScope.$new();
@@ -186,7 +186,7 @@ describe('ddTimepicker', function () {
     }
 
     function triggerKeypress(el, keycode) {
-        var e = angular.element.Event("keypress");
+        var e = angular.element.Event('keypress');
         e.which = keycode;
         el.trigger(e);
     }

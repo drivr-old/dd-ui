@@ -3,7 +3,7 @@ describe('validation phone', function () {
     $compile,
     element;
 
-  beforeEach(module('dd.ui.validation.phone'));
+  beforeEach(angular.mock.module('dd.ui.validation.phone'));
 
   beforeEach(inject(function ($rootScope, _$compile_) {
     $scope = $rootScope;
@@ -12,7 +12,7 @@ describe('validation phone', function () {
 
   describe('general phone', function(){
     beforeEach(function() {
-      var element = $compile('<form name="forma"><input type="text" name="phone" ng-model="phone" phone /></form>')($scope);
+       element = $compile('<form name="forma"><input type="text" name="phone" ng-model="phone" phone /></form>')($scope);
     });
 
     it('should mark valid empty', function(){
@@ -71,7 +71,7 @@ describe('validation phone', function () {
 
   describe('phoneCountryCode', function(){
     beforeEach(function() {
-      var element = $compile('<form name="forma"><input type="text" name="phone" ng-model="phone" phone-country-code /></form>')($scope);
+       element = $compile('<form name="forma"><input type="text" name="phone" ng-model="phone" phone-country-code /></form>')($scope);
     });
 
     it('should mark valid empty', function(){
@@ -130,7 +130,7 @@ describe('validation phone', function () {
 
   describe('phoneWoCountryCode', function(){
     beforeEach(function() {
-      var element = $compile('<form name="forma"><input type="text" name="phone" ng-model="phone" phone-wo-country-code /></form>')($scope);
+      element = $compile('<form name="forma"><input type="text" name="phone" ng-model="phone" phone-wo-country-code /></form>')($scope);
     });
 
     it('should mark valid empty', function(){

@@ -70,7 +70,7 @@
                     ctrl.$render();
                 }
 
-                function updateModelOnKeypress(event, delta, customDate) {
+                function updateModelOnKeypress(event, delta, customDate = undefined) {
                     canUpdateNgModel = lastActionFromArrowKey = true;
                     updateViewValue(customDate || timeparserService.changeTime(scope.ngModel, delta));
                     event.preventDefault();
@@ -126,7 +126,7 @@
             }
 
             if (digitsPattern.test(input)) {
-                parsedTime = parseDigitsTime(input, digitsPattern);
+                parsedTime = parseDigitsTime(input);
                 return parsedTimeToModel(parsedTime, isDateModel, dateTime);
             }
 
@@ -195,7 +195,7 @@
             return pattern.exec(input);
         }
 
-        function getTimeInfoFromString(inputTime, mode) {
+        function getTimeInfoFromString(inputTime, mode = undefined) {
 
             inputTime = inputTime.replace(/^0/, '');
 
@@ -203,21 +203,14 @@
                 hours = 0,
                 minutes = 0;
 
-            //user enter only minutes (mm)
-            if (inputTime[0] === '0') {
+            if (inputTime[0] === '0') { // user enter only minutes (mm)
                 minutes = parseInt(inputTime, 10);
-            }
-            //user enter only hour (H)
-            else if (val <= 24 && inputTime.length <= 2) {
+            } else if (val <= 24 && inputTime.length <= 2) { // user enter only hour (H)
                 hours = val;
-            }
-            // user enter hour and minutes (H:mm)
-            else if (val > 24 && val <= 999) {
+            } else if (val > 24 && val <= 999) { // user enter hour and minutes (H:mm)
                 hours = parseInt(inputTime[0], 10);
                 minutes = parseInt(inputTime.substr(1, 3), 10);
-            }
-            // user enter hours and minutes (HH:mm)
-            else if (val > 24 && val <= 9999) {
+            } else if (val > 24 && val <= 9999) { // user enter hours and minutes (HH:mm)
                 hours = parseInt(inputTime.substr(0, 2), 10);
                 minutes = parseInt(inputTime.substr(2, 4), 10);
             }

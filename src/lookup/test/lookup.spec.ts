@@ -9,9 +9,9 @@
         $timeout;
 
     beforeEach(function () {
-        module('dd.ui.lookup');
-        module('template/lookup/lookup.html');
-        module('template/lookup/lookup-item.html');
+        angular.mock.module('dd.ui.lookup');
+        angular.mock.module('template/lookup/lookup.html');
+        angular.mock.module('template/lookup/lookup-item.html');
 
         inject(function ($rootScope, _$compile_, _$document_, $templateCache, _$httpBackend_, _$sniffer_, _$timeout_) {
             $scope = $rootScope;
@@ -277,7 +277,7 @@
            lookup('ab', true);           
            expect($scope.loadDataItems).toHaveBeenCalledWith('ab');
            
-           selectItem(1, true);
+           selectItem(1);
            expect($scope.model).toEqual(items[1]);
        });
     });
@@ -340,7 +340,7 @@
         input = element.find('input');
     }
 
-    function lookup(value, manualFlush) {
+    function lookup(value, manualFlush = undefined) {
         input.val(value);
         input.trigger($sniffer.hasEvent('input') ? 'input' : 'change');
         $scope.$digest();

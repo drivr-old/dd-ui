@@ -1,3 +1,6 @@
+interface Window {
+    triggerKeyDown(input, keyUpCode);
+}
 describe('datetimepicker', function () {
     var $scope,
         $sniffer,
@@ -8,8 +11,8 @@ describe('datetimepicker', function () {
         currentYear = new Date().getFullYear();
 
     beforeEach(function () {
-        module('dd.ui.dd-datepicker');
-        module('template/dd-datepicker/dd-datepicker.html');
+        angular.mock.module('dd.ui.dd-datepicker');
+        angular.mock.module('template/dd-datepicker/dd-datepicker.html');
 
         inject(function ($rootScope, _$compile_, _$sniffer_, _$document_, _$timeout_, $locale) {
             $scope = $rootScope.$new();
@@ -164,7 +167,7 @@ describe('datetimepicker', function () {
 
             var input = element.find('.display-input');
             var keyUpCode = 38;
-            triggerKeyDown(input, keyUpCode);
+            window.triggerKeyDown(input, keyUpCode);
 
             expect($scope.date.getDate()).toBe(26);
         });
@@ -175,7 +178,7 @@ describe('datetimepicker', function () {
 
             var input = element.find('.display-input');
             var keyDownCode = 40;
-            triggerKeyDown(input, keyDownCode);
+            window.triggerKeyDown(input, keyDownCode);
 
             expect($scope.date.getDate()).toBe(24);
         });
@@ -191,7 +194,7 @@ describe('datetimepicker', function () {
 
             var input = element.find('.display-input');
             var keyDownCode = 40;
-            triggerKeyDown(input, keyDownCode);
+            window.triggerKeyDown(input, keyDownCode);
 
             expect(element.isolateScope().ngModel).toBe(null);
         });
@@ -202,7 +205,7 @@ describe('datetimepicker', function () {
 
             var input = element.find('.display-input');
             var altKeyCode = 18;
-            triggerKeyDown(input, altKeyCode);
+            window.triggerKeyDown(input, altKeyCode);
 
             expect($scope.date.getDate()).toBe(25);
         });
@@ -213,7 +216,7 @@ describe('datetimepicker', function () {
 
             var input = element.find('.display-input');
             var altKeyCode = 38;
-            triggerKeyDown(input, altKeyCode);
+            window.triggerKeyDown(input, altKeyCode);
 
             expectUtcTime($scope.date, 12, 1, 0);
         });
@@ -221,7 +224,7 @@ describe('datetimepicker', function () {
         it('set current date on enter click if input is empty', function () {
             var input = element.find('.display-input');
             var enterKeyCode = 13;
-            triggerKeyDown(input, enterKeyCode);
+            window.triggerKeyDown(input, enterKeyCode);
 
             expect($scope.date).toBeDefined();
         });

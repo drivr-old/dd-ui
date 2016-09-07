@@ -5,9 +5,9 @@ describe('Lookup tests.', function () {
         $document;
 
     beforeEach(function () {
-        module('dd.ui.arrow-key-nav');
+        angular.mock.module('dd.ui.arrow-key-nav');
 
-        inject(function ($rootScope, _$compile_, _$document_,_$sniffer_) {
+        inject(function ($rootScope, _$compile_, _$document_, _$sniffer_) {
             $scope = $rootScope;
             $compile = _$compile_;
             $document = _$document_;
@@ -176,11 +176,11 @@ describe('Lookup tests.', function () {
         });
     });
 
-    function arrowUp(modifier) {
+    function arrowUp(modifier = undefined) {
         triggerKeyDown(38, modifier);
     }
 
-    function arrowDown(modifier) {
+    function arrowDown(modifier = undefined) {
         triggerKeyDown(40, modifier);
     }
 

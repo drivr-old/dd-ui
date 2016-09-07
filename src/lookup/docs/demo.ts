@@ -12,7 +12,7 @@ angular.module('dd.ui.demo').controller('LookupDemoCtrl', ['$scope', '$http', '$
             { name: 'Johnny', currentVehicle: 'Audi' }
         ];
 
-        var params = getJsonFromUrl(url);
+        var params: any = getJsonFromUrl(url);
         if (params.currentVehicle) {
             drivers = drivers.filter(function(d) {
                 return d.currentVehicle === params.currentVehicle;

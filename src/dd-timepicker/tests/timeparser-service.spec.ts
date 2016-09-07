@@ -2,7 +2,7 @@ describe('timeparser-service', function () {
 
     var timeparserService, $scope;
 
-    beforeEach(module('dd.ui.dd-timepicker'));
+    beforeEach(angular.mock.module('dd.ui.dd-timepicker'));
 
 
     beforeEach(inject(function ($rootScope, _timeparserService_) {

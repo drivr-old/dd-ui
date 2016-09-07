@@ -1,12 +1,11 @@
 describe('Directive show-errors tests.', function () {
 
-    var element,
-        $scope,
+    var $scope,
         $compile,
         $timeout;
 
     beforeEach(function () {
-        module('dd.ui.form-validation');
+        angular.mock.module('dd.ui.form-validation');
 
         inject(function (_$compile_, _$rootScope_, _$timeout_) {
             $scope = _$rootScope_.$new();
