@@ -25,3 +25,4 @@ dist/index.html
 .grunt/grunt-gh-pages/
 src/**/*.js
 src/**/*.js.map
+src/**/*.d.ts

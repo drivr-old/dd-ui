@@ -10,7 +10,8 @@
         "noImplicitAny": false,
         "suppressImplicitAnyIndexErrors": true,
         "allowSyntheticDefaultImports": true,
-        "noEmitOnError": false
+        "noEmitOnError": false,
+        "declaration": true
     },
     "exclude": [
         ".grunt",
