@@ -10,7 +10,8 @@
         "noImplicitAny": false,
         "suppressImplicitAnyIndexErrors": true,
         "allowSyntheticDefaultImports": true,
-        "noEmitOnError": false
+        "noEmitOnError": false,
+        "declaration": false
     },
     "exclude": [
         ".grunt",
@@ -19,6 +20,7 @@
         "dist",
         "misc",
         "node_modules",
-        "templates"
+        "templates",
+        "src/**/*.d.t"
     ]
 }
