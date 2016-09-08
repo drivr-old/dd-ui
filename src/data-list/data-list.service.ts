@@ -62,6 +62,8 @@ namespace ddui {
             }
 
             angular.extend(this.filter, filter);
+
+            this.loadLocationParams(this.filter);
         }
 
         submitFilter() {
@@ -76,7 +78,6 @@ namespace ddui {
         }
 
         updateList() {
-            const self = this;
             this.isLoading = true;
 
             if (typeof (this.filter.limit) === 'undefined') {
@@ -92,21 +93,21 @@ namespace ddui {
             };
 
             return this.$http.get(this.url, config)
-                .success(data => {
-                    self.data = data;
-                    self.count = data[self.responseCountName];
-                    this.updateListCollection(data[self.responseListName]);
+                .then(response => {
+                    this.data = response.data;
+                    this.count = this.data[this.responseCountName];
+                    this.updateListCollection(this.data[this.responseListName]);
 
-                    if (self.onListResponseSuccess) {
-                        self.onListResponseSuccess(self.rows, self.count);
+                    if (this.onListResponseSuccess) {
+                        this.onListResponseSuccess(this.rows, this.count);
                     }
                 })
-                .error(data => {
-                    if (self.onListResponseError) {
-                        self.onListResponseError(data);
+                .catch(data => {
+                    if (this.onListResponseError) {
+                        this.onListResponseError(data);
                     }
                 }).finally(() => {
-                     self.isLoading = false;
+                     this.isLoading = false;
                 });
         }
 
