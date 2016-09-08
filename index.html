@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <title>Drivr directives</title>
-    <meta name="description" content="AngularJS (Angular) native directives. Widgets: Arrow-key-nav, Busy-element, Conversion, Datetimepicker, Dd-datepicker, Dd-datetimepicker, Dd-timepicker, Form-actions, Form-validation, Lookup, Validation, ">
+    <meta name="description" content="AngularJS (Angular) native directives. Widgets: Arrow-key-nav, Busy-element, Conversion, Data-list, Datetimepicker, Dd-datepicker, Dd-datetimepicker, Dd-table, Dd-timepicker, Form-actions, Form-validation, Lookup, Validation, ">
 
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/fastclick/0.6.7/fastclick.min.js"></script>
@@ -13,7 +13,7 @@
     <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular-touch.min.js"></script>
     <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular-animate.min.js"></script>
 	<script src="assets/ui-bootstrap-tpls.js"></script>
-    <script src="dd-ui-tpls-0.8.1.min.js"></script>
+    <script src="dd-ui-tpls-0.8.2.min.js"></script>
     <script src="assets/angular-mocks.js"></script>
     <script src="assets/plunker.js"></script>
     <script src="assets/app.js"></script>
@@ -46,7 +46,7 @@
                             Directives <b class="caret"></b>
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a href="#arrow-key-nav">Arrow-key-nav</a></li><li><a href="#busy-element">Busy-element</a></li><li><a href="#conversion">Conversion</a></li><li><a href="#datetimepicker">Datetimepicker</a></li><li><a href="#dd-datepicker">Dd-datepicker</a></li><li><a href="#dd-datetimepicker">Dd-datetimepicker</a></li><li><a href="#dd-timepicker">Dd-timepicker</a></li><li><a href="#form-actions">Form-actions</a></li><li><a href="#form-validation">Form-validation</a></li><li><a href="#lookup">Lookup</a></li><li><a href="#validation">Validation</a></li>
+                            <li><a href="#arrow-key-nav">Arrow-key-nav</a></li><li><a href="#busy-element">Busy-element</a></li><li><a href="#conversion">Conversion</a></li><li><a href="#data-list">Data-list</a></li><li><a href="#datetimepicker">Datetimepicker</a></li><li><a href="#dd-datepicker">Dd-datepicker</a></li><li><a href="#dd-datetimepicker">Dd-datetimepicker</a></li><li><a href="#dd-table">Dd-table</a></li><li><a href="#dd-timepicker">Dd-timepicker</a></li><li><a href="#form-actions">Form-actions</a></li><li><a href="#form-validation">Form-validation</a></li><li><a href="#lookup">Lookup</a></li><li><a href="#validation">Validation</a></li>
                         </ul>
                     </li>
                     <li><a href="#getting_started">Getting started</a></li>
@@ -131,11 +131,15 @@
                         
                             <li><a href="#conversion">Conversion</a></li>
                         
+                            <li><a href="#data-list">Data-list</a></li>
+                        
                             <li><a href="#datetimepicker">Datetimepicker</a></li>
                         
                             <li><a href="#dd-datepicker">Dd-datepicker</a></li>
                         
                             <li><a href="#dd-datetimepicker">Dd-datetimepicker</a></li>
+                        
+                            <li><a href="#dd-table">Dd-table</a></li>
                         
                             <li><a href="#dd-timepicker">Dd-timepicker</a></li>
                         
@@ -241,7 +245,7 @@
                         <div class="row code">
                             <div class="col-md-12" ng-controller="PlunkerCtrl">
                                 <div class="pull-right">
-                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.4.3', '3.1.1', '0.8.1', 'arrow-key-nav')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
+                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.4.3', '3.1.1', '0.8.2', 'arrow-key-nav')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
                                 </div>
                                 <uib-tabset>
                                     <uib-tab heading="Markup">
@@ -390,7 +394,7 @@
                         <div class="row code">
                             <div class="col-md-12" ng-controller="PlunkerCtrl">
                                 <div class="pull-right">
-                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.4.3', '3.1.1', '0.8.1', 'busy-element')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
+                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.4.3', '3.1.1', '0.8.2', 'busy-element')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
                                 </div>
                                 <uib-tabset>
                                     <uib-tab heading="Markup">
@@ -566,7 +570,7 @@ To display meters or kilometers in imperial distance units, use:</p>
                         <div class="row code">
                             <div class="col-md-12" ng-controller="PlunkerCtrl">
                                 <div class="pull-right">
-                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.4.3', '3.1.1', '0.8.1', 'conversion')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
+                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.4.3', '3.1.1', '0.8.2', 'conversion')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
                                 </div>
                                 <uib-tabset>
                                     <uib-tab heading="Markup">
@@ -650,6 +654,164 @@ To display meters or kilometers in imperial distance units, use:</p>
     }]);
 </script>
                 
+                    <section id="data-list">
+                        <div class="page-header">
+                          <h1>Data-list<small>
+                              (<a target="_blank" href="https://github.com/clickataxi/dd-ui/tree/master/src/data-list">dd.ui.data-list</a>)
+                          </small></h1>
+                          </div>
+                          <div class="row">
+                            <div class="col-md-6 show-grid">
+                                <div ng-controller="DataListDemoCtrl as ctrl">
+    <p>
+        Selected rows: {{ctrl.dataList.selectedRows}}
+    </p>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    <div class="btn-group" uib-dropdown>
+                        <button uib-dropdown-toggle class="btn btn-default btn-xs"><span class="caret"></span></button>
+                        <ul class="dropdown-menu" uib-dropdown-menu>
+                            <li><a href="#" id="select-all" name="select-all" ng-click="ctrl.dataList.selectAll()">Select all</a></li>
+                            <li><a href="#" id="deselect-all" name="deselect-all" ng-click="ctrl.dataList.deselectAll()">Deselect all</a></li>
+                        </ul>
+                    </div>
+                </th>
+                <th>Id</th>
+                <th>Name</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="row in ctrl.dataList.rows">
+                 <td class="checkbox-column">
+                    <input name="record-item" type="checkbox" ng-value="row.id" ng-checked="row.$selected" ng-click="ctrl.dataList.toggle(row)"/>
+                </td>
+                <td>{{row.id}}</td>
+                <td>{{row.name}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+                            </div>
+                            <div class="col-md-6">
+                                <p>Data list manager is used for most of admin lists where filtering is needed.</p>
+
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row code">
+                            <div class="col-md-12" ng-controller="PlunkerCtrl">
+                                <div class="pull-right">
+                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.4.3', '3.1.1', '0.8.2', 'data-list')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
+                                </div>
+                                <uib-tabset>
+                                    <uib-tab heading="Markup">
+                                        <div plunker-content="markup">
+                                            <pre ng-non-bindable><code data-language="html">&lt;div ng-controller=&quot;DataListDemoCtrl as ctrl&quot;&gt;
+    &lt;p&gt;
+        Selected rows: {{ctrl.dataList.selectedRows}}
+    &lt;/p&gt;
+    &lt;table class=&quot;table&quot;&gt;
+        &lt;thead&gt;
+            &lt;tr&gt;
+                &lt;th&gt;
+                    &lt;div class=&quot;btn-group&quot; uib-dropdown&gt;
+                        &lt;button uib-dropdown-toggle class=&quot;btn btn-default btn-xs&quot;&gt;&lt;span class=&quot;caret&quot;&gt;&lt;/span&gt;&lt;/button&gt;
+                        &lt;ul class=&quot;dropdown-menu&quot; uib-dropdown-menu&gt;
+                            &lt;li&gt;&lt;a href=&quot;#&quot; id=&quot;select-all&quot; name=&quot;select-all&quot; ng-click=&quot;ctrl.dataList.selectAll()&quot;&gt;Select all&lt;/a&gt;&lt;/li&gt;
+                            &lt;li&gt;&lt;a href=&quot;#&quot; id=&quot;deselect-all&quot; name=&quot;deselect-all&quot; ng-click=&quot;ctrl.dataList.deselectAll()&quot;&gt;Deselect all&lt;/a&gt;&lt;/li&gt;
+                        &lt;/ul&gt;
+                    &lt;/div&gt;
+                &lt;/th&gt;
+                &lt;th&gt;Id&lt;/th&gt;
+                &lt;th&gt;Name&lt;/th&gt;
+            &lt;/tr&gt;
+        &lt;/thead&gt;
+        &lt;tbody&gt;
+            &lt;tr ng-repeat=&quot;row in ctrl.dataList.rows&quot;&gt;
+                 &lt;td class=&quot;checkbox-column&quot;&gt;
+                    &lt;input name=&quot;record-item&quot; type=&quot;checkbox&quot; ng-value=&quot;row.id&quot; ng-checked=&quot;row.$selected&quot; ng-click=&quot;ctrl.dataList.toggle(row)&quot;/&gt;
+                &lt;/td&gt;
+                &lt;td&gt;{{row.id}}&lt;/td&gt;
+                &lt;td&gt;{{row.name}}&lt;/td&gt;
+            &lt;/tr&gt;
+        &lt;/tbody&gt;
+    &lt;/table&gt;
+&lt;/div&gt;</code></pre>
+                                        </div>
+                                    </uib-tab>
+                                    <uib-tab heading="JavaScript">
+                                        <div plunker-content="javascript">
+                                            <pre ng-non-bindable><code data-language="javascript">var DataListDemoCtrl = (function () {
+    function DataListDemoCtrl($httpBackend, dataListManager) {
+        this.$httpBackend = $httpBackend;
+        this.dataListManager = dataListManager;
+        this.createFakeApiResponse();
+        this.initList();
+    }
+    DataListDemoCtrl.prototype.initList = function () {
+        var config = {
+            url: &#39;/api/test/&#39;
+        };
+        this.dataList = this.dataListManager.init(config);
+        this.dataList.fetchPage();
+    };
+    DataListDemoCtrl.prototype.createFakeApiResponse = function () {
+        this.$httpBackend.whenGET(function (url) { return url.startsWith(&#39;/api/test/&#39;); }).respond(function (method, url) {
+            var result = {
+                items: [
+                    { id: &#39;1&#39;, name: &#39;Microsoft&#39; },
+                    { id: &#39;2&#39;, name: &#39;Google&#39; }
+                ]
+            };
+            return [200, result];
+        });
+    };
+    DataListDemoCtrl.$inject = [&#39;$httpBackend&#39;, &#39;dataListManager&#39;];
+    return DataListDemoCtrl;
+}());
+angular.module(&#39;dd.ui.demo&#39;)
+    .controller(&#39;DataListDemoCtrl&#39;, DataListDemoCtrl);
+</code></pre>
+                                        </div>
+                                    </uib-tab>
+                                </uib-tabset>
+                            </div>
+                        </div>
+                    </section>
+                    <script>var DataListDemoCtrl = (function () {
+    function DataListDemoCtrl($httpBackend, dataListManager) {
+        this.$httpBackend = $httpBackend;
+        this.dataListManager = dataListManager;
+        this.createFakeApiResponse();
+        this.initList();
+    }
+    DataListDemoCtrl.prototype.initList = function () {
+        var config = {
+            url: '/api/test/'
+        };
+        this.dataList = this.dataListManager.init(config);
+        this.dataList.fetchPage();
+    };
+    DataListDemoCtrl.prototype.createFakeApiResponse = function () {
+        this.$httpBackend.whenGET(function (url) { return url.startsWith('/api/test/'); }).respond(function (method, url) {
+            var result = {
+                items: [
+                    { id: '1', name: 'Microsoft' },
+                    { id: '2', name: 'Google' }
+                ]
+            };
+            return [200, result];
+        });
+    };
+    DataListDemoCtrl.$inject = ['$httpBackend', 'dataListManager'];
+    return DataListDemoCtrl;
+}());
+angular.module('dd.ui.demo')
+    .controller('DataListDemoCtrl', DataListDemoCtrl);
+</script>
+                
                     <section id="datetimepicker">
                         <div class="page-header">
                           <h1>Datetimepicker<small>
@@ -711,7 +873,7 @@ Calendar popup placement</p>
                         <div class="row code">
                             <div class="col-md-12" ng-controller="PlunkerCtrl">
                                 <div class="pull-right">
-                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.4.3', '3.1.1', '0.8.1', 'datetimepicker')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
+                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.4.3', '3.1.1', '0.8.2', 'datetimepicker')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
                                 </div>
                                 <uib-tabset>
                                     <uib-tab heading="Markup">
@@ -848,7 +1010,7 @@ Starting day of the week from 0-6 (0=Sunday, ..., 6=Saturday).</li>
                         <div class="row code">
                             <div class="col-md-12" ng-controller="PlunkerCtrl">
                                 <div class="pull-right">
-                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.4.3', '3.1.1', '0.8.1', 'dd-datepicker')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
+                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.4.3', '3.1.1', '0.8.2', 'dd-datepicker')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
                                 </div>
                                 <uib-tabset>
                                     <uib-tab heading="Markup">
@@ -1053,7 +1215,7 @@ Allows overriding of default template of the datetimepicker</p>
                         <div class="row code">
                             <div class="col-md-12" ng-controller="PlunkerCtrl">
                                 <div class="pull-right">
-                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.4.3', '3.1.1', '0.8.1', 'dd-datetimepicker')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
+                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.4.3', '3.1.1', '0.8.2', 'dd-datetimepicker')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
                                 </div>
                                 <uib-tabset>
                                     <uib-tab heading="Markup">
@@ -1179,6 +1341,329 @@ Allows overriding of default template of the datetimepicker</p>
     }]);
 </script>
                 
+                    <section id="dd-table">
+                        <div class="page-header">
+                          <h1>Dd-table<small>
+                              (<a target="_blank" href="https://github.com/clickataxi/dd-ui/tree/master/src/dd-table">dd.ui.dd-table</a>)
+                          </small></h1>
+                          </div>
+                          <div class="row">
+                            <div class="col-md-6 show-grid">
+                                <div ng-controller="TableDemoCtrl as ctrl">
+
+    <style>
+        .table-demo-container {
+            background-color: #edecec;
+            padding: 50px;
+        }
+    </style>
+    {{ctrl.dataList.filter}}
+    <div class="table-demo-container">
+        <table dd-table="ctrl.dataList">
+            <thead>
+                <tr>
+                    <th class="checkbox-row">
+                        <dd-pages-selector>
+                            <dd-pages-selector-item on-click="ctrl.dataList.selectAll()">Select all</dd-pages-selector-item>
+                            <dd-pages-selector-item on-click="ctrl.dataList.deselectAll()">Deselect all</dd-pages-selector-item>                            
+                        </dd-pages-selector>
+                    </th>
+                    <th>Id</th>
+                    <th>Is active</th>
+                    <th>Balance</th>
+                    <th>Age</th>
+                    <th>Eye color</th>
+                    <th>Name</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-class="{'active': row.$selected}" ng-repeat="row in ctrl.dataList.rows">
+                    <td>
+                        <input name="record-item" type="checkbox" ng-value="row.id" ng-checked="row.$selected" ng-click="ctrl.dataList.toggle(row)" />
+                    </td>
+                    <td>{{row.index}}</td>
+                    <td>{{row.isActive}}</td>
+                    <td>{{row.balance}}</td>
+                    <td>{{row.age}}</td>
+                    <td>{{row.eyeColor}}</td>
+                    <td>{{row.name}}</td>
+                </tr>
+            </tbody>
+        </table>
+        <dd-pagination on-change="ctrl.dataList.fetchPage()" total-items="ctrl.dataList.count" current-page="ctrl.dataList.page"></dd-pagination>
+
+    </div>
+</div>
+                            </div>
+                            <div class="col-md-6">
+                                <p>dd-table can be used together with dd-pages-selector and dd-pagination.</p>
+<h3 id="dd-table">dd-table</h3>
+<ul>
+<li><code>dd-table</code>
+  :
+  Accepts DataList instance.</li>
+</ul>
+<h3 id="dd-pages-selector">dd-pages-selector</h3>
+<p>Used to create dropdown in table header for select/deselect pages</p>
+<h3 id="d-pages-selector-item">d-pages-selector-item</h3>
+<ul>
+<li><code>on-click</code>
+  :
+  Callback to execute. Eg. <code>ctrl.dataList.selectAll()</code></li>
+</ul>
+<h3 id="dd-pagination">dd-pagination</h3>
+<ul>
+<li><p><code>on-change</code>
+  :
+  Callback to execute then page is changed.</p>
+</li>
+<li><p><code>total-items</code>
+  :
+  Total count (number).</p>
+</li>
+<li><p><code>current-page</code>
+  :
+  Current active page (number)</p>
+</li>
+</ul>
+
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row code">
+                            <div class="col-md-12" ng-controller="PlunkerCtrl">
+                                <div class="pull-right">
+                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.4.3', '3.1.1', '0.8.2', 'dd-table')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
+                                </div>
+                                <uib-tabset>
+                                    <uib-tab heading="Markup">
+                                        <div plunker-content="markup">
+                                            <pre ng-non-bindable><code data-language="html">&lt;div ng-controller=&quot;TableDemoCtrl as ctrl&quot;&gt;
+
+    &lt;style&gt;
+        .table-demo-container {
+            background-color: #edecec;
+            padding: 50px;
+        }
+    &lt;/style&gt;
+    {{ctrl.dataList.filter}}
+    &lt;div class=&quot;table-demo-container&quot;&gt;
+        &lt;table dd-table=&quot;ctrl.dataList&quot;&gt;
+            &lt;thead&gt;
+                &lt;tr&gt;
+                    &lt;th class=&quot;checkbox-row&quot;&gt;
+                        &lt;dd-pages-selector&gt;
+                            &lt;dd-pages-selector-item on-click=&quot;ctrl.dataList.selectAll()&quot;&gt;Select all&lt;/dd-pages-selector-item&gt;
+                            &lt;dd-pages-selector-item on-click=&quot;ctrl.dataList.deselectAll()&quot;&gt;Deselect all&lt;/dd-pages-selector-item&gt;                            
+                        &lt;/dd-pages-selector&gt;
+                    &lt;/th&gt;
+                    &lt;th&gt;Id&lt;/th&gt;
+                    &lt;th&gt;Is active&lt;/th&gt;
+                    &lt;th&gt;Balance&lt;/th&gt;
+                    &lt;th&gt;Age&lt;/th&gt;
+                    &lt;th&gt;Eye color&lt;/th&gt;
+                    &lt;th&gt;Name&lt;/th&gt;
+                &lt;/tr&gt;
+            &lt;/thead&gt;
+            &lt;tbody&gt;
+                &lt;tr ng-class=&quot;{&#39;active&#39;: row.$selected}&quot; ng-repeat=&quot;row in ctrl.dataList.rows&quot;&gt;
+                    &lt;td&gt;
+                        &lt;input name=&quot;record-item&quot; type=&quot;checkbox&quot; ng-value=&quot;row.id&quot; ng-checked=&quot;row.$selected&quot; ng-click=&quot;ctrl.dataList.toggle(row)&quot; /&gt;
+                    &lt;/td&gt;
+                    &lt;td&gt;{{row.index}}&lt;/td&gt;
+                    &lt;td&gt;{{row.isActive}}&lt;/td&gt;
+                    &lt;td&gt;{{row.balance}}&lt;/td&gt;
+                    &lt;td&gt;{{row.age}}&lt;/td&gt;
+                    &lt;td&gt;{{row.eyeColor}}&lt;/td&gt;
+                    &lt;td&gt;{{row.name}}&lt;/td&gt;
+                &lt;/tr&gt;
+            &lt;/tbody&gt;
+        &lt;/table&gt;
+        &lt;dd-pagination on-change=&quot;ctrl.dataList.fetchPage()&quot; total-items=&quot;ctrl.dataList.count&quot; current-page=&quot;ctrl.dataList.page&quot;&gt;&lt;/dd-pagination&gt;
+
+    &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+                                        </div>
+                                    </uib-tab>
+                                    <uib-tab heading="JavaScript">
+                                        <div plunker-content="javascript">
+                                            <pre ng-non-bindable><code data-language="javascript">var TableDemoCtrl = (function () {
+    function TableDemoCtrl($httpBackend, dataListManager) {
+        this.$httpBackend = $httpBackend;
+        this.dataListManager = dataListManager;
+        this.createFakeApiResponse();
+        this.initList();
+    }
+    TableDemoCtrl.prototype.pageChanged = function () {
+        console.log(&#39;Page changed&#39;);
+    };
+    TableDemoCtrl.prototype.initList = function () {
+        var config = {
+            id: &#39;tableDemo&#39;,
+            url: &#39;/api/table/&#39;,
+            paging: true
+        };
+        this.dataList = this.dataListManager.init(config);
+        this.dataList.setFilter(function () {
+            return {
+                name: &#39;My name&#39;
+            };
+        });
+        this.dataList.fetchPage();
+    };
+    TableDemoCtrl.prototype.createFakeApiResponse = function () {
+        this.$httpBackend.whenGET(function (url) { return url.startsWith(&#39;/api/table/&#39;); }).respond(function (method, url) {
+            var result = {
+                items: [
+                    {
+                        &#39;index&#39;: 0,
+                        &#39;isActive&#39;: false,
+                        &#39;balance&#39;: &#39;$2,962.75&#39;,
+                        &#39;picture&#39;: &#39;http://placehold.it/32x32&#39;,
+                        &#39;age&#39;: 36,
+                        &#39;eyeColor&#39;: &#39;brown&#39;,
+                        &#39;name&#39;: &#39;Virgie Patrick&#39;
+                    },
+                    {
+                        &#39;index&#39;: 1,
+                        &#39;isActive&#39;: true,
+                        &#39;balance&#39;: &#39;$1,662.43&#39;,
+                        &#39;picture&#39;: &#39;http://placehold.it/32x32&#39;,
+                        &#39;age&#39;: 32,
+                        &#39;eyeColor&#39;: &#39;green&#39;,
+                        &#39;name&#39;: &#39;Burton Warren&#39;
+                    },
+                    {
+                        &#39;index&#39;: 2,
+                        &#39;isActive&#39;: false,
+                        &#39;balance&#39;: &#39;$3,988.63&#39;,
+                        &#39;picture&#39;: &#39;http://placehold.it/32x32&#39;,
+                        &#39;age&#39;: 27,
+                        &#39;eyeColor&#39;: &#39;brown&#39;,
+                        &#39;name&#39;: &#39;Mercedes Horne&#39;
+                    },
+                    {
+                        &#39;index&#39;: 3,
+                        &#39;isActive&#39;: false,
+                        &#39;balance&#39;: &#39;$3,914.68&#39;,
+                        &#39;picture&#39;: &#39;http://placehold.it/32x32&#39;,
+                        &#39;age&#39;: 21,
+                        &#39;eyeColor&#39;: &#39;brown&#39;,
+                        &#39;name&#39;: &#39;Harper Reilly&#39;
+                    },
+                    {
+                        &#39;index&#39;: 4,
+                        &#39;isActive&#39;: true,
+                        &#39;balance&#39;: &#39;$1,237.50&#39;,
+                        &#39;picture&#39;: &#39;http://placehold.it/32x32&#39;,
+                        &#39;age&#39;: 35,
+                        &#39;eyeColor&#39;: &#39;brown&#39;,
+                        &#39;name&#39;: &#39;Pierce Callahan&#39;
+                    }
+                ],
+                count: 120
+            };
+            return [200, result];
+        });
+    };
+    TableDemoCtrl.$inject = [&#39;$httpBackend&#39;, &#39;dataListManager&#39;];
+    return TableDemoCtrl;
+}());
+angular.module(&#39;dd.ui.demo&#39;)
+    .controller(&#39;TableDemoCtrl&#39;, TableDemoCtrl);
+</code></pre>
+                                        </div>
+                                    </uib-tab>
+                                </uib-tabset>
+                            </div>
+                        </div>
+                    </section>
+                    <script>var TableDemoCtrl = (function () {
+    function TableDemoCtrl($httpBackend, dataListManager) {
+        this.$httpBackend = $httpBackend;
+        this.dataListManager = dataListManager;
+        this.createFakeApiResponse();
+        this.initList();
+    }
+    TableDemoCtrl.prototype.pageChanged = function () {
+        console.log('Page changed');
+    };
+    TableDemoCtrl.prototype.initList = function () {
+        var config = {
+            id: 'tableDemo',
+            url: '/api/table/',
+            paging: true
+        };
+        this.dataList = this.dataListManager.init(config);
+        this.dataList.setFilter(function () {
+            return {
+                name: 'My name'
+            };
+        });
+        this.dataList.fetchPage();
+    };
+    TableDemoCtrl.prototype.createFakeApiResponse = function () {
+        this.$httpBackend.whenGET(function (url) { return url.startsWith('/api/table/'); }).respond(function (method, url) {
+            var result = {
+                items: [
+                    {
+                        'index': 0,
+                        'isActive': false,
+                        'balance': '$2,962.75',
+                        'picture': 'http://placehold.it/32x32',
+                        'age': 36,
+                        'eyeColor': 'brown',
+                        'name': 'Virgie Patrick'
+                    },
+                    {
+                        'index': 1,
+                        'isActive': true,
+                        'balance': '$1,662.43',
+                        'picture': 'http://placehold.it/32x32',
+                        'age': 32,
+                        'eyeColor': 'green',
+                        'name': 'Burton Warren'
+                    },
+                    {
+                        'index': 2,
+                        'isActive': false,
+                        'balance': '$3,988.63',
+                        'picture': 'http://placehold.it/32x32',
+                        'age': 27,
+                        'eyeColor': 'brown',
+                        'name': 'Mercedes Horne'
+                    },
+                    {
+                        'index': 3,
+                        'isActive': false,
+                        'balance': '$3,914.68',
+                        'picture': 'http://placehold.it/32x32',
+                        'age': 21,
+                        'eyeColor': 'brown',
+                        'name': 'Harper Reilly'
+                    },
+                    {
+                        'index': 4,
+                        'isActive': true,
+                        'balance': '$1,237.50',
+                        'picture': 'http://placehold.it/32x32',
+                        'age': 35,
+                        'eyeColor': 'brown',
+                        'name': 'Pierce Callahan'
+                    }
+                ],
+                count: 120
+            };
+            return [200, result];
+        });
+    };
+    TableDemoCtrl.$inject = ['$httpBackend', 'dataListManager'];
+    return TableDemoCtrl;
+}());
+angular.module('dd.ui.demo')
+    .controller('TableDemoCtrl', TableDemoCtrl);
+</script>
+                
                     <section id="dd-timepicker">
                         <div class="page-header">
                           <h1>Dd-timepicker<small>
@@ -1237,7 +1722,7 @@ Allows overriding of default template of the datetimepicker</p>
                         <div class="row code">
                             <div class="col-md-12" ng-controller="PlunkerCtrl">
                                 <div class="pull-right">
-                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.4.3', '3.1.1', '0.8.1', 'dd-timepicker')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
+                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.4.3', '3.1.1', '0.8.2', 'dd-timepicker')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
                                 </div>
                                 <uib-tabset>
                                     <uib-tab heading="Markup">
@@ -1361,7 +1846,7 @@ Allows overriding of default template of the datetimepicker</p>
                         <div class="row code">
                             <div class="col-md-12" ng-controller="PlunkerCtrl">
                                 <div class="pull-right">
-                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.4.3', '3.1.1', '0.8.1', 'form-actions')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
+                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.4.3', '3.1.1', '0.8.2', 'form-actions')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
                                 </div>
                                 <uib-tabset>
                                     <uib-tab heading="Markup">
@@ -1565,7 +2050,7 @@ Allows overriding of default template of the datetimepicker</p>
                         <div class="row code">
                             <div class="col-md-12" ng-controller="PlunkerCtrl">
                                 <div class="pull-right">
-                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.4.3', '3.1.1', '0.8.1', 'form-validation')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
+                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.4.3', '3.1.1', '0.8.2', 'form-validation')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
                                 </div>
                                 <uib-tabset>
                                     <uib-tab heading="Markup">
@@ -1906,7 +2391,7 @@ Allows overriding of default template of the datetimepicker</p>
                         <div class="row code">
                             <div class="col-md-12" ng-controller="PlunkerCtrl">
                                 <div class="pull-right">
-                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.4.3', '3.1.1', '0.8.1', 'lookup')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
+                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.4.3', '3.1.1', '0.8.2', 'lookup')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
                                 </div>
                                 <uib-tabset>
                                     <uib-tab heading="Markup">
@@ -2175,7 +2660,7 @@ Allows overriding of default template of the datetimepicker</p>
                         <div class="row code">
                             <div class="col-md-12" ng-controller="PlunkerCtrl">
                                 <div class="pull-right">
-                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.4.3', '3.1.1', '0.8.1', 'validation')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
+                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.4.3', '3.1.1', '0.8.2', 'validation')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
                                 </div>
                                 <uib-tabset>
                                     <uib-tab heading="Markup">
