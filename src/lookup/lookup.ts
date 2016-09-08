@@ -9,6 +9,7 @@ angular.module('dd.ui.lookup', ['ui.bootstrap'])
             lookupParams: '=?',
             lookupFormat: '&',
             ngDisabled: '=?',
+            placeholder: '@?',
             lookupOnSelect: '&',
             lookupOnClear: '&',
             lookupResponseTransform: '&',
@@ -43,7 +44,6 @@ angular.module('dd.ui.lookup', ['ui.bootstrap'])
             
             /* --------------- read-only attributes --------------- */
 
-            $scope.placeholder = attrs.placeholder;
             $scope.inputClass = attrs.lookupInputClass;
 
             if (attrs.lookupAddon) {
