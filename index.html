@@ -13,7 +13,7 @@
     <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular-touch.min.js"></script>
     <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular-animate.min.js"></script>
 	<script src="assets/ui-bootstrap-tpls.js"></script>
-    <script src="dd-ui-tpls-0.7.9.min.js"></script>
+    <script src="dd-ui-tpls-0.8.1.min.js"></script>
     <script src="assets/angular-mocks.js"></script>
     <script src="assets/plunker.js"></script>
     <script src="assets/app.js"></script>
@@ -241,7 +241,7 @@
                         <div class="row code">
                             <div class="col-md-12" ng-controller="PlunkerCtrl">
                                 <div class="pull-right">
-                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.4.3', '3.1.1', '0.7.9', 'arrow-key-nav')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
+                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.4.3', '3.1.1', '0.8.1', 'arrow-key-nav')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
                                 </div>
                                 <uib-tabset>
                                     <uib-tab heading="Markup">
@@ -290,18 +290,18 @@
                                     </uib-tab>
                                     <uib-tab heading="JavaScript">
                                         <div plunker-content="javascript">
-                                            <pre ng-non-bindable><code data-language="javascript">angular.module(&#x27;dd.ui.demo&#x27;).controller(&#x27;ArrowKeyNavDemoCtrl&#x27;, [function() {
-
-}]);</code></pre>
+                                            <pre ng-non-bindable><code data-language="javascript">angular.module(&#39;dd.ui.demo&#39;).controller(&#39;ArrowKeyNavDemoCtrl&#39;, [function () {
+    }]);
+</code></pre>
                                         </div>
                                     </uib-tab>
                                 </uib-tabset>
                             </div>
                         </div>
                     </section>
-                    <script>angular.module('dd.ui.demo').controller('ArrowKeyNavDemoCtrl', [function() {
-
-}]);</script>
+                    <script>angular.module('dd.ui.demo').controller('ArrowKeyNavDemoCtrl', [function () {
+    }]);
+</script>
                 
                     <section id="busy-element">
                         <div class="page-header">
@@ -390,7 +390,7 @@
                         <div class="row code">
                             <div class="col-md-12" ng-controller="PlunkerCtrl">
                                 <div class="pull-right">
-                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.4.3', '3.1.1', '0.7.9', 'busy-element')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
+                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.4.3', '3.1.1', '0.8.1', 'busy-element')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
                                 </div>
                                 <uib-tabset>
                                     <uib-tab heading="Markup">
@@ -416,21 +416,21 @@
     &lt;tr&gt;
       &lt;td&gt;Success state&lt;/td&gt;
       &lt;td&gt;
-        &lt;busy-element status=&quot;&#x27;success&#x27;&quot; timeout=&quot;0&quot;&gt;&lt;/busy-element&gt;
+        &lt;busy-element status=&quot;&#39;success&#39;&quot; timeout=&quot;0&quot;&gt;&lt;/busy-element&gt;
         &lt;input type=&quot;text&quot; value=&quot;Some text&quot; /&gt;
       &lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
       &lt;td&gt;Failed state&lt;/td&gt;
       &lt;td&gt;
-        &lt;busy-element status=&quot;&#x27;fail&#x27;&quot; timeout=&quot;0&quot;&gt;&lt;/busy-element&gt;
+        &lt;busy-element status=&quot;&#39;fail&#39;&quot; timeout=&quot;0&quot;&gt;&lt;/busy-element&gt;
         &lt;input type=&quot;text&quot; value=&quot;Some text&quot; /&gt;
       &lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
       &lt;td&gt;Custom state&lt;/td&gt;
       &lt;td&gt;
-        &lt;busy-element status=&quot;&#x27;custom&#x27;&quot; timeout=&quot;0&quot;&gt;&lt;/busy-element&gt;
+        &lt;busy-element status=&quot;&#39;custom&#39;&quot; timeout=&quot;0&quot;&gt;&lt;/busy-element&gt;
         &lt;input type=&quot;text&quot; value=&quot;Some text&quot; /&gt;
       &lt;/td&gt;
     &lt;/tr&gt;
@@ -438,7 +438,7 @@
       &lt;td&gt;Element selector&lt;/td&gt;
       &lt;td&gt;
         &lt;div&gt;
-          &lt;div busy-element=&quot;#input-container&quot; status=&quot;&#x27;success&#x27;&quot; timeout=&quot;0&quot;&gt;&lt;/div&gt;
+          &lt;div busy-element=&quot;#input-container&quot; status=&quot;&#39;success&#39;&quot; timeout=&quot;0&quot;&gt;&lt;/div&gt;
         &lt;/div&gt;
         &lt;div id=&quot;input-container&quot;&gt;
           &lt;input type=&quot;text&quot; value=&quot;Some text&quot; /&gt;
@@ -465,28 +465,25 @@
                                     </uib-tab>
                                     <uib-tab heading="JavaScript">
                                         <div plunker-content="javascript">
-                                            <pre ng-non-bindable><code data-language="javascript">angular.module(&#x27;dd.ui.demo&#x27;).controller(&#x27;BusyElementDemoCtrl&#x27;, function ($scope, $timeout) {
-	$scope.items = [
-		{id: &#x27;item1&#x27;, status: &#x27;&#x27;},
-		{id: &#x27;item2&#x27;, status: &#x27;&#x27;},
-		{id: &#x27;item3&#x27;, status: &#x27;&#x27;}
-	];
-
-	$scope.updated = function(el) {
-
-		if (el.status === &#x27;&#x27;) {
-			return;
-		}
-
-		// usually we enable isBusy before http request
-		el.isBusy = true;
-
-		$timeout(function() {
-			// $timeout in this case replaces $http simulating response received
-			el.responseStatus = el.status;
-		}, 500);
-	};
-});</code></pre>
+                                            <pre ng-non-bindable><code data-language="javascript">angular.module(&#39;dd.ui.demo&#39;).controller(&#39;BusyElementDemoCtrl&#39;, function ($scope, $timeout) {
+    $scope.items = [
+        { id: &#39;item1&#39;, status: &#39;&#39; },
+        { id: &#39;item2&#39;, status: &#39;&#39; },
+        { id: &#39;item3&#39;, status: &#39;&#39; }
+    ];
+    $scope.updated = function (el) {
+        if (el.status === &#39;&#39;) {
+            return;
+        }
+        // usually we enable isBusy before http request
+        el.isBusy = true;
+        $timeout(function () {
+            // $timeout in this case replaces $http simulating response received
+            el.responseStatus = el.status;
+        }, 500);
+    };
+});
+</code></pre>
                                         </div>
                                     </uib-tab>
                                 </uib-tabset>
@@ -494,27 +491,24 @@
                         </div>
                     </section>
                     <script>angular.module('dd.ui.demo').controller('BusyElementDemoCtrl', function ($scope, $timeout) {
-	$scope.items = [
-		{id: 'item1', status: ''},
-		{id: 'item2', status: ''},
-		{id: 'item3', status: ''}
-	];
-
-	$scope.updated = function(el) {
-
-		if (el.status === '') {
-			return;
-		}
-
-		// usually we enable isBusy before http request
-		el.isBusy = true;
-
-		$timeout(function() {
-			// $timeout in this case replaces $http simulating response received
-			el.responseStatus = el.status;
-		}, 500);
-	};
-});</script>
+    $scope.items = [
+        { id: 'item1', status: '' },
+        { id: 'item2', status: '' },
+        { id: 'item3', status: '' }
+    ];
+    $scope.updated = function (el) {
+        if (el.status === '') {
+            return;
+        }
+        // usually we enable isBusy before http request
+        el.isBusy = true;
+        $timeout(function () {
+            // $timeout in this case replaces $http simulating response received
+            el.responseStatus = el.status;
+        }, 500);
+    };
+});
+</script>
                 
                     <section id="conversion">
                         <div class="page-header">
@@ -572,7 +566,7 @@ To display meters or kilometers in imperial distance units, use:</p>
                         <div class="row code">
                             <div class="col-md-12" ng-controller="PlunkerCtrl">
                                 <div class="pull-right">
-                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.4.3', '3.1.1', '0.7.9', 'conversion')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
+                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.4.3', '3.1.1', '0.8.1', 'conversion')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
                                 </div>
                                 <uib-tabset>
                                     <uib-tab heading="Markup">
@@ -609,30 +603,26 @@ To display meters or kilometers in imperial distance units, use:</p>
                                     </uib-tab>
                                     <uib-tab heading="JavaScript">
                                         <div plunker-content="javascript">
-                                            <pre ng-non-bindable><code data-language="javascript">angular.module(&#x27;dd.ui.demo&#x27;).controller(&#x27;ConversionDemoCtrl&#x27;, [&#x27;$scope&#x27;, &#x27;conversionService&#x27;, &#x27;$timeout&#x27;, function ($scope, conversionService, $timeout) {
-
-    $scope.unitSystems = [
-        { label: &#x27;Metric&#x27;, value: &#x27;metric&#x27; },
-        { label: &#x27;Imperial&#x27;, value: &#x27;imperial&#x27; }
-    ];
-
-    $scope.units = [
-        { label: &#x27;Meter&#x27;, value: &#x27;m&#x27; },
-        { label: &#x27;Kilometer&#x27;, value: &#x27;km&#x27; }
-    ];
-
-    $scope.unitSystem = &#x27;metric&#x27;;
-    $scope.unitValue = 1;
-
-    $scope.updateUnitSystem = function () {
-        conversionService.setUnitSystem($scope.unitSystem);
-        $scope.unitValue--;
-
-        $timeout(function () {
-            $scope.unitValue++;   
-        });
-    };
-}]);</code></pre>
+                                            <pre ng-non-bindable><code data-language="javascript">angular.module(&#39;dd.ui.demo&#39;).controller(&#39;ConversionDemoCtrl&#39;, [&#39;$scope&#39;, &#39;conversionService&#39;, &#39;$timeout&#39;, function ($scope, conversionService, $timeout) {
+        $scope.unitSystems = [
+            { label: &#39;Metric&#39;, value: &#39;metric&#39; },
+            { label: &#39;Imperial&#39;, value: &#39;imperial&#39; }
+        ];
+        $scope.units = [
+            { label: &#39;Meter&#39;, value: &#39;m&#39; },
+            { label: &#39;Kilometer&#39;, value: &#39;km&#39; }
+        ];
+        $scope.unitSystem = &#39;metric&#39;;
+        $scope.unitValue = 1;
+        $scope.updateUnitSystem = function () {
+            conversionService.setUnitSystem($scope.unitSystem);
+            $scope.unitValue--;
+            $timeout(function () {
+                $scope.unitValue++;
+            });
+        };
+    }]);
+</code></pre>
                                         </div>
                                     </uib-tab>
                                 </uib-tabset>
@@ -640,29 +630,25 @@ To display meters or kilometers in imperial distance units, use:</p>
                         </div>
                     </section>
                     <script>angular.module('dd.ui.demo').controller('ConversionDemoCtrl', ['$scope', 'conversionService', '$timeout', function ($scope, conversionService, $timeout) {
-
-    $scope.unitSystems = [
-        { label: 'Metric', value: 'metric' },
-        { label: 'Imperial', value: 'imperial' }
-    ];
-
-    $scope.units = [
-        { label: 'Meter', value: 'm' },
-        { label: 'Kilometer', value: 'km' }
-    ];
-
-    $scope.unitSystem = 'metric';
-    $scope.unitValue = 1;
-
-    $scope.updateUnitSystem = function () {
-        conversionService.setUnitSystem($scope.unitSystem);
-        $scope.unitValue--;
-
-        $timeout(function () {
-            $scope.unitValue++;   
-        });
-    };
-}]);</script>
+        $scope.unitSystems = [
+            { label: 'Metric', value: 'metric' },
+            { label: 'Imperial', value: 'imperial' }
+        ];
+        $scope.units = [
+            { label: 'Meter', value: 'm' },
+            { label: 'Kilometer', value: 'km' }
+        ];
+        $scope.unitSystem = 'metric';
+        $scope.unitValue = 1;
+        $scope.updateUnitSystem = function () {
+            conversionService.setUnitSystem($scope.unitSystem);
+            $scope.unitValue--;
+            $timeout(function () {
+                $scope.unitValue++;
+            });
+        };
+    }]);
+</script>
                 
                     <section id="datetimepicker">
                         <div class="page-header">
@@ -725,7 +711,7 @@ Calendar popup placement</p>
                         <div class="row code">
                             <div class="col-md-12" ng-controller="PlunkerCtrl">
                                 <div class="pull-right">
-                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.4.3', '3.1.1', '0.7.9', 'datetimepicker')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
+                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.4.3', '3.1.1', '0.8.1', 'datetimepicker')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
                                 </div>
                                 <uib-tabset>
                                     <uib-tab heading="Markup">
@@ -736,21 +722,21 @@ Calendar popup placement</p>
 		date-disabled=&quot;disabled(date, mode)&quot;&gt;
   &lt;/div&gt;
 
-  &lt;label&gt;Datetime:&amp;nbsp;&lt;/label&gt;&lt;span&gt;{{ dateTime | date:&#x27;yyyy-MM-dd HH:mm:ss&#x27; }}&lt;/span&gt;
+  &lt;label&gt;Datetime:&amp;nbsp;&lt;/label&gt;&lt;span&gt;{{ dateTime | date:&#39;yyyy-MM-dd HH:mm:ss&#39; }}&lt;/span&gt;
 &lt;/div&gt;</code></pre>
                                         </div>
                                     </uib-tab>
                                     <uib-tab heading="JavaScript">
                                         <div plunker-content="javascript">
-                                            <pre ng-non-bindable><code data-language="javascript">angular.module(&#x27;dd.ui.demo&#x27;).controller(&#x27;DateTimePickerDemoCtrl&#x27;, [&#x27;$scope&#x27;, function ($scope) {
-	$scope.dateTime = new Date();
-	
-	$scope.disabled = function (date, mode) {
-        var d = new Date();
-        d.setHours(0, 0, 0, 0);
-        return mode === &#x27;day&#x27; &amp;&amp; date &lt; d;
-    };
-}]);</code></pre>
+                                            <pre ng-non-bindable><code data-language="javascript">angular.module(&#39;dd.ui.demo&#39;).controller(&#39;DateTimePickerDemoCtrl&#39;, [&#39;$scope&#39;, function ($scope) {
+        $scope.dateTime = new Date();
+        $scope.disabled = function (date, mode) {
+            var d = new Date();
+            d.setHours(0, 0, 0, 0);
+            return mode === &#39;day&#39; &amp;&amp; date &lt; d;
+        };
+    }]);
+</code></pre>
                                         </div>
                                     </uib-tab>
                                 </uib-tabset>
@@ -758,14 +744,14 @@ Calendar popup placement</p>
                         </div>
                     </section>
                     <script>angular.module('dd.ui.demo').controller('DateTimePickerDemoCtrl', ['$scope', function ($scope) {
-	$scope.dateTime = new Date();
-	
-	$scope.disabled = function (date, mode) {
-        var d = new Date();
-        d.setHours(0, 0, 0, 0);
-        return mode === 'day' && date < d;
-    };
-}]);</script>
+        $scope.dateTime = new Date();
+        $scope.disabled = function (date, mode) {
+            var d = new Date();
+            d.setHours(0, 0, 0, 0);
+            return mode === 'day' && date < d;
+        };
+    }]);
+</script>
                 
                     <section id="dd-datepicker">
                         <div class="page-header">
@@ -862,7 +848,7 @@ Starting day of the week from 0-6 (0=Sunday, ..., 6=Saturday).</li>
                         <div class="row code">
                             <div class="col-md-12" ng-controller="PlunkerCtrl">
                                 <div class="pull-right">
-                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.4.3', '3.1.1', '0.7.9', 'dd-datepicker')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
+                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.4.3', '3.1.1', '0.8.1', 'dd-datepicker')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
                                 </div>
                                 <uib-tabset>
                                     <uib-tab heading="Markup">
@@ -888,33 +874,29 @@ Starting day of the week from 0-6 (0=Sunday, ..., 6=Saturday).</li>
                                     </uib-tab>
                                     <uib-tab heading="JavaScript">
                                         <div plunker-content="javascript">
-                                            <pre ng-non-bindable><code data-language="javascript">angular.module(&#x27;dd.ui.demo&#x27;).controller(&#x27;DatepickerDemoCtrl&#x27;, function ($scope) {
-    
+                                            <pre ng-non-bindable><code data-language="javascript">angular.module(&#39;dd.ui.demo&#39;).controller(&#39;DatepickerDemoCtrl&#39;, function ($scope) {
     $scope.date = new Date();
-    
     $scope.disabled = function (date, mode) {
         var d = new Date();
         d.setHours(0, 0, 0, 0);
-        return mode === &#x27;day&#x27; &amp;&amp; date &lt; d;
+        return mode === &#39;day&#39; &amp;&amp; date &lt; d;
     };
-    
     $scope.change = function () {
-        console.log($scope.date, &#x27;changed&#x27;);
+        console.log($scope.date, &#39;changed&#39;);
     };
-    
-    $scope.setToNow = function() {
-        console.log(&#x27;setToNow&#x27;);
+    $scope.setToNow = function () {
+        console.log(&#39;setToNow&#39;);
         $scope.date = new Date();
     };
-    
-    $scope.setToEmpty = function() {
-        console.log(&#x27;setToEmpty&#x27;);
+    $scope.setToEmpty = function () {
+        console.log(&#39;setToEmpty&#39;);
         $scope.date = null;
     };
 })
-.config([&quot;datepickerConfigProvider&quot;, function (datepickerConfigProvider) {
-    datepickerConfigProvider.setDateFormat(&#x27;yyyy-MM-dd&#x27;);
-}]);</code></pre>
+    .config([&#39;datepickerConfigProvider&#39;, function (datepickerConfigProvider) {
+        datepickerConfigProvider.setDateFormat(&#39;yyyy-MM-dd&#39;);
+    }]);
+</code></pre>
                                         </div>
                                     </uib-tab>
                                 </uib-tabset>
@@ -922,32 +904,28 @@ Starting day of the week from 0-6 (0=Sunday, ..., 6=Saturday).</li>
                         </div>
                     </section>
                     <script>angular.module('dd.ui.demo').controller('DatepickerDemoCtrl', function ($scope) {
-    
     $scope.date = new Date();
-    
     $scope.disabled = function (date, mode) {
         var d = new Date();
         d.setHours(0, 0, 0, 0);
         return mode === 'day' && date < d;
     };
-    
     $scope.change = function () {
         console.log($scope.date, 'changed');
     };
-    
-    $scope.setToNow = function() {
+    $scope.setToNow = function () {
         console.log('setToNow');
         $scope.date = new Date();
     };
-    
-    $scope.setToEmpty = function() {
+    $scope.setToEmpty = function () {
         console.log('setToEmpty');
         $scope.date = null;
     };
 })
-.config(["datepickerConfigProvider", function (datepickerConfigProvider) {
-    datepickerConfigProvider.setDateFormat('yyyy-MM-dd');
-}]);</script>
+    .config(['datepickerConfigProvider', function (datepickerConfigProvider) {
+        datepickerConfigProvider.setDateFormat('yyyy-MM-dd');
+    }]);
+</script>
                 
                     <section id="dd-datetimepicker">
                         <div class="page-header">
@@ -1075,7 +1053,7 @@ Allows overriding of default template of the datetimepicker</p>
                         <div class="row code">
                             <div class="col-md-12" ng-controller="PlunkerCtrl">
                                 <div class="pull-right">
-                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.4.3', '3.1.1', '0.7.9', 'dd-datetimepicker')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
+                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.4.3', '3.1.1', '0.8.1', 'dd-datetimepicker')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
                                 </div>
                                 <uib-tabset>
                                     <uib-tab heading="Markup">
@@ -1089,7 +1067,7 @@ Allows overriding of default template of the datetimepicker</p>
             ng-change=&quot;change()&quot;&gt;&lt;/div&gt;
         &lt;/div&gt;
         &lt;div class=&quot;form-group&quot;&gt;
-            &lt;label&gt;Datetime:&amp;nbsp;&lt;/label&gt;&lt;span&gt;{{ dateTime | date:&#x27;yyyy-MM-dd HH:mm:ss&#x27; }}&lt;/span&gt;
+            &lt;label&gt;Datetime:&amp;nbsp;&lt;/label&gt;&lt;span&gt;{{ dateTime | date:&#39;yyyy-MM-dd HH:mm:ss&#39; }}&lt;/span&gt;
         &lt;/div&gt;
         &lt;div class=&quot;form-group&quot;&gt;
             &lt;h4&gt;Disabled state &lt;small&gt;&lt;a href=&quot;#&quot; ng-click=&quot;disabledPicker = !disabledPicker&quot;&gt;Toggle&lt;/a&gt;&lt;/small&gt;&lt;/h4&gt;
@@ -1101,7 +1079,7 @@ Allows overriding of default template of the datetimepicker</p>
             &lt;div dd-datetimepicker ng-required=&quot;true&quot; name=&quot;dateTime3&quot; ng-disabled=&quot;false&quot; ng-model=&quot;dateTime3&quot; minute-step=&quot;5&quot;&gt;&lt;/div&gt;
         &lt;/div&gt;
         &lt;div class=&quot;form-group&quot;&gt;
-            &lt;label&gt;Datetime:&amp;nbsp;&lt;/label&gt;&lt;span&gt;{{ dateTime3 | date:&#x27;yyyy-MM-dd HH:mm:ss&#x27; }}&lt;/span&gt;
+            &lt;label&gt;Datetime:&amp;nbsp;&lt;/label&gt;&lt;span&gt;{{ dateTime3 | date:&#39;yyyy-MM-dd HH:mm:ss&#39; }}&lt;/span&gt;
             &lt;br /&gt;
             &lt;label&gt;IsValid:&amp;nbsp;&lt;/label&gt;&lt;span&gt;{{ form.dateTime3.$valid }}&lt;/span&gt;
             &lt;br /&gt;
@@ -1114,17 +1092,17 @@ Allows overriding of default template of the datetimepicker</p>
         &lt;div class=&quot;form-group&quot;&gt;
             &lt;label for=&quot;exampleInputEmail1&quot;&gt;Date&lt;/label&gt;
             &lt;div dd-datepicker name=&quot;date&quot; ng-model=&quot;date&quot; style=&quot;width: 200px&quot;&gt;&lt;/div&gt;
-            &lt;p class=&quot;help-block&quot;&gt;Prestine: {{form.date.$pristine}}, Model: {{date | date:&#x27;yyyy-MM-dd HH:mm:ss&#x27; }}&lt;/p&gt;
+            &lt;p class=&quot;help-block&quot;&gt;Prestine: {{form.date.$pristine}}, Model: {{date | date:&#39;yyyy-MM-dd HH:mm:ss&#39; }}&lt;/p&gt;
         &lt;/div&gt;
         &lt;div class=&quot;form-group&quot;&gt;
             &lt;label for=&quot;exampleInputPassword1&quot;&gt;Time&lt;/label&gt;
             &lt;input class=&quot;form-control&quot; dd-timepicker name=&quot;time&quot; ng-model=&quot;time&quot; style=&quot;width: 200px&quot;&gt;
             &lt;p class=&quot;help-block&quot;&gt;Prestine: {{form.time.$pristine}}, Model: {{time}}&lt;/p&gt;
         &lt;/div&gt;
-        &lt;div class=&quot;form-group&quot; ng-class=&quot;{&#x27;has-error&#x27;: form.formDateTime.$invalid}&quot;&gt;
+        &lt;div class=&quot;form-group&quot; ng-class=&quot;{&#39;has-error&#39;: form.formDateTime.$invalid}&quot;&gt;
             &lt;label for=&quot;exampleInputFile&quot;&gt;Datetime&lt;/label&gt;
             &lt;div date-placeholder=&quot;yyyy-MM-dd&quot; time-placeholder=&quot;HH:mm&quot; dd-datetimepicker name=&quot;formDateTime&quot; ng-required=&quot;true&quot; ng-model=&quot;formDateTime&quot; allow-forward-date-adjustment=&quot;true&quot; show-day-name=&quot;true&quot;&gt;&lt;/div&gt;
-            &lt;p class=&quot;help-block&quot;&gt;Prestine: {{form.formDateTime.$pristine}}, Model: {{formDateTime | date:&#x27;yyyy-MM-dd HH:mm:ss&#x27; }}&lt;/p&gt;
+            &lt;p class=&quot;help-block&quot;&gt;Prestine: {{form.formDateTime.$pristine}}, Model: {{formDateTime | date:&#39;yyyy-MM-dd HH:mm:ss&#39; }}&lt;/p&gt;
         &lt;/div&gt;
 
         &lt;button ng-disabled=&quot;form.$invalid&quot; type=&quot;submit&quot; class=&quot;btn btn-success&quot;&gt;Submit&lt;/button&gt;
@@ -1140,39 +1118,33 @@ Allows overriding of default template of the datetimepicker</p>
                                     </uib-tab>
                                     <uib-tab heading="JavaScript">
                                         <div plunker-content="javascript">
-                                            <pre ng-non-bindable><code data-language="javascript">angular.module(&#x27;dd.ui.demo&#x27;).controller(&#x27;DdDateTimePickerDemoCtrl&#x27;, [&#x27;$scope&#x27;, function ($scope) {
-	$scope.dateTime = new Date();
-	$scope.dateTime2 = new Date();
-    
-    $scope.formDateTime = new Date();
-    $scope.date = new Date();
-    $scope.time = &#x27;08:15&#x27;;
-	
-	$scope.disabled = function (date, mode) {
-        var d = new Date();
-        d.setHours(0, 0, 0, 0);
-        return mode === &#x27;day&#x27; &amp;&amp; date &lt; d;
-    };
-    
-    $scope.change = function() {
-        console.log($scope.dateTime, &#x27;changed&#x27;);
-    };
-    
-    $scope.setToNow = function() {
-        console.log(&#x27;setToNow&#x27;);
+                                            <pre ng-non-bindable><code data-language="javascript">angular.module(&#39;dd.ui.demo&#39;).controller(&#39;DdDateTimePickerDemoCtrl&#39;, [&#39;$scope&#39;, function ($scope) {
         $scope.dateTime = new Date();
-    };
-    
-    $scope.setToEmpty = function() {
-        console.log(&#x27;setToEmpty&#x27;);
-        $scope.dateTime = null;
-    };
-    
-    $scope.formCancel = function() {
-       $scope.form.$setPristine();
-    };
-    
-}]);</code></pre>
+        $scope.dateTime2 = new Date();
+        $scope.formDateTime = new Date();
+        $scope.date = new Date();
+        $scope.time = &#39;08:15&#39;;
+        $scope.disabled = function (date, mode) {
+            var d = new Date();
+            d.setHours(0, 0, 0, 0);
+            return mode === &#39;day&#39; &amp;&amp; date &lt; d;
+        };
+        $scope.change = function () {
+            console.log($scope.dateTime, &#39;changed&#39;);
+        };
+        $scope.setToNow = function () {
+            console.log(&#39;setToNow&#39;);
+            $scope.dateTime = new Date();
+        };
+        $scope.setToEmpty = function () {
+            console.log(&#39;setToEmpty&#39;);
+            $scope.dateTime = null;
+        };
+        $scope.formCancel = function () {
+            $scope.form.$setPristine();
+        };
+    }]);
+</code></pre>
                                         </div>
                                     </uib-tab>
                                 </uib-tabset>
@@ -1180,38 +1152,32 @@ Allows overriding of default template of the datetimepicker</p>
                         </div>
                     </section>
                     <script>angular.module('dd.ui.demo').controller('DdDateTimePickerDemoCtrl', ['$scope', function ($scope) {
-	$scope.dateTime = new Date();
-	$scope.dateTime2 = new Date();
-    
-    $scope.formDateTime = new Date();
-    $scope.date = new Date();
-    $scope.time = '08:15';
-	
-	$scope.disabled = function (date, mode) {
-        var d = new Date();
-        d.setHours(0, 0, 0, 0);
-        return mode === 'day' && date < d;
-    };
-    
-    $scope.change = function() {
-        console.log($scope.dateTime, 'changed');
-    };
-    
-    $scope.setToNow = function() {
-        console.log('setToNow');
         $scope.dateTime = new Date();
-    };
-    
-    $scope.setToEmpty = function() {
-        console.log('setToEmpty');
-        $scope.dateTime = null;
-    };
-    
-    $scope.formCancel = function() {
-       $scope.form.$setPristine();
-    };
-    
-}]);</script>
+        $scope.dateTime2 = new Date();
+        $scope.formDateTime = new Date();
+        $scope.date = new Date();
+        $scope.time = '08:15';
+        $scope.disabled = function (date, mode) {
+            var d = new Date();
+            d.setHours(0, 0, 0, 0);
+            return mode === 'day' && date < d;
+        };
+        $scope.change = function () {
+            console.log($scope.dateTime, 'changed');
+        };
+        $scope.setToNow = function () {
+            console.log('setToNow');
+            $scope.dateTime = new Date();
+        };
+        $scope.setToEmpty = function () {
+            console.log('setToEmpty');
+            $scope.dateTime = null;
+        };
+        $scope.formCancel = function () {
+            $scope.form.$setPristine();
+        };
+    }]);
+</script>
                 
                     <section id="dd-timepicker">
                         <div class="page-header">
@@ -1271,7 +1237,7 @@ Allows overriding of default template of the datetimepicker</p>
                         <div class="row code">
                             <div class="col-md-12" ng-controller="PlunkerCtrl">
                                 <div class="pull-right">
-                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.4.3', '3.1.1', '0.7.9', 'dd-timepicker')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
+                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.4.3', '3.1.1', '0.8.1', 'dd-timepicker')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
                                 </div>
                                 <uib-tabset>
                                     <uib-tab heading="Markup">
@@ -1284,7 +1250,7 @@ Allows overriding of default template of the datetimepicker</p>
     &lt;/div&gt;
 
     &lt;div class=&quot;form-group&quot;&gt;
-        &lt;h4&gt;Model as Date: {{timeFromDate | date:&#x27;yyyy-MM-dd HH:mm:ss&#x27; }}&lt;/h4&gt;
+        &lt;h4&gt;Model as Date: {{timeFromDate | date:&#39;yyyy-MM-dd HH:mm:ss&#39; }}&lt;/h4&gt;
         &lt;input id=&quot;time1&quot; class=&quot;form-control&quot; dd-timepicker type=&quot;text&quot; is-date-type=&quot;true&quot; ng-model=&quot;timeFromDate&quot; /&gt;
     &lt;/div&gt;
 
@@ -1298,17 +1264,15 @@ Allows overriding of default template of the datetimepicker</p>
                                     </uib-tab>
                                     <uib-tab heading="JavaScript">
                                         <div plunker-content="javascript">
-                                            <pre ng-non-bindable><code data-language="javascript">angular.module(&#x27;dd.ui.demo&#x27;).controller(&#x27;TimepickerDemoCtrl&#x27;, function ($scope, $timeout) {
-	
-    $scope.time = &#x27;12:20&#x27;;
-    $scope.time5minutesStep = &#x27;15:20&#x27;;
+                                            <pre ng-non-bindable><code data-language="javascript">angular.module(&#39;dd.ui.demo&#39;).controller(&#39;TimepickerDemoCtrl&#39;, function ($scope, $timeout) {
+    $scope.time = &#39;12:20&#39;;
+    $scope.time5minutesStep = &#39;15:20&#39;;
     $scope.timeFromDate = new Date();
-    
-    $scope.change = function() {
-        console.log($scope.time, &#x27;changed&#x27;);
+    $scope.change = function () {
+        console.log($scope.time, &#39;changed&#39;);
     };
-    
-});</code></pre>
+});
+</code></pre>
                                         </div>
                                     </uib-tab>
                                 </uib-tabset>
@@ -1316,16 +1280,14 @@ Allows overriding of default template of the datetimepicker</p>
                         </div>
                     </section>
                     <script>angular.module('dd.ui.demo').controller('TimepickerDemoCtrl', function ($scope, $timeout) {
-	
     $scope.time = '12:20';
     $scope.time5minutesStep = '15:20';
     $scope.timeFromDate = new Date();
-    
-    $scope.change = function() {
+    $scope.change = function () {
         console.log($scope.time, 'changed');
     };
-    
-});</script>
+});
+</script>
                 
                     <section id="form-actions">
                         <div class="page-header">
@@ -1399,7 +1361,7 @@ Allows overriding of default template of the datetimepicker</p>
                         <div class="row code">
                             <div class="col-md-12" ng-controller="PlunkerCtrl">
                                 <div class="pull-right">
-                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.4.3', '3.1.1', '0.7.9', 'form-actions')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
+                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.4.3', '3.1.1', '0.8.1', 'form-actions')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
                                 </div>
                                 <uib-tabset>
                                     <uib-tab heading="Markup">
@@ -1419,7 +1381,7 @@ Allows overriding of default template of the datetimepicker</p>
         &lt;div class=&quot;checkbox&quot;&gt;
             &lt;label&gt;
             &lt;input type=&quot;checkbox&quot; ng-model=&quot;model.checkboxOne&quot; name=&quot;one&quot; value=&quot;one&quot;&gt;
-                Option one is this and that&amp;mdash;be sure to include why it&#x27;s great
+                Option one is this and that&amp;mdash;be sure to include why it&#39;s great
             &lt;/label&gt;
         &lt;/div&gt;
         &lt;div class=&quot;checkbox disabled&quot;&gt;
@@ -1442,32 +1404,32 @@ Allows overriding of default template of the datetimepicker</p>
                                     </uib-tab>
                                     <uib-tab heading="JavaScript">
                                         <div plunker-content="javascript">
-                                            <pre ng-non-bindable><code data-language="javascript">angular.module(&#x27;dd.ui.demo&#x27;).controller(&#x27;FormActionsDemoCtrl&#x27;, [&#x27;$scope&#x27;, function($scope) {
-    $scope.model = {};
-    $scope.save = function () {
-        $scope.form.$setPristine();
-    };
-
-    $scope.cancel = function () {
-        $scope.form.$setPristine();
-    };
-}]);</code></pre>
+                                            <pre ng-non-bindable><code data-language="javascript">angular.module(&#39;dd.ui.demo&#39;).controller(&#39;FormActionsDemoCtrl&#39;, [&#39;$scope&#39;, function ($scope) {
+        $scope.model = {};
+        $scope.save = function () {
+            $scope.form.$setPristine();
+        };
+        $scope.cancel = function () {
+            $scope.form.$setPristine();
+        };
+    }]);
+</code></pre>
                                         </div>
                                     </uib-tab>
                                 </uib-tabset>
                             </div>
                         </div>
                     </section>
-                    <script>angular.module('dd.ui.demo').controller('FormActionsDemoCtrl', ['$scope', function($scope) {
-    $scope.model = {};
-    $scope.save = function () {
-        $scope.form.$setPristine();
-    };
-
-    $scope.cancel = function () {
-        $scope.form.$setPristine();
-    };
-}]);</script>
+                    <script>angular.module('dd.ui.demo').controller('FormActionsDemoCtrl', ['$scope', function ($scope) {
+        $scope.model = {};
+        $scope.save = function () {
+            $scope.form.$setPristine();
+        };
+        $scope.cancel = function () {
+            $scope.form.$setPristine();
+        };
+    }]);
+</script>
                 
                     <section id="form-validation">
                         <div class="page-header">
@@ -1603,7 +1565,7 @@ Allows overriding of default template of the datetimepicker</p>
                         <div class="row code">
                             <div class="col-md-12" ng-controller="PlunkerCtrl">
                                 <div class="pull-right">
-                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.4.3', '3.1.1', '0.7.9', 'form-validation')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
+                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.4.3', '3.1.1', '0.8.1', 'form-validation')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
                                 </div>
                                 <uib-tabset>
                                     <uib-tab heading="Markup">
@@ -1642,7 +1604,7 @@ Allows overriding of default template of the datetimepicker</p>
         &lt;/div&gt;
         &lt;div id=&quot;id&quot; class=&quot;form-group&quot; show-errors&gt;
             &lt;label for=&quot;lookup&quot;&gt;Lookup &lt;span class=&quot;text-danger&quot;&gt;*&lt;/span&gt;&lt;/label&gt;
-            &lt;div required dd-lookup ng-model=&quot;basicModel&quot; name=&quot;lookup&quot; url=&quot;&#x27;http://server/api/drivers&#x27;&quot; style=&quot;width: 200px&quot;&gt;&lt;/div&gt;
+            &lt;div required dd-lookup ng-model=&quot;basicModel&quot; name=&quot;lookup&quot; url=&quot;&#39;http://server/api/drivers&#39;&quot; style=&quot;width: 200px&quot;&gt;&lt;/div&gt;
             &lt;p class=&quot;field-error&quot; ng-if=&quot;form.lookup.$error.required&quot;&gt;Lookup is required.&lt;/p&gt;
         &lt;/div&gt;
         &lt;div class=&quot;form-group&quot;&gt;
@@ -1670,14 +1632,14 @@ Allows overriding of default template of the datetimepicker</p>
             &lt;label&gt;Dynamic fields&lt;/label&gt;
             &lt;div show-errors ng-repeat=&quot;item in waypoints&quot;&gt;
                 &lt;input placeholder=&quot;Insert waypoint&quot; ng-required=&quot;true&quot; name=&quot;wp{{$index}}&quot; class=&quot;form-control&quot; ng-model=&quot;item.value&quot; type=&quot;text&quot; style=&quot;width: 200px&quot; /&gt;
-                &lt;p class=&quot;field-error&quot; ng-if=&quot;form[&#x27;wp&#x27;+$index].$error.required&quot;&gt;Waypoint {{$index}} is required.&lt;/p&gt;
+                &lt;p class=&quot;field-error&quot; ng-if=&quot;form[&#39;wp&#39;+$index].$error.required&quot;&gt;Waypoint {{$index}} is required.&lt;/p&gt;
                 &lt;br /&gt;
             &lt;/div&gt;
         &lt;/div&gt;
         &lt;div class=&quot;checkbox&quot;&gt;
             &lt;label&gt;
             &lt;input name=&quot;one&quot; type=&quot;checkbox&quot; ng-model=&quot;model.checkboxOne&quot; value=&quot;one&quot;&gt;
-                Option one is this and that&amp;mdash;be sure to include why it&#x27;s great
+                Option one is this and that&amp;mdash;be sure to include why it&#39;s great
             &lt;/label&gt;
         &lt;/div&gt;
         &lt;div class=&quot;form-group&quot; show-errors&gt;
@@ -1699,53 +1661,50 @@ Allows overriding of default template of the datetimepicker</p>
                                     </uib-tab>
                                     <uib-tab heading="JavaScript">
                                         <div plunker-content="javascript">
-                                            <pre ng-non-bindable><code data-language="javascript">angular.module(&#x27;dd.ui.demo&#x27;).controller(&#x27;FormValidationsUxCtrl&#x27;, [&#x27;$scope&#x27;, &#x27;formValidationService&#x27;, function ($scope, formValidationService) {
-    $scope.model = {};
-
-    $scope.save = function () {
-        if ($scope.form.$invalid) {
-            formValidationService.showErrors($scope.form.$name);
-        } else {
+                                            <pre ng-non-bindable><code data-language="javascript">angular.module(&#39;dd.ui.demo&#39;).controller(&#39;FormValidationsUxCtrl&#39;, [&#39;$scope&#39;, &#39;formValidationService&#39;, function ($scope, formValidationService) {
+        $scope.model = {};
+        $scope.save = function () {
+            if ($scope.form.$invalid) {
+                formValidationService.showErrors($scope.form.$name);
+            }
+            else {
+                $scope.form.$setPristine();
+            }
+        };
+        $scope.cancel = function () {
             $scope.form.$setPristine();
-        }
-    };
-
-    $scope.cancel = function () {
-        $scope.form.$setPristine();
-        formValidationService.hideErrors($scope.form.$name);
-    };
-
-    $scope.showCustomErrorMessage = false;
-    $scope.toggleCustomErrorMessage = function() {
-        $scope.showCustomErrorMessage = !$scope.showCustomErrorMessage;
-    };
-
-    $scope.items = [
-        {
-            id: 1,
-            label: &#x27;aLabel&#x27;,
-            subItem: null
-        }, {
-            id: 2,
-            label: &#x27;bLabel&#x27;,
-            subItem: { name: &#x27;aSubItem&#x27; }
-        }, {
-            id: 3,
-            label: &#x27;cLabel&#x27;,
-            subItem: { name: &#x27;bSubItem&#x27; }
-        }];
-
-    $scope.waypoints = [
-        {
-            id: &#x27;v1&#x27;,
-            value: &#x27;&#x27;
-        },
-        {
-            id: &#x27;v2&#x27;,
-            value: &#x27;Point 2&#x27;
-        }
-    ];
-}]);</code></pre>
+            formValidationService.hideErrors($scope.form.$name);
+        };
+        $scope.showCustomErrorMessage = false;
+        $scope.toggleCustomErrorMessage = function () {
+            $scope.showCustomErrorMessage = !$scope.showCustomErrorMessage;
+        };
+        $scope.items = [
+            {
+                id: 1,
+                label: &#39;aLabel&#39;,
+                subItem: null
+            }, {
+                id: 2,
+                label: &#39;bLabel&#39;,
+                subItem: { name: &#39;aSubItem&#39; }
+            }, {
+                id: 3,
+                label: &#39;cLabel&#39;,
+                subItem: { name: &#39;bSubItem&#39; }
+            }];
+        $scope.waypoints = [
+            {
+                id: &#39;v1&#39;,
+                value: &#39;&#39;
+            },
+            {
+                id: &#39;v2&#39;,
+                value: &#39;Point 2&#39;
+            }
+        ];
+    }]);
+</code></pre>
                                         </div>
                                     </uib-tab>
                                 </uib-tabset>
@@ -1753,52 +1712,49 @@ Allows overriding of default template of the datetimepicker</p>
                         </div>
                     </section>
                     <script>angular.module('dd.ui.demo').controller('FormValidationsUxCtrl', ['$scope', 'formValidationService', function ($scope, formValidationService) {
-    $scope.model = {};
-
-    $scope.save = function () {
-        if ($scope.form.$invalid) {
-            formValidationService.showErrors($scope.form.$name);
-        } else {
+        $scope.model = {};
+        $scope.save = function () {
+            if ($scope.form.$invalid) {
+                formValidationService.showErrors($scope.form.$name);
+            }
+            else {
+                $scope.form.$setPristine();
+            }
+        };
+        $scope.cancel = function () {
             $scope.form.$setPristine();
-        }
-    };
-
-    $scope.cancel = function () {
-        $scope.form.$setPristine();
-        formValidationService.hideErrors($scope.form.$name);
-    };
-
-    $scope.showCustomErrorMessage = false;
-    $scope.toggleCustomErrorMessage = function() {
-        $scope.showCustomErrorMessage = !$scope.showCustomErrorMessage;
-    };
-
-    $scope.items = [
-        {
-            id: 1,
-            label: 'aLabel',
-            subItem: null
-        }, {
-            id: 2,
-            label: 'bLabel',
-            subItem: { name: 'aSubItem' }
-        }, {
-            id: 3,
-            label: 'cLabel',
-            subItem: { name: 'bSubItem' }
-        }];
-
-    $scope.waypoints = [
-        {
-            id: 'v1',
-            value: ''
-        },
-        {
-            id: 'v2',
-            value: 'Point 2'
-        }
-    ];
-}]);</script>
+            formValidationService.hideErrors($scope.form.$name);
+        };
+        $scope.showCustomErrorMessage = false;
+        $scope.toggleCustomErrorMessage = function () {
+            $scope.showCustomErrorMessage = !$scope.showCustomErrorMessage;
+        };
+        $scope.items = [
+            {
+                id: 1,
+                label: 'aLabel',
+                subItem: null
+            }, {
+                id: 2,
+                label: 'bLabel',
+                subItem: { name: 'aSubItem' }
+            }, {
+                id: 3,
+                label: 'cLabel',
+                subItem: { name: 'bSubItem' }
+            }];
+        $scope.waypoints = [
+            {
+                id: 'v1',
+                value: ''
+            },
+            {
+                id: 'v2',
+                value: 'Point 2'
+            }
+        ];
+    }]);
+</script>
                 
                     <section id="lookup">
                         <div class="page-header">
@@ -1950,7 +1906,7 @@ Allows overriding of default template of the datetimepicker</p>
                         <div class="row code">
                             <div class="col-md-12" ng-controller="PlunkerCtrl">
                                 <div class="pull-right">
-                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.4.3', '3.1.1', '0.7.9', 'lookup')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
+                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.4.3', '3.1.1', '0.8.1', 'lookup')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
                                 </div>
                                 <uib-tabset>
                                     <uib-tab heading="Markup">
@@ -1960,14 +1916,14 @@ Allows overriding of default template of the datetimepicker</p>
         &lt;h4&gt;Basic lookup&lt;/h4&gt;
         &lt;div dd-lookup 
             ng-model=&quot;basicModel&quot; 
-            url=&quot;&#x27;http://server/api/drivers&#x27;&quot;&gt;
+            url=&quot;&#39;http://server/api/drivers&#39;&quot;&gt;
         &lt;/div&gt;
     &lt;/div&gt;
     &lt;div class=&quot;form-group&quot;&gt;
         &lt;h4&gt;Lookup with placeholder and addon&lt;/h4&gt;
         &lt;div dd-lookup 
             ng-model=&quot;addonModel&quot; 
-            url=&quot;&#x27;http://server/api/drivers&#x27;&quot;
+            url=&quot;&#39;http://server/api/drivers&#39;&quot;
             placeholder=&quot;Please select a driver&quot;
             lookup-addon=&quot;&lt;span&gt;Driver&lt;/span&gt;&quot;&gt;
         &lt;/div&gt;
@@ -1976,7 +1932,7 @@ Allows overriding of default template of the datetimepicker</p>
         &lt;h4&gt;Lookup with custom label format&lt;/h4&gt;
         &lt;div dd-lookup 
             ng-model=&quot;labelModel&quot; 
-            url=&quot;&#x27;http://server/api/drivers&#x27;&quot;
+            url=&quot;&#39;http://server/api/drivers&#39;&quot;
             lookup-format=&quot;formatLabel($item)&quot;&gt;
         &lt;/div&gt;
     &lt;/div&gt;
@@ -1984,7 +1940,7 @@ Allows overriding of default template of the datetimepicker</p>
         &lt;h4&gt;Lookup with url params&lt;/h4&gt;
         &lt;div dd-lookup 
             ng-model=&quot;paramsModel&quot; 
-            url=&quot;&#x27;http://server/api/drivers&#x27;&quot;
+            url=&quot;&#39;http://server/api/drivers&#39;&quot;
             lookup-params=&quot;lookupParams&quot;&gt;
         &lt;/div&gt;
     &lt;/div&gt;
@@ -1992,7 +1948,7 @@ Allows overriding of default template of the datetimepicker</p>
         &lt;h4&gt;Lookup with response transformer&lt;/h4&gt;
         &lt;div dd-lookup 
             ng-model=&quot;transformerModel&quot; 
-            url=&quot;&#x27;http://server/api/corporations&#x27;&quot;
+            url=&quot;&#39;http://server/api/corporations&#39;&quot;
             lookup-response-transform=&quot;responseTransformer($response)&quot;&gt;
         &lt;/div&gt;
     &lt;/div&gt;
@@ -2009,14 +1965,14 @@ Allows overriding of default template of the datetimepicker</p>
         &lt;div dd-lookup 
             ng-model=&quot;emptyModel&quot;
             lookup-input-class=&quot;empty-input&quot; 
-            url=&quot;&#x27;http://server/api/emptyList&#x27;&quot;&gt;
+            url=&quot;&#39;http://server/api/emptyList&#39;&quot;&gt;
         &lt;/div&gt;
     &lt;/div&gt;
     &lt;div class=&quot;form-group&quot;&gt;
         &lt;h4&gt;Lookup with grouped data&lt;/h4&gt;
         &lt;div dd-lookup 
             ng-model=&quot;groupsModel&quot;
-            lookup-grouping=&quot;&#x27;groupName&#x27;&quot;
+            lookup-grouping=&quot;&#39;groupName&#39;&quot;
             lookup-data-provider=&quot;getGroupedData($query)&quot;&gt;
         &lt;/div&gt;
     &lt;/div&gt;
@@ -2031,82 +1987,72 @@ Allows overriding of default template of the datetimepicker</p>
                                     </uib-tab>
                                     <uib-tab heading="JavaScript">
                                         <div plunker-content="javascript">
-                                            <pre ng-non-bindable><code data-language="javascript">angular.module(&#x27;dd.ui.demo&#x27;).controller(&#x27;LookupDemoCtrl&#x27;, [&#x27;$scope&#x27;, &#x27;$http&#x27;, &#x27;$httpBackend&#x27;, function ($scope, $http, $httpBackend) {
-    $scope.lastRequest = null;
-    $scope.lookupParams = {
-        currentVehicle: &#x27;BMW&#x27;
-    };
-    $scope.minLength = 0;
-    
-    // Fake backend
-    $httpBackend.whenGET(function(url) { return url.startsWith(&#x27;http://server/api/drivers&#x27;); }).respond(function(method, url) {
-        var drivers = [
-            { name: &#x27;John&#x27;, currentVehicle: &#x27;BMW&#x27; },
-            { name: &#x27;Johnny&#x27;, currentVehicle: &#x27;Audi&#x27; }
-        ];
-
-        var params = getJsonFromUrl(url);
-        if (params.currentVehicle) {
-            drivers = drivers.filter(function(d) {
-                return d.currentVehicle === params.currentVehicle;
-            });
-        }
-
-        return [200, drivers];
-    });
-
-    $httpBackend.whenGET(function(url) { return url.startsWith(&#x27;http://server/api/corporations&#x27;); }).respond(function(method, url) {
-        var corporations = {
-            items: [
-                { name: &#x27;Microsoft&#x27; },
-                { name: &#x27;Google&#x27; }
-            ]
+                                            <pre ng-non-bindable><code data-language="javascript">angular.module(&#39;dd.ui.demo&#39;).controller(&#39;LookupDemoCtrl&#39;, [&#39;$scope&#39;, &#39;$http&#39;, &#39;$httpBackend&#39;, function ($scope, $http, $httpBackend) {
+        $scope.lastRequest = null;
+        $scope.lookupParams = {
+            currentVehicle: &#39;BMW&#39;
         };
-
-        return [200, corporations];
-    });
-
-    $httpBackend.whenGET(function(url) { return url.startsWith(&#x27;http://server/api/emptyList&#x27;); }).respond(function(method, url) {
-        return [200, []];
-    });
-
-    $scope.formatLabel = function(item) {
-        return item.name + &#x27; - &#x27; + item.currentVehicle;
-    };
-
-    $scope.responseTransformer = function(response) {
-        return response.items;
-    };
-    
-    $scope.getLookupData = function(query) {
-        return [
-                { name: &#x27;Provider item 1&#x27; },
-                { name: &#x27;Provider item 2&#x27; }
+        $scope.minLength = 0;
+        // Fake backend
+        $httpBackend.whenGET(function (url) { return url.startsWith(&#39;http://server/api/drivers&#39;); }).respond(function (method, url) {
+            var drivers = [
+                { name: &#39;John&#39;, currentVehicle: &#39;BMW&#39; },
+                { name: &#39;Johnny&#39;, currentVehicle: &#39;Audi&#39; }
             ];
-    };
-    
-    $scope.getGroupedData = function(query) {
-        return [
-                { name: &#x27;Item 1 in group 1&#x27;, groupName: &#x27;Group 1&#x27; },
-                { name: &#x27;Item 2 in group 2&#x27;, groupName: &#x27;Group 2&#x27; },
-                { name: &#x27;Item 3 in group 1&#x27;, groupName: &#x27;Group 1&#x27; },
-                { name: &#x27;Item 4 in group 3&#x27;, groupName: &#x27;Group 3&#x27; },
-                { name: &#x27;Item 5 in group 2&#x27;, groupName: &#x27;Group 2&#x27; },
-                { name: &#x27;Item 6&#x27; },
-                { name: &#x27;Item 7&#x27; }
+            var params = getJsonFromUrl(url);
+            if (params.currentVehicle) {
+                drivers = drivers.filter(function (d) {
+                    return d.currentVehicle === params.currentVehicle;
+                });
+            }
+            return [200, drivers];
+        });
+        $httpBackend.whenGET(function (url) { return url.startsWith(&#39;http://server/api/corporations&#39;); }).respond(function (method, url) {
+            var corporations = {
+                items: [
+                    { name: &#39;Microsoft&#39; },
+                    { name: &#39;Google&#39; }
+                ]
+            };
+            return [200, corporations];
+        });
+        $httpBackend.whenGET(function (url) { return url.startsWith(&#39;http://server/api/emptyList&#39;); }).respond(function (method, url) {
+            return [200, []];
+        });
+        $scope.formatLabel = function (item) {
+            return item.name + &#39; - &#39; + item.currentVehicle;
+        };
+        $scope.responseTransformer = function (response) {
+            return response.items;
+        };
+        $scope.getLookupData = function (query) {
+            return [
+                { name: &#39;Provider item 1&#39; },
+                { name: &#39;Provider item 2&#39; }
             ];
-    };
-
-    function getJsonFromUrl(url) {
-      var query = url.substr(url.indexOf(&#x27;?&#x27;) + 1);
-      var result = {};
-      query.split(&#x27;&amp;&#x27;).forEach(function(part) {
-        var item = part.split(&#x27;=&#x27;);
-        result[item[0]] = decodeURIComponent(item[1]);
-      });
-      return result;
-    }
-}]);</code></pre>
+        };
+        $scope.getGroupedData = function (query) {
+            return [
+                { name: &#39;Item 1 in group 1&#39;, groupName: &#39;Group 1&#39; },
+                { name: &#39;Item 2 in group 2&#39;, groupName: &#39;Group 2&#39; },
+                { name: &#39;Item 3 in group 1&#39;, groupName: &#39;Group 1&#39; },
+                { name: &#39;Item 4 in group 3&#39;, groupName: &#39;Group 3&#39; },
+                { name: &#39;Item 5 in group 2&#39;, groupName: &#39;Group 2&#39; },
+                { name: &#39;Item 6&#39; },
+                { name: &#39;Item 7&#39; }
+            ];
+        };
+        function getJsonFromUrl(url) {
+            var query = url.substr(url.indexOf(&#39;?&#39;) + 1);
+            var result = {};
+            query.split(&#39;&amp;&#39;).forEach(function (part) {
+                var item = part.split(&#39;=&#39;);
+                result[item[0]] = decodeURIComponent(item[1]);
+            });
+            return result;
+        }
+    }]);
+</code></pre>
                                         </div>
                                     </uib-tab>
                                 </uib-tabset>
@@ -2114,61 +2060,51 @@ Allows overriding of default template of the datetimepicker</p>
                         </div>
                     </section>
                     <script>angular.module('dd.ui.demo').controller('LookupDemoCtrl', ['$scope', '$http', '$httpBackend', function ($scope, $http, $httpBackend) {
-    $scope.lastRequest = null;
-    $scope.lookupParams = {
-        currentVehicle: 'BMW'
-    };
-    $scope.minLength = 0;
-    
-    // Fake backend
-    $httpBackend.whenGET(function(url) { return url.startsWith('http://server/api/drivers'); }).respond(function(method, url) {
-        var drivers = [
-            { name: 'John', currentVehicle: 'BMW' },
-            { name: 'Johnny', currentVehicle: 'Audi' }
-        ];
-
-        var params = getJsonFromUrl(url);
-        if (params.currentVehicle) {
-            drivers = drivers.filter(function(d) {
-                return d.currentVehicle === params.currentVehicle;
-            });
-        }
-
-        return [200, drivers];
-    });
-
-    $httpBackend.whenGET(function(url) { return url.startsWith('http://server/api/corporations'); }).respond(function(method, url) {
-        var corporations = {
-            items: [
-                { name: 'Microsoft' },
-                { name: 'Google' }
-            ]
+        $scope.lastRequest = null;
+        $scope.lookupParams = {
+            currentVehicle: 'BMW'
         };
-
-        return [200, corporations];
-    });
-
-    $httpBackend.whenGET(function(url) { return url.startsWith('http://server/api/emptyList'); }).respond(function(method, url) {
-        return [200, []];
-    });
-
-    $scope.formatLabel = function(item) {
-        return item.name + ' - ' + item.currentVehicle;
-    };
-
-    $scope.responseTransformer = function(response) {
-        return response.items;
-    };
-    
-    $scope.getLookupData = function(query) {
-        return [
+        $scope.minLength = 0;
+        // Fake backend
+        $httpBackend.whenGET(function (url) { return url.startsWith('http://server/api/drivers'); }).respond(function (method, url) {
+            var drivers = [
+                { name: 'John', currentVehicle: 'BMW' },
+                { name: 'Johnny', currentVehicle: 'Audi' }
+            ];
+            var params = getJsonFromUrl(url);
+            if (params.currentVehicle) {
+                drivers = drivers.filter(function (d) {
+                    return d.currentVehicle === params.currentVehicle;
+                });
+            }
+            return [200, drivers];
+        });
+        $httpBackend.whenGET(function (url) { return url.startsWith('http://server/api/corporations'); }).respond(function (method, url) {
+            var corporations = {
+                items: [
+                    { name: 'Microsoft' },
+                    { name: 'Google' }
+                ]
+            };
+            return [200, corporations];
+        });
+        $httpBackend.whenGET(function (url) { return url.startsWith('http://server/api/emptyList'); }).respond(function (method, url) {
+            return [200, []];
+        });
+        $scope.formatLabel = function (item) {
+            return item.name + ' - ' + item.currentVehicle;
+        };
+        $scope.responseTransformer = function (response) {
+            return response.items;
+        };
+        $scope.getLookupData = function (query) {
+            return [
                 { name: 'Provider item 1' },
                 { name: 'Provider item 2' }
             ];
-    };
-    
-    $scope.getGroupedData = function(query) {
-        return [
+        };
+        $scope.getGroupedData = function (query) {
+            return [
                 { name: 'Item 1 in group 1', groupName: 'Group 1' },
                 { name: 'Item 2 in group 2', groupName: 'Group 2' },
                 { name: 'Item 3 in group 1', groupName: 'Group 1' },
@@ -2177,18 +2113,18 @@ Allows overriding of default template of the datetimepicker</p>
                 { name: 'Item 6' },
                 { name: 'Item 7' }
             ];
-    };
-
-    function getJsonFromUrl(url) {
-      var query = url.substr(url.indexOf('?') + 1);
-      var result = {};
-      query.split('&').forEach(function(part) {
-        var item = part.split('=');
-        result[item[0]] = decodeURIComponent(item[1]);
-      });
-      return result;
-    }
-}]);</script>
+        };
+        function getJsonFromUrl(url) {
+            var query = url.substr(url.indexOf('?') + 1);
+            var result = {};
+            query.split('&').forEach(function (part) {
+                var item = part.split('=');
+                result[item[0]] = decodeURIComponent(item[1]);
+            });
+            return result;
+        }
+    }]);
+</script>
                 
                     <section id="validation">
                         <div class="page-header">
@@ -2239,7 +2175,7 @@ Allows overriding of default template of the datetimepicker</p>
                         <div class="row code">
                             <div class="col-md-12" ng-controller="PlunkerCtrl">
                                 <div class="pull-right">
-                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.4.3', '3.1.1', '0.7.9', 'validation')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
+                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.4.3', '3.1.1', '0.8.1', 'validation')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
                                 </div>
                                 <uib-tabset>
                                     <uib-tab heading="Markup">
@@ -2247,17 +2183,17 @@ Allows overriding of default template of the datetimepicker</p>
                                             <pre ng-non-bindable><code data-language="html">&lt;div ng-controller=&quot;ValidationDemoCtrl&quot;&gt;
   &lt;form role=&quot;form&quot; name=&quot;forma&quot;&gt;
     &lt;h2&gt;Phone different formats validation&lt;/h2&gt;
-    &lt;div class=&quot;form-group&quot; ng-class=&quot;{&#x27;has-success&#x27;: forma.phone.$valid, &#x27;has-error&#x27;: forma.phone.$invalid}&quot;&gt;
+    &lt;div class=&quot;form-group&quot; ng-class=&quot;{&#39;has-success&#39;: forma.phone.$valid, &#39;has-error&#39;: forma.phone.$invalid}&quot;&gt;
       &lt;label for=&quot;phone&quot;&gt;Full phone number with plus sign&lt;/label&gt;
-      &lt;input type=&quot;text&quot; name=&quot;phone&quot; ng-model=&quot;phone&quot; phone class=&quot;form-control&quot; id=&quot;phone&quot; placeholder=&quot;Full phone number starting with `+` sign&quot;&gt;
+      &lt;input type=&quot;text&quot; name=&quot;phone&quot; ng-model=&quot;phone&quot; phone class=&quot;form-control&quot; id=&quot;phone&quot; placeholder=&quot;Full phone number starting with &#96;+&#96; sign&quot;&gt;
     &lt;/div&gt;
     &lt;div class=&quot;form-group&quot;&gt;
       &lt;label for=&quot;phoneCountryCode&quot;&gt;Phone number with country code splitted&lt;/label&gt;
       &lt;div&gt;
-        &lt;div class=&quot;col-xs-2&quot; ng-class=&quot;{&#x27;has-success&#x27;: forma.phoneCountryCode.$valid, &#x27;has-error&#x27;: forma.phoneCountryCode.$invalid }&quot;&gt;
+        &lt;div class=&quot;col-xs-2&quot; ng-class=&quot;{&#39;has-success&#39;: forma.phoneCountryCode.$valid, &#39;has-error&#39;: forma.phoneCountryCode.$invalid }&quot;&gt;
           &lt;input type=&quot;text&quot; name=&quot;phoneCountryCode&quot; id=&quot;phoneCountryCode&quot; ng-model=&quot;phoneCountryCode&quot; phone-country-code class=&quot;form-control&quot; placeholder=&quot;+45&quot;&gt;
         &lt;/div&gt;
-        &lt;div class=&quot;col-xs-5&quot; ng-class=&quot;{&#x27;has-success&#x27;: forma.phoneWoCountry.$valid, &#x27;has-error&#x27;: forma.phoneWoCountry.$invalid}&quot;&gt;
+        &lt;div class=&quot;col-xs-5&quot; ng-class=&quot;{&#39;has-success&#39;: forma.phoneWoCountry.$valid, &#39;has-error&#39;: forma.phoneWoCountry.$invalid}&quot;&gt;
           &lt;input type=&quot;text&quot; name=&quot;phoneWoCountry&quot; id=&quot;phoneWoCountry&quot; ng-model=&quot;phoneWoCountry&quot; phone-wo-country-code class=&quot;form-control&quot; placeholder=&quot;Phone number w/o country code&quot;&gt;
         &lt;/div&gt;
       &lt;/div&gt;
@@ -2269,7 +2205,7 @@ Allows overriding of default template of the datetimepicker</p>
       &lt;label for=&quot;password&quot;&gt;Password&lt;/label&gt;
       &lt;input type=&quot;text&quot; name=&quot;password&quot; ng-model=&quot;password&quot; class=&quot;form-control&quot; id=&quot;password&quot; placeholder=&quot;Enter some phrase&quot;&gt;
     &lt;/div&gt;
-    &lt;div class=&quot;form-group&quot; ng-class=&quot;{&#x27;has-success&#x27;: forma.confirmPassword.$valid, &#x27;has-error&#x27;: forma.confirmPassword.$invalid}&quot;&gt;
+    &lt;div class=&quot;form-group&quot; ng-class=&quot;{&#39;has-success&#39;: forma.confirmPassword.$valid, &#39;has-error&#39;: forma.confirmPassword.$invalid}&quot;&gt;
       &lt;label for=&quot;confirmPassword&quot;&gt;Confirm password&lt;/label&gt;
       &lt;input type=&quot;text&quot; name=&quot;confirmPassword&quot; ng-model=&quot;confirmPassword&quot; same-as=&quot;password&quot; class=&quot;form-control&quot; id=&quot;confirmPassword&quot; placeholder=&quot;Repeat same phrase as in password field&quot;&gt;
     &lt;/div&gt;
@@ -2279,8 +2215,9 @@ Allows overriding of default template of the datetimepicker</p>
                                     </uib-tab>
                                     <uib-tab heading="JavaScript">
                                         <div plunker-content="javascript">
-                                            <pre ng-non-bindable><code data-language="javascript">angular.module(&#x27;dd.ui.demo&#x27;).controller(&#x27;ValidationDemoCtrl&#x27;, function ($scope) {
-});</code></pre>
+                                            <pre ng-non-bindable><code data-language="javascript">angular.module(&#39;dd.ui.demo&#39;).controller(&#39;ValidationDemoCtrl&#39;, function ($scope) {
+});
+</code></pre>
                                         </div>
                                     </uib-tab>
                                 </uib-tabset>
@@ -2288,7 +2225,8 @@ Allows overriding of default template of the datetimepicker</p>
                         </div>
                     </section>
                     <script>angular.module('dd.ui.demo').controller('ValidationDemoCtrl', function ($scope) {
-});</script>
+});
+</script>
                 
             </div>
         </div>
