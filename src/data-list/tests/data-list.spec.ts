@@ -92,12 +92,28 @@ describe('Data list tests', function () {
             });
             dataList = dataListManager.init<TestRowItem>(listConfig);
 
-            dataList.updateList();
+            dataList.fetchPage();
             $httpBackend.flush();
 
             expect(dataList.rows.length).toBe(2);
             expect(dataList.rows[0].id).toBe('1');
             expect(dataList.rows[1].id).toBe('2');
+        });
+
+        it('should load next page', function () {
+            $httpBackend.expectGET('/api/test?limit=25&skip=50').respond(200, {
+                items: [
+                    { id: '1' }, { id: '2' }
+                ],
+                count: 5
+            });
+            dataList = dataListManager.init<TestRowItem>(listConfig);
+
+            dataList.fetchPage(3);
+            $httpBackend.flush();
+
+            expect(dataList.filter.skip).toBe(50);
+            expect(dataList.filter.limit).toBe(25);
         });
 
         it('should call onsuccess callback if onSuccess is defined', function () {
@@ -110,7 +126,7 @@ describe('Data list tests', function () {
             dataList = dataListManager.init<TestRowItem>(listConfig);
             var onSuccess = jasmine.createSpy('onSuccess').and.callFake(() => { });
 
-            dataList.updateList();
+            dataList.fetchPage();
             dataList.onSuccess(onSuccess);
             $httpBackend.flush();
 
@@ -122,13 +138,31 @@ describe('Data list tests', function () {
             dataList = dataListManager.init<TestRowItem>(listConfig);
             var onError = jasmine.createSpy('onError').and.callFake(() => { });
 
-            dataList.updateList();
+            dataList.fetchPage();
             dataList.onError(onError);
             $httpBackend.flush();
 
             expect(onError).toHaveBeenCalled();
         });
+    });
 
+    describe('Sync all', () => {
+        it('should reload all loaded data', () => {
+            $httpBackend.expectGET('/api/test?limit=25&skip=0').respond(200, {
+                items: [
+                    { id: '1' }, { id: '2' }
+                ],
+                count: 5
+            });
+            dataList = dataListManager.init<TestRowItem>(listConfig);
+            dataList.rows = [{}, {}, {}, {}, {}];
+
+            dataList.syncAll();
+            $httpBackend.flush();
+
+            expect(dataList.filter.skip).toBe(0);
+            expect(dataList.filter.limit).toBe(25);
+        });
     });
 
     describe('Load more', function () {
@@ -322,7 +356,7 @@ describe('Data list tests', function () {
 
         it('should submit filter and set location params', () => {
             $httpBackend.expectGET('/api/test?arr=1&arr=2&bool=true&date=2016-01-01T00:00:00.000Z&limit=25&name=Vasia&obj=%7B%22n%22:1%7D&skip=0').respond(200, { items: [] });
-            spyOn(dataList, 'updateList').and.callThrough();
+            spyOn(dataList, 'fetchPage').and.callThrough();
 
             dataList.setFilter(() => {
                 return {
@@ -335,8 +369,6 @@ describe('Data list tests', function () {
             });
             dataList.submitFilter();
             $httpBackend.flush();
-
-            expect(dataList.updateList).toHaveBeenCalled();
         });
     });
 
@@ -348,13 +380,11 @@ describe('Data list tests', function () {
 
         it('should reset filter and update list', () => {
             $httpBackend.expectGET('/api/test?limit=25&skip=0').respond(200, { items: [] });
-            spyOn(dataList, 'updateList').and.callThrough();
+            spyOn(dataList, 'fetchPage').and.callThrough();
 
             dataList.filter.name = 'Vasia';
             dataList.resetFilter();
             $httpBackend.flush();
-
-            expect(dataList.updateList).toHaveBeenCalled();
         });
     });
 });

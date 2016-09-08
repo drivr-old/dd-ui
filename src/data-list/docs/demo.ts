@@ -18,7 +18,7 @@ class DataListDemoCtrl {
         };
 
         this.dataList = this.dataListManager.init<DemoDataRow>(config);
-        this.dataList.updateList();
+        this.dataList.fetchPage();
     }
 
     private createFakeApiResponse() {

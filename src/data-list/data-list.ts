@@ -18,6 +18,7 @@ namespace ddui {
         selectedRows: T[];
         url: string;
         count: number;
+        page: number;
         data: any;
         filter: any;
         paging: boolean;
@@ -35,6 +36,7 @@ namespace ddui {
             this.rows = [];
             this.selectedRows = [];
             this.count = 0;
+            this.page = 1;
             this.data = null;   // will be assigned raw last response
             this.filter = { skip: 0, limit: 25 };
             this.paging = config.paging;
@@ -68,52 +70,33 @@ namespace ddui {
 
         submitFilter() {
             this.setLocationParams(this.filter);
-            return this.updateList();
+            return this.updateList(this.filter);
         }
 
         resetFilter() {
             this.filter = this.initFilterFunc();
             this.setLocationParams(this.filter);
-            this.updateList();
+            this.updateList(this.filter);
         }
 
-        updateList() {
-            this.isLoading = true;
-
-            if (typeof (this.filter.limit) === 'undefined') {
-                this.filter.limit = 25;
+        fetchPage(page: number = null) {
+            if (page) {
+                this.page = page;
             }
 
-            if (typeof (this.filter.skip) === 'undefined') {
-                this.filter.skip = 0;
-            }
+            this.filter.skip = (this.page * this.filter.limit) - this.filter.limit;
+            this.updateList(this.filter);
+        }
 
-            const config = {
-                params: this.filter
-            };
-
-            return this.$http.get(this.url, config)
-                .then(response => {
-                    this.data = response.data;
-                    this.count = this.data[this.responseCountName];
-                    this.updateListCollection(this.data[this.responseListName]);
-
-                    if (this.onListResponseSuccess) {
-                        this.onListResponseSuccess(this.rows, this.count);
-                    }
-                })
-                .catch(data => {
-                    if (this.onListResponseError) {
-                        this.onListResponseError(data);
-                    }
-                }).finally(() => {
-                     this.isLoading = false;
-                });
+        syncAll() {
+            this.filter.skip = 0;
+            this.filter.limit = this.rows.length > 0 ? Math.ceil(this.rows.length / this.filter.limit) * this.filter.limit : this.filter.limit;
+            this.updateList(this.filter);
         }
 
         loadMore() {
             this.filter.skip += this.filter.limit;
-            return this.updateList();
+            return this.updateList(this.filter);
         }
 
         hasMore() {
@@ -150,6 +133,40 @@ namespace ddui {
                 var selectedRowIndex = this.selectedRows.indexOf(row);
                 this.selectedRows.splice(selectedRowIndex, 1);
             }
+        }
+
+        private updateList(filter) {
+            this.isLoading = true;
+
+            if (typeof (filter.limit) === 'undefined') {
+                this.filter.limit = 25;
+            }
+
+            if (typeof (filter.skip) === 'undefined') {
+                this.filter.skip = 0;
+            }
+
+            const config = {
+                params: filter
+            };
+
+            return this.$http.get(this.url, config)
+                .then(response => {
+                    this.data = response.data;
+                    this.count = this.data[this.responseCountName];
+                    this.updateListCollection(this.data[this.responseListName]);
+
+                    if (this.onListResponseSuccess) {
+                        this.onListResponseSuccess(this.rows, this.count);
+                    }
+                })
+                .catch(data => {
+                    if (this.onListResponseError) {
+                        this.onListResponseError(data);
+                    }
+                }).finally(() => {
+                     this.isLoading = false;
+                });
         }
 
         private updateListCollection(items: T[]) {

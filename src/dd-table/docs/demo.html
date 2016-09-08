@@ -1,0 +1,45 @@
+<div ng-controller="TableDemoCtrl as ctrl">
+
+    <style>
+        .table-demo-container {
+            background-color: #edecec;
+            padding: 50px;
+        }
+    </style>
+    {{ctrl.dataList.filter}}
+    <div class="table-demo-container">
+        <table dd-table="ctrl.dataList">
+            <thead>
+                <tr>
+                    <th class="checkbox-row">
+                        <dd-pages-selector>
+                            <dd-pages-selector-item on-click="ctrl.dataList.selectAll()">Select all</dd-pages-selector-item>
+                            <dd-pages-selector-item on-click="ctrl.dataList.deselectAll()">Deselect all</dd-pages-selector-item>                            
+                        </dd-pages-selector>
+                    </th>
+                    <th>Id</th>
+                    <th>Is active</th>
+                    <th>Balance</th>
+                    <th>Age</th>
+                    <th>Eye color</th>
+                    <th>Name</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-class="{'active': row.$selected}" ng-repeat="row in ctrl.dataList.rows">
+                    <td>
+                        <input name="record-item" type="checkbox" ng-value="row.id" ng-checked="row.$selected" ng-click="ctrl.dataList.toggle(row)" />
+                    </td>
+                    <td>{{row.index}}</td>
+                    <td>{{row.isActive}}</td>
+                    <td>{{row.balance}}</td>
+                    <td>{{row.age}}</td>
+                    <td>{{row.eyeColor}}</td>
+                    <td>{{row.name}}</td>
+                </tr>
+            </tbody>
+        </table>
+        <dd-pagination on-change="ctrl.dataList.fetchPage()" total-items="ctrl.dataList.count" current-page="ctrl.dataList.page"></dd-pagination>
+
+    </div>
+</div>
