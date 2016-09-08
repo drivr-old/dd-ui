@@ -1,1 +1,1 @@
-Data list service is used for simple admin lists where filtering is needed.
+Data list manager is used for most of admin lists where filtering is needed.

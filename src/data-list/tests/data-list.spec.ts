@@ -4,7 +4,7 @@ interface TestRowItem extends ddui.ListRow {
 }
 
 describe('Data list tests', function () {
-    var listService: ddui.DataListService,
+    var dataListManager: ddui.DataListManager,
         $httpBackend: ng.IHttpBackendService,
         $location,
         dataList: ddui.DataList<TestRowItem>,
@@ -17,8 +17,8 @@ describe('Data list tests', function () {
             $provide.value('$location', $location);
         });
 
-        inject((_dataListService_, _$httpBackend_) => {
-            listService = _dataListService_;
+        inject((_dataListManager_, _$httpBackend_) => {
+            dataListManager = _dataListManager_;
             $httpBackend = _$httpBackend_;
 
             listConfig = {
@@ -36,48 +36,48 @@ describe('Data list tests', function () {
 
     describe('Init list', () => {
         it('should init by default settings', () => {
-            var obj = listService.init<TestRowItem>(listConfig);
+            var obj = dataListManager.init<TestRowItem>(listConfig);
             expect(obj.id).toBe('DataList');
             expect(obj.url).toBe('/api/test');
         });
 
         it('should init by custom id', () => {
             listConfig.id = 'customId';
-            var obj = listService.init<TestRowItem>(listConfig);
+            var obj = dataListManager.init<TestRowItem>(listConfig);
             expect(obj.id).toBe('customId');
         });
 
         it('should throw error if config not specified', () => {
-            var action = () => listService.init<TestRowItem>(null);
+            var action = () => dataListManager.init<TestRowItem>(null);
             expect(action).toThrowError();
         });
 
         it('should throw error if config url is not specified', () => {
             listConfig.url = null;
-            var action = () => listService.init<TestRowItem>(listConfig);
+            var action = () => dataListManager.init<TestRowItem>(listConfig);
             expect(action).toThrowError();
         });
 
         it('should throw error list is already created', () => {
             listConfig.id = 'customId';
-            listService.init<TestRowItem>(listConfig);
-            var action = () => listService.init<TestRowItem>(listConfig);
+            dataListManager.init<TestRowItem>(listConfig);
+            var action = () => dataListManager.init<TestRowItem>(listConfig);
             expect(action).toThrowError();
         });
     });
 
     describe('Get list', () => {
         beforeEach(() => {
-            dataList = listService.init<TestRowItem>(listConfig);
+            dataList = dataListManager.init<TestRowItem>(listConfig);
         });
 
         it('should get list by default id', () => {
-            var obj = listService.get();
+            var obj = dataListManager.get();
             expect(obj).toBe(dataList);
         });
 
         it('should throw error if list not defined', () => {
-            var action = () => listService.get('list2');
+            var action = () => dataListManager.get('list2');
             expect(action).toThrowError();
         });
     });
@@ -90,7 +90,7 @@ describe('Data list tests', function () {
                 ],
                 count: 5
             });
-            dataList = listService.init<TestRowItem>(listConfig);
+            dataList = dataListManager.init<TestRowItem>(listConfig);
 
             dataList.updateList();
             $httpBackend.flush();
@@ -107,7 +107,7 @@ describe('Data list tests', function () {
                 ],
                 count: 5
             });
-            dataList = listService.init<TestRowItem>(listConfig);
+            dataList = dataListManager.init<TestRowItem>(listConfig);
             var onSuccess = jasmine.createSpy('onSuccess').and.callFake(() => { });
 
             dataList.updateList();
@@ -119,7 +119,7 @@ describe('Data list tests', function () {
 
         it('should call onError callback if onError is defined', function () {
             $httpBackend.expectGET('/api/test?limit=25&skip=0').respond(500, {});
-            dataList = listService.init<TestRowItem>(listConfig);
+            dataList = dataListManager.init<TestRowItem>(listConfig);
             var onError = jasmine.createSpy('onError').and.callFake(() => { });
 
             dataList.updateList();
@@ -133,7 +133,7 @@ describe('Data list tests', function () {
 
     describe('Load more', function () {
         it('should add loaded items to current list', function () {
-            dataList = listService.init<TestRowItem>(listConfig);
+            dataList = dataListManager.init<TestRowItem>(listConfig);
 
             dataList.rows = [{ id: '1' }, { id: '2' }];
             $httpBackend.expectGET('/api/test?limit=25&skip=25').respond(200, {
@@ -157,7 +157,7 @@ describe('Data list tests', function () {
 
     describe('Has more', function () {
         beforeEach(() => {
-            dataList = listService.init<TestRowItem>(listConfig);
+            dataList = dataListManager.init<TestRowItem>(listConfig);
         });
 
         it('should return false when items count equal to total count', function () {
@@ -174,7 +174,7 @@ describe('Data list tests', function () {
 
     describe('Select all', function () {
         beforeEach(() => {
-            dataList = listService.init<TestRowItem>(listConfig);
+            dataList = dataListManager.init<TestRowItem>(listConfig);
         });
 
         afterEach(function () {
@@ -204,7 +204,7 @@ describe('Data list tests', function () {
 
     describe('Deselect all', function () {
         beforeEach(() => {
-            dataList = listService.init<TestRowItem>(listConfig);
+            dataList = dataListManager.init<TestRowItem>(listConfig);
         });
 
         afterEach(function () {
@@ -227,7 +227,7 @@ describe('Data list tests', function () {
 
     describe('Select all pages', function () {
         beforeEach(() => {
-            dataList = listService.init<TestRowItem>(listConfig);
+            dataList = dataListManager.init<TestRowItem>(listConfig);
         });
 
         afterEach(function () {
@@ -245,7 +245,7 @@ describe('Data list tests', function () {
 
     describe('Toggle selected', function () {
         beforeEach(() => {
-            dataList = listService.init<TestRowItem>(listConfig);
+            dataList = dataListManager.init<TestRowItem>(listConfig);
         });
 
         it('should add $selected=true property to object', function () {
@@ -270,7 +270,7 @@ describe('Data list tests', function () {
 
     describe('Set filter', () => {
         beforeEach(() => {
-            dataList = listService.init<TestRowItem>(listConfig);
+            dataList = dataListManager.init<TestRowItem>(listConfig);
             $location.search.and.callFake(() => {
                 return {
                     name: 'Vasia'
@@ -312,7 +312,7 @@ describe('Data list tests', function () {
 
     describe('Submit filter', () => {
         beforeEach(() => {
-            dataList = listService.init<TestRowItem>(listConfig);
+            dataList = dataListManager.init<TestRowItem>(listConfig);
             $location.search.and.callFake(() => {
                 return {
                     data: '2016'
@@ -342,7 +342,7 @@ describe('Data list tests', function () {
 
     describe('Reset filter', () => {
         beforeEach(() => {
-            dataList = listService.init<TestRowItem>(listConfig);
+            dataList = dataListManager.init<TestRowItem>(listConfig);
             $location.search.and.callFake(() => { return {}; });
         });
 

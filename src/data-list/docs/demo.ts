@@ -4,8 +4,8 @@ interface DemoDataRow {
 }
 
 class DataListDemoCtrl {
-    static $inject = ['$httpBackend', 'dataListService'];
-    constructor(private $httpBackend, private dataListService: ddui.DataListService) {
+    static $inject = ['$httpBackend', 'dataListManager'];
+    constructor(private $httpBackend, private dataListManager: ddui.DataListManager) {
         this.createFakeApiResponse();
         this.initList();
     }
@@ -17,7 +17,7 @@ class DataListDemoCtrl {
             url: '/api/test/'
         };
 
-        this.dataList = this.dataListService.init<DemoDataRow>(config);
+        this.dataList = this.dataListManager.init<DemoDataRow>(config);
         this.dataList.updateList();
     }
 

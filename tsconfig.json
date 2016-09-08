@@ -11,7 +11,7 @@
         "suppressImplicitAnyIndexErrors": true,
         "allowSyntheticDefaultImports": true,
         "noEmitOnError": false,
-        "declaration": true
+        "declaration": false
     },
     "exclude": [
         ".grunt",
@@ -20,6 +20,7 @@
         "dist",
         "misc",
         "node_modules",
-        "templates"
+        "templates",
+        "src/dd-ui.d.ts"
     ]
 }

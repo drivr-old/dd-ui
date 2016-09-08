@@ -233,7 +233,7 @@ namespace ddui {
         }
     }
 
-    export class DataListService {
+    export class DataListManager {
         constructor(private $http: ng.IHttpService, private $location: ng.ILocationService) { }
 
         private listServiceHash: { [id: string]: any; } = {};
@@ -271,7 +271,7 @@ namespace ddui {
     }
 
     angular.module('dd.ui.data-list', [])
-        .service('dataListService', ['$http', '$location', ($http, $location) => {
-            return new DataListService($http, $location);
+        .service('dataListManager', ['$http', '$location', ($http, $location) => {
+            return new DataListManager($http, $location);
         }]);
 }
