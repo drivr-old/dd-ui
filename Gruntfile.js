@@ -60,6 +60,12 @@ module.exports = function (grunt) {
                 src: [], //src filled in by build task
                 dest: '<%= dist %>/<%= filename %>-<%= pkg.version %>.js'
             },
+            dist_dt: {
+                options: {
+                },
+                src: [], //src filled in by build task
+                dest: '<%= dist %>/dd-ui.d.ts'
+            },
             dist_tpls: {
                 options: {
                     banner: '<%= meta.banner %><%= meta.all %>\n<%= meta.tplmodules %>\n',
@@ -281,6 +287,7 @@ module.exports = function (grunt) {
             tplFiles: grunt.file.expand(`template/${name}/*.html`),
             tpljsFiles: grunt.file.expand(`template/${name}/*.html.js`),
             tplModules: grunt.file.expand(`template/${name}/*.html`).map(enquoteUibDir),
+            dtFiles: grunt.file.expand([`src/${name}/*.d.ts`]),
             dependencies: dependenciesForModule(name),
             docs: {
                 md: grunt.file.expand(`src/${name}/docs/*.md`)
@@ -384,6 +391,7 @@ module.exports = function (grunt) {
 
         var srcFiles = _.map(modules, 'srcFiles');
         var tpljsFiles = _.map(modules, 'tpljsFiles');
+        var dtFiles = _.map(modules, 'dtFiles');
         //Set the concat task to concatenate the given src modules
         grunt.config('concat.dist.src', grunt.config('concat.dist.src')
             .concat(srcFiles));
@@ -391,7 +399,11 @@ module.exports = function (grunt) {
         grunt.config('concat.dist_tpls.src', grunt.config('concat.dist_tpls.src')
             .concat(srcFiles).concat(tpljsFiles));
 
-        grunt.task.run(['concat', 'uglify', 'makeModuleMappingFile', 'makeRawFilesJs', 'makeVersionsMappingFile']);
+            //Set the concat task to concatenate the given src modules
+        grunt.config('concat.dist_dt.src', grunt.config('concat.dist_dt.src')
+            .concat(dtFiles));
+
+        grunt.task.run(['concat', 'uglify', 'makeModuleMappingFile', 'makeRawFilesJs']);
     });
 
     grunt.registerTask('test', 'Run tests on singleRun karma server', function () {
@@ -428,35 +440,6 @@ module.exports = function (grunt) {
 
         genRawFilesJs(grunt, jsFilename, _.flatten(grunt.config('concat.dist_tpls.src')),
             grunt.config('meta.banner'), grunt.config('meta.cssFileBanner'));
-    });
-
-    grunt.registerTask('makeVersionsMappingFile', function () {
-        var done = this.async();
-
-        var exec = require('child_process').exec;
-
-        var versionsMappingFile = 'dist/versions-mapping.json';
-
-        exec('git tag --sort -version:refname', function (error, stdout, stderr) {
-            // Let's remove the oldest 14 versions.
-            var versions = stdout.split('\n').slice(0, -14);
-            var jsContent = versions.map(function (version) {
-                version = version.replace(/^v/, '');
-                return {
-                    version: version,
-                    url: `/dd-ui/versioned-docs/${version}`
-                };
-            });
-            jsContent = _.sortBy(jsContent, 'version').reverse();
-            jsContent.unshift({
-                version: 'Current',
-                url: '/dd-ui'
-            });
-            grunt.file.write(versionsMappingFile, JSON.stringify(jsContent));
-            grunt.log.writeln(`File ${versionsMappingFile.cyan} created.`);
-            done();
-        });
-
     });
 
     /**

@@ -6,12 +6,12 @@ var ts = require('gulp-typescript');
 gulp.task('default', ['clean', 'compile', 'tslint']);
 
 gulp.task('clean', function () {
-    return gulp.src(['src/**/*.js', 'src/**/*.js.map', '!src/dd-ui.d.ts'], { read: false })
+    return gulp.src(['src/**/*.js', 'src/**/*.js.map', 'src/**/*.d.ts'], { read: false })
         .pipe(clean());
 });
 
 gulp.task('tslint', function () {
-    return gulp.src(['src/**/*.ts', '!src/typings/**', '!src/dd-ui.d.ts'])
+    return gulp.src(['src/**/*.ts', '!src/typings/**', '!src/**/*.d.ts'])
         .pipe(tslint({
             formatter: "verbose"
         }))

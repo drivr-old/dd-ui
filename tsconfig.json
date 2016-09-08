@@ -21,6 +21,6 @@
         "misc",
         "node_modules",
         "templates",
-        "src/dd-ui.d.ts"
+        "src/**/*.d.t"
     ]
 }
