@@ -1,3 +1,13 @@
+<a name="0.8.0"></a>
+# [0.8.0](//compare/0.7.9...v0.8.0) (2016-09-08)
+
+
+### Bug Fixes
+
+* **lookup:** change placeholder binding 53537f1
+
+
+
 <a name="0.7.9"></a>
 ## [0.7.9](//compare/0.7.8...v0.7.9) (2016-08-18)
 
