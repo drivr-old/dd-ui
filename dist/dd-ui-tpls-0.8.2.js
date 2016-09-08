@@ -2,9 +2,9 @@
  * dd-ui
  * http://clickataxi.github.io/dd-ui/
 
- * Version: 0.8.1 - 2016-09-08
+ * Version: 0.8.2 - 2016-09-08
  * License: MIT
- */angular.module("dd.ui", ["dd.ui.tpls", "dd.ui.arrow-key-nav","dd.ui.busy-element","dd.ui.conversion","dd.ui.datetimepicker","dd.ui.dd-datepicker","dd.ui.dd-datetimepicker","dd.ui.dd-timepicker","dd.ui.form-actions","dd.ui.form-validation","dd.ui.lookup","dd.ui.validation.phone","dd.ui.validation.sameAs","dd.ui.validation"]);
+ */angular.module("dd.ui", ["dd.ui.tpls", "dd.ui.arrow-key-nav","dd.ui.busy-element","dd.ui.conversion","dd.ui.data-list","dd.ui.datetimepicker","dd.ui.dd-datepicker","dd.ui.dd-datetimepicker","dd.ui.dd-table","dd.ui.dd-timepicker","dd.ui.form-actions","dd.ui.form-validation","dd.ui.lookup","dd.ui.validation.phone","dd.ui.validation.sameAs","dd.ui.validation"]);
 angular.module("dd.ui.tpls", ["template/busy-element/busy-element.html","template/datetimepicker/datetimepicker.html","template/dd-datepicker/dd-datepicker.html","template/dd-datetimepicker/dd-datetimepicker.html","template/form-actions/form-actions.html","template/lookup/lookup-item.html","template/lookup/lookup.html"]);
 angular.module('dd.ui.arrow-key-nav', [])
     .directive('ddArrowKeyNav', ['$document', function ($document) {
@@ -181,6 +181,256 @@ angular.module('dd.ui.busy-element', [])
             }
         }]);
 })();
+
+var ddui;
+(function (ddui) {
+    var DataList = (function () {
+        function DataList(config, $http, $location) {
+            this.$http = $http;
+            this.$location = $location;
+            this.id = config.id;
+            this.rows = [];
+            this.selectedRows = [];
+            this.count = 0;
+            this.page = 1;
+            this.data = null; // will be assigned raw last response
+            this.filter = { skip: 0, limit: 25 };
+            this.paging = config.paging;
+            this.selectedAllPages = false;
+            this.isLoading = false;
+            this.url = config.url;
+            this.responseListName = config.responseListName || 'items';
+            this.responseCountName = config.responseCountName || 'count';
+            this.initFilterFunc = function () { return {}; };
+        }
+        DataList.prototype.onSuccess = function (callback) {
+            this.onListResponseSuccess = callback;
+        };
+        DataList.prototype.onError = function (callback) {
+            this.onListResponseError = callback;
+        };
+        DataList.prototype.setFilter = function (filterFunc) {
+            this.initFilterFunc = filterFunc;
+            var filter = this.initFilterFunc();
+            if (typeof (filter) !== 'object') {
+                throw new Error('initFilterFunc should return object with filter properties');
+            }
+            angular.extend(this.filter, filter);
+            this.loadLocationParams(this.filter);
+        };
+        DataList.prototype.submitFilter = function () {
+            this.setLocationParams(this.filter);
+            return this.updateList(this.filter);
+        };
+        DataList.prototype.resetFilter = function () {
+            this.filter = this.initFilterFunc();
+            this.setLocationParams(this.filter);
+            this.updateList(this.filter);
+        };
+        DataList.prototype.fetchPage = function (page) {
+            if (page === void 0) { page = null; }
+            if (page) {
+                this.page = page;
+            }
+            this.filter.skip = (this.page * this.filter.limit) - this.filter.limit;
+            this.updateList(this.filter);
+        };
+        DataList.prototype.syncAll = function () {
+            this.filter.skip = 0;
+            this.filter.limit = this.rows.length > 0 ? Math.ceil(this.rows.length / this.filter.limit) * this.filter.limit : this.filter.limit;
+            this.updateList(this.filter);
+        };
+        DataList.prototype.loadMore = function () {
+            this.filter.skip += this.filter.limit;
+            return this.updateList(this.filter);
+        };
+        DataList.prototype.hasMore = function () {
+            return this.rows && this.rows.length < this.count;
+        };
+        DataList.prototype.selectAll = function () {
+            this.selectedAllPages = false;
+            for (var _i = 0, _a = this.rows; _i < _a.length; _i++) {
+                var row = _a[_i];
+                row.$selected = true;
+                this.selectedRows.push(row);
+            }
+        };
+        DataList.prototype.deselectAll = function () {
+            this.selectedAllPages = false;
+            for (var _i = 0, _a = this.rows; _i < _a.length; _i++) {
+                var row = _a[_i];
+                row.$selected = false;
+                this.selectedRows = [];
+            }
+        };
+        DataList.prototype.selectAllPages = function () {
+            this.selectAll();
+            this.selectedAllPages = true;
+        };
+        DataList.prototype.toggle = function (row) {
+            this.selectedAllPages = false;
+            row.$selected = !row.$selected;
+            if (row.$selected) {
+                this.selectedRows.push(row);
+            }
+            else {
+                var selectedRowIndex = this.selectedRows.indexOf(row);
+                this.selectedRows.splice(selectedRowIndex, 1);
+            }
+        };
+        DataList.prototype.updateList = function (filter) {
+            var _this = this;
+            this.isLoading = true;
+            if (typeof (filter.limit) === 'undefined') {
+                this.filter.limit = 25;
+            }
+            if (typeof (filter.skip) === 'undefined') {
+                this.filter.skip = 0;
+            }
+            var config = {
+                params: filter
+            };
+            return this.$http.get(this.url, config)
+                .then(function (response) {
+                _this.data = response.data;
+                _this.count = _this.data[_this.responseCountName];
+                _this.updateListCollection(_this.data[_this.responseListName]);
+                if (_this.onListResponseSuccess) {
+                    _this.onListResponseSuccess(_this.rows, _this.count);
+                }
+            })
+                .catch(function (data) {
+                if (_this.onListResponseError) {
+                    _this.onListResponseError(data);
+                }
+            }).finally(function () {
+                _this.isLoading = false;
+            });
+        };
+        DataList.prototype.updateListCollection = function (items) {
+            if (this.filter.skip === 0 || this.paging) {
+                this.rows = items;
+            }
+            else {
+                for (var a = 0; a < items.length; a++) {
+                    this.rows.push(items[a]);
+                }
+            }
+        };
+        DataList.prototype.loadLocationParams = function (filter) {
+            var changedCount = 0;
+            for (var param in filter) {
+                if (filter.hasOwnProperty(param)) {
+                    var val = this.$location.search()[param];
+                    if (val) {
+                        try {
+                            filter[param] = JSON.parse(val);
+                            if (DataList.isNumber(filter[param])) {
+                                filter[param] = JSON.stringify(filter[param]);
+                            }
+                        }
+                        catch (e) {
+                            var isoDatePattern = /(\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d\.\d+([+-][0-2]\d:[0-5]\d|Z))|(\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d([+-][0-2]\d:[0-5]\d|Z))|(\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d([+-][0-2]\d:[0-5]\d|Z))/;
+                            if (isoDatePattern.test(val)) {
+                                filter[param] = new Date(val);
+                            }
+                            else {
+                                filter[param] = val;
+                            }
+                        }
+                        changedCount++;
+                    }
+                }
+            }
+            return changedCount;
+        };
+        DataList.prototype.setLocationParams = function (filter) {
+            var params = this.getFilterAsUrlParams(filter, true);
+            for (var param in params) {
+                if (params.hasOwnProperty(param)) {
+                    var val = params[param];
+                    if (val && param !== 'expand' && param !== 'skip' && param !== 'limit') {
+                        this.$location.search(param, val);
+                    }
+                    else {
+                        this.$location.search(param, null);
+                    }
+                }
+            }
+        };
+        DataList.prototype.getFilterAsUrlParams = function (filter, addNulls) {
+            var params = {};
+            for (var param in filter) {
+                if (filter.hasOwnProperty(param)) {
+                    var val = filter[param];
+                    if (val instanceof Array) {
+                        val = val.join(',');
+                    }
+                    if (val && (DataList.isNumber(val) || val.length > 0)) {
+                        params[param] = val;
+                    }
+                    else if ((typeof val) === 'boolean') {
+                        params[param] = val === true;
+                    }
+                    else if (val instanceof Date) {
+                        params[param] = val.toISOString();
+                    }
+                    else if (val && (typeof val) === 'object') {
+                        params[param] = JSON.stringify(val);
+                    }
+                    else if (addNulls) {
+                        params[param] = null;
+                    }
+                }
+            }
+            return params;
+        };
+        DataList.isNumber = function (n) {
+            return !isNaN(parseFloat(n)) && isFinite(n);
+        };
+        return DataList;
+    }());
+    ddui.DataList = DataList;
+    var DataListManager = (function () {
+        function DataListManager($http, $location) {
+            this.$http = $http;
+            this.$location = $location;
+            this.listServiceHash = {};
+            this.defaultListId = 'DataList';
+        }
+        DataListManager.prototype.init = function (config) {
+            config.id = config.id || this.defaultListId;
+            this.validateInit(config);
+            var listService = new DataList(config, this.$http, this.$location);
+            this.listServiceHash[config.id] = listService;
+            return listService;
+        };
+        DataListManager.prototype.get = function (id) {
+            id = id || this.defaultListId;
+            this.validateGet(id);
+            return this.listServiceHash[id];
+        };
+        DataListManager.prototype.validateInit = function (config) {
+            if (!config || !config.url) {
+                throw new Error('List config url is required');
+            }
+            if (this.listServiceHash[config.id]) {
+                throw new Error("List with id " + config.id + " is already created");
+            }
+        };
+        DataListManager.prototype.validateGet = function (id) {
+            if (!this.listServiceHash[id]) {
+                throw new Error("List with id " + id + " not found");
+            }
+        };
+        return DataListManager;
+    }());
+    ddui.DataListManager = DataListManager;
+    angular.module('dd.ui.data-list', [])
+        .service('dataListManager', ['$http', '$location', function ($http, $location) {
+            return new DataListManager($http, $location);
+        }]);
+})(ddui || (ddui = {}));
 
 angular.module('dd.ui.datetimepicker', ['ui.bootstrap'])
     .directive('datetimepicker', ['$document', function ($document) {
@@ -617,6 +867,74 @@ angular.module('dd.ui.dd-datetimepicker', ['ui.bootstrap'])
             }
         };
     }]);
+
+var ddui;
+(function (ddui) {
+    function ddTable() {
+        return {
+            restrict: 'A',
+            scope: {
+                ddTable: '='
+            },
+            bindToController: true,
+            controllerAs: '$ctrl',
+            controller: function () { },
+            compile: function (element, attr) {
+                element[0].classList.add('table');
+                element[0].classList.add('dd-table');
+                return function () { };
+            }
+        };
+    }
+    function ddPagination() {
+        return {
+            restrict: 'E',
+            scope: {
+                totalItems: '=',
+                currentPage: '=',
+                onChange: '&'
+            },
+            template: "<ul uib-pagination\n                           total-items=\"totalItems\" \n                           ng-model=\"currentPage\" \n                           max-size=\"5\" \n                           class=\"dd-pagination pagination-sm\" \n                           boundary-link-numbers=\"true\">\n                        </ul>",
+            link: function (scope) {
+                scope.$watch('currentPage', function (oldVal, newVal) {
+                    if (oldVal !== newVal) {
+                        scope.onChange();
+                    }
+                });
+            }
+        };
+    }
+    function ddPagesSelector() {
+        return {
+            restrict: 'E',
+            require: '^ddTable',
+            transclude: true,
+            replace: true,
+            controller: function () { },
+            template: "<div>\n                            <div class=\"btn-group\" uib-dropdown>\n                                <button uib-dropdown-toggle class=\"btn btn-default btn-xs\"><span class=\"caret\"></span></button>\n                                <ul class=\"dropdown-menu\" uib-dropdown-menu ng-transclude>\n                                </ul>\n                            </div>\n                            <span class=\"rows-count\">{{ddTable.selectedRows.length}}</span>\n                       </div>",
+            link: function (scope, element, attrs, ctrl) {
+                scope.ddTable = ctrl.ddTable;
+            }
+        };
+    }
+    function ddPagesSelectorItem() {
+        return {
+            restrict: 'E',
+            require: '^ddPagesSelector',
+            transclude: true,
+            replace: true,
+            scope: {
+                onClick: '&'
+            },
+            template: "<li><a href=\"#\" ng-click=\"onClick()\" ng-transclude></a></li>"
+        };
+    }
+    angular.module('dd.ui.dd-table', [])
+        .directive('ddTable', ddTable)
+        .directive('ddPagination', ddPagination)
+        .directive('ddPagesSelector', ddPagesSelector)
+        .directive('ddPagesSelectorItem', ddPagesSelectorItem);
+})(ddui || (ddui = {}));
 
 (function () {
     'use strict';
@@ -1344,6 +1662,7 @@ angular.module("template/lookup/lookup.html", []).run(["$templateCache", functio
 angular.module('dd.ui.busy-element').run(function() {!angular.$$csp().noInlineStyle && angular.element(document).find('head').prepend('<style type="text/css">.be-container{position:absolute;z-index:1;}.be-overlay{background-color:rgba(255,255,255,0.7);text-align:center;}.be-overlay.success{background-color:rgba(0,128,0,0.15);}.be-overlay.fail{background-color:rgba(128,0,0,0.15);}.be-animate{-webkit-transition:opacity 0.5s;transition:opacity 0.5s;opacity:1;}.be-animate.ng-hide-add,.be-animate.ng-hide-remove{display:block !important;}.be-animate.ng-hide{opacity:0;}</style>'); });
 angular.module('dd.ui.dd-datepicker').run(function() {!angular.$$csp().noInlineStyle && angular.element(document).find('head').prepend('<style type="text/css"> .dd-datepicker .calendar-btn-with-day{border-radius:0;border-left:0;}.dd-datepicker .day-name-label{width:90px !important;font-size:12px;}.dd-datepicker input.short{width:70px;}.dd-datepicker input{width:105px;}</style>'); });
 angular.module('dd.ui.dd-datetimepicker').run(function() {!angular.$$csp().noInlineStyle && angular.element(document).find('head').prepend('<style type="text/css">.dd-datetimepicker{display:inline-flex;}.dd-datetimepicker .timepicker-container{width:100px !important;}.dd-datetimepicker .timepicker-container input{border-bottom-right-radius:0;border-top-right-radius:0;border-right:0;}.dd-datetimepicker .datepicker-container input.short{width:70px !important;}.dd-datetimepicker .datepicker-container input{width:105px !important;border-bottom-left-radius:0;border-top-left-radius:0;}.has-error .dd-datetimepicker .calendar-btn-with-day{border-color:#a94442;}</style>'); });
+angular.module('dd.ui.dd-table').run(function() {!angular.$$csp().noInlineStyle && angular.element(document).find('head').prepend('<style type="text/css">.dd-table{border-collapse:separate;border:solid #ccc 1px;border-radius:3px;border-left:0px;border-top:0px;}.dd-table > thead > tr > th{background-color:#f5f5f5;background:-webkit-linear-gradient(top,#fafafa 0%,#f3f2f2 100%);padding:4px !important;}.dd-table > thead:first-child > tr:first-child > th,.dd-table > thead:first-child > tr:first-child > th{border-bottom:0px;border-top:solid #ccc 1px !important;}.dd-table > thead .btn-group .dropdown-toggle{line-height:1.2;padding:1px 3px;background:#ccc;margin-left:2px;border-color:#9e9d9d;}.dd-table > thead > tr > th.checkbox-row{width:50px;}.dd-table > tbody > tr.active:hover > td{background-color:#f5f5f5;}.dd-table thead .rows-count{font-size:11px;color:#aaa;font-weight:normal;}.dd-table tr td:first-child,.dd-table tr th:first-child{border-left:1px solid #ccc;}.dd-table > tbody > tr > td{background:#fff;}.dd-table td,.dd-table th{border-top:1px solid #ccc;}.dd-table > :first-child > :first-child > :first-child{border-radius:3px 0 0 0;}.dd-table > :first-child > :first-child > :last-child{border-radius:0 3px 0 0;}.dd-table > :last-child > :last-child > :first-child{border-radius:0 0 0 3px;}.dd-table > :last-child > :last-child > :last-child{border-radius:0 0 3px 0;}.dd-pagination{margin-top:5px !important;}</style>'); });
 angular.module('dd.ui.form-actions').run(function() {!angular.$$csp().noInlineStyle && angular.element(document).find('head').prepend('<style type="text/css">@keyframes formBarMoveIn{from{bottom:-100px;}to{bottom:0;}}@keyframes formBarMoveOut{from{bottom:0;}to{bottom:-100px;}}.form-actions-bar{position:fixed;left:0;bottom:0;background:#eee;border-top:1px solid #ddd;width:100%;padding:10px 5px;z-index:9999;animation:formBarMoveIn 0.3s ease-out;}.form-actions-bar.ng-hide{animation:formBarMoveOut 0.3s ease-out;}.form-actions-bar button{margin-right:10px;}</style>'); });
 angular.module('dd.ui.form-validation').run(function() {!angular.$$csp().noInlineStyle && angular.element(document).find('head').prepend('<style type="text/css">.form-fields-group .field-error{display:none;margin-top:5px;margin-bottom:10px;color:#a94442}.form-fields-group.has-error .field-error{display:block;}</style>'); });
 angular.module('dd.ui.lookup').run(function() {!angular.$$csp().noInlineStyle && angular.element(document).find('head').prepend('<style type="text/css">.lookup-container .input-group{width:100%;}.lookup-container .dropdown-menu{border:1px solid #ccc !important;border-top:none !important;font-size:11px;padding:1px !important;max-height:196px;overflow-y:scroll;overflow-x:hidden;width:100%;}.lookup-container input{background-color:#ffe;}.lookup-container .dropdown-menu > li > a{padding:5px;}.lookup-container .lookup-legend div,.lookup-clear div{width:16px;height:16px;display:inline-block;vertical-align:middle;}.lookup-container a.lookup-clear{outline:0}.lookup-container .lookup-no-results{position:absolute;background-color:#fff;z-index:100;padding:4px;width:100%;border:1px solid #ddd;margin-top:1px;top:100%;}.lookup-container .lookup-no-results span{color:#a94442;font-size:10px;}.lookup-container .lookup-legend .lookup-icon{background-image:url(./assets/img/magnifier-small.png);}.lookup-container .lookup-legend .spinner-icon{background-image:url(./assets/img/spinner.gif);background-size:16px;}.lookup-container .lookup-clear .clear-icon{background-image:url(./assets/img/cross-small-white.png);opacity:0.6;}.lookup-container .lookup-legend{position:absolute;right:6px;top:6px;z-index:5;}.lookup-container .lookup-clear{position:absolute;right:22px;top:6px;z-index:5;}.lookup-container .typeahead-group-header{font-weight:bold;padding:.2em .4em;}</style>'); });

@@ -1,3 +1,15 @@
+<a name="0.8.2"></a>
+## [0.8.2](//compare/0.8.1...v0.8.2) (2016-09-08)
+
+
+### Features
+
+* **datalist:** data list service 3914a6a
+* **datalist:** demo page for data list fff7324
+* **ddtable:** add dd-table with common styles f0c9ebf
+
+
+
 <a name="0.8.1"></a>
 ## [0.8.1](//compare/0.7.9...v0.8.1) (2016-09-08)
 
