@@ -1,3 +1,13 @@
+<a name="0.8.5"></a>
+## [0.8.5](//compare/0.8.4...v0.8.5) (2016-09-09)
+
+
+### Features
+
+* **ddtable:** add items-per-page selector 4786e31
+
+
+
 <a name="0.8.4"></a>
 ## [0.8.4](//compare/0.8.3...v0.8.4) (2016-09-09)
 

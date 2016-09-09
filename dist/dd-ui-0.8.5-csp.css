@@ -127,9 +127,12 @@
 .dd-table > :last-child > :last-child > :last-child {
     border-radius: 0 0 3px 0;
 }
+.dd-table > tbody > tr:hover {
+    background-color:#fff;
+}
 
 .dd-pagination {
-    margin-top: 5px !important;
+    margin-top: 0px !important;
 }
 @keyframes formBarMoveIn {
     from {

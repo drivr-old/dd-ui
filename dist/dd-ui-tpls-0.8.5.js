@@ -2,7 +2,7 @@
  * dd-ui
  * http://clickataxi.github.io/dd-ui/
 
- * Version: 0.8.4 - 2016-09-09
+ * Version: 0.8.5 - 2016-09-09
  * License: MIT
  */angular.module("dd.ui", ["dd.ui.tpls", "dd.ui.arrow-key-nav","dd.ui.busy-element","dd.ui.conversion","dd.ui.data-list","dd.ui.datetimepicker","dd.ui.dd-datepicker","dd.ui.dd-datetimepicker","dd.ui.dd-table","dd.ui.dd-timepicker","dd.ui.form-actions","dd.ui.form-validation","dd.ui.lookup","dd.ui.validation.phone","dd.ui.validation.sameAs","dd.ui.validation"]);
 angular.module("dd.ui.tpls", ["template/busy-element/busy-element.html","template/datetimepicker/datetimepicker.html","template/dd-datepicker/dd-datepicker.html","template/dd-datetimepicker/dd-datetimepicker.html","template/form-actions/form-actions.html","template/lookup/lookup-item.html","template/lookup/lookup.html"]);
@@ -905,6 +905,27 @@ var ddui;
             }
         };
     }
+    function ddItemsPerPage() {
+        return {
+            restrict: 'E',
+            scope: {
+                limit: '=',
+                onChange: '&'
+            },
+            template: "<div class=\"btn-group pull-right\" uib-dropdown keyboard-nav>\n                            <button type=\"button\" class=\"btn btn-default btn-sm\" uib-dropdown-toggle>\n                                Show {{limit}} results <span class=\"caret\"></span>\n                            </button>\n                            <ul class=\"dropdown-menu\" uib-dropdown-menu role=\"menu\" aria-labelledby=\"btn-append-to-single-button\">\n                                <li ng-repeat=\"value in values\" role=\"menuitem\"><a ng-click=\"selectValue(value)\" href=\"#\">{{value}}</a></li>\n                            </ul>\n                        </div>",
+            link: function (scope) {
+                scope.values = [scope.limit || 25, 50, 100];
+                scope.selectValue = function (value) {
+                    scope.limit = value;
+                };
+                scope.$watch('limit', function (oldVal, newVal) {
+                    if (oldVal !== newVal) {
+                        scope.onChange();
+                    }
+                });
+            }
+        };
+    }
     function ddPagesSelector() {
         return {
             restrict: 'E',
@@ -912,7 +933,7 @@ var ddui;
             transclude: true,
             replace: true,
             controller: function () { },
-            template: "<div>\n                            <div class=\"btn-group\" uib-dropdown>\n                                <button uib-dropdown-toggle class=\"btn btn-default btn-xs\"><span class=\"caret\"></span></button>\n                                <ul class=\"dropdown-menu\" uib-dropdown-menu ng-transclude>\n                                </ul>\n                            </div>\n                            <span class=\"rows-count\">{{ddTable.selectedRows.length}}</span>\n                       </div>",
+            template: "<div>\n                            <div class=\"btn-group\" uib-dropdown keyboard-nav>\n                                <button uib-dropdown-toggle class=\"btn btn-default btn-xs\"><span class=\"caret\"></span></button>\n                                <ul class=\"dropdown-menu\" uib-dropdown-menu ng-transclude>\n                                </ul>\n                            </div>\n                            <span class=\"rows-count\">{{ddTable.selectedRows.length}}</span>\n                       </div>",
             link: function (scope, element, attrs, ctrl) {
                 scope.ddTable = ctrl.ddTable;
             }
@@ -933,6 +954,7 @@ var ddui;
     angular.module('dd.ui.dd-table', [])
         .directive('ddTable', ddTable)
         .directive('ddPagination', ddPagination)
+        .directive('ddItemsPerPage', ddItemsPerPage)
         .directive('ddPagesSelector', ddPagesSelector)
         .directive('ddPagesSelectorItem', ddPagesSelectorItem);
 })(ddui || (ddui = {}));
@@ -1663,7 +1685,7 @@ angular.module("template/lookup/lookup.html", []).run(["$templateCache", functio
 angular.module('dd.ui.busy-element').run(function() {!angular.$$csp().noInlineStyle && angular.element(document).find('head').prepend('<style type="text/css">.be-container{position:absolute;z-index:1;}.be-overlay{background-color:rgba(255,255,255,0.7);text-align:center;}.be-overlay.success{background-color:rgba(0,128,0,0.15);}.be-overlay.fail{background-color:rgba(128,0,0,0.15);}.be-animate{-webkit-transition:opacity 0.5s;transition:opacity 0.5s;opacity:1;}.be-animate.ng-hide-add,.be-animate.ng-hide-remove{display:block !important;}.be-animate.ng-hide{opacity:0;}</style>'); });
 angular.module('dd.ui.dd-datepicker').run(function() {!angular.$$csp().noInlineStyle && angular.element(document).find('head').prepend('<style type="text/css"> .dd-datepicker .calendar-btn-with-day{border-radius:0;border-left:0;}.dd-datepicker .day-name-label{width:90px !important;font-size:12px;}.dd-datepicker input.short{width:70px;}.dd-datepicker input{width:105px;}</style>'); });
 angular.module('dd.ui.dd-datetimepicker').run(function() {!angular.$$csp().noInlineStyle && angular.element(document).find('head').prepend('<style type="text/css">.dd-datetimepicker{display:inline-flex;}.dd-datetimepicker .timepicker-container{width:100px !important;}.dd-datetimepicker .timepicker-container input{border-bottom-right-radius:0;border-top-right-radius:0;border-right:0;}.dd-datetimepicker .datepicker-container input.short{width:70px !important;}.dd-datetimepicker .datepicker-container input{width:105px !important;border-bottom-left-radius:0;border-top-left-radius:0;}.has-error .dd-datetimepicker .calendar-btn-with-day{border-color:#a94442;}</style>'); });
-angular.module('dd.ui.dd-table').run(function() {!angular.$$csp().noInlineStyle && angular.element(document).find('head').prepend('<style type="text/css">.dd-table{border-collapse:separate;border:solid #ccc 1px;border-radius:3px;border-left:0px;border-top:0px;}.dd-table > thead > tr > th{background-color:#f5f5f5;background:-webkit-linear-gradient(top,#fafafa 0%,#f3f2f2 100%);padding:4px !important;}.dd-table > thead:first-child > tr:first-child > th,.dd-table > thead:first-child > tr:first-child > th{border-bottom:0px;border-top:solid #ccc 1px !important;}.dd-table > thead .btn-group .dropdown-toggle{line-height:1.2;padding:1px 3px;background:#ccc;margin-left:2px;border-color:#9e9d9d;}.dd-table > thead > tr > th.checkbox-row{width:50px;}.dd-table > tbody > tr.active:hover > td{background-color:#f5f5f5;}.dd-table thead .rows-count{font-size:11px;color:#aaa;font-weight:normal;}.dd-table tr td:first-child,.dd-table tr th:first-child{border-left:1px solid #ccc;}.dd-table > tbody > tr > td{background:#fff;}.dd-table td,.dd-table th{border-top:1px solid #ccc;}.dd-table > :first-child > :first-child > :first-child{border-radius:3px 0 0 0;}.dd-table > :first-child > :first-child > :last-child{border-radius:0 3px 0 0;}.dd-table > :last-child > :last-child > :first-child{border-radius:0 0 0 3px;}.dd-table > :last-child > :last-child > :last-child{border-radius:0 0 3px 0;}.dd-pagination{margin-top:5px !important;}</style>'); });
+angular.module('dd.ui.dd-table').run(function() {!angular.$$csp().noInlineStyle && angular.element(document).find('head').prepend('<style type="text/css">.dd-table{border-collapse:separate;border:solid #ccc 1px;border-radius:3px;border-left:0px;border-top:0px;}.dd-table > thead > tr > th{background-color:#f5f5f5;background:-webkit-linear-gradient(top,#fafafa 0%,#f3f2f2 100%);padding:4px !important;}.dd-table > thead:first-child > tr:first-child > th,.dd-table > thead:first-child > tr:first-child > th{border-bottom:0px;border-top:solid #ccc 1px !important;}.dd-table > thead .btn-group .dropdown-toggle{line-height:1.2;padding:1px 3px;background:#ccc;margin-left:2px;border-color:#9e9d9d;}.dd-table > thead > tr > th.checkbox-row{width:50px;}.dd-table > tbody > tr.active:hover > td{background-color:#f5f5f5;}.dd-table thead .rows-count{font-size:11px;color:#aaa;font-weight:normal;}.dd-table tr td:first-child,.dd-table tr th:first-child{border-left:1px solid #ccc;}.dd-table > tbody > tr > td{background:#fff;}.dd-table td,.dd-table th{border-top:1px solid #ccc;}.dd-table > :first-child > :first-child > :first-child{border-radius:3px 0 0 0;}.dd-table > :first-child > :first-child > :last-child{border-radius:0 3px 0 0;}.dd-table > :last-child > :last-child > :first-child{border-radius:0 0 0 3px;}.dd-table > :last-child > :last-child > :last-child{border-radius:0 0 3px 0;}.dd-table > tbody > tr:hover{background-color:#fff;}.dd-pagination{margin-top:0px !important;}</style>'); });
 angular.module('dd.ui.form-actions').run(function() {!angular.$$csp().noInlineStyle && angular.element(document).find('head').prepend('<style type="text/css">@keyframes formBarMoveIn{from{bottom:-100px;}to{bottom:0;}}@keyframes formBarMoveOut{from{bottom:0;}to{bottom:-100px;}}.form-actions-bar{position:fixed;left:0;bottom:0;background:#eee;border-top:1px solid #ddd;width:100%;padding:10px 5px;z-index:9999;animation:formBarMoveIn 0.3s ease-out;}.form-actions-bar.ng-hide{animation:formBarMoveOut 0.3s ease-out;}.form-actions-bar button{margin-right:10px;}</style>'); });
 angular.module('dd.ui.form-validation').run(function() {!angular.$$csp().noInlineStyle && angular.element(document).find('head').prepend('<style type="text/css">.form-fields-group .field-error{display:none;margin-top:5px;margin-bottom:10px;color:#a94442}.form-fields-group.has-error .field-error{display:block;}</style>'); });
 angular.module('dd.ui.lookup').run(function() {!angular.$$csp().noInlineStyle && angular.element(document).find('head').prepend('<style type="text/css">.lookup-container .input-group{width:100%;}.lookup-container .dropdown-menu{border:1px solid #ccc !important;border-top:none !important;font-size:11px;padding:1px !important;max-height:196px;overflow-y:scroll;overflow-x:hidden;width:100%;}.lookup-container input{background-color:#ffe;}.lookup-container .dropdown-menu > li > a{padding:5px;}.lookup-container .lookup-legend div,.lookup-clear div{width:16px;height:16px;display:inline-block;vertical-align:middle;}.lookup-container a.lookup-clear{outline:0}.lookup-container .lookup-no-results{position:absolute;background-color:#fff;z-index:100;padding:4px;width:100%;border:1px solid #ddd;margin-top:1px;top:100%;}.lookup-container .lookup-no-results span{color:#a94442;font-size:10px;}.lookup-container .lookup-legend .lookup-icon{background-image:url(./assets/img/magnifier-small.png);}.lookup-container .lookup-legend .spinner-icon{background-image:url(./assets/img/spinner.gif);background-size:16px;}.lookup-container .lookup-clear .clear-icon{background-image:url(./assets/img/cross-small-white.png);opacity:0.6;}.lookup-container .lookup-legend{position:absolute;right:6px;top:6px;z-index:5;}.lookup-container .lookup-clear{position:absolute;right:22px;top:6px;z-index:5;}.lookup-container .typeahead-group-header{font-weight:bold;padding:.2em .4em;}</style>'); });
