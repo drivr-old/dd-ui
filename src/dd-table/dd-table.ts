@@ -1,6 +1,5 @@
 namespace ddui {
-
-
+    
     function ddTable(): ng.IDirective {
         return {
             restrict: 'A',
@@ -44,6 +43,37 @@ namespace ddui {
         };
     }
 
+    function ddItemsPerPage(): ng.IDirective {
+        return {
+            restrict: 'E',
+            scope: {
+                limit: '=',
+                onChange: '&'
+            },
+            template: `<div class="btn-group pull-right" uib-dropdown keyboard-nav>
+                            <button type="button" class="btn btn-default btn-sm" uib-dropdown-toggle>
+                                Show {{limit}} results <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="btn-append-to-single-button">
+                                <li ng-repeat="value in values" role="menuitem"><a ng-click="selectValue(value)" href="#">{{value}}</a></li>
+                            </ul>
+                        </div>`,
+            link: (scope: any) => {
+                scope.values = [scope.limit || 25, 50, 100];
+
+                scope.selectValue = (value: number) => {
+                    scope.limit = value;
+                };
+
+                scope.$watch('limit', (oldVal, newVal) => {
+                    if (oldVal !== newVal) {
+                        scope.onChange();
+                    }
+                });
+            }
+        };
+    }
+
     function ddPagesSelector(): ng.IDirective {
         return {
             restrict: 'E',
@@ -52,7 +82,7 @@ namespace ddui {
             replace: true,
             controller: () => { },
             template: `<div>
-                            <div class="btn-group" uib-dropdown>
+                            <div class="btn-group" uib-dropdown keyboard-nav>
                                 <button uib-dropdown-toggle class="btn btn-default btn-xs"><span class="caret"></span></button>
                                 <ul class="dropdown-menu" uib-dropdown-menu ng-transclude>
                                 </ul>
@@ -81,6 +111,7 @@ namespace ddui {
     angular.module('dd.ui.dd-table', [])
         .directive('ddTable', ddTable)
         .directive('ddPagination', ddPagination)
+        .directive('ddItemsPerPage', ddItemsPerPage)
         .directive('ddPagesSelector', ddPagesSelector)
         .directive('ddPagesSelectorItem', ddPagesSelectorItem);
 }
