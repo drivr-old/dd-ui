@@ -33,12 +33,14 @@ describe('dd-items-per-page tests.', function () {
             $scope.pageChanged = pageChanged;
             var pagination = `<dd-items-per-page on-change="pageChanged()" limit="limit"></dd-items-per-page>`;
 
-            $compile(angular.element(pagination))($scope);
+            var element = $compile(angular.element(pagination))($scope);
             $scope.$digest();
-            $scope.limit = 50;
+            element.find('.btn').click();
+            element.find('a:first').click();
             $scope.$digest();
             
             expect(pageChanged).toHaveBeenCalled();
+            expect($scope.limit).toBe(25);
         });
     });
 });

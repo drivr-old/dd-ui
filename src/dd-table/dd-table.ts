@@ -51,7 +51,7 @@ namespace ddui {
                 onChange: '&'
             },
             template: `<div class="btn-group pull-right" uib-dropdown keyboard-nav>
-                            <button id="btn-append-to-single-button" type="button" class="btn btn-default btn-sm" uib-dropdown-toggle>
+                            <button type="button" class="btn btn-default btn-sm" uib-dropdown-toggle>
                                 Show {{limit}} results <span class="caret"></span>
                             </button>
                             <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="btn-append-to-single-button">
