@@ -50,7 +50,7 @@ namespace ddui {
                 limit: '=',
                 onChange: '&'
             },
-            template: `<div class="btn-group pull-right" uib-dropdown keyboard-nav>
+            template: `<div class="btn-group pull-right dropup" uib-dropdown keyboard-nav>
                             <button type="button" class="btn btn-default btn-sm" uib-dropdown-toggle>
                                 Show {{limit}} results <span class="caret"></span>
                             </button>
