@@ -1,3 +1,13 @@
+<a name="0.8.4"></a>
+## [0.8.4](//compare/0.8.3...v0.8.4) (2016-09-09)
+
+
+### Features
+
+* **ddpagination:** add items per page setting c14477e
+
+
+
 <a name="0.8.3"></a>
 ## [0.8.3](//compare/0.8.2...v0.8.3) (2016-09-09)
 
