@@ -25,3 +25,9 @@ Used to create dropdown in table header for select/deselect pages
  * `current-page`
  	:
  	Current active page (number)
+
+ * `items-per-page`
+ 	:
+ 	Items per page (number)
+
+	 
