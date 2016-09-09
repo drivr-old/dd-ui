@@ -1,7 +1,7 @@
 var gulp = require('gulp');
 var clean = require('gulp-clean');
+var shell = require('gulp-shell');
 var tslint = require("gulp-tslint");
-var ts = require('gulp-typescript');
 
 gulp.task('default', ['clean', 'compile', 'tslint']);
 
@@ -10,18 +10,12 @@ gulp.task('clean', function () {
         .pipe(clean());
 });
 
-gulp.task('tslint', function () {
+gulp.task('compile', ['clean'], shell.task(['tsc']));
+
+gulp.task('tslint', ['compile'], function () {
     return gulp.src(['src/**/*.ts', '!src/typings/**', '!src/**/*.d.ts'])
         .pipe(tslint({
             formatter: "verbose"
         }))
         .pipe(tslint.report());
 });
-
-var tsProject = ts.createProject('tsconfig.json');
-gulp.task('compile', function () {
-    var tsResult = tsProject.src()
-        .pipe(ts(tsProject));
-    return tsResult.js.pipe(gulp.dest('src'));
-});
-
