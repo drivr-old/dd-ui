@@ -24,12 +24,13 @@ namespace ddui {
             scope: {
                 totalItems: '=',
                 currentPage: '=',
+                itemsPerPage: '=',
                 onChange: '&'
             },
             template: `<ul uib-pagination
                            total-items="totalItems" 
                            ng-model="currentPage" 
-                           max-size="5" 
+                           items-per-page="itemsPerPage" 
                            class="dd-pagination pagination-sm" 
                            boundary-link-numbers="true">
                         </ul>`,
