@@ -8,10 +8,19 @@ dd-table can be used together with dd-pages-selector and dd-pagination.
 ### dd-pages-selector ###
 Used to create dropdown in table header for select/deselect pages
 
-### d-pages-selector-item ###
+### dd-pages-selector-item ###
  * `on-click`
  	:
  	Callback to execute. Eg. `ctrl.dataList.selectAll()`
+
+### dd-items-per-page ###
+ * `on-change`
+ 	:
+ 	Callback to execute then page is changed.
+
+ * `limit`
+ 	:
+ 	Items per page (number)
 
 ### dd-pagination ###
  * `on-change`

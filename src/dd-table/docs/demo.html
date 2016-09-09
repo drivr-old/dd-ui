@@ -39,7 +39,13 @@
                 </tr>
             </tbody>
         </table>
-        <dd-pagination on-change="ctrl.dataList.fetchPage()" total-items="ctrl.dataList.count" items-per-page="ctrl.dataList.filter.limit" current-page="ctrl.dataList.page"></dd-pagination>
-
+        <div class="row">
+            <div class="col-md-6">
+                <dd-pagination on-change="ctrl.dataList.fetchPage()" total-items="ctrl.dataList.count" items-per-page="ctrl.dataList.filter.limit" current-page="ctrl.dataList.page"></dd-pagination>
+            </div>
+            <div class="col-md-6">
+                <dd-items-per-page on-change="ctrl.dataList.fetchPage()" limit="ctrl.dataList.filter.limit"></dd-items-per-page>
+            </div>
+        </div>
     </div>
 </div>

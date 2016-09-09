@@ -1,4 +1,4 @@
-describe('dd-pagination tests.', function () {
+describe('dd-items-per-page tests.', function () {
     var $scope,
         $sniffer,
         $document,
@@ -18,24 +18,24 @@ describe('dd-pagination tests.', function () {
     });
 
     describe('Init', function () {
-        it('should add dd-pagination class for uib-pagination', function () {
-            var pagination = `<dd-pagination on-change="pageChanged()" total-items="dataList.count" current-page="dataList.page"></dd-pagination>`;
+        it('should add dropdown with pages select class', function () {
+            var pagination = `<dd-items-per-page on-change="fetchPage()" limit="limit"></dd-items-per-page>`;
 
             var element = $compile(angular.element(pagination))($scope);
             $scope.$digest();
 
-            expect(element.find('ul').hasClass('dd-pagination')).toBe(true);
+            expect(element.find('ul').hasClass('dropdown-menu')).toBe(true);
         });
 
         it('should call on-change event after page changes', function () {
             var pageChanged = jasmine.createSpy('pageChanged');
             pageChanged.and.callFake(() => {});
             $scope.pageChanged = pageChanged;
-            var pagination = `<dd-pagination on-change="pageChanged()" total-items="count" current-page="page"></dd-pagination>`;
+            var pagination = `<dd-items-per-page on-change="pageChanged()" limit="limit"></dd-items-per-page>`;
 
             $compile(angular.element(pagination))($scope);
             $scope.$digest();
-            $scope.page = 2;
+            $scope.limit = 50;
             $scope.$digest();
             
             expect(pageChanged).toHaveBeenCalled();
