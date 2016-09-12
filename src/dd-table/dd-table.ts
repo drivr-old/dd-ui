@@ -23,13 +23,13 @@ namespace ddui {
             scope: {
                 totalItems: '=',
                 currentPage: '=',
-                itemsPerPage: '=',
+                limit: '=',
                 onChange: '&'
             },
             template: `<ul uib-pagination
                            total-items="totalItems" 
                            ng-model="currentPage" 
-                           items-per-page="itemsPerPage" 
+                           items-per-page="limit" 
                            class="dd-pagination pagination-sm" 
                            boundary-link-numbers="true">
                         </ul>`,
@@ -55,7 +55,7 @@ namespace ddui {
                                 Show {{limit}} results <span class="caret"></span>
                             </button>
                             <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="btn-append-to-single-button">
-                                <li ng-repeat="value in values" role="menuitem"><a ng-click="selectValue(value)" href="#">{{value}}</a></li>
+                                <li ng-repeat="value in values" role="menuitem"><a href ng-click="selectValue(value)">{{value}}</a></li>
                             </ul>
                         </div>`,
             link: (scope: any) => {
