@@ -35,7 +35,7 @@ Used to create dropdown in table header for select/deselect pages
  	:
  	Current active page (number)
 
- * `items-per-page`
+ * `limit`
  	:
  	Items per page (number)
 
