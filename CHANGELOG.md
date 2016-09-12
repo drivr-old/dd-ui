@@ -1,3 +1,13 @@
+<a name="0.8.7"></a>
+## [0.8.7](//compare/0.8.6...v0.8.7) (2016-09-12)
+
+
+### Bug Fixes
+
+* **ddtable:** remove href="#" from dropdown 7d66190
+
+
+
 <a name="0.8.6"></a>
 ## [0.8.6](//compare/0.8.5...v0.8.6) (2016-09-12)
 
