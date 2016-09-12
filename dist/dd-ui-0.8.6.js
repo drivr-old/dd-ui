@@ -2,7 +2,7 @@
  * dd-ui
  * http://clickataxi.github.io/dd-ui/
 
- * Version: 0.8.5 - 2016-09-09
+ * Version: 0.8.6 - 2016-09-12
  * License: MIT
  */angular.module("dd.ui", ["dd.ui.arrow-key-nav","dd.ui.busy-element","dd.ui.conversion","dd.ui.data-list","dd.ui.datetimepicker","dd.ui.dd-datepicker","dd.ui.dd-datetimepicker","dd.ui.dd-table","dd.ui.dd-timepicker","dd.ui.form-actions","dd.ui.form-validation","dd.ui.lookup","dd.ui.validation.phone","dd.ui.validation.sameAs","dd.ui.validation"]);
 angular.module('dd.ui.arrow-key-nav', [])
@@ -911,7 +911,7 @@ var ddui;
                 limit: '=',
                 onChange: '&'
             },
-            template: "<div class=\"btn-group pull-right\" uib-dropdown keyboard-nav>\n                            <button type=\"button\" class=\"btn btn-default btn-sm\" uib-dropdown-toggle>\n                                Show {{limit}} results <span class=\"caret\"></span>\n                            </button>\n                            <ul class=\"dropdown-menu\" uib-dropdown-menu role=\"menu\" aria-labelledby=\"btn-append-to-single-button\">\n                                <li ng-repeat=\"value in values\" role=\"menuitem\"><a ng-click=\"selectValue(value)\" href=\"#\">{{value}}</a></li>\n                            </ul>\n                        </div>",
+            template: "<div class=\"btn-group pull-right dropup\" uib-dropdown keyboard-nav>\n                            <button type=\"button\" class=\"btn btn-default btn-sm\" uib-dropdown-toggle>\n                                Show {{limit}} results <span class=\"caret\"></span>\n                            </button>\n                            <ul class=\"dropdown-menu\" uib-dropdown-menu role=\"menu\" aria-labelledby=\"btn-append-to-single-button\">\n                                <li ng-repeat=\"value in values\" role=\"menuitem\"><a ng-click=\"selectValue(value)\" href=\"#\">{{value}}</a></li>\n                            </ul>\n                        </div>",
             link: function (scope) {
                 scope.values = [scope.limit || 25, 50, 100];
                 scope.selectValue = function (value) {
