@@ -1,3 +1,13 @@
+<a name="0.8.8"></a>
+## [0.8.8](//compare/0.8.7...v0.8.8) (2016-09-16)
+
+
+### Bug Fixes
+
+* **lookup:** clear matches after navigating with alt + arrows 007fc26
+
+
+
 <a name="0.8.7"></a>
 ## [0.8.7](//compare/0.8.6...v0.8.7) (2016-09-12)
 

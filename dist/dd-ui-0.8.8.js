@@ -2,7 +2,7 @@
  * dd-ui
  * http://clickataxi.github.io/dd-ui/
 
- * Version: 0.8.7 - 2016-09-12
+ * Version: 0.8.8 - 2016-09-16
  * License: MIT
  */angular.module("dd.ui", ["dd.ui.arrow-key-nav","dd.ui.busy-element","dd.ui.conversion","dd.ui.data-list","dd.ui.datetimepicker","dd.ui.dd-datepicker","dd.ui.dd-datetimepicker","dd.ui.dd-table","dd.ui.dd-timepicker","dd.ui.form-actions","dd.ui.form-validation","dd.ui.lookup","dd.ui.validation.phone","dd.ui.validation.sameAs","dd.ui.validation"]);
 angular.module('dd.ui.arrow-key-nav', [])
@@ -1307,7 +1307,8 @@ angular.module('dd.ui.lookup', ['ui.bootstrap'])
                 lookupResponseTransform: '&',
                 lookupDataProvider: '&',
                 lookupGrouping: '=?',
-                lookupMinLength: '=?'
+                lookupMinLength: '=?',
+                lookupFocusFirst: '=?'
             },
             templateUrl: function (element, attrs) {
                 return attrs.templateUrl || 'template/lookup/lookup.html';
@@ -1394,6 +1395,15 @@ angular.module('dd.ui.lookup', ['ui.bootstrap'])
                 $scope.onSelect = function ($item, $model, $label) {
                     ctrl.$setDirty(true);
                     $timeout($scope.lookupOnSelect);
+                };
+                $scope.onKeydown = function (event) {
+                    if (event.altKey && (event.keyCode === 40 || event.keyCode === 38)) {
+                        var popup = element.find('.dropdown-menu');
+                        if (popup) {
+                            var popupScope = popup.scope();
+                            popupScope.matches = [];
+                        }
+                    }
                 };
                 function applyGrouping(data) {
                     var propertyName = $scope.lookupGrouping || 'group';

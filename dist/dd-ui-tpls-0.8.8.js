@@ -2,7 +2,7 @@
  * dd-ui
  * http://clickataxi.github.io/dd-ui/
 
- * Version: 0.8.7 - 2016-09-12
+ * Version: 0.8.8 - 2016-09-16
  * License: MIT
  */angular.module("dd.ui", ["dd.ui.tpls", "dd.ui.arrow-key-nav","dd.ui.busy-element","dd.ui.conversion","dd.ui.data-list","dd.ui.datetimepicker","dd.ui.dd-datepicker","dd.ui.dd-datetimepicker","dd.ui.dd-table","dd.ui.dd-timepicker","dd.ui.form-actions","dd.ui.form-validation","dd.ui.lookup","dd.ui.validation.phone","dd.ui.validation.sameAs","dd.ui.validation"]);
 angular.module("dd.ui.tpls", ["template/busy-element/busy-element.html","template/datetimepicker/datetimepicker.html","template/dd-datepicker/dd-datepicker.html","template/dd-datetimepicker/dd-datetimepicker.html","template/form-actions/form-actions.html","template/lookup/lookup-item.html","template/lookup/lookup.html"]);
@@ -1308,7 +1308,8 @@ angular.module('dd.ui.lookup', ['ui.bootstrap'])
                 lookupResponseTransform: '&',
                 lookupDataProvider: '&',
                 lookupGrouping: '=?',
-                lookupMinLength: '=?'
+                lookupMinLength: '=?',
+                lookupFocusFirst: '=?'
             },
             templateUrl: function (element, attrs) {
                 return attrs.templateUrl || 'template/lookup/lookup.html';
@@ -1395,6 +1396,15 @@ angular.module('dd.ui.lookup', ['ui.bootstrap'])
                 $scope.onSelect = function ($item, $model, $label) {
                     ctrl.$setDirty(true);
                     $timeout($scope.lookupOnSelect);
+                };
+                $scope.onKeydown = function (event) {
+                    if (event.altKey && (event.keyCode === 40 || event.keyCode === 38)) {
+                        var popup = element.find('.dropdown-menu');
+                        if (popup) {
+                            var popupScope = popup.scope();
+                            popupScope.matches = [];
+                        }
+                    }
                 };
                 function applyGrouping(data) {
                     var propertyName = $scope.lookupGrouping || 'group';
@@ -1661,10 +1671,12 @@ angular.module("template/lookup/lookup.html", []).run(["$templateCache", functio
     "           uib-typeahead=\"d as getLabel(d) for d in getItems($viewValue)\"\n" +
     "           typeahead-on-select=\"onSelect($item, $model, $label)\"\n" +
     "           typeahead-editable=\"false\"\n" +
+    "           typeahead-focus-first=\"lookupFocusFirst\"\n" +
     "           typeahead-no-results=\"noResults\"\n" +
     "           typeahead-template-url=\"template/lookup/lookup-item.html\"\n" +
     "           typeahead-wait-ms=\"300\"\n" +
     "           typeahead-min-length=\"lookupMinLength\"\n" +
+    "           ng-keydown=\"onKeydown($event)\"\n" +
     "           ng-disabled=\"ngDisabled\"\n" +
     "           placeholder=\"{{placeholder}}\"\n" +
     "           class=\"form-control {{inputClass}}\" />\n" +
