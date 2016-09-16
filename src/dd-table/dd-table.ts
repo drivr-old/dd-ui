@@ -28,7 +28,8 @@ namespace ddui {
             },
             template: `<ul uib-pagination
                            total-items="totalItems" 
-                           ng-model="currentPage" 
+                           ng-model="currentPage"
+                           max-size="4"
                            items-per-page="limit" 
                            class="dd-pagination pagination-sm" 
                            boundary-link-numbers="true">

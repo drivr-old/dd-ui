@@ -78,7 +78,7 @@ class TableDemoCtrl {
                         'name': 'Pierce Callahan'
                     }
                 ],
-                count: 28
+                count: 300
             };
 
             return [200, result];
