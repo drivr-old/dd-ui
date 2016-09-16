@@ -125,7 +125,17 @@ angular.module('dd.ui.lookup', ['ui.bootstrap'])
                 ctrl.$setDirty(true);
                 $timeout($scope.lookupOnSelect);
             };
-            
+
+            $scope.onKeydown = function (event) {
+                if (event.altKey && (event.keyCode === 40 || event.keyCode === 38)) { //alt + arrows
+                    var popup = element.find('.dropdown-menu');
+                    if (popup) {
+                        var popupScope = popup.scope();
+                        popupScope.matches = [];
+                    }
+                }
+            };
+
             function applyGrouping(data) {
                 var propertyName = $scope.lookupGrouping || 'group';
                 var grouped = data ? data.reduce(function(prev, curr) {

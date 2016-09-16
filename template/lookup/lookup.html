@@ -11,6 +11,7 @@
            typeahead-template-url="template/lookup/lookup-item.html"
            typeahead-wait-ms="300"
            typeahead-min-length="lookupMinLength"
+           ng-keydown="onKeydown($event)"
            ng-disabled="ngDisabled"
            placeholder="{{placeholder}}"
            class="form-control {{inputClass}}" />
