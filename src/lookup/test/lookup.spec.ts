@@ -25,29 +25,29 @@
         });
     });
 
-    afterEach(function() {
+    afterEach(function () {
         $httpBackend.verifyNoOutstandingExpectation();
         $httpBackend.verifyNoOutstandingRequest();
     });
 
-    describe('Parameters', function() {
+    describe('Parameters', function () {
         it('are added to the request.', function () {
             $scope.lookupParams = {};
 
             $httpBackend.expectGET('/api/drivers/lookup?limit=10&query=ab+ac').respond(200);
             lookup('ab ac');
-            
+
             $httpBackend.expectGET('/api/drivers/lookup?driverId=123&limit=10&query=ac').respond(200);
             $scope.lookupParams.driverId = '123';
             lookup('ac');
         });
-        
+
         it('limit is overriden by passed value.', function () {
             $scope.lookupParams = {};
 
             $httpBackend.expectGET('/api/drivers/lookup?limit=10&query=ab').respond(200);
             lookup('ab');
-            
+
             $httpBackend.expectGET('/api/drivers/lookup?limit=100&query=ac').respond(200);
             $scope.lookupParams.limit = 100;
             lookup('ac');
@@ -82,10 +82,10 @@
     });
 
     describe('Lookup format', function () {
-        it('sets a custom label.', function() {
-            $scope.formatLabel = function(item) { return item.name + ' - ' + item.externalReference; };
+        it('sets a custom label.', function () {
+            $scope.formatLabel = function (item) { return item.name + ' - ' + item.externalReference; };
             initDirective('<div dd-lookup ng-model="model" url="\'/api/drivers/lookup\'" lookup-format="formatLabel($item)"></div>');
-            
+
             var items = [{ id: 1, name: 'driver 1', externalReference: '123' }, { id: 2, name: 'driver 2', externalReference: '321' }];
             $httpBackend.expectGET('/api/drivers/lookup?limit=10&query=ab').respond(200, items);
             lookup('ab');
@@ -95,6 +95,24 @@
 
             selectItem(0);
             expect(input.val()).toEqual('driver 1 - 123');
+        });
+    });
+
+    describe('lookup alt + arrows', () => {
+        it('should clear matches and hide dropdown', () => {
+            var items = [{ id: 1, name: 'driver 1', externalReference: '123' }, { id: 2, name: 'driver 2', externalReference: '321' }];
+            $httpBackend.expectGET('/api/drivers/lookup?limit=10&query=ab').respond(200, items);
+            lookup('ab');
+
+            var event = angular.element.Event('keydown');
+            event.altKey = true;
+            event.keyCode = 40;
+
+            expect(element.find('.dropdown-menu').hasClass('ng-hide')).toBeFalsy();
+
+            element.find('input').trigger(event);
+
+            expect(element.find('.dropdown-menu').hasClass('ng-hide')).toBeTruthy();
         });
     });
 
@@ -112,8 +130,8 @@
         });
     });
 
-    describe('Spinner', function() {
-        it('is shown while items are loading.', function() {
+    describe('Spinner', function () {
+        it('is shown while items are loading.', function () {
             $httpBackend.expectGET('/api/drivers/lookup?limit=10&query=ab').respond(200, [{}]);
             lookup('ab', true);
 
@@ -132,37 +150,37 @@
     describe('No results label', function () {
         var label;
 
-        beforeEach(function() {
+        beforeEach(function () {
             label = element.find('.lookup-no-results');
             $httpBackend.expectGET('/api/drivers/lookup?limit=10&query=ab').respond(200);
         });
 
-        it('is shown when no results are available.', function() {            
+        it('is shown when no results are available.', function () {
             lookup('ab');
-            
+
             expect(label.is(':visible')).toBeTruthy();
 
             $httpBackend.expectGET('/api/drivers/lookup?limit=10&query=abc').respond(200, [{ name: 'result 1' }]);
             lookup('abc');
-            
+
             expect(label.is(':visible')).toBeFalsy();
         });
-        
-        it('is cleared when model is cleared.', function() {
+
+        it('is cleared when model is cleared.', function () {
             lookup('ab');
             $scope.model = {};
             $scope.$digest();
             expect(label.is(':visible')).toBeTruthy();
-            
+
             $scope.model = null;
             $scope.$digest();
             expect(label.is(':visible')).toBeFalsy();
         });
-        
-        it('is cleared when input focus is lost.', function() {
+
+        it('is cleared when input focus is lost.', function () {
             lookup('ab');
             expect(label.is(':visible')).toBeTruthy();
-            
+
             input.blur();
             $scope.$digest();
             expect(label.is(':visible')).toBeFalsy();
@@ -170,11 +188,11 @@
     });
 
     describe('ngDisabled', function () {
-        beforeEach(function() {
+        beforeEach(function () {
             initDirective('<div dd-lookup ng-model="model" url="\'/api/drivers/lookup\'" ng-disabled="disabled"></div>');
         });
 
-        it('disables the input.', function() {
+        it('disables the input.', function () {
             expect(input.attr('disabled')).toBe(undefined);
 
             $scope.disabled = true;
@@ -206,8 +224,8 @@
         });
     });
 
-    describe('Placeholder', function() {
-        it('is added if specified.', function() {
+    describe('Placeholder', function () {
+        it('is added if specified.', function () {
             expect(input.attr('placeholder')).toEqual('');
 
             initDirective('<div dd-lookup ng-model="model" url="\'/api/drivers/lookup\'" placeholder="Look up a driver"></div>');
@@ -216,8 +234,8 @@
         });
     });
 
-    describe('Html addon', function() {
-        it('is prepended to the input group if specified.', function() {
+    describe('Html addon', function () {
+        it('is prepended to the input group if specified.', function () {
             expect(element.find('.input-group .input-group-addon').length).toBe(0);
 
             initDirective('<div dd-lookup ng-model="model" url="\'/api/drivers/lookup\'" lookup-addon="<span>Addon</span>"></div>');
@@ -226,7 +244,7 @@
             expect(addon.html()).toEqual('Addon');
         });
 
-        it('pushes the no-results label to the right by addon width.', function() {
+        it('pushes the no-results label to the right by addon width.', function () {
             var label = element.find('.lookup-no-results');
             expect(label.css('margin-left')).toEqual('0px');
 
@@ -237,12 +255,12 @@
             expect(label.css('margin-left')).toEqual(addon.outerWidth() + 'px');
         });
 
-        it('shortens the width of dropdown menu by addon width.', function() {
+        it('shortens the width of dropdown menu by addon width.', function () {
             $timeout.flush();
 
             var dropdown = element.find('.dropdown-menu');
             expect(dropdown.css('width')).toEqual('100%');
-            
+
             initDirective('<div dd-lookup ng-model="model" url="\'/api/drivers/lookup\'" lookup-addon="<span>Addon</span>"></div>');
             $timeout.flush();
 
@@ -252,11 +270,11 @@
         });
     });
 
-    describe('Lookup response transform', function() {
-        it('allows custom API response format.', function() {
-            $scope.responseTransformer = function(response) { return response.items; };
+    describe('Lookup response transform', function () {
+        it('allows custom API response format.', function () {
+            $scope.responseTransformer = function (response) { return response.items; };
             initDirective('<div dd-lookup ng-model="model" url="\'/api/drivers/lookup\'" lookup-response-transform="responseTransformer($response)"></div>');
-            
+
             var response = { items: [{ id: 1, name: 'driver 1', externalReference: '123' }, { id: 2, name: 'driver 2', externalReference: '321' }] };
             $httpBackend.expectGET('/api/drivers/lookup?limit=10&query=ab').respond(200, response);
             lookup('ab');
@@ -266,37 +284,37 @@
             expect($scope.model).toEqual(expectedModel);
         });
     });
-    
-    describe('Lookup data provider', function() {
-       it('handles the lookup item fetching.', function() {
-           var items = [ { id: 1, name: 'driver 1' }, { id: 2, name: 'driver 2' }];
-           
-           $scope.loadDataItems = jasmine.createSpy('loadDataItems').and.callFake(function(query) { return items; });
-           initDirective('<div dd-lookup ng-model="model" lookup-data-provider="loadDataItems($query)"></div>');
-           
-           lookup('ab', true);           
-           expect($scope.loadDataItems).toHaveBeenCalledWith('ab');
-           
-           selectItem(1);
-           expect($scope.model).toEqual(items[1]);
-       });
+
+    describe('Lookup data provider', function () {
+        it('handles the lookup item fetching.', function () {
+            var items = [{ id: 1, name: 'driver 1' }, { id: 2, name: 'driver 2' }];
+
+            $scope.loadDataItems = jasmine.createSpy('loadDataItems').and.callFake(function (query) { return items; });
+            initDirective('<div dd-lookup ng-model="model" lookup-data-provider="loadDataItems($query)"></div>');
+
+            lookup('ab', true);
+            expect($scope.loadDataItems).toHaveBeenCalledWith('ab');
+
+            selectItem(1);
+            expect($scope.model).toEqual(items[1]);
+        });
     });
-    
-    describe('Data with groups', function() {
-        it('is grouped under corresponding headers.', function() {
-            var items = [ 
-                { id: 1, name: 'driver 1', grupe: 'Group 1' }, 
-                { id: 2, name: 'driver 2', grupe: 'Group 2' }, 
-                { id: 3, name: 'driver 3', grupe: 'Group 1' }, 
-                { id: 4, name: 'driver 4', grupe: 'Group 3' }, 
+
+    describe('Data with groups', function () {
+        it('is grouped under corresponding headers.', function () {
+            var items = [
+                { id: 1, name: 'driver 1', grupe: 'Group 1' },
+                { id: 2, name: 'driver 2', grupe: 'Group 2' },
+                { id: 3, name: 'driver 3', grupe: 'Group 1' },
+                { id: 4, name: 'driver 4', grupe: 'Group 3' },
                 { id: 5, name: 'driver 5' }];
-                
+
             $scope.groupingProperty = 'grupe';
             $scope.loadDataItems = jasmine.createSpy('loadDataItems').and.returnValue(items);
             initDirective('<div dd-lookup ng-model="model" lookup-grouping="groupingProperty" lookup-data-provider="loadDataItems($query)"></div>');
-            
+
             lookup('ab', true);
-            
+
             var lookupItems = getLookupItems();
             expect(lookupItems[0].header).toEqual('Group 1');
             expect(lookupItems[0].item).toEqual('driver 1');
@@ -310,29 +328,29 @@
             expect(lookupItems[4].item).toEqual('driver 5');
         });
     });
-    
-    describe('Lookup on clear callback', function() {
-        beforeEach(function() {
+
+    describe('Lookup on clear callback', function () {
+        beforeEach(function () {
             $scope.onClear = jasmine.createSpy('onClear');
             initDirective('<div dd-lookup ng-model="model" lookup-on-clear="onClear()" url="\'/api/drivers/lookup\'"></div>');
         });
-        
-        it('is called when ng-model is cleared.', function() {
+
+        it('is called when ng-model is cleared.', function () {
             $scope.model = {};
             $scope.$digest();
 
             $scope.model = null;
             $scope.$digest();
             $timeout.flush();
-            
+
             expect($scope.onClear).toHaveBeenCalled();
         });
-        
-        it('is not called on initial load.', function() {
-           expect($scope.onClear).not.toHaveBeenCalled(); 
+
+        it('is not called on initial load.', function () {
+            expect($scope.onClear).not.toHaveBeenCalled();
         });
     });
-    
+
     function initDirective(html) {
         element = $compile(html)($scope);
         element.appendTo($document[0].body);
@@ -357,16 +375,16 @@
     function getItemLabel(index) {
         return element.find('ul.dropdown-menu li:eq(' + index + ') a').text();
     }
-    
+
     function getLookupItems() {
-        return element.find('ul.dropdown-menu li').toArray().reduce(function(prev, curr) {
-            var element = angular.element(curr); 
-            
+        return element.find('ul.dropdown-menu li').toArray().reduce(function (prev, curr) {
+            var element = angular.element(curr);
+
             prev.push({
                 header: element.find('.typeahead-group-header').html(),
                 item: element.find('a').html()
             });
-            
+
             return prev;
         }, []);
     }
