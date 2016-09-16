@@ -42,6 +42,4 @@
             return url;
         }
     }
-
-    angular.module('dd.ui.filter-helper', []).service('filterHelper', FilterHelper);
 }
