@@ -15,7 +15,8 @@ angular.module('dd.ui.lookup', ['ui.bootstrap'])
             lookupResponseTransform: '&',
             lookupDataProvider: '&',
             lookupGrouping: '=?',
-            lookupMinLength: '=?'
+            lookupMinLength: '=?',
+            lookupFocusFirst: '=?'
         },
         templateUrl: function (element, attrs) {
             return attrs.templateUrl || 'template/lookup/lookup.html';
