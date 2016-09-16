@@ -6,10 +6,12 @@
            uib-typeahead="d as getLabel(d) for d in getItems($viewValue)"
            typeahead-on-select="onSelect($item, $model, $label)"
            typeahead-editable="false"
+           typeahead-focus-first="lookupFocusFirst"
            typeahead-no-results="noResults"
            typeahead-template-url="template/lookup/lookup-item.html"
            typeahead-wait-ms="300"
            typeahead-min-length="lookupMinLength"
+           ng-keydown="onKeydown($event)"
            ng-disabled="ngDisabled"
            placeholder="{{placeholder}}"
            class="form-control {{inputClass}}" />
