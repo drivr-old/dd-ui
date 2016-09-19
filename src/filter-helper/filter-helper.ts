@@ -42,4 +42,6 @@
             return url;
         }
     }
+
+    angular.module('dd.ui.filter-helper', []);
 }
