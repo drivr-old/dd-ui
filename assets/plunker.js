@@ -1,6 +1,6 @@
 angular.module('plunker', [])
 
-  .factory('plunkGenerator', function ($document) {
+  .factory('plunkGenerator', ['$document', function ($document) {
 
     return function (ngVersion, bsVersion, version, module, content) {
 
@@ -39,16 +39,16 @@ angular.module('plunker', [])
       form[0].submit();
       form.remove();
     };
-  })
+  }])
 
-  .controller('PlunkerCtrl', function ($scope, plunkGenerator) {
+  .controller('PlunkerCtrl', ['$scope', 'plunkGenerator', function ($scope, plunkGenerator) {
 
     $scope.content = {};
 
     $scope.edit = function (ngVersion, bsVersion, version, module) {
       plunkGenerator(ngVersion, bsVersion, version, module, $scope.content);
     };
-  })
+  }])
 
   .directive('plunkerContent', function () {
     return {
