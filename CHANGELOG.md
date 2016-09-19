@@ -1,3 +1,17 @@
+<a name="0.8.9"></a>
+## [0.8.9](//compare/0.8.8...v0.8.9) (2016-09-19)
+
+
+### Bug Fixes
+
+* **ddtable:** revert new table styling 2578f25
+
+### Features
+
+* **filter:** add filter components 7eb539e
+
+
+
 <a name="0.8.8"></a>
 ## [0.8.8](//compare/0.8.7...v0.8.8) (2016-09-16)
 

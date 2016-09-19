@@ -70,70 +70,38 @@
 .has-error .dd-datetimepicker .calendar-btn-with-day {
     border-color: #a94442;
 }
-.dd-table {
-   border-collapse: separate;
-   border: solid #ccc 1px;
-   border-radius: 3px;
-   border-left: 0px;
-   border-top: 0px;
-}
-.dd-table > thead > tr > th {
-    background-color: #f5f5f5;
-    background: -webkit-linear-gradient(top, #fafafa 0%, #f3f2f2 100%);
-    padding: 4px !important;
-}
 .dd-table > thead:first-child > tr:first-child > th, .dd-table > thead:first-child > tr:first-child > th {
     border-bottom: 0px;
     border-top: solid #ccc 1px !important;
 }
-.dd-table > thead .btn-group .dropdown-toggle {
-    line-height: 1.2;
-    padding: 1px 3px;
-    background: #ccc;
-    margin-left: 2px;
-    border-color: #9e9d9d;
-}
 .dd-table > thead > tr > th.checkbox-row {
     width: 50px;
 }
-
 .dd-table > tbody > tr.active:hover > td {
     background-color: #f5f5f5;
 }
-
 .dd-table thead .rows-count {
     font-size: 11px;
     color: #aaa;
     font-weight: normal;
 }
-.dd-table tr td:first-child, .dd-table tr th:first-child {
-    border-left:1px solid #ccc;
-}
 .dd-table > tbody > tr > td {
     background: #fff;
-}
-.dd-table td, .dd-table th {
-    border-top: 1px solid #ccc;
-}
-.dd-table > :first-child > :first-child > :first-child {
-    border-radius: 3px 0 0 0;
-}
-.dd-table > :first-child > :first-child > :last-child {
-    border-radius: 0 3px 0 0;
-}
-.dd-table > :last-child > :last-child > :first-child {
-    border-radius: 0 0 0 3px;
-}
-.dd-table > :last-child > :last-child > :last-child {
-    border-radius: 0 0 3px 0;
 }
 .dd-table > tbody > tr:hover {
     background-color:#fff;
 }
-
 .dd-pagination {
     margin-top: 0px !important;
 }
+ .filter-tags {
+        margin: 15px 15px 0 15px;
+    }
+
+   
+    .filter-tags .btn-group {
+        margin-right: 10px;
+    }
 @keyframes formBarMoveIn {
     from {
         bottom: -100px;

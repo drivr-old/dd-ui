@@ -2,10 +2,10 @@
  * dd-ui
  * http://clickataxi.github.io/dd-ui/
 
- * Version: 0.8.8 - 2016-09-16
+ * Version: 0.8.9 - 2016-09-19
  * License: MIT
- */angular.module("dd.ui", ["dd.ui.tpls", "dd.ui.arrow-key-nav","dd.ui.busy-element","dd.ui.conversion","dd.ui.data-list","dd.ui.datetimepicker","dd.ui.dd-datepicker","dd.ui.dd-datetimepicker","dd.ui.dd-table","dd.ui.dd-timepicker","dd.ui.form-actions","dd.ui.form-validation","dd.ui.lookup","dd.ui.validation.phone","dd.ui.validation.sameAs","dd.ui.validation"]);
-angular.module("dd.ui.tpls", ["template/busy-element/busy-element.html","template/datetimepicker/datetimepicker.html","template/dd-datepicker/dd-datepicker.html","template/dd-datetimepicker/dd-datetimepicker.html","template/form-actions/form-actions.html","template/lookup/lookup-item.html","template/lookup/lookup.html"]);
+ */angular.module("dd.ui", ["dd.ui.tpls", "dd.ui.arrow-key-nav","dd.ui.busy-element","dd.ui.conversion","dd.ui.core","dd.ui.data-list","dd.ui.datetimepicker","dd.ui.dd-datepicker","dd.ui.dd-datetimepicker","dd.ui.dd-table","dd.ui.dd-timepicker","dd.ui.filter-field-focus","dd.ui.filter-helper","dd.ui.filter-tags","dd.ui.form-actions","dd.ui.form-validation","dd.ui.lookup","dd.ui.validation.phone","dd.ui.validation.sameAs","dd.ui.validation"]);
+angular.module("dd.ui.tpls", ["template/busy-element/busy-element.html","template/datetimepicker/datetimepicker.html","template/dd-datepicker/dd-datepicker.html","template/dd-datetimepicker/dd-datetimepicker.html","template/filter-tags/filter-tags.html","template/form-actions/form-actions.html","template/lookup/lookup-item.html","template/lookup/lookup.html"]);
 angular.module('dd.ui.arrow-key-nav', [])
     .directive('ddArrowKeyNav', ['$document', function ($document) {
         return {
@@ -182,6 +182,9 @@ angular.module('dd.ui.busy-element', [])
         }]);
 })();
 //# sourceMappingURL=conversion.js.map
+angular.module('dd.ui.core', []);
+//# sourceMappingURL=core.js.map
+//# sourceMappingURL=filter.models.js.map
 var ddui;
 (function (ddui) {
     var DataList = (function () {
@@ -895,7 +898,7 @@ var ddui;
                 limit: '=',
                 onChange: '&'
             },
-            template: "<ul uib-pagination\n                           total-items=\"totalItems\" \n                           ng-model=\"currentPage\" \n                           items-per-page=\"limit\" \n                           class=\"dd-pagination pagination-sm\" \n                           boundary-link-numbers=\"true\">\n                        </ul>",
+            template: "<ul uib-pagination\n                           total-items=\"totalItems\" \n                           ng-model=\"currentPage\"\n                           max-size=\"4\"\n                           items-per-page=\"limit\" \n                           class=\"dd-pagination pagination-sm\" \n                           boundary-link-numbers=\"true\">\n                        </ul>",
             link: function (scope) {
                 scope.$watch('currentPage', function (oldVal, newVal) {
                     if (oldVal !== newVal) {
@@ -1166,6 +1169,141 @@ var ddui;
     }
 })();
 //# sourceMappingURL=dd-timepicker.js.map
+var ddui;
+(function (ddui) {
+    function filterFieldFocus() {
+        return {
+            restrict: 'A',
+            link: function (scope, element, attr) {
+                scope.$watch(function () { return attr.filterFieldFocus; }, function (oldVal, newVal) {
+                    if (newVal) {
+                        focusField(newVal);
+                    }
+                });
+                function focusField(fieldName) {
+                    var elements = document.querySelectorAll("[ng-model*=\"" + fieldName + "\"]");
+                    for (var i = 0; i < elements.length; i++) {
+                        angular.element(elements[i]).focus();
+                    }
+                }
+            }
+        };
+    }
+    angular.module('dd.ui.filter-field-focus', []).directive('filterFieldFocus', filterFieldFocus);
+})(ddui || (ddui = {}));
+//# sourceMappingURL=filter-field-focus.js.map
+var ddui;
+(function (ddui) {
+    var FilterHelper = (function () {
+        function FilterHelper() {
+        }
+        FilterHelper.mergeStateParams = function (filter, $stateParams) {
+            for (var prop in filter) {
+                if (filter.hasOwnProperty(prop) && typeof ($stateParams[prop]) !== 'undefined') {
+                    filter[prop].value = $stateParams[prop];
+                }
+            }
+        };
+        FilterHelper.generateStateParams = function (filter) {
+            var params = {};
+            for (var prop in filter) {
+                if (filter.hasOwnProperty(prop)) {
+                    params[prop] = filter[prop].value;
+                }
+            }
+            return params;
+        };
+        FilterHelper.generateDynamicParams = function (filter, defaultParams) {
+            if (defaultParams === void 0) { defaultParams = null; }
+            var params = defaultParams || {};
+            for (var prop in filter) {
+                if (filter.hasOwnProperty(prop)) {
+                    params[prop] = { dynamic: true };
+                }
+            }
+            return params;
+        };
+        FilterHelper.generateUrlParams = function (filter) {
+            var url = '';
+            for (var prop in filter) {
+                if (filter.hasOwnProperty(prop)) {
+                    if (url.length > 0) {
+                        url += '&';
+                    }
+                    url += prop;
+                }
+            }
+            return url;
+        };
+        return FilterHelper;
+    }());
+    ddui.FilterHelper = FilterHelper;
+})(ddui || (ddui = {}));
+//# sourceMappingURL=filter-helper.js.map
+var ddui;
+(function (ddui) {
+    var FilterTagsComponent = (function () {
+        function FilterTagsComponent() {
+        }
+        FilterTagsComponent.prototype.$onChanges = function (changesObj) {
+            this.tags = [];
+            if (changesObj['filter']) {
+                var filter = changesObj['filter'].currentValue;
+                if (filter) {
+                    this.createFilterTags(filter);
+                }
+            }
+        };
+        FilterTagsComponent.prototype.openTag = function (tag) {
+            this.onSelect({ fieldName: tag.id });
+        };
+        FilterTagsComponent.prototype.removeTag = function (tag) {
+            this.onRemove({ fieldName: tag.id });
+            var index = this.tags.indexOf(tag);
+            this.tags.splice(index, 1);
+        };
+        FilterTagsComponent.prototype.clearAll = function () {
+            this.onRemoveAll();
+            this.tags = [];
+        };
+        FilterTagsComponent.prototype.createFilterTags = function (filter) {
+            var definedFieldsNames = Object.keys(filter)
+                .filter(function (key) {
+                var value = filter[key].value;
+                return angular.isDefined(value) && value !== '' && !filter[key].excludeTag;
+            });
+            for (var _i = 0, definedFieldsNames_1 = definedFieldsNames; _i < definedFieldsNames_1.length; _i++) {
+                var fieldName = definedFieldsNames_1[_i];
+                var field = filter[fieldName];
+                this.tags.push({ id: fieldName, name: this.createTagName(fieldName, field.displayName) });
+            }
+        };
+        FilterTagsComponent.prototype.createTagName = function (fieldName, displayName) {
+            if (displayName) {
+                return displayName;
+            }
+            var parts = fieldName.split(/(?=[A-Z])/).map(function (x) { return x.toLocaleLowerCase(); });
+            var firstWorld = parts[0];
+            parts[0] = firstWorld.charAt(0).toLocaleUpperCase() + firstWorld.slice(1, firstWorld.length);
+            return parts.join(' ');
+        };
+        return FilterTagsComponent;
+    }());
+    var filterTags = {
+        templateUrl: function ($element, $attrs) {
+            return $attrs.templateUrl || 'template/filter-tags/filter-tags.html';
+        },
+        controller: FilterTagsComponent,
+        bindings: {
+            'filter': '<',
+            'onSelect': '&',
+            'onRemove': '&',
+            'onRemoveAll': '&'
+        }
+    };
+    angular.module('dd.ui.filter-tags', []).component('filterTags', filterTags);
+})(ddui || (ddui = {}));
+//# sourceMappingURL=filter-tags.js.map
 (function () {
     'use strict';
     angular
@@ -1647,6 +1785,21 @@ angular.module("template/dd-datetimepicker/dd-datetimepicker.html", []).run(["$t
     "</div>");
 }]);
 
+angular.module("template/filter-tags/filter-tags.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("template/filter-tags/filter-tags.html",
+    "<div class=\"filter-tags\" ng-if=\"$ctrl.tags.length > 0\">\n" +
+    "    <div ng-repeat=\"tag in $ctrl.tags\" class=\"btn-group\">\n" +
+    "        <button type=\"button\" ng-click=\"$ctrl.openTag(tag)\" class=\"btn btn-info btn-sm btn-tag\">{{tag.name}}</button>\n" +
+    "        <button ng-click=\"$ctrl.removeTag(tag)\" type=\"button\" class=\"btn btn-info btn-sm btn-tag-remove\">\n" +
+    "            <span class=\"glyphicon glyphicon-remove\"></span>\n" +
+    "        </button>\n" +
+    "    </div>\n" +
+    "    <div class=\"btn-group\">\n" +
+    "        <button type=\"button\" ng-click=\"$ctrl.clearAll()\" class=\"btn btn-default btn-sm btn-clear-tags\">Clear all <span class=\"glyphicon glyphicon-remove\"></span></button>\n" +
+    "    </div>\n" +
+    "</div>");
+}]);
+
 angular.module("template/form-actions/form-actions.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("template/form-actions/form-actions.html",
     "<div id=\"{{form.$name}}-actions-bar\" ng-show=\"form.$dirty\" class=\"form-actions-bar\">\n" +
@@ -1697,7 +1850,8 @@ angular.module("template/lookup/lookup.html", []).run(["$templateCache", functio
 angular.module('dd.ui.busy-element').run(function() {!angular.$$csp().noInlineStyle && angular.element(document).find('head').prepend('<style type="text/css">.be-container{position:absolute;z-index:1;}.be-overlay{background-color:rgba(255,255,255,0.7);text-align:center;}.be-overlay.success{background-color:rgba(0,128,0,0.15);}.be-overlay.fail{background-color:rgba(128,0,0,0.15);}.be-animate{-webkit-transition:opacity 0.5s;transition:opacity 0.5s;opacity:1;}.be-animate.ng-hide-add,.be-animate.ng-hide-remove{display:block !important;}.be-animate.ng-hide{opacity:0;}</style>'); });
 angular.module('dd.ui.dd-datepicker').run(function() {!angular.$$csp().noInlineStyle && angular.element(document).find('head').prepend('<style type="text/css"> .dd-datepicker .calendar-btn-with-day{border-radius:0;border-left:0;}.dd-datepicker .day-name-label{width:90px !important;font-size:12px;}.dd-datepicker input.short{width:70px;}.dd-datepicker input{width:105px;}</style>'); });
 angular.module('dd.ui.dd-datetimepicker').run(function() {!angular.$$csp().noInlineStyle && angular.element(document).find('head').prepend('<style type="text/css">.dd-datetimepicker{display:inline-flex;}.dd-datetimepicker .timepicker-container{width:100px !important;}.dd-datetimepicker .timepicker-container input{border-bottom-right-radius:0;border-top-right-radius:0;border-right:0;}.dd-datetimepicker .datepicker-container input.short{width:70px !important;}.dd-datetimepicker .datepicker-container input{width:105px !important;border-bottom-left-radius:0;border-top-left-radius:0;}.has-error .dd-datetimepicker .calendar-btn-with-day{border-color:#a94442;}</style>'); });
-angular.module('dd.ui.dd-table').run(function() {!angular.$$csp().noInlineStyle && angular.element(document).find('head').prepend('<style type="text/css">.dd-table{border-collapse:separate;border:solid #ccc 1px;border-radius:3px;border-left:0px;border-top:0px;}.dd-table > thead > tr > th{background-color:#f5f5f5;background:-webkit-linear-gradient(top,#fafafa 0%,#f3f2f2 100%);padding:4px !important;}.dd-table > thead:first-child > tr:first-child > th,.dd-table > thead:first-child > tr:first-child > th{border-bottom:0px;border-top:solid #ccc 1px !important;}.dd-table > thead .btn-group .dropdown-toggle{line-height:1.2;padding:1px 3px;background:#ccc;margin-left:2px;border-color:#9e9d9d;}.dd-table > thead > tr > th.checkbox-row{width:50px;}.dd-table > tbody > tr.active:hover > td{background-color:#f5f5f5;}.dd-table thead .rows-count{font-size:11px;color:#aaa;font-weight:normal;}.dd-table tr td:first-child,.dd-table tr th:first-child{border-left:1px solid #ccc;}.dd-table > tbody > tr > td{background:#fff;}.dd-table td,.dd-table th{border-top:1px solid #ccc;}.dd-table > :first-child > :first-child > :first-child{border-radius:3px 0 0 0;}.dd-table > :first-child > :first-child > :last-child{border-radius:0 3px 0 0;}.dd-table > :last-child > :last-child > :first-child{border-radius:0 0 0 3px;}.dd-table > :last-child > :last-child > :last-child{border-radius:0 0 3px 0;}.dd-table > tbody > tr:hover{background-color:#fff;}.dd-pagination{margin-top:0px !important;}</style>'); });
+angular.module('dd.ui.dd-table').run(function() {!angular.$$csp().noInlineStyle && angular.element(document).find('head').prepend('<style type="text/css">.dd-table > thead:first-child > tr:first-child > th,.dd-table > thead:first-child > tr:first-child > th{border-bottom:0px;border-top:solid #ccc 1px !important;}.dd-table > thead > tr > th.checkbox-row{width:50px;}.dd-table > tbody > tr.active:hover > td{background-color:#f5f5f5;}.dd-table thead .rows-count{font-size:11px;color:#aaa;font-weight:normal;}.dd-table > tbody > tr > td{background:#fff;}.dd-table > tbody > tr:hover{background-color:#fff;}.dd-pagination{margin-top:0px !important;}</style>'); });
+angular.module('dd.ui.filter-tags').run(function() {!angular.$$csp().noInlineStyle && angular.element(document).find('head').prepend('<style type="text/css"> .filter-tags{margin:15px 15px 0 15px;}.filter-tags .btn-group{margin-right:10px;}</style>'); });
 angular.module('dd.ui.form-actions').run(function() {!angular.$$csp().noInlineStyle && angular.element(document).find('head').prepend('<style type="text/css">@keyframes formBarMoveIn{from{bottom:-100px;}to{bottom:0;}}@keyframes formBarMoveOut{from{bottom:0;}to{bottom:-100px;}}.form-actions-bar{position:fixed;left:0;bottom:0;background:#eee;border-top:1px solid #ddd;width:100%;padding:10px 5px;z-index:9999;animation:formBarMoveIn 0.3s ease-out;}.form-actions-bar.ng-hide{animation:formBarMoveOut 0.3s ease-out;}.form-actions-bar button{margin-right:10px;}</style>'); });
 angular.module('dd.ui.form-validation').run(function() {!angular.$$csp().noInlineStyle && angular.element(document).find('head').prepend('<style type="text/css">.form-fields-group .field-error{display:none;margin-top:5px;margin-bottom:10px;color:#a94442}.form-fields-group.has-error .field-error{display:block;}</style>'); });
 angular.module('dd.ui.lookup').run(function() {!angular.$$csp().noInlineStyle && angular.element(document).find('head').prepend('<style type="text/css">.lookup-container .input-group{width:100%;}.lookup-container .dropdown-menu{border:1px solid #ccc !important;border-top:none !important;font-size:11px;padding:1px !important;max-height:196px;overflow-y:scroll;overflow-x:hidden;width:100%;}.lookup-container input{background-color:#ffe;}.lookup-container .dropdown-menu > li > a{padding:5px;}.lookup-container .lookup-legend div,.lookup-clear div{width:16px;height:16px;display:inline-block;vertical-align:middle;}.lookup-container a.lookup-clear{outline:0}.lookup-container .lookup-no-results{position:absolute;background-color:#fff;z-index:100;padding:4px;width:100%;border:1px solid #ddd;margin-top:1px;top:100%;}.lookup-container .lookup-no-results span{color:#a94442;font-size:10px;}.lookup-container .lookup-legend .lookup-icon{background-image:url(./assets/img/magnifier-small.png);}.lookup-container .lookup-legend .spinner-icon{background-image:url(./assets/img/spinner.gif);background-size:16px;}.lookup-container .lookup-clear .clear-icon{background-image:url(./assets/img/cross-small-white.png);opacity:0.6;}.lookup-container .lookup-legend{position:absolute;right:6px;top:6px;z-index:5;}.lookup-container .lookup-clear{position:absolute;right:22px;top:6px;z-index:5;}.lookup-container .typeahead-group-header{font-weight:bold;padding:.2em .4em;}</style>'); });
