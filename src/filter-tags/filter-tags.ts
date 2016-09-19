@@ -67,9 +67,9 @@
     }
 
     var filterTags: ng.IComponentOptions = {
-        templateUrl:  ($element, $attrs) => {
+        templateUrl:  ['$element', '$attrs', ($element, $attrs) => {
             return $attrs.templateUrl || 'template/filter-tags/filter-tags.html';
-        },
+        }],
         controller: FilterTagsComponent,
         bindings: {
             'filter': '<',

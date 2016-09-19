@@ -1,3 +1,13 @@
+<a name="0.9.0"></a>
+# [0.9.0](//compare/0.8.9...v0.9.0) (2016-09-19)
+
+
+### Bug Fixes
+
+* **filter_helper:** add missing module 551c96c
+
+
+
 <a name="0.8.9"></a>
 ## [0.8.9](//compare/0.8.8...v0.8.9) (2016-09-19)
 
