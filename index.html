@@ -13,7 +13,7 @@
     <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular-touch.min.js"></script>
     <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular-animate.min.js"></script>
 	<script src="assets/ui-bootstrap-tpls.js"></script>
-    <script src="dd-ui-tpls-0.9.0.min.js"></script>
+    <script src="dd-ui-tpls-0.9.1.min.js"></script>
     <script src="assets/angular-mocks.js"></script>
     <script src="assets/plunker.js"></script>
     <script src="assets/app.js"></script>
@@ -251,7 +251,7 @@
                         <div class="row code">
                             <div class="col-md-12" ng-controller="PlunkerCtrl">
                                 <div class="pull-right">
-                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.5.8', '3.1.1', '0.9.0', 'arrow-key-nav')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
+                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.5.8', '3.1.1', '0.9.1', 'arrow-key-nav')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
                                 </div>
                                 <uib-tabset>
                                     <uib-tab heading="Markup">
@@ -400,7 +400,7 @@
                         <div class="row code">
                             <div class="col-md-12" ng-controller="PlunkerCtrl">
                                 <div class="pull-right">
-                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.5.8', '3.1.1', '0.9.0', 'busy-element')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
+                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.5.8', '3.1.1', '0.9.1', 'busy-element')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
                                 </div>
                                 <uib-tabset>
                                     <uib-tab heading="Markup">
@@ -475,24 +475,24 @@
                                     </uib-tab>
                                     <uib-tab heading="JavaScript">
                                         <div plunker-content="javascript">
-                                            <pre ng-non-bindable><code data-language="javascript">angular.module(&#39;dd.ui.demo&#39;).controller(&#39;BusyElementDemoCtrl&#39;, function ($scope, $timeout) {
-    $scope.items = [
-        { id: &#39;item1&#39;, status: &#39;&#39; },
-        { id: &#39;item2&#39;, status: &#39;&#39; },
-        { id: &#39;item3&#39;, status: &#39;&#39; }
-    ];
-    $scope.updated = function (el) {
-        if (el.status === &#39;&#39;) {
-            return;
-        }
-        // usually we enable isBusy before http request
-        el.isBusy = true;
-        $timeout(function () {
-            // $timeout in this case replaces $http simulating response received
-            el.responseStatus = el.status;
-        }, 500);
-    };
-});
+                                            <pre ng-non-bindable><code data-language="javascript">angular.module(&#39;dd.ui.demo&#39;).controller(&#39;BusyElementDemoCtrl&#39;, [&#39;$scope&#39;, &#39;$timeout&#39;, function ($scope, $timeout) {
+        $scope.items = [
+            { id: &#39;item1&#39;, status: &#39;&#39; },
+            { id: &#39;item2&#39;, status: &#39;&#39; },
+            { id: &#39;item3&#39;, status: &#39;&#39; }
+        ];
+        $scope.updated = function (el) {
+            if (el.status === &#39;&#39;) {
+                return;
+            }
+            // usually we enable isBusy before http request
+            el.isBusy = true;
+            $timeout(function () {
+                // $timeout in this case replaces $http simulating response received
+                el.responseStatus = el.status;
+            }, 500);
+        };
+    }]);
 //# sourceMappingURL=demo.js.map</code></pre>
                                         </div>
                                     </uib-tab>
@@ -500,24 +500,24 @@
                             </div>
                         </div>
                     </section>
-                    <script>angular.module('dd.ui.demo').controller('BusyElementDemoCtrl', function ($scope, $timeout) {
-    $scope.items = [
-        { id: 'item1', status: '' },
-        { id: 'item2', status: '' },
-        { id: 'item3', status: '' }
-    ];
-    $scope.updated = function (el) {
-        if (el.status === '') {
-            return;
-        }
-        // usually we enable isBusy before http request
-        el.isBusy = true;
-        $timeout(function () {
-            // $timeout in this case replaces $http simulating response received
-            el.responseStatus = el.status;
-        }, 500);
-    };
-});
+                    <script>angular.module('dd.ui.demo').controller('BusyElementDemoCtrl', ['$scope', '$timeout', function ($scope, $timeout) {
+        $scope.items = [
+            { id: 'item1', status: '' },
+            { id: 'item2', status: '' },
+            { id: 'item3', status: '' }
+        ];
+        $scope.updated = function (el) {
+            if (el.status === '') {
+                return;
+            }
+            // usually we enable isBusy before http request
+            el.isBusy = true;
+            $timeout(function () {
+                // $timeout in this case replaces $http simulating response received
+                el.responseStatus = el.status;
+            }, 500);
+        };
+    }]);
 //# sourceMappingURL=demo.js.map</script>
                 
                     <section id="conversion">
@@ -576,7 +576,7 @@ To display meters or kilometers in imperial distance units, use:</p>
                         <div class="row code">
                             <div class="col-md-12" ng-controller="PlunkerCtrl">
                                 <div class="pull-right">
-                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.5.8', '3.1.1', '0.9.0', 'conversion')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
+                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.5.8', '3.1.1', '0.9.1', 'conversion')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
                                 </div>
                                 <uib-tabset>
                                     <uib-tab heading="Markup">
@@ -709,7 +709,7 @@ To display meters or kilometers in imperial distance units, use:</p>
                         <div class="row code">
                             <div class="col-md-12" ng-controller="PlunkerCtrl">
                                 <div class="pull-right">
-                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.5.8', '3.1.1', '0.9.0', 'data-list')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
+                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.5.8', '3.1.1', '0.9.1', 'data-list')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
                                 </div>
                                 <uib-tabset>
                                     <uib-tab heading="Markup">
@@ -879,7 +879,7 @@ Calendar popup placement</p>
                         <div class="row code">
                             <div class="col-md-12" ng-controller="PlunkerCtrl">
                                 <div class="pull-right">
-                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.5.8', '3.1.1', '0.9.0', 'datetimepicker')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
+                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.5.8', '3.1.1', '0.9.1', 'datetimepicker')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
                                 </div>
                                 <uib-tabset>
                                     <uib-tab heading="Markup">
@@ -1016,7 +1016,7 @@ Starting day of the week from 0-6 (0=Sunday, ..., 6=Saturday).</li>
                         <div class="row code">
                             <div class="col-md-12" ng-controller="PlunkerCtrl">
                                 <div class="pull-right">
-                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.5.8', '3.1.1', '0.9.0', 'dd-datepicker')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
+                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.5.8', '3.1.1', '0.9.1', 'dd-datepicker')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
                                 </div>
                                 <uib-tabset>
                                     <uib-tab heading="Markup">
@@ -1042,25 +1042,25 @@ Starting day of the week from 0-6 (0=Sunday, ..., 6=Saturday).</li>
                                     </uib-tab>
                                     <uib-tab heading="JavaScript">
                                         <div plunker-content="javascript">
-                                            <pre ng-non-bindable><code data-language="javascript">angular.module(&#39;dd.ui.demo&#39;).controller(&#39;DatepickerDemoCtrl&#39;, function ($scope) {
-    $scope.date = new Date();
-    $scope.disabled = function (date, mode) {
-        var d = new Date();
-        d.setHours(0, 0, 0, 0);
-        return mode === &#39;day&#39; &amp;&amp; date &lt; d;
-    };
-    $scope.change = function () {
-        console.log($scope.date, &#39;changed&#39;);
-    };
-    $scope.setToNow = function () {
-        console.log(&#39;setToNow&#39;);
+                                            <pre ng-non-bindable><code data-language="javascript">angular.module(&#39;dd.ui.demo&#39;).controller(&#39;DatepickerDemoCtrl&#39;, [&#39;$scope&#39;, function ($scope) {
         $scope.date = new Date();
-    };
-    $scope.setToEmpty = function () {
-        console.log(&#39;setToEmpty&#39;);
-        $scope.date = null;
-    };
-})
+        $scope.disabled = function (date, mode) {
+            var d = new Date();
+            d.setHours(0, 0, 0, 0);
+            return mode === &#39;day&#39; &amp;&amp; date &lt; d;
+        };
+        $scope.change = function () {
+            console.log($scope.date, &#39;changed&#39;);
+        };
+        $scope.setToNow = function () {
+            console.log(&#39;setToNow&#39;);
+            $scope.date = new Date();
+        };
+        $scope.setToEmpty = function () {
+            console.log(&#39;setToEmpty&#39;);
+            $scope.date = null;
+        };
+    }])
     .config([&#39;datepickerConfigProvider&#39;, function (datepickerConfigProvider) {
         datepickerConfigProvider.setDateFormat(&#39;yyyy-MM-dd&#39;);
     }]);
@@ -1071,25 +1071,25 @@ Starting day of the week from 0-6 (0=Sunday, ..., 6=Saturday).</li>
                             </div>
                         </div>
                     </section>
-                    <script>angular.module('dd.ui.demo').controller('DatepickerDemoCtrl', function ($scope) {
-    $scope.date = new Date();
-    $scope.disabled = function (date, mode) {
-        var d = new Date();
-        d.setHours(0, 0, 0, 0);
-        return mode === 'day' && date < d;
-    };
-    $scope.change = function () {
-        console.log($scope.date, 'changed');
-    };
-    $scope.setToNow = function () {
-        console.log('setToNow');
+                    <script>angular.module('dd.ui.demo').controller('DatepickerDemoCtrl', ['$scope', function ($scope) {
         $scope.date = new Date();
-    };
-    $scope.setToEmpty = function () {
-        console.log('setToEmpty');
-        $scope.date = null;
-    };
-})
+        $scope.disabled = function (date, mode) {
+            var d = new Date();
+            d.setHours(0, 0, 0, 0);
+            return mode === 'day' && date < d;
+        };
+        $scope.change = function () {
+            console.log($scope.date, 'changed');
+        };
+        $scope.setToNow = function () {
+            console.log('setToNow');
+            $scope.date = new Date();
+        };
+        $scope.setToEmpty = function () {
+            console.log('setToEmpty');
+            $scope.date = null;
+        };
+    }])
     .config(['datepickerConfigProvider', function (datepickerConfigProvider) {
         datepickerConfigProvider.setDateFormat('yyyy-MM-dd');
     }]);
@@ -1221,7 +1221,7 @@ Allows overriding of default template of the datetimepicker</p>
                         <div class="row code">
                             <div class="col-md-12" ng-controller="PlunkerCtrl">
                                 <div class="pull-right">
-                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.5.8', '3.1.1', '0.9.0', 'dd-datetimepicker')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
+                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.5.8', '3.1.1', '0.9.1', 'dd-datetimepicker')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
                                 </div>
                                 <uib-tabset>
                                     <uib-tab heading="Markup">
@@ -1455,7 +1455,7 @@ Allows overriding of default template of the datetimepicker</p>
                         <div class="row code">
                             <div class="col-md-12" ng-controller="PlunkerCtrl">
                                 <div class="pull-right">
-                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.5.8', '3.1.1', '0.9.0', 'dd-table')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
+                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.5.8', '3.1.1', '0.9.1', 'dd-table')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
                                 </div>
                                 <uib-tabset>
                                     <uib-tab heading="Markup">
@@ -1745,7 +1745,7 @@ angular.module('dd.ui.demo')
                         <div class="row code">
                             <div class="col-md-12" ng-controller="PlunkerCtrl">
                                 <div class="pull-right">
-                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.5.8', '3.1.1', '0.9.0', 'dd-timepicker')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
+                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.5.8', '3.1.1', '0.9.1', 'dd-timepicker')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
                                 </div>
                                 <uib-tabset>
                                     <uib-tab heading="Markup">
@@ -1772,14 +1772,14 @@ angular.module('dd.ui.demo')
                                     </uib-tab>
                                     <uib-tab heading="JavaScript">
                                         <div plunker-content="javascript">
-                                            <pre ng-non-bindable><code data-language="javascript">angular.module(&#39;dd.ui.demo&#39;).controller(&#39;TimepickerDemoCtrl&#39;, function ($scope, $timeout) {
-    $scope.time = &#39;12:20&#39;;
-    $scope.time5minutesStep = &#39;15:20&#39;;
-    $scope.timeFromDate = new Date();
-    $scope.change = function () {
-        console.log($scope.time, &#39;changed&#39;);
-    };
-});
+                                            <pre ng-non-bindable><code data-language="javascript">angular.module(&#39;dd.ui.demo&#39;).controller(&#39;TimepickerDemoCtrl&#39;, [&#39;$scope&#39;, function ($scope, $timeout) {
+        $scope.time = &#39;12:20&#39;;
+        $scope.time5minutesStep = &#39;15:20&#39;;
+        $scope.timeFromDate = new Date();
+        $scope.change = function () {
+            console.log($scope.time, &#39;changed&#39;);
+        };
+    }]);
 //# sourceMappingURL=demo.js.map</code></pre>
                                         </div>
                                     </uib-tab>
@@ -1787,14 +1787,14 @@ angular.module('dd.ui.demo')
                             </div>
                         </div>
                     </section>
-                    <script>angular.module('dd.ui.demo').controller('TimepickerDemoCtrl', function ($scope, $timeout) {
-    $scope.time = '12:20';
-    $scope.time5minutesStep = '15:20';
-    $scope.timeFromDate = new Date();
-    $scope.change = function () {
-        console.log($scope.time, 'changed');
-    };
-});
+                    <script>angular.module('dd.ui.demo').controller('TimepickerDemoCtrl', ['$scope', function ($scope, $timeout) {
+        $scope.time = '12:20';
+        $scope.time5minutesStep = '15:20';
+        $scope.timeFromDate = new Date();
+        $scope.change = function () {
+            console.log($scope.time, 'changed');
+        };
+    }]);
 //# sourceMappingURL=demo.js.map</script>
                 
                     <section id="filter-field-focus">
@@ -1828,7 +1828,7 @@ angular.module('dd.ui.demo')
                         <div class="row code">
                             <div class="col-md-12" ng-controller="PlunkerCtrl">
                                 <div class="pull-right">
-                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.5.8', '3.1.1', '0.9.0', 'filter-field-focus')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
+                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.5.8', '3.1.1', '0.9.1', 'filter-field-focus')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
                                 </div>
                                 <uib-tabset>
                                     <uib-tab heading="Markup">
@@ -1911,7 +1911,7 @@ See console
                         <div class="row code">
                             <div class="col-md-12" ng-controller="PlunkerCtrl">
                                 <div class="pull-right">
-                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.5.8', '3.1.1', '0.9.0', 'filter-helper')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
+                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.5.8', '3.1.1', '0.9.1', 'filter-helper')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
                                 </div>
                                 <uib-tabset>
                                     <uib-tab heading="Markup">
@@ -2018,7 +2018,7 @@ angular.module('dd.ui.demo')
                         <div class="row code">
                             <div class="col-md-12" ng-controller="PlunkerCtrl">
                                 <div class="pull-right">
-                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.5.8', '3.1.1', '0.9.0', 'filter-tags')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
+                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.5.8', '3.1.1', '0.9.1', 'filter-tags')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
                                 </div>
                                 <uib-tabset>
                                     <uib-tab heading="Markup">
@@ -2201,7 +2201,7 @@ angular.module('dd.ui.demo')
                         <div class="row code">
                             <div class="col-md-12" ng-controller="PlunkerCtrl">
                                 <div class="pull-right">
-                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.5.8', '3.1.1', '0.9.0', 'form-actions')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
+                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.5.8', '3.1.1', '0.9.1', 'form-actions')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
                                 </div>
                                 <uib-tabset>
                                     <uib-tab heading="Markup">
@@ -2405,7 +2405,7 @@ angular.module('dd.ui.demo')
                         <div class="row code">
                             <div class="col-md-12" ng-controller="PlunkerCtrl">
                                 <div class="pull-right">
-                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.5.8', '3.1.1', '0.9.0', 'form-validation')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
+                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.5.8', '3.1.1', '0.9.1', 'form-validation')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
                                 </div>
                                 <uib-tabset>
                                     <uib-tab heading="Markup">
@@ -2750,7 +2750,7 @@ angular.module('dd.ui.demo')
                         <div class="row code">
                             <div class="col-md-12" ng-controller="PlunkerCtrl">
                                 <div class="pull-right">
-                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.5.8', '3.1.1', '0.9.0', 'lookup')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
+                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.5.8', '3.1.1', '0.9.1', 'lookup')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
                                 </div>
                                 <uib-tabset>
                                     <uib-tab heading="Markup">
@@ -3019,7 +3019,7 @@ angular.module('dd.ui.demo')
                         <div class="row code">
                             <div class="col-md-12" ng-controller="PlunkerCtrl">
                                 <div class="pull-right">
-                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.5.8', '3.1.1', '0.9.0', 'validation')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
+                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.5.8', '3.1.1', '0.9.1', 'validation')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
                                 </div>
                                 <uib-tabset>
                                     <uib-tab heading="Markup">
@@ -3059,8 +3059,8 @@ angular.module('dd.ui.demo')
                                     </uib-tab>
                                     <uib-tab heading="JavaScript">
                                         <div plunker-content="javascript">
-                                            <pre ng-non-bindable><code data-language="javascript">angular.module(&#39;dd.ui.demo&#39;).controller(&#39;ValidationDemoCtrl&#39;, function ($scope) {
-});
+                                            <pre ng-non-bindable><code data-language="javascript">angular.module(&#39;dd.ui.demo&#39;).controller(&#39;ValidationDemoCtrl&#39;, [&#39;$scope&#39;, function ($scope) {
+    }]);
 //# sourceMappingURL=demo.js.map</code></pre>
                                         </div>
                                     </uib-tab>
@@ -3068,8 +3068,8 @@ angular.module('dd.ui.demo')
                             </div>
                         </div>
                     </section>
-                    <script>angular.module('dd.ui.demo').controller('ValidationDemoCtrl', function ($scope) {
-});
+                    <script>angular.module('dd.ui.demo').controller('ValidationDemoCtrl', ['$scope', function ($scope) {
+    }]);
 //# sourceMappingURL=demo.js.map</script>
                 
             </div>
