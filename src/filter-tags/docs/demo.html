@@ -1,0 +1,11 @@
+<div ng-controller="FilterTagsCtrl as ctrl">
+
+   <p>Selected tag: {{ctrl.selectedTag}}</p>
+   <p>Removed tag: {{ctrl.removedTag}}</p>
+   <p>
+       <button ng-click="ctrl.addFilter()" class="btn btn-default btn-sm">Add filter tag</button> | 
+       <button ng-click="ctrl.resetToDefaultFilter()" class="btn btn-default btn-sm">Reset filter</button>
+   </p>
+ 
+   <filter-tags on-select="ctrl.onSelect(fieldName)" on-remove="ctrl.onRemove(fieldName)" on-remove-all="ctrl.onRemoveAll()" filter="ctrl.filter"></filter-tags>
+</div>
