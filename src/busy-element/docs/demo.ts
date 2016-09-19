@@ -1,4 +1,4 @@
-angular.module('dd.ui.demo').controller('BusyElementDemoCtrl', function ($scope, $timeout) {
+angular.module('dd.ui.demo').controller('BusyElementDemoCtrl', ['$scope', '$timeout', function ($scope, $timeout) {
 	$scope.items = [
 		{id: 'item1', status: ''},
 		{id: 'item2', status: ''},
@@ -10,7 +10,6 @@ angular.module('dd.ui.demo').controller('BusyElementDemoCtrl', function ($scope,
 		if (el.status === '') {
 			return;
 		}
-
 		// usually we enable isBusy before http request
 		el.isBusy = true;
 
@@ -19,4 +18,4 @@ angular.module('dd.ui.demo').controller('BusyElementDemoCtrl', function ($scope,
 			el.responseStatus = el.status;
 		}, 500);
 	};
-});
+}]);

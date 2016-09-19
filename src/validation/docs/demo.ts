@@ -1,2 +1,2 @@
-angular.module('dd.ui.demo').controller('ValidationDemoCtrl', function ($scope) {
-});
+angular.module('dd.ui.demo').controller('ValidationDemoCtrl', ['$scope', function ($scope) {
+}]);

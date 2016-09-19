@@ -1,4 +1,4 @@
-angular.module('dd.ui.demo').controller('TimepickerDemoCtrl', function ($scope, $timeout) {
+angular.module('dd.ui.demo').controller('TimepickerDemoCtrl', ['$scope', function ($scope, $timeout) {
 	
     $scope.time = '12:20';
     $scope.time5minutesStep = '15:20';
@@ -8,4 +8,4 @@ angular.module('dd.ui.demo').controller('TimepickerDemoCtrl', function ($scope, 
         console.log($scope.time, 'changed');
     };
     
-});
+}]);
