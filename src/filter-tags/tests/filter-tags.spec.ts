@@ -107,5 +107,4 @@ describe('Filter tags component tests', () => {
         element.appendTo($document[0]['body']);
         $scope.$digest();
     }
-
 });
