@@ -1,6 +1,18 @@
 
 
 
+
+declare namespace ddui {
+    interface FilterField {
+        value?: any;
+        displayName?: string;
+        excludeTag?: boolean;
+    }
+    interface FilterModel {
+        [index: string]: FilterField;
+    }
+}
+
 declare namespace ddui {
     interface ListRow {
         $selected?: boolean;
@@ -71,6 +83,21 @@ declare namespace ddui {
 declare namespace ddui {
 }
 
+
+declare namespace ddui {
+}
+
+declare namespace ddui {
+    class FilterHelper {
+        static mergeStateParams(filter: FilterModel, $stateParams: any): void;
+        static generateStateParams(filter: FilterModel): Object;
+        static generateDynamicParams(filter: FilterModel, defaultParams?: Object): Object;
+        static generateUrlParams(filter: FilterModel): string;
+    }
+}
+
+declare namespace ddui {
+}
 
 
 

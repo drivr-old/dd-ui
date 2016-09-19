@@ -5,15 +5,15 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <title>Drivr directives</title>
-    <meta name="description" content="AngularJS (Angular) native directives. Widgets: Arrow-key-nav, Busy-element, Conversion, Data-list, Datetimepicker, Dd-datepicker, Dd-datetimepicker, Dd-table, Dd-timepicker, Form-actions, Form-validation, Lookup, Validation, ">
+    <meta name="description" content="AngularJS (Angular) native directives. Widgets: Arrow-key-nav, Busy-element, Conversion, Data-list, Datetimepicker, Dd-datepicker, Dd-datetimepicker, Dd-table, Dd-timepicker, Filter-field-focus, Filter-helper, Filter-tags, Form-actions, Form-validation, Lookup, Validation, ">
 
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/fastclick/0.6.7/fastclick.min.js"></script>
-    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular.min.js"></script>
-    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular-touch.min.js"></script>
-    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular-animate.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular-touch.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular-animate.min.js"></script>
 	<script src="assets/ui-bootstrap-tpls.js"></script>
-    <script src="dd-ui-tpls-0.8.7.min.js"></script>
+    <script src="dd-ui-tpls-0.8.9.min.js"></script>
     <script src="assets/angular-mocks.js"></script>
     <script src="assets/plunker.js"></script>
     <script src="assets/app.js"></script>
@@ -46,7 +46,7 @@
                             Directives <b class="caret"></b>
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a href="#arrow-key-nav">Arrow-key-nav</a></li><li><a href="#busy-element">Busy-element</a></li><li><a href="#conversion">Conversion</a></li><li><a href="#data-list">Data-list</a></li><li><a href="#datetimepicker">Datetimepicker</a></li><li><a href="#dd-datepicker">Dd-datepicker</a></li><li><a href="#dd-datetimepicker">Dd-datetimepicker</a></li><li><a href="#dd-table">Dd-table</a></li><li><a href="#dd-timepicker">Dd-timepicker</a></li><li><a href="#form-actions">Form-actions</a></li><li><a href="#form-validation">Form-validation</a></li><li><a href="#lookup">Lookup</a></li><li><a href="#validation">Validation</a></li>
+                            <li><a href="#arrow-key-nav">Arrow-key-nav</a></li><li><a href="#busy-element">Busy-element</a></li><li><a href="#conversion">Conversion</a></li><li><a href="#data-list">Data-list</a></li><li><a href="#datetimepicker">Datetimepicker</a></li><li><a href="#dd-datepicker">Dd-datepicker</a></li><li><a href="#dd-datetimepicker">Dd-datetimepicker</a></li><li><a href="#dd-table">Dd-table</a></li><li><a href="#dd-timepicker">Dd-timepicker</a></li><li><a href="#filter-field-focus">Filter-field-focus</a></li><li><a href="#filter-helper">Filter-helper</a></li><li><a href="#filter-tags">Filter-tags</a></li><li><a href="#form-actions">Form-actions</a></li><li><a href="#form-validation">Form-validation</a></li><li><a href="#lookup">Lookup</a></li><li><a href="#validation">Validation</a></li>
                         </ul>
                     </li>
                     <li><a href="#getting_started">Getting started</a></li>
@@ -143,6 +143,12 @@
                         
                             <li><a href="#dd-timepicker">Dd-timepicker</a></li>
                         
+                            <li><a href="#filter-field-focus">Filter-field-focus</a></li>
+                        
+                            <li><a href="#filter-helper">Filter-helper</a></li>
+                        
+                            <li><a href="#filter-tags">Filter-tags</a></li>
+                        
                             <li><a href="#form-actions">Form-actions</a></li>
                         
                             <li><a href="#form-validation">Form-validation</a></li>
@@ -164,7 +170,7 @@
                         The <strong>only required dependencies</strong> are:
                     </p>
                     <ul>
-                        <li><a href="http://angularjs.org" target="_blank">AngularJS</a> (requires AngularJS 1.2.x, tested with 1.4.3)</li>
+                        <li><a href="http://angularjs.org" target="_blank">AngularJS</a> (requires AngularJS 1.2.x, tested with 1.5.8)</li>
                         <li><a href="https://angular-ui.github.io/bootstrap/" target="_blank">UI Bootstrap</a> is required by Datetimepicker directive</li>
                     </ul>
                     <h3>Files to download</h3>
@@ -245,7 +251,7 @@
                         <div class="row code">
                             <div class="col-md-12" ng-controller="PlunkerCtrl">
                                 <div class="pull-right">
-                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.4.3', '3.1.1', '0.8.7', 'arrow-key-nav')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
+                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.5.8', '3.1.1', '0.8.9', 'arrow-key-nav')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
                                 </div>
                                 <uib-tabset>
                                     <uib-tab heading="Markup">
@@ -394,7 +400,7 @@
                         <div class="row code">
                             <div class="col-md-12" ng-controller="PlunkerCtrl">
                                 <div class="pull-right">
-                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.4.3', '3.1.1', '0.8.7', 'busy-element')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
+                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.5.8', '3.1.1', '0.8.9', 'busy-element')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
                                 </div>
                                 <uib-tabset>
                                     <uib-tab heading="Markup">
@@ -570,7 +576,7 @@ To display meters or kilometers in imperial distance units, use:</p>
                         <div class="row code">
                             <div class="col-md-12" ng-controller="PlunkerCtrl">
                                 <div class="pull-right">
-                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.4.3', '3.1.1', '0.8.7', 'conversion')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
+                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.5.8', '3.1.1', '0.8.9', 'conversion')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
                                 </div>
                                 <uib-tabset>
                                     <uib-tab heading="Markup">
@@ -703,7 +709,7 @@ To display meters or kilometers in imperial distance units, use:</p>
                         <div class="row code">
                             <div class="col-md-12" ng-controller="PlunkerCtrl">
                                 <div class="pull-right">
-                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.4.3', '3.1.1', '0.8.7', 'data-list')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
+                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.5.8', '3.1.1', '0.8.9', 'data-list')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
                                 </div>
                                 <uib-tabset>
                                     <uib-tab heading="Markup">
@@ -873,7 +879,7 @@ Calendar popup placement</p>
                         <div class="row code">
                             <div class="col-md-12" ng-controller="PlunkerCtrl">
                                 <div class="pull-right">
-                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.4.3', '3.1.1', '0.8.7', 'datetimepicker')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
+                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.5.8', '3.1.1', '0.8.9', 'datetimepicker')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
                                 </div>
                                 <uib-tabset>
                                     <uib-tab heading="Markup">
@@ -1010,7 +1016,7 @@ Starting day of the week from 0-6 (0=Sunday, ..., 6=Saturday).</li>
                         <div class="row code">
                             <div class="col-md-12" ng-controller="PlunkerCtrl">
                                 <div class="pull-right">
-                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.4.3', '3.1.1', '0.8.7', 'dd-datepicker')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
+                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.5.8', '3.1.1', '0.8.9', 'dd-datepicker')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
                                 </div>
                                 <uib-tabset>
                                     <uib-tab heading="Markup">
@@ -1215,7 +1221,7 @@ Allows overriding of default template of the datetimepicker</p>
                         <div class="row code">
                             <div class="col-md-12" ng-controller="PlunkerCtrl">
                                 <div class="pull-right">
-                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.4.3', '3.1.1', '0.8.7', 'dd-datetimepicker')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
+                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.5.8', '3.1.1', '0.8.9', 'dd-datetimepicker')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
                                 </div>
                                 <uib-tabset>
                                     <uib-tab heading="Markup">
@@ -1350,14 +1356,8 @@ Allows overriding of default template of the datetimepicker</p>
                           <div class="row">
                             <div class="col-md-6 show-grid">
                                 <div ng-controller="TableDemoCtrl as ctrl">
-
-    <style>
-        .table-demo-container {
-            background-color: #edecec;
-            padding: 50px;
-        }
-    </style>
     {{ctrl.dataList.filter}}
+    <br />
     <div class="table-demo-container">
         <table dd-table="ctrl.dataList">
             <thead>
@@ -1391,13 +1391,14 @@ Allows overriding of default template of the datetimepicker</p>
             </tbody>
         </table>
         <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-8">
                 <dd-pagination on-change="ctrl.dataList.fetchPage()" total-items="ctrl.dataList.count" limit="ctrl.dataList.filter.limit" current-page="ctrl.dataList.page"></dd-pagination>
             </div>
-            <div class="col-md-6">
+            <div class="col-md-4">
                 <dd-items-per-page on-change="ctrl.dataList.fetchPage()" limit="ctrl.dataList.filter.limit"></dd-items-per-page>
             </div>
         </div>
+        {{ctrl.dataList.count}}
     </div>
 </div>
                             </div>
@@ -1454,20 +1455,14 @@ Allows overriding of default template of the datetimepicker</p>
                         <div class="row code">
                             <div class="col-md-12" ng-controller="PlunkerCtrl">
                                 <div class="pull-right">
-                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.4.3', '3.1.1', '0.8.7', 'dd-table')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
+                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.5.8', '3.1.1', '0.8.9', 'dd-table')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
                                 </div>
                                 <uib-tabset>
                                     <uib-tab heading="Markup">
                                         <div plunker-content="markup">
                                             <pre ng-non-bindable><code data-language="html">&lt;div ng-controller=&quot;TableDemoCtrl as ctrl&quot;&gt;
-
-    &lt;style&gt;
-        .table-demo-container {
-            background-color: #edecec;
-            padding: 50px;
-        }
-    &lt;/style&gt;
     {{ctrl.dataList.filter}}
+    &lt;br /&gt;
     &lt;div class=&quot;table-demo-container&quot;&gt;
         &lt;table dd-table=&quot;ctrl.dataList&quot;&gt;
             &lt;thead&gt;
@@ -1501,13 +1496,14 @@ Allows overriding of default template of the datetimepicker</p>
             &lt;/tbody&gt;
         &lt;/table&gt;
         &lt;div class=&quot;row&quot;&gt;
-            &lt;div class=&quot;col-md-6&quot;&gt;
+            &lt;div class=&quot;col-md-8&quot;&gt;
                 &lt;dd-pagination on-change=&quot;ctrl.dataList.fetchPage()&quot; total-items=&quot;ctrl.dataList.count&quot; limit=&quot;ctrl.dataList.filter.limit&quot; current-page=&quot;ctrl.dataList.page&quot;&gt;&lt;/dd-pagination&gt;
             &lt;/div&gt;
-            &lt;div class=&quot;col-md-6&quot;&gt;
+            &lt;div class=&quot;col-md-4&quot;&gt;
                 &lt;dd-items-per-page on-change=&quot;ctrl.dataList.fetchPage()&quot; limit=&quot;ctrl.dataList.filter.limit&quot;&gt;&lt;/dd-items-per-page&gt;
             &lt;/div&gt;
         &lt;/div&gt;
+        {{ctrl.dataList.count}}
     &lt;/div&gt;
 &lt;/div&gt;</code></pre>
                                         </div>
@@ -1588,7 +1584,7 @@ Allows overriding of default template of the datetimepicker</p>
                         &#39;name&#39;: &#39;Pierce Callahan&#39;
                     }
                 ],
-                count: 28
+                count: 300
             };
             return [200, result];
         });
@@ -1679,7 +1675,7 @@ angular.module(&#39;dd.ui.demo&#39;)
                         'name': 'Pierce Callahan'
                     }
                 ],
-                count: 28
+                count: 300
             };
             return [200, result];
         });
@@ -1749,7 +1745,7 @@ angular.module('dd.ui.demo')
                         <div class="row code">
                             <div class="col-md-12" ng-controller="PlunkerCtrl">
                                 <div class="pull-right">
-                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.4.3', '3.1.1', '0.8.7', 'dd-timepicker')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
+                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.5.8', '3.1.1', '0.8.9', 'dd-timepicker')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
                                 </div>
                                 <uib-tabset>
                                     <uib-tab heading="Markup">
@@ -1799,6 +1795,338 @@ angular.module('dd.ui.demo')
         console.log($scope.time, 'changed');
     };
 });
+//# sourceMappingURL=demo.js.map</script>
+                
+                    <section id="filter-field-focus">
+                        <div class="page-header">
+                          <h1>Filter-field-focus<small>
+                              (<a target="_blank" href="https://github.com/clickataxi/dd-ui/tree/master/src/filter-field-focus">dd.ui.filter-field-focus</a>)
+                          </small></h1>
+                          </div>
+                          <div class="row">
+                            <div class="col-md-6 show-grid">
+                                <div ng-controller="FilterFieldFocusCtrl as ctrl">
+
+<form filter-field-focus="{{ctrl.fieldName}}">
+    <input type="text" ng-model="filter['firstName'].value" />
+</form>
+   
+</div>
+                            </div>
+                            <div class="col-md-6">
+                                <p>Filter field focus directive allow to focus selected tag filter then side panel is opened</p>
+<h3 id="options">options</h3>
+<ul>
+<li><code>filter-field-focus</code>
+  :
+  Field name to be used.</li>
+</ul>
+
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row code">
+                            <div class="col-md-12" ng-controller="PlunkerCtrl">
+                                <div class="pull-right">
+                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.5.8', '3.1.1', '0.8.9', 'filter-field-focus')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
+                                </div>
+                                <uib-tabset>
+                                    <uib-tab heading="Markup">
+                                        <div plunker-content="markup">
+                                            <pre ng-non-bindable><code data-language="html">&lt;div ng-controller=&quot;FilterFieldFocusCtrl as ctrl&quot;&gt;
+
+&lt;form filter-field-focus=&quot;{{ctrl.fieldName}}&quot;&gt;
+    &lt;input type=&quot;text&quot; ng-model=&quot;filter[&#39;firstName&#39;].value&quot; /&gt;
+&lt;/form&gt;
+   
+&lt;/div&gt;</code></pre>
+                                        </div>
+                                    </uib-tab>
+                                    <uib-tab heading="JavaScript">
+                                        <div plunker-content="javascript">
+                                            <pre ng-non-bindable><code data-language="javascript">var FilterFieldFocusCtrl = (function () {
+    function FilterFieldFocusCtrl() {
+        this.fieldName = &#39;firstName&#39;;
+    }
+    return FilterFieldFocusCtrl;
+}());
+angular.module(&#39;dd.ui.demo&#39;)
+    .controller(&#39;FilterFieldFocusCtrl&#39;, FilterFieldFocusCtrl);
+//# sourceMappingURL=demo.js.map</code></pre>
+                                        </div>
+                                    </uib-tab>
+                                </uib-tabset>
+                            </div>
+                        </div>
+                    </section>
+                    <script>var FilterFieldFocusCtrl = (function () {
+    function FilterFieldFocusCtrl() {
+        this.fieldName = 'firstName';
+    }
+    return FilterFieldFocusCtrl;
+}());
+angular.module('dd.ui.demo')
+    .controller('FilterFieldFocusCtrl', FilterFieldFocusCtrl);
+//# sourceMappingURL=demo.js.map</script>
+                
+                    <section id="filter-helper">
+                        <div class="page-header">
+                          <h1>Filter-helper<small>
+                              (<a target="_blank" href="https://github.com/clickataxi/dd-ui/tree/master/src/filter-helper">dd.ui.filter-helper</a>)
+                          </small></h1>
+                          </div>
+                          <div class="row">
+                            <div class="col-md-6 show-grid">
+                                <div ng-controller="FilterHelperCtrl as ctrl">
+
+See console
+   
+</div>
+                            </div>
+                            <div class="col-md-6">
+                                <p>Filter helper can be used for filter tasks.</p>
+<h3 id="methods">methods</h3>
+<ul>
+<li><p><code>mergeStateParams(filter: FilterModel, $stateParams): void</code>
+  :
+  Merge state params into current filter. Can be used to load state params on load.</p>
+</li>
+<li><p><code>generateStateParams(filter: FilterModel): Object</code>
+  :
+  Generate state params from current filter. Can be used to navigate to state with passed params.</p>
+</li>
+<li><p><code>generateDynamicParams(filter: FilterModel, defaultParams: Object = null): Object</code>
+  :
+  Generate state config params dynamic object so it can be used with filter.</p>
+</li>
+<li><p><code>generateUrlParams(filter: FilterModel): string</code>
+  :
+  Generate state config urls params so it can be used with filter.</p>
+</li>
+</ul>
+
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row code">
+                            <div class="col-md-12" ng-controller="PlunkerCtrl">
+                                <div class="pull-right">
+                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.5.8', '3.1.1', '0.8.9', 'filter-helper')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
+                                </div>
+                                <uib-tabset>
+                                    <uib-tab heading="Markup">
+                                        <div plunker-content="markup">
+                                            <pre ng-non-bindable><code data-language="html">&lt;div ng-controller=&quot;FilterHelperCtrl as ctrl&quot;&gt;
+
+See console
+   
+&lt;/div&gt;</code></pre>
+                                        </div>
+                                    </uib-tab>
+                                    <uib-tab heading="JavaScript">
+                                        <div plunker-content="javascript">
+                                            <pre ng-non-bindable><code data-language="javascript">var FilterHelperCtrl = (function () {
+    function FilterHelperCtrl() {
+        this.filter = this.getDefaultFilter();
+        console.log(&#39;Generate $stateParams&#39;, ddui.FilterHelper.generateStateParams(this.filter));
+        console.log(&#39;Generate dynamic params&#39;, ddui.FilterHelper.generateDynamicParams(this.filter));
+        console.log(&#39;Generate url params&#39;, ddui.FilterHelper.generateUrlParams(this.filter));
+    }
+    FilterHelperCtrl.prototype.getDefaultFilter = function () {
+        return {
+            &#39;firstName&#39;: { value: &#39;Vasia&#39; },
+            &#39;lastName&#39;: { value: &#39;Sprotauskas&#39; },
+            &#39;customField&#39;: { displayName: &#39;Custom name&#39;, value: undefined }
+        };
+    };
+    return FilterHelperCtrl;
+}());
+angular.module(&#39;dd.ui.demo&#39;)
+    .controller(&#39;FilterHelperCtrl&#39;, FilterHelperCtrl);
+//# sourceMappingURL=demo.js.map</code></pre>
+                                        </div>
+                                    </uib-tab>
+                                </uib-tabset>
+                            </div>
+                        </div>
+                    </section>
+                    <script>var FilterHelperCtrl = (function () {
+    function FilterHelperCtrl() {
+        this.filter = this.getDefaultFilter();
+        console.log('Generate $stateParams', ddui.FilterHelper.generateStateParams(this.filter));
+        console.log('Generate dynamic params', ddui.FilterHelper.generateDynamicParams(this.filter));
+        console.log('Generate url params', ddui.FilterHelper.generateUrlParams(this.filter));
+    }
+    FilterHelperCtrl.prototype.getDefaultFilter = function () {
+        return {
+            'firstName': { value: 'Vasia' },
+            'lastName': { value: 'Sprotauskas' },
+            'customField': { displayName: 'Custom name', value: undefined }
+        };
+    };
+    return FilterHelperCtrl;
+}());
+angular.module('dd.ui.demo')
+    .controller('FilterHelperCtrl', FilterHelperCtrl);
+//# sourceMappingURL=demo.js.map</script>
+                
+                    <section id="filter-tags">
+                        <div class="page-header">
+                          <h1>Filter-tags<small>
+                              (<a target="_blank" href="https://github.com/clickataxi/dd-ui/tree/master/src/filter-tags">dd.ui.filter-tags</a>)
+                          </small></h1>
+                          </div>
+                          <div class="row">
+                            <div class="col-md-6 show-grid">
+                                <div ng-controller="FilterTagsCtrl as ctrl">
+
+   <p>Selected tag: {{ctrl.selectedTag}}</p>
+   <p>Removed tag: {{ctrl.removedTag}}</p>
+   <p>
+       <button ng-click="ctrl.addFilter()" class="btn btn-default btn-sm">Add filter tag</button> | 
+       <button ng-click="ctrl.resetToDefaultFilter()" class="btn btn-default btn-sm">Reset filter</button>
+   </p>
+ 
+   <filter-tags on-select="ctrl.onSelect(fieldName)" on-remove="ctrl.onRemove(fieldName)" on-remove-all="ctrl.onRemoveAll()" filter="ctrl.filter"></filter-tags>
+</div>
+                            </div>
+                            <div class="col-md-6">
+                                <p>Filter tags can be used to show active filters</p>
+<h3 id="options">options</h3>
+<ul>
+<li><p><code>filter</code>
+  :
+  FilterModel object. Note that in order to update tags you need to create new filter object reference in order for component to trigger $onChanges hook. Use angular.copy for this.</p>
+</li>
+<li><p><code>onSelect</code>
+  :
+  Called on tag select. Passes clicked tag fieldName.</p>
+</li>
+<li><p><code>onRemove</code>
+  :
+  Called on tag remove. Passes clicked tag fieldName.</p>
+</li>
+<li><p><code>onRemoveAll</code>
+  :
+  Called on remove all tags.</p>
+</li>
+</ul>
+
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row code">
+                            <div class="col-md-12" ng-controller="PlunkerCtrl">
+                                <div class="pull-right">
+                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.5.8', '3.1.1', '0.8.9', 'filter-tags')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
+                                </div>
+                                <uib-tabset>
+                                    <uib-tab heading="Markup">
+                                        <div plunker-content="markup">
+                                            <pre ng-non-bindable><code data-language="html">&lt;div ng-controller=&quot;FilterTagsCtrl as ctrl&quot;&gt;
+
+   &lt;p&gt;Selected tag: {{ctrl.selectedTag}}&lt;/p&gt;
+   &lt;p&gt;Removed tag: {{ctrl.removedTag}}&lt;/p&gt;
+   &lt;p&gt;
+       &lt;button ng-click=&quot;ctrl.addFilter()&quot; class=&quot;btn btn-default btn-sm&quot;&gt;Add filter tag&lt;/button&gt; | 
+       &lt;button ng-click=&quot;ctrl.resetToDefaultFilter()&quot; class=&quot;btn btn-default btn-sm&quot;&gt;Reset filter&lt;/button&gt;
+   &lt;/p&gt;
+ 
+   &lt;filter-tags on-select=&quot;ctrl.onSelect(fieldName)&quot; on-remove=&quot;ctrl.onRemove(fieldName)&quot; on-remove-all=&quot;ctrl.onRemoveAll()&quot; filter=&quot;ctrl.filter&quot;&gt;&lt;/filter-tags&gt;
+&lt;/div&gt;</code></pre>
+                                        </div>
+                                    </uib-tab>
+                                    <uib-tab heading="JavaScript">
+                                        <div plunker-content="javascript">
+                                            <pre ng-non-bindable><code data-language="javascript">var FilterTagsCtrl = (function () {
+    function FilterTagsCtrl() {
+        this.filter = this.getDefaultFilter();
+    }
+    FilterTagsCtrl.prototype.getDefaultFilter = function () {
+        return {
+            &#39;firstName&#39;: { value: &#39;Vasia&#39; },
+            &#39;lastName&#39;: { value: &#39;Sprotauskas&#39; },
+            &#39;customField&#39;: { displayName: &#39;Custom name&#39;, value: undefined }
+        };
+    };
+    FilterTagsCtrl.prototype.addFilter = function () {
+        var rand = new Date().getDate();
+        this.filter[&quot;customField&quot;] = { value: rand };
+        this.updateFilter();
+    };
+    FilterTagsCtrl.prototype.onSelect = function (fieldName) {
+        this.selectedTag = this.filter[fieldName];
+        this.updateFilter();
+    };
+    FilterTagsCtrl.prototype.onRemove = function (fieldName) {
+        this.removedTag = this.filter[fieldName];
+        this.filter[fieldName] = { value: undefined };
+        this.updateFilter();
+    };
+    FilterTagsCtrl.prototype.onRemoveAll = function () {
+        this.filter[&#39;firstName&#39;].value = undefined;
+        this.filter[&#39;lastName&#39;].value = undefined;
+        this.filter[&#39;customField&#39;].value = undefined;
+        this.updateFilter();
+    };
+    FilterTagsCtrl.prototype.resetToDefaultFilter = function () {
+        this.filter = this.getDefaultFilter();
+    };
+    FilterTagsCtrl.prototype.updateFilter = function () {
+        this.filter = angular.copy(this.filter); // this is needed to trigger component update
+    };
+    return FilterTagsCtrl;
+}());
+angular.module(&#39;dd.ui.demo&#39;)
+    .controller(&#39;FilterTagsCtrl&#39;, FilterTagsCtrl);
+//# sourceMappingURL=demo.js.map</code></pre>
+                                        </div>
+                                    </uib-tab>
+                                </uib-tabset>
+                            </div>
+                        </div>
+                    </section>
+                    <script>var FilterTagsCtrl = (function () {
+    function FilterTagsCtrl() {
+        this.filter = this.getDefaultFilter();
+    }
+    FilterTagsCtrl.prototype.getDefaultFilter = function () {
+        return {
+            'firstName': { value: 'Vasia' },
+            'lastName': { value: 'Sprotauskas' },
+            'customField': { displayName: 'Custom name', value: undefined }
+        };
+    };
+    FilterTagsCtrl.prototype.addFilter = function () {
+        var rand = new Date().getDate();
+        this.filter["customField"] = { value: rand };
+        this.updateFilter();
+    };
+    FilterTagsCtrl.prototype.onSelect = function (fieldName) {
+        this.selectedTag = this.filter[fieldName];
+        this.updateFilter();
+    };
+    FilterTagsCtrl.prototype.onRemove = function (fieldName) {
+        this.removedTag = this.filter[fieldName];
+        this.filter[fieldName] = { value: undefined };
+        this.updateFilter();
+    };
+    FilterTagsCtrl.prototype.onRemoveAll = function () {
+        this.filter['firstName'].value = undefined;
+        this.filter['lastName'].value = undefined;
+        this.filter['customField'].value = undefined;
+        this.updateFilter();
+    };
+    FilterTagsCtrl.prototype.resetToDefaultFilter = function () {
+        this.filter = this.getDefaultFilter();
+    };
+    FilterTagsCtrl.prototype.updateFilter = function () {
+        this.filter = angular.copy(this.filter); // this is needed to trigger component update
+    };
+    return FilterTagsCtrl;
+}());
+angular.module('dd.ui.demo')
+    .controller('FilterTagsCtrl', FilterTagsCtrl);
 //# sourceMappingURL=demo.js.map</script>
                 
                     <section id="form-actions">
@@ -1873,7 +2201,7 @@ angular.module('dd.ui.demo')
                         <div class="row code">
                             <div class="col-md-12" ng-controller="PlunkerCtrl">
                                 <div class="pull-right">
-                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.4.3', '3.1.1', '0.8.7', 'form-actions')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
+                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.5.8', '3.1.1', '0.8.9', 'form-actions')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
                                 </div>
                                 <uib-tabset>
                                     <uib-tab heading="Markup">
@@ -2077,7 +2405,7 @@ angular.module('dd.ui.demo')
                         <div class="row code">
                             <div class="col-md-12" ng-controller="PlunkerCtrl">
                                 <div class="pull-right">
-                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.4.3', '3.1.1', '0.8.7', 'form-validation')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
+                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.5.8', '3.1.1', '0.8.9', 'form-validation')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
                                 </div>
                                 <uib-tabset>
                                     <uib-tab heading="Markup">
@@ -2406,6 +2734,10 @@ angular.module('dd.ui.demo')
  Minimal no of characters that needs to be entered before lookup kicks-in. Must be greater than or equal to 0.
  <strong>IMPORTANT</strong>: Must be an integer value to work correctly.</p>
 </li>
+<li><p><code>lookup-focus-first</code>
+ <em>(Default: <code>true</code>)</em> :
+ Should the first match automatically be focused as you type?</p>
+</li>
 <li><p><code>lookup-input-class</code>
  :
  HTML class (or classes) to use on lookup input element.</p>
@@ -2418,7 +2750,7 @@ angular.module('dd.ui.demo')
                         <div class="row code">
                             <div class="col-md-12" ng-controller="PlunkerCtrl">
                                 <div class="pull-right">
-                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.4.3', '3.1.1', '0.8.7', 'lookup')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
+                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.5.8', '3.1.1', '0.8.9', 'lookup')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
                                 </div>
                                 <uib-tabset>
                                     <uib-tab heading="Markup">
@@ -2687,7 +3019,7 @@ angular.module('dd.ui.demo')
                         <div class="row code">
                             <div class="col-md-12" ng-controller="PlunkerCtrl">
                                 <div class="pull-right">
-                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.4.3', '3.1.1', '0.8.7', 'validation')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
+                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.5.8', '3.1.1', '0.8.9', 'validation')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
                                 </div>
                                 <uib-tabset>
                                     <uib-tab heading="Markup">
