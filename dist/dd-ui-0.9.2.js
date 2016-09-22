@@ -2,7 +2,7 @@
  * dd-ui
  * http://clickataxi.github.io/dd-ui/
 
- * Version: 0.9.1 - 2016-09-19
+ * Version: 0.9.2 - 2016-09-22
  * License: MIT
  */angular.module("dd.ui", ["dd.ui.arrow-key-nav","dd.ui.busy-element","dd.ui.conversion","dd.ui.core","dd.ui.data-list","dd.ui.datetimepicker","dd.ui.dd-datepicker","dd.ui.dd-datetimepicker","dd.ui.dd-table","dd.ui.dd-timepicker","dd.ui.filter-field-focus","dd.ui.filter-helper","dd.ui.filter-tags","dd.ui.form-actions","dd.ui.form-validation","dd.ui.lookup","dd.ui.validation.phone","dd.ui.validation.sameAs","dd.ui.validation"]);
 angular.module('dd.ui.arrow-key-nav', [])
@@ -187,16 +187,14 @@ angular.module('dd.ui.core', []);
 var ddui;
 (function (ddui) {
     var DataList = (function () {
-        function DataList(config, $http, $location) {
+        function DataList(config, $http) {
             this.$http = $http;
-            this.$location = $location;
             this.id = config.id;
             this.rows = [];
             this.selectedRows = [];
             this.count = 0;
             this.page = 1;
             this.data = null; // will be assigned raw last response
-            this.filter = { skip: 0, limit: 25 };
             this.paging = config.paging;
             this.selectedAllPages = false;
             this.isLoading = false;
@@ -204,6 +202,7 @@ var ddui;
             this.responseListName = config.responseListName || 'items';
             this.responseCountName = config.responseCountName || 'count';
             this.initFilterFunc = function () { return {}; };
+            this.filter = this.createDefaultFilter();
         }
         DataList.prototype.onSuccess = function (callback) {
             this.onListResponseSuccess = callback;
@@ -218,15 +217,15 @@ var ddui;
                 throw new Error('initFilterFunc should return object with filter properties');
             }
             angular.extend(this.filter, filter);
-            this.loadLocationParams(this.filter);
         };
         DataList.prototype.submitFilter = function () {
-            this.setLocationParams(this.filter);
             return this.updateList(this.filter);
         };
         DataList.prototype.resetFilter = function () {
-            this.filter = this.initFilterFunc();
-            this.setLocationParams(this.filter);
+            this.filter = this.createDefaultFilter();
+            if (this.initFilterFunc) {
+                this.setFilter(this.initFilterFunc);
+            }
             this.updateList(this.filter);
         };
         DataList.prototype.fetchPage = function (page) {
@@ -234,16 +233,16 @@ var ddui;
             if (page) {
                 this.page = page;
             }
-            this.filter.skip = (this.page * this.filter.limit) - this.filter.limit;
+            this.filter['skip'].value = (this.page * this.filter['limit'].value) - this.filter['limit'].value;
             this.updateList(this.filter);
         };
         DataList.prototype.syncAll = function () {
-            this.filter.skip = 0;
-            this.filter.limit = this.rows.length > 0 ? Math.ceil(this.rows.length / this.filter.limit) * this.filter.limit : this.filter.limit;
+            this.filter['skip'].value = 0;
+            this.filter['limit'].value = this.rows.length > 0 ? Math.ceil(this.rows.length / this.filter['limit'].value) * this.filter['limit'].value : this.filter['limit'].value;
             this.updateList(this.filter);
         };
         DataList.prototype.loadMore = function () {
-            this.filter.skip += this.filter.limit;
+            this.filter['skip'].value += this.filter['limit'].value;
             return this.updateList(this.filter);
         };
         DataList.prototype.hasMore = function () {
@@ -283,14 +282,9 @@ var ddui;
         DataList.prototype.updateList = function (filter) {
             var _this = this;
             this.isLoading = true;
-            if (typeof (filter.limit) === 'undefined') {
-                this.filter.limit = 25;
-            }
-            if (typeof (filter.skip) === 'undefined') {
-                this.filter.skip = 0;
-            }
+            this.ensureLimitAndSkip();
             var config = {
-                params: filter
+                params: ddui.FilterHelper.generateStateParams(filter)
             };
             return this.$http.get(this.url, config)
                 .then(function (response) {
@@ -309,8 +303,16 @@ var ddui;
                 _this.isLoading = false;
             });
         };
+        DataList.prototype.ensureLimitAndSkip = function () {
+            if (!angular.isDefined(this.filter['limit'].value)) {
+                this.filter['limit'].value = 25;
+            }
+            if (!angular.isDefined(this.filter['skip'].value)) {
+                this.filter['skip'].value = 0;
+            }
+        };
         DataList.prototype.updateListCollection = function (items) {
-            if (this.filter.skip === 0 || this.paging) {
+            if (this.filter['skip'].value === 0 || this.paging) {
                 this.rows = items;
             }
             else {
@@ -319,91 +321,25 @@ var ddui;
                 }
             }
         };
-        DataList.prototype.loadLocationParams = function (filter) {
-            var changedCount = 0;
-            for (var param in filter) {
-                if (filter.hasOwnProperty(param)) {
-                    var val = this.$location.search()[param];
-                    if (val) {
-                        try {
-                            filter[param] = JSON.parse(val);
-                            if (DataList.isNumber(filter[param])) {
-                                filter[param] = JSON.stringify(filter[param]);
-                            }
-                        }
-                        catch (e) {
-                            var isoDatePattern = /(\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d\.\d+([+-][0-2]\d:[0-5]\d|Z))|(\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d([+-][0-2]\d:[0-5]\d|Z))|(\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d([+-][0-2]\d:[0-5]\d|Z))/;
-                            if (isoDatePattern.test(val)) {
-                                filter[param] = new Date(val);
-                            }
-                            else {
-                                filter[param] = val;
-                            }
-                        }
-                        changedCount++;
-                    }
-                }
-            }
-            return changedCount;
-        };
-        DataList.prototype.setLocationParams = function (filter) {
-            var params = this.getFilterAsUrlParams(filter, true);
-            for (var param in params) {
-                if (params.hasOwnProperty(param)) {
-                    var val = params[param];
-                    if (val && param !== 'expand' && param !== 'skip' && param !== 'limit') {
-                        this.$location.search(param, val);
-                    }
-                    else {
-                        this.$location.search(param, null);
-                    }
-                }
-            }
-        };
-        DataList.prototype.getFilterAsUrlParams = function (filter, addNulls) {
-            var params = {};
-            for (var param in filter) {
-                if (filter.hasOwnProperty(param)) {
-                    var val = filter[param];
-                    if (val instanceof Array) {
-                        val = val.join(',');
-                    }
-                    if (val && (DataList.isNumber(val) || val.length > 0)) {
-                        params[param] = val;
-                    }
-                    else if ((typeof val) === 'boolean') {
-                        params[param] = val === true;
-                    }
-                    else if (val instanceof Date) {
-                        params[param] = val.toISOString();
-                    }
-                    else if (val && (typeof val) === 'object') {
-                        params[param] = JSON.stringify(val);
-                    }
-                    else if (addNulls) {
-                        params[param] = null;
-                    }
-                }
-            }
-            return params;
-        };
-        DataList.isNumber = function (n) {
-            return !isNaN(parseFloat(n)) && isFinite(n);
+        DataList.prototype.createDefaultFilter = function () {
+            return {
+                'skip': { value: 0 },
+                'limit': { value: 25 }
+            };
         };
         return DataList;
     }());
     ddui.DataList = DataList;
     var DataListManager = (function () {
-        function DataListManager($http, $location) {
+        function DataListManager($http) {
             this.$http = $http;
-            this.$location = $location;
             this.listServiceHash = {};
             this.defaultListId = 'DataList';
         }
         DataListManager.prototype.init = function (config) {
             config.id = config.id || this.defaultListId;
             this.validateInit(config);
-            var listService = new DataList(config, this.$http, this.$location);
+            var listService = new DataList(config, this.$http);
             this.listServiceHash[config.id] = listService;
             return listService;
         };
@@ -429,8 +365,8 @@ var ddui;
     }());
     ddui.DataListManager = DataListManager;
     angular.module('dd.ui.data-list', [])
-        .service('dataListManager', ['$http', '$location', function ($http, $location) {
-            return new DataListManager($http, $location);
+        .service('dataListManager', ['$http', function ($http) {
+            return new DataListManager($http);
         }]);
 })(ddui || (ddui = {}));
 //# sourceMappingURL=data-list.js.map
@@ -1180,9 +1116,17 @@ var ddui;
                     }
                 });
                 function focusField(fieldName) {
-                    var elements = document.querySelectorAll("[ng-model*=\"" + fieldName + "\"]");
-                    for (var i = 0; i < elements.length; i++) {
-                        angular.element(elements[i]).focus();
+                    var inputTags = 'input,select,textarea';
+                    var element = document.getElementById(fieldName);
+                    var focusable;
+                    if (inputTags.indexOf(element.tagName.toLowerCase()) > -1) {
+                        focusable = angular.element(element);
+                    }
+                    else {
+                        focusable = element.querySelector('input,select,textarea');
+                    }
+                    if (focusable) {
+                        angular.element(focusable).focus();
                     }
                 }
             }
@@ -1677,7 +1621,7 @@ angular.module('dd.ui.validation', ['dd.ui.validation.phone', 'dd.ui.validation.
 //# sourceMappingURL=validation.js.mapangular.module('dd.ui.busy-element').run(function() {!angular.$$csp().noInlineStyle && angular.element(document).find('head').prepend('<style type="text/css">.be-container{position:absolute;z-index:1;}.be-overlay{background-color:rgba(255,255,255,0.7);text-align:center;}.be-overlay.success{background-color:rgba(0,128,0,0.15);}.be-overlay.fail{background-color:rgba(128,0,0,0.15);}.be-animate{-webkit-transition:opacity 0.5s;transition:opacity 0.5s;opacity:1;}.be-animate.ng-hide-add,.be-animate.ng-hide-remove{display:block !important;}.be-animate.ng-hide{opacity:0;}</style>'); });
 angular.module('dd.ui.dd-datepicker').run(function() {!angular.$$csp().noInlineStyle && angular.element(document).find('head').prepend('<style type="text/css"> .dd-datepicker .calendar-btn-with-day{border-radius:0;border-left:0;}.dd-datepicker .day-name-label{width:90px !important;font-size:12px;}.dd-datepicker input.short{width:70px;}.dd-datepicker input{width:105px;}</style>'); });
 angular.module('dd.ui.dd-datetimepicker').run(function() {!angular.$$csp().noInlineStyle && angular.element(document).find('head').prepend('<style type="text/css">.dd-datetimepicker{display:inline-flex;}.dd-datetimepicker .timepicker-container{width:100px !important;}.dd-datetimepicker .timepicker-container input{border-bottom-right-radius:0;border-top-right-radius:0;border-right:0;}.dd-datetimepicker .datepicker-container input.short{width:70px !important;}.dd-datetimepicker .datepicker-container input{width:105px !important;border-bottom-left-radius:0;border-top-left-radius:0;}.has-error .dd-datetimepicker .calendar-btn-with-day{border-color:#a94442;}</style>'); });
-angular.module('dd.ui.dd-table').run(function() {!angular.$$csp().noInlineStyle && angular.element(document).find('head').prepend('<style type="text/css">.dd-table > thead:first-child > tr:first-child > th,.dd-table > thead:first-child > tr:first-child > th{border-bottom:0px;border-top:solid #ccc 1px !important;}.dd-table > thead > tr > th.checkbox-row{width:50px;}.dd-table > tbody > tr.active:hover > td{background-color:#f5f5f5;}.dd-table thead .rows-count{font-size:11px;color:#aaa;font-weight:normal;}.dd-table > tbody > tr > td{background:#fff;}.dd-table > tbody > tr:hover{background-color:#fff;}.dd-pagination{margin-top:0px !important;}</style>'); });
+angular.module('dd.ui.dd-table').run(function() {!angular.$$csp().noInlineStyle && angular.element(document).find('head').prepend('<style type="text/css">.dd-table > thead:first-child > tr:first-child > th,.dd-table > thead:first-child > tr:first-child > th{border-bottom:0px;}.dd-table > thead > tr > th.checkbox-row{width:55px;}.dd-table > tbody > tr.active:hover > td{background-color:#f5f5f5;}.dd-table thead .rows-count{font-size:11px;color:#aaa;font-weight:normal;}.dd-table > tbody > tr > td{background:#fff;}.dd-table > tbody > tr:hover{background-color:#fff;}.dd-pagination{margin-top:0px !important;}</style>'); });
 angular.module('dd.ui.filter-tags').run(function() {!angular.$$csp().noInlineStyle && angular.element(document).find('head').prepend('<style type="text/css"> .filter-tags{margin:15px 15px 0 15px;}.filter-tags .btn-group{margin-right:10px;}</style>'); });
 angular.module('dd.ui.form-actions').run(function() {!angular.$$csp().noInlineStyle && angular.element(document).find('head').prepend('<style type="text/css">@keyframes formBarMoveIn{from{bottom:-100px;}to{bottom:0;}}@keyframes formBarMoveOut{from{bottom:0;}to{bottom:-100px;}}.form-actions-bar{position:fixed;left:0;bottom:0;background:#eee;border-top:1px solid #ddd;width:100%;padding:10px 5px;z-index:9999;animation:formBarMoveIn 0.3s ease-out;}.form-actions-bar.ng-hide{animation:formBarMoveOut 0.3s ease-out;}.form-actions-bar button{margin-right:10px;}</style>'); });
 angular.module('dd.ui.form-validation').run(function() {!angular.$$csp().noInlineStyle && angular.element(document).find('head').prepend('<style type="text/css">.form-fields-group .field-error{display:none;margin-top:5px;margin-bottom:10px;color:#a94442}.form-fields-group.has-error .field-error{display:block;}</style>'); });

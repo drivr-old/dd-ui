@@ -26,7 +26,6 @@ declare namespace ddui {
     }
     class DataList<T extends ListRow> {
         private $http;
-        private $location;
         id: string;
         rows: T[];
         selectedRows: T[];
@@ -34,7 +33,7 @@ declare namespace ddui {
         count: number;
         page: number;
         data: any;
-        filter: any;
+        filter: ddui.FilterModel;
         paging: boolean;
         selectedAllPages: boolean;
         isLoading: boolean;
@@ -43,10 +42,10 @@ declare namespace ddui {
         private onListResponseSuccess;
         private onListResponseError;
         private initFilterFunc;
-        constructor(config: ListConfig, $http: ng.IHttpService, $location: ng.ILocationService);
+        constructor(config: ListConfig, $http: ng.IHttpService);
         onSuccess(callback: (list: T[], count: number) => void): void;
         onError(callback: (data: any) => void): void;
-        setFilter(filterFunc: any): void;
+        setFilter(filterFunc: () => ddui.FilterModel): void;
         submitFilter(): ng.IPromise<void>;
         resetFilter(): void;
         fetchPage(page?: number): void;
@@ -58,16 +57,13 @@ declare namespace ddui {
         selectAllPages(): void;
         toggle(row: T): void;
         private updateList(filter);
+        private ensureLimitAndSkip();
         private updateListCollection(items);
-        private loadLocationParams(filter);
-        private setLocationParams(filter);
-        private getFilterAsUrlParams(filter, addNulls);
-        private static isNumber(n);
+        private createDefaultFilter();
     }
     class DataListManager {
         private $http;
-        private $location;
-        constructor($http: ng.IHttpService, $location: ng.ILocationService);
+        constructor($http: ng.IHttpService);
         private listServiceHash;
         private defaultListId;
         init<T>(config: ListConfig): DataList<T>;
