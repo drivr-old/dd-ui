@@ -20,7 +20,7 @@ namespace ddui {
         count: number;
         page: number;
         data: any;
-        filter: any;
+        filter: ddui.FilterModel;
         paging: boolean;
         selectedAllPages: boolean;
         isLoading: boolean;
@@ -29,16 +29,15 @@ namespace ddui {
         private responseCountName: string;
         private onListResponseSuccess: any;
         private onListResponseError: any;
-        private initFilterFunc: Function;
+        private initFilterFunc: () => ddui.FilterModel;
 
-        constructor(config: ListConfig, private $http: ng.IHttpService, private $location: ng.ILocationService) {
+        constructor(config: ListConfig, private $http: ng.IHttpService) {
             this.id = config.id;
             this.rows = [];
             this.selectedRows = [];
             this.count = 0;
             this.page = 1;
             this.data = null;   // will be assigned raw last response
-            this.filter = { skip: 0, limit: 25 };
             this.paging = config.paging;
             this.selectedAllPages = false;
             this.isLoading = false;
@@ -46,6 +45,7 @@ namespace ddui {
             this.responseListName = config.responseListName || 'items';
             this.responseCountName = config.responseCountName || 'count';
             this.initFilterFunc = () => { return {}; };
+            this.filter = this.createDefaultFilter();
         }
 
         onSuccess(callback: (list: T[], count: number) => void) {
@@ -56,7 +56,7 @@ namespace ddui {
             this.onListResponseError = callback;
         }
 
-        setFilter(filterFunc) {
+        setFilter(filterFunc: () => ddui.FilterModel) {
             this.initFilterFunc = filterFunc;
             var filter = this.initFilterFunc();
             if (typeof (filter) !== 'object') {
@@ -64,18 +64,17 @@ namespace ddui {
             }
 
             angular.extend(this.filter, filter);
-
-            this.loadLocationParams(this.filter);
         }
 
         submitFilter() {
-            this.setLocationParams(this.filter);
             return this.updateList(this.filter);
         }
 
         resetFilter() {
-            this.filter = this.initFilterFunc();
-            this.setLocationParams(this.filter);
+            this.filter = this.createDefaultFilter();
+            if (this.initFilterFunc) {
+                this.setFilter(this.initFilterFunc);
+            }
             this.updateList(this.filter);
         }
 
@@ -84,18 +83,18 @@ namespace ddui {
                 this.page = page;
             }
 
-            this.filter.skip = (this.page * this.filter.limit) - this.filter.limit;
+            this.filter['skip'].value = (this.page * this.filter['limit'].value) - this.filter['limit'].value;
             this.updateList(this.filter);
         }
 
         syncAll() {
-            this.filter.skip = 0;
-            this.filter.limit = this.rows.length > 0 ? Math.ceil(this.rows.length / this.filter.limit) * this.filter.limit : this.filter.limit;
+            this.filter['skip'].value = 0;
+            this.filter['limit'].value = this.rows.length > 0 ? Math.ceil(this.rows.length / this.filter['limit'].value) * this.filter['limit'].value : this.filter['limit'].value;
             this.updateList(this.filter);
         }
 
         loadMore() {
-            this.filter.skip += this.filter.limit;
+            this.filter['skip'].value += this.filter['limit'].value;
             return this.updateList(this.filter);
         }
 
@@ -135,19 +134,13 @@ namespace ddui {
             }
         }
 
-        private updateList(filter) {
+        private updateList(filter: ddui.FilterModel) {
             this.isLoading = true;
 
-            if (typeof (filter.limit) === 'undefined') {
-                this.filter.limit = 25;
-            }
-
-            if (typeof (filter.skip) === 'undefined') {
-                this.filter.skip = 0;
-            }
+            this.ensureLimitAndSkip();
 
             const config = {
-                params: filter
+                params: ddui.FilterHelper.generateStateParams(filter)
             };
 
             return this.$http.get(this.url, config)
@@ -169,8 +162,18 @@ namespace ddui {
                 });
         }
 
+        private ensureLimitAndSkip() {
+            if (!angular.isDefined(this.filter['limit'].value)) {
+                this.filter['limit'].value = 25;
+            }
+
+            if (!angular.isDefined(this.filter['skip'].value)) {
+                this.filter['skip'].value = 0;
+            }
+        }
+
         private updateListCollection(items: T[]) {
-            if (this.filter.skip === 0 || this.paging) {
+            if (this.filter['skip'].value === 0 || this.paging) {
                 this.rows = items;
             } else {
                 for (let a = 0; a < items.length; a++) {
@@ -179,79 +182,16 @@ namespace ddui {
             }
         }
 
-        private loadLocationParams(filter) {
-            var changedCount = 0;
-            for (var param in filter) {
-                if (filter.hasOwnProperty(param)) {
-                    var val = this.$location.search()[param];
-                    if (val) {
-                        try {
-                            filter[param] = JSON.parse(val);
-                            if (DataList.isNumber(filter[param])) {
-                                filter[param] = JSON.stringify(filter[param]);
-                            }
-                        } catch (e) {
-                            var isoDatePattern = /(\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d\.\d+([+-][0-2]\d:[0-5]\d|Z))|(\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d([+-][0-2]\d:[0-5]\d|Z))|(\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d([+-][0-2]\d:[0-5]\d|Z))/;
-                            if (isoDatePattern.test(val)) {
-                                filter[param] = new Date(val);
-                            } else {
-                                filter[param] = val;
-                            }
-                        }
-                        changedCount++;
-                    }
-                }
-            }
-            return changedCount;
-        }
-
-        private setLocationParams(filter) {
-            var params = this.getFilterAsUrlParams(filter, true);
-            for (var param in params) {
-                if (params.hasOwnProperty(param)) {
-                    var val = params[param];
-                    if (val && param !== 'expand' && param !== 'skip' && param !== 'limit') {
-                        this.$location.search(param, val);
-                    } else {
-                        this.$location.search(param, null);
-                    }
-                }
-            }
-        }
-
-        private getFilterAsUrlParams(filter, addNulls) {
-            var params = {};
-
-            for (var param in filter) {
-                if (filter.hasOwnProperty(param)) {
-                    var val = filter[param];
-
-                    if (val instanceof Array) {
-                        val = val.join(',');
-                    }
-                    if (val && (DataList.isNumber(val) || val.length > 0)) {
-                        params[param] = val;
-                    } else if ((typeof val) === 'boolean') {
-                        params[param] = val === true;
-                    } else if (val instanceof Date) {
-                        params[param] = val.toISOString();
-                    } else if (val && (typeof val) === 'object') {
-                        params[param] = JSON.stringify(val);
-                    } else if (addNulls) {
-                        params[param] = null;
-                    }
-                }
-            }
-            return params;
-        }
-
-        private static isNumber(n) {
-            return !isNaN(parseFloat(n)) && isFinite(n);
+        private createDefaultFilter(): ddui.FilterModel {
+            return { 
+                'skip': { value: 0 }, 
+                'limit': { value: 25}
+            };
         }
     }
 
     export class DataListManager {
-        constructor(private $http: ng.IHttpService, private $location: ng.ILocationService) { }
+        constructor(private $http: ng.IHttpService) { }
 
         private listServiceHash: { [id: string]: any; } = {};
         private defaultListId = 'DataList';
@@ -259,7 +199,7 @@ namespace ddui {
         init<T>(config: ListConfig): DataList<T> {
             config.id = config.id || this.defaultListId;
             this.validateInit(config);
-            const listService = new DataList<T>(config, this.$http, this.$location);
+            const listService = new DataList<T>(config, this.$http);
             this.listServiceHash[config.id] = listService;
             return listService;
         }
@@ -288,7 +228,7 @@ namespace ddui {
     }
 
     angular.module('dd.ui.data-list', [])
-        .service('dataListManager', ['$http', '$location', ($http, $location) => {
-            return new DataListManager($http, $location);
+        .service('dataListManager', ['$http', ($http) => {
+            return new DataListManager($http);
         }]);
 }
