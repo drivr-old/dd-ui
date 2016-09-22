@@ -35,12 +35,11 @@
         </table>
         <div class="row">
             <div class="col-md-8">
-                <dd-pagination on-change="ctrl.dataList.fetchPage()" total-items="ctrl.dataList.count" limit="ctrl.dataList.filter.limit" current-page="ctrl.dataList.page"></dd-pagination>
+                <dd-pagination on-change="ctrl.dataList.fetchPage()" total-items="ctrl.dataList.count" limit="ctrl.dataList.filter['limit'].value" current-page="ctrl.dataList.page"></dd-pagination>
             </div>
             <div class="col-md-4">
-                <dd-items-per-page on-change="ctrl.dataList.fetchPage()" limit="ctrl.dataList.filter.limit"></dd-items-per-page>
+                <dd-items-per-page on-change="ctrl.dataList.fetchPage()" limit="ctrl.dataList.filter['limit'].value"></dd-items-per-page>
             </div>
         </div>
-        {{ctrl.dataList.count}}
     </div>
 </div>

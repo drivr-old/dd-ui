@@ -6,16 +6,13 @@ interface TestRowItem extends ddui.ListRow {
 describe('Data list tests', function () {
     var dataListManager: ddui.DataListManager,
         $httpBackend: ng.IHttpBackendService,
-        $location,
         dataList: ddui.DataList<TestRowItem>,
-        listConfig: ddui.ListConfig;
+        listConfig: ddui.ListConfig,
+        filterFunc: () => ddui.FilterModel;
 
     beforeEach(() => {
-        $location = jasmine.createSpyObj('$location', ['search']);
 
-        angular.mock.module('dd.ui.data-list', ($provide) => {
-            $provide.value('$location', $location);
-        });
+        angular.mock.module('dd.ui.data-list');
 
         inject((_dataListManager_, _$httpBackend_) => {
             dataListManager = _dataListManager_;
@@ -112,8 +109,8 @@ describe('Data list tests', function () {
             dataList.fetchPage(3);
             $httpBackend.flush();
 
-            expect(dataList.filter.skip).toBe(50);
-            expect(dataList.filter.limit).toBe(25);
+            expect(dataList.filter['skip'].value).toBe(50);
+            expect(dataList.filter['limit'].value).toBe(25);
         });
 
         it('should call onsuccess callback if onSuccess is defined', function () {
@@ -160,8 +157,8 @@ describe('Data list tests', function () {
             dataList.syncAll();
             $httpBackend.flush();
 
-            expect(dataList.filter.skip).toBe(0);
-            expect(dataList.filter.limit).toBe(25);
+            expect(dataList.filter['skip'].value).toBe(0);
+            expect(dataList.filter['limit'].value).toBe(25);
         });
     });
 
@@ -305,66 +302,58 @@ describe('Data list tests', function () {
     describe('Set filter', () => {
         beforeEach(() => {
             dataList = dataListManager.init<TestRowItem>(listConfig);
-            $location.search.and.callFake(() => {
-                return {
-                    name: 'Vasia'
-                };
-            });
         });
 
         it('should throw error if init filter func not return object', () => {
-            var filter = () => { return 1; };
+            var filterFunc = () => { return 1; };
 
-            var action = () => dataList.setFilter(filter);
+            var action = () => dataList.setFilter(<any>filterFunc);
 
             expect(action).toThrowError();
         });
 
         it('should extend default filter with custom filter', () => {
-            var filter = () => {
-                return { name: 'Vasia' };
+            filterFunc = () => {
+                return { 
+                    'name': {value: 'Vasia' }
+                };
             };
 
-            dataList.setFilter(filter);
+            dataList.setFilter(filterFunc);
 
-            expect(dataList.filter.name).toBe('Vasia');
-            expect(dataList.filter.limit).toBe(25);
-            expect(dataList.filter.skip).toBe(0);
+            expect(dataList.filter['name'].value).toBe('Vasia');
+            expect(dataList.filter['limit'].value).toBe(25);
+            expect(dataList.filter['skip'].value).toBe(0);
         });
 
         it('should override limit and skip if provided', () => {
-            var filter = () => {
-                return { limit: 10, skip: 10 };
+            filterFunc = () => {
+                return { 'limit': {value: 10}, 'skip': {value: 10} };
             };
 
-            dataList.setFilter(filter);
+            dataList.setFilter(filterFunc);
 
-            expect(dataList.filter.limit).toBe(10);
-            expect(dataList.filter.skip).toBe(10);
+            expect(dataList.filter['limit'].value).toBe(10);
+            expect(dataList.filter['skip'].value).toBe(10);
         });
     });
 
     describe('Submit filter', () => {
         beforeEach(() => {
             dataList = dataListManager.init<TestRowItem>(listConfig);
-            $location.search.and.callFake(() => {
-                return {
-                    data: '2016'
-                };
-            });
         });
 
-        it('should submit filter and set location params', () => {
+        it('should submit filter and query data', () => {
             $httpBackend.expectGET('/api/test?arr=1&arr=2&bool=true&date=2016-01-01T00:00:00.000Z&limit=25&name=Vasia&obj=%7B%22n%22:1%7D&skip=0').respond(200, { items: [] });
             spyOn(dataList, 'fetchPage').and.callThrough();
 
             dataList.setFilter(() => {
                 return {
-                    name: 'Vasia',
-                    arr: [1, 2],
-                    bool: true,
-                    date: new Date('2016-01-01'),
-                    obj: { n: 1 }
+                    'name': {value: 'Vasia'},
+                    'arr': {value: [1, 2]},
+                    'bool': {value: true},
+                    'date': {value: new Date('2016-01-01')},
+                    'obj': {value: { n: 1 }}
                 };
             });
             dataList.submitFilter();
@@ -375,14 +364,13 @@ describe('Data list tests', function () {
     describe('Reset filter', () => {
         beforeEach(() => {
             dataList = dataListManager.init<TestRowItem>(listConfig);
-            $location.search.and.callFake(() => { return {}; });
         });
 
         it('should reset filter and update list', () => {
             $httpBackend.expectGET('/api/test?limit=25&skip=0').respond(200, { items: [] });
             spyOn(dataList, 'fetchPage').and.callThrough();
 
-            dataList.filter.name = 'Vasia';
+            dataList.filter['skip'].value = 50;
             dataList.resetFilter();
             $httpBackend.flush();
         });
