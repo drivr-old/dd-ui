@@ -1,7 +1,7 @@
 {
   "author": "https://github.com/clickataxi/dd-ui/graphs/contributors",
   "name": "dd-ui",
-  "version": "0.9.2",
+  "version": "0.10.0-SNAPSHOT",
   "homepage": "http://clickataxi.github.io/dd-ui/",
   "dependencies": {},
   "devDependencies": {
