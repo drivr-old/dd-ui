@@ -1,13 +1,13 @@
 # dd-ui - [AngularJS](http://angularjs.org/) directives that we use every day
 ***
-[![Build Status](https://secure.travis-ci.org/clickataxi/dd-ui.png)](http://travis-ci.org/clickataxi/dd-ui)
+[![Build Status](https://secure.travis-ci.org/drivr/dd-ui.png)](http://travis-ci.org/drivr/dd-ui)
 
 ## Demo
 
-Do you want to see directives in action? Visit http://clickataxi.github.io/dd-ui/!
+Do you want to see directives in action? Visit http://drivr.github.io/dd-ui/!
 
 ## Installation
- `jspm install dd-ui=github:clickataxi/dd-ui`
+ `jspm install dd-ui=github:drivr/dd-ui`
 
 ```javascript
 import 'dd-ui';
