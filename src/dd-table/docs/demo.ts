@@ -20,11 +20,10 @@ class TableDemoCtrl {
         };
 
         this.dataList = this.dataListManager.init<DemoDataRow>(config);
-        this.dataList.setFilter(() => {
-            return {
-                name: 'My name'
+        var filter: ddui.FilterModel = {
+                'name': { value: 'My name' }
             };
-        });
+        this.dataList.setFilter(() => filter);
         this.dataList.fetchPage();
     }
 

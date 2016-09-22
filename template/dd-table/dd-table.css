@@ -1,6 +1,5 @@
 .dd-table > thead:first-child > tr:first-child > th, .dd-table > thead:first-child > tr:first-child > th {
     border-bottom: 0px;
-    border-top: solid #ccc 1px !important;
 }
 .dd-table > thead > tr > th.checkbox-row {
     width: 50px;

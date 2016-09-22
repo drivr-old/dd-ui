@@ -27,7 +27,7 @@
 
             $scope.focusFieldName = 'name';
             var html = `<form filter-field-focus="{{focusFieldName}}">
-                          <input type="text" ng-model="filter['name'].value" />"
+                          <input id="name" type="text" ng-model="filter['name'].value" />
                         </form>`;
 
             initDirective(html);
@@ -35,11 +35,35 @@
             expect(element.find('input')[0] === document.activeElement).toBeTruthy();
         });
 
+        it('should focus input if it is inside wrapper element', () => {
+
+            $scope.focusFieldName = 'name';
+            var html = `<form filter-field-focus="{{focusFieldName}}">
+                          <div id="name"><input  type="text" ng-model="filter['name'].value" /></div>
+                        </form>`;
+
+            initDirective(html);
+
+            expect(element.find('input')[0] === document.activeElement).toBeTruthy();
+        });
+
+        it('should focus select if it is inside wrapper element', () => {
+
+            $scope.focusFieldName = 'name';
+            var html = `<form filter-field-focus="{{focusFieldName}}">
+                          <div id="name"><select ng-model="filter['name'].value"></select></div>
+                        </form>`;
+
+            initDirective(html);
+
+            expect(element.find('select')[0] === document.activeElement).toBeTruthy();
+        });
+
         it('should not focus input if focus field is not defined', () => {
 
             $scope.focusFieldName = undefined;
             var html = `<form filter-field-focus="{{focusFieldName}}">
-                          <input type="text" ng-model="filter['name'].value" />"
+                          <input id="name" type="text" ng-model="filter['name'].value" />
                         </form>`;
 
             initDirective(html);
