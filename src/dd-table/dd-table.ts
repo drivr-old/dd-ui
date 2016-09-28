@@ -88,7 +88,7 @@ namespace ddui {
                                 <ul class="dropdown-menu" uib-dropdown-menu ng-transclude>
                                 </ul>
                             </div>
-                            <span class="rows-count">{{ddTable.selectedRows.length}}</span>
+                            <span ng-if="ddTable.selectedRows.length > 0" class="rows-count">{{ddTable.selectedRows.length}}</span>
                        </div>`,
             link: (scope: any, element, attrs, ctrl) => {
                 scope.ddTable = ctrl.ddTable;
