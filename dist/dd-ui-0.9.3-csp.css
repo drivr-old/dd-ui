@@ -93,6 +93,12 @@
 .dd-pagination {
     margin-top: 0px !important;
 }
+.dd-table > tbody > tr > td {
+    max-width: 180px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
  .filter-tags {
         margin: 15px 15px 0 15px;
     }

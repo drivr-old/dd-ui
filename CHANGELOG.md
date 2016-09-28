@@ -1,3 +1,13 @@
+<a name="0.9.3"></a>
+## [0.9.3](//compare/0.9.2...v0.9.3) (2016-09-28)
+
+
+### Bug Fixes
+
+* **table:** do not show selected pages number if any row is selected db839d2
+
+
+
 <a name="0.9.2"></a>
 ## [0.9.2](//compare/0.9.1...v0.9.2) (2016-09-22)
 
