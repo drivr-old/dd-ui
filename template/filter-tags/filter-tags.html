@@ -1,6 +1,6 @@
 ﻿<div class="filter-tags" ng-if="$ctrl.tags.length > 0">
     <div ng-repeat="tag in $ctrl.tags" class="btn-group">
-        <button type="button" ng-click="$ctrl.openTag(tag)" class="btn btn-info btn-sm btn-tag">{{tag.name}}</button>
+        <button type="button" ng-click="$ctrl.openTag(tag)" class="btn btn-info btn-sm btn-tag">{{tag.name}}: {{tag.value}}</button>
         <button ng-click="$ctrl.removeTag(tag)" type="button" class="btn btn-info btn-sm btn-tag-remove">
             <span class="glyphicon glyphicon-remove"></span>
         </button>

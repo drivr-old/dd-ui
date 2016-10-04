@@ -3,6 +3,7 @@
     interface Tag {
         id: string;
         name: string;
+        value: any;
     }
 
     class FilterTagsComponent {
@@ -49,7 +50,11 @@
 
             for (let fieldName of definedFieldsNames) {
                 var field = filter[fieldName];
-                this.tags.push({ id: fieldName, name: this.createTagName(fieldName, field.displayName) });
+                this.tags.push({ 
+                    id: fieldName, 
+                    name: this.createTagName(fieldName, field.displayName),
+                    value: filter[fieldName].value
+                 });
             }
         }
 

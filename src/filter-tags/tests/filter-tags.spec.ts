@@ -45,9 +45,9 @@ describe('Filter tags component tests', () => {
             
             var tags = element.find('.btn-tag');
             expect(tags.length).toBe(3);
-            expect(tags[0].innerHTML).toBe('First name');
-            expect(tags[1].innerHTML).toBe('Last name');
-            expect(tags[2].innerHTML).toBe('Is active');
+            expect(tags[0].innerHTML).toBe('First name: a');
+            expect(tags[1].innerHTML).toBe('Last name: m');
+            expect(tags[2].innerHTML).toBe('Is active: false');
         });
 
         it('should not create tags for empty filters', () => {
