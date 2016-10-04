@@ -1,11 +1,14 @@
 ﻿namespace ddui {
-    function filterFieldFocus(): ng.IDirective {
+    filterFieldFocus.$inject = ['$timeout'];
+    function filterFieldFocus($timeout: ng.ITimeoutService): ng.IDirective {
         return {
             restrict: 'A',
             link: (scope: any, element, attr) => {
                 scope.$watch(() => attr.filterFieldFocus, (oldVal, newVal) => {
                     if (newVal) {
-                        focusField(newVal);
+                        $timeout(() => {
+                            focusField(newVal);
+                        }, 100, false);
                     }
                 });
 
