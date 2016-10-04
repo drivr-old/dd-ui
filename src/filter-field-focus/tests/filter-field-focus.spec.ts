@@ -76,5 +76,6 @@
         element = $compile(`<div id="focus-container">${html}</div>`)($scope);
         element.appendTo($document[0]['body']);
         $scope.$digest();
+        $timeout.flush();
     }
 });
