@@ -1,3 +1,13 @@
+<a name="0.9.4"></a>
+## [0.9.4](//compare/0.9.3...v0.9.4) (2016-10-04)
+
+
+### Features
+
+* **filtertags:** show filter tag value 49b404c
+
+
+
 <a name="0.9.3"></a>
 ## [0.9.3](//compare/0.9.2...v0.9.3) (2016-09-28)
 

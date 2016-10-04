@@ -2,7 +2,7 @@
  * dd-ui
  * http://clickataxi.github.io/dd-ui/
 
- * Version: 0.9.3 - 2016-09-28
+ * Version: 0.9.4 - 2016-10-04
  * License: MIT
  */angular.module("dd.ui", ["dd.ui.arrow-key-nav","dd.ui.busy-element","dd.ui.conversion","dd.ui.core","dd.ui.data-list","dd.ui.datetimepicker","dd.ui.dd-datepicker","dd.ui.dd-datetimepicker","dd.ui.dd-table","dd.ui.dd-timepicker","dd.ui.filter-field-focus","dd.ui.filter-helper","dd.ui.filter-tags","dd.ui.form-actions","dd.ui.form-validation","dd.ui.lookup","dd.ui.validation.phone","dd.ui.validation.sameAs","dd.ui.validation"]);
 angular.module('dd.ui.arrow-key-nav', [])
@@ -1219,7 +1219,11 @@ var ddui;
             for (var _i = 0, definedFieldsNames_1 = definedFieldsNames; _i < definedFieldsNames_1.length; _i++) {
                 var fieldName = definedFieldsNames_1[_i];
                 var field = filter[fieldName];
-                this.tags.push({ id: fieldName, name: this.createTagName(fieldName, field.displayName) });
+                this.tags.push({
+                    id: fieldName,
+                    name: this.createTagName(fieldName, field.displayName),
+                    value: filter[fieldName].value
+                });
             }
         };
         FilterTagsComponent.prototype.createTagName = function (fieldName, displayName) {

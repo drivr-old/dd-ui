@@ -2,7 +2,7 @@
  * dd-ui
  * http://clickataxi.github.io/dd-ui/
 
- * Version: 0.9.3 - 2016-09-28
+ * Version: 0.9.4 - 2016-10-04
  * License: MIT
  */angular.module("dd.ui", ["dd.ui.tpls", "dd.ui.arrow-key-nav","dd.ui.busy-element","dd.ui.conversion","dd.ui.core","dd.ui.data-list","dd.ui.datetimepicker","dd.ui.dd-datepicker","dd.ui.dd-datetimepicker","dd.ui.dd-table","dd.ui.dd-timepicker","dd.ui.filter-field-focus","dd.ui.filter-helper","dd.ui.filter-tags","dd.ui.form-actions","dd.ui.form-validation","dd.ui.lookup","dd.ui.validation.phone","dd.ui.validation.sameAs","dd.ui.validation"]);
 angular.module("dd.ui.tpls", ["template/busy-element/busy-element.html","template/datetimepicker/datetimepicker.html","template/dd-datepicker/dd-datepicker.html","template/dd-datetimepicker/dd-datetimepicker.html","template/filter-tags/filter-tags.html","template/form-actions/form-actions.html","template/lookup/lookup-item.html","template/lookup/lookup.html"]);
@@ -1220,7 +1220,11 @@ var ddui;
             for (var _i = 0, definedFieldsNames_1 = definedFieldsNames; _i < definedFieldsNames_1.length; _i++) {
                 var fieldName = definedFieldsNames_1[_i];
                 var field = filter[fieldName];
-                this.tags.push({ id: fieldName, name: this.createTagName(fieldName, field.displayName) });
+                this.tags.push({
+                    id: fieldName,
+                    name: this.createTagName(fieldName, field.displayName),
+                    value: filter[fieldName].value
+                });
             }
         };
         FilterTagsComponent.prototype.createTagName = function (fieldName, displayName) {
@@ -1734,7 +1738,7 @@ angular.module("template/filter-tags/filter-tags.html", []).run(["$templateCache
   $templateCache.put("template/filter-tags/filter-tags.html",
     "<div class=\"filter-tags\" ng-if=\"$ctrl.tags.length > 0\">\n" +
     "    <div ng-repeat=\"tag in $ctrl.tags\" class=\"btn-group\">\n" +
-    "        <button type=\"button\" ng-click=\"$ctrl.openTag(tag)\" class=\"btn btn-info btn-sm btn-tag\">{{tag.name}}</button>\n" +
+    "        <button type=\"button\" ng-click=\"$ctrl.openTag(tag)\" class=\"btn btn-info btn-sm btn-tag\">{{tag.name}}: {{tag.value}}</button>\n" +
     "        <button ng-click=\"$ctrl.removeTag(tag)\" type=\"button\" class=\"btn btn-info btn-sm btn-tag-remove\">\n" +
     "            <span class=\"glyphicon glyphicon-remove\"></span>\n" +
     "        </button>\n" +
