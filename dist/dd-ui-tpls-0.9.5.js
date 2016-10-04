@@ -2,7 +2,7 @@
  * dd-ui
  * http://clickataxi.github.io/dd-ui/
 
- * Version: 0.9.4 - 2016-10-04
+ * Version: 0.9.5 - 2016-10-04
  * License: MIT
  */angular.module("dd.ui", ["dd.ui.tpls", "dd.ui.arrow-key-nav","dd.ui.busy-element","dd.ui.conversion","dd.ui.core","dd.ui.data-list","dd.ui.datetimepicker","dd.ui.dd-datepicker","dd.ui.dd-datetimepicker","dd.ui.dd-table","dd.ui.dd-timepicker","dd.ui.filter-field-focus","dd.ui.filter-helper","dd.ui.filter-tags","dd.ui.form-actions","dd.ui.form-validation","dd.ui.lookup","dd.ui.validation.phone","dd.ui.validation.sameAs","dd.ui.validation"]);
 angular.module("dd.ui.tpls", ["template/busy-element/busy-element.html","template/datetimepicker/datetimepicker.html","template/dd-datepicker/dd-datepicker.html","template/dd-datetimepicker/dd-datetimepicker.html","template/filter-tags/filter-tags.html","template/form-actions/form-actions.html","template/lookup/lookup-item.html","template/lookup/lookup.html"]);
@@ -1107,13 +1107,16 @@ var ddui;
 //# sourceMappingURL=dd-timepicker.js.map
 var ddui;
 (function (ddui) {
-    function filterFieldFocus() {
+    filterFieldFocus.$inject = ['$timeout'];
+    function filterFieldFocus($timeout) {
         return {
             restrict: 'A',
             link: function (scope, element, attr) {
                 scope.$watch(function () { return attr.filterFieldFocus; }, function (oldVal, newVal) {
                     if (newVal) {
-                        focusField(newVal);
+                        $timeout(function () {
+                            focusField(newVal);
+                        }, 100, false);
                     }
                 });
                 function focusField(fieldName) {
