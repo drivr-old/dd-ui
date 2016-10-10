@@ -42,12 +42,24 @@ describe('Filter tags component tests', () => {
             };
 
             initComponent('<filter-tags filter="filter"></filter-tags>');
-            
+
             var tags = element.find('.btn-tag');
             expect(tags.length).toBe(3);
             expect(tags[0].innerHTML).toBe('First name: a');
             expect(tags[1].innerHTML).toBe('Last name: m');
             expect(tags[2].innerHTML).toBe('Is active: false');
+        });
+
+        it('should create tags using formatter', () => {
+            $scope.filter = {
+                'company': { displayName: 'Company', value: { id: 5, name: 'Vilnius' }, valueFormatter: (value) => value.name },
+            };
+
+            initComponent('<filter-tags filter="filter"></filter-tags>');
+
+            var tags = element.find('.btn-tag');
+            expect(tags.length).toBe(1);
+            expect(tags[0].innerHTML).toBe('Company: Vilnius');
         });
 
         it('should not create tags for empty filters', () => {
@@ -58,7 +70,7 @@ describe('Filter tags component tests', () => {
             };
 
             initComponent('<filter-tags filter="filter"></filter-tags>');
-            
+
             var tags = element.find('.btn-tag');
             expect(tags.length).toBe(0);
         });

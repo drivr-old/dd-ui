@@ -13,6 +13,10 @@ class FilterTagsCtrl {
         return {
             'firstName': { value: 'Vasia' },
             'lastName': { value: 'Sprotauskas' },
+            'object': {
+                value: { id: 5, name: 'Vilnius' },
+                valueFormatter: (value) => value.name
+            },
             'customField': { displayName: 'Custom name', value: undefined }
         };
     }

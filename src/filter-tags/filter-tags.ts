@@ -41,7 +41,6 @@
         }
 
         private createFilterTags(filter: FilterModel) {
-
             var definedFieldsNames = Object.keys(filter)
                 .filter(key => {
                     var value = filter[key].value;
@@ -50,11 +49,11 @@
 
             for (let fieldName of definedFieldsNames) {
                 var field = filter[fieldName];
-                this.tags.push({ 
-                    id: fieldName, 
+                this.tags.push({
+                    id: fieldName,
                     name: this.createTagName(fieldName, field.displayName),
-                    value: filter[fieldName].value
-                 });
+                    value: this.getValue(field)
+                });
             }
         }
 
@@ -69,10 +68,14 @@
 
             return parts.join(' ');
         }
+
+        private getValue(field: FilterField) {
+            return field.valueFormatter ? field.valueFormatter(field.value) : field.value;
+        }
     }
 
     var filterTags: ng.IComponentOptions = {
-        templateUrl:  ['$element', '$attrs', ($element, $attrs) => {
+        templateUrl: ['$element', '$attrs', ($element, $attrs) => {
             return $attrs.templateUrl || 'template/filter-tags/filter-tags.html';
         }],
         controller: FilterTagsComponent,
