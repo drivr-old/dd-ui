@@ -7,6 +7,9 @@ declare namespace ddui {
         value?: any;
         displayName?: string;
         excludeTag?: boolean;
+        valueFormatter?: (value) => any;
+        requestFormatter?: (value) => any;
+        properties?: string[];
     }
     interface FilterModel {
         [index: string]: FilterField;
@@ -85,10 +88,13 @@ declare namespace ddui {
 
 declare namespace ddui {
     class FilterHelper {
-        static mergeStateParams(filter: FilterModel, $stateParams: any): void;
+        static mergeFilterValues(filter: FilterModel, object: Object): void;
         static generateStateParams(filter: FilterModel): Object;
         static generateDynamicParams(filter: FilterModel, defaultParams?: Object): Object;
         static generateUrlParams(filter: FilterModel): string;
+        static generateFilterObject(filter: FilterModel): {};
+        static generateFilterRequest(filter: FilterModel): {};
+        private static stripProperties(object, propertiesToKeep);
     }
 }
 

@@ -1,3 +1,14 @@
+<a name="0.9.6"></a>
+## [0.9.6](//compare/0.9.5...v0.9.6) (2016-10-10)
+
+
+### Features
+
+* **filterHelper:** generate filter object/request based on config c5593dc
+* **tags:** add value formatter for complex types 1b605fd
+
+
+
 <a name="0.9.5"></a>
 ## [0.9.5](//compare/0.9.4...v0.9.5) (2016-10-04)
 

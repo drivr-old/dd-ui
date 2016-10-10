@@ -2,9 +2,10 @@
  * dd-ui
  * http://clickataxi.github.io/dd-ui/
 
- * Version: 0.9.5 - 2016-10-04
+ * Version: 0.9.6 - 2016-10-10
  * License: MIT
- */angular.module("dd.ui", ["dd.ui.arrow-key-nav","dd.ui.busy-element","dd.ui.conversion","dd.ui.core","dd.ui.data-list","dd.ui.datetimepicker","dd.ui.dd-datepicker","dd.ui.dd-datetimepicker","dd.ui.dd-table","dd.ui.dd-timepicker","dd.ui.filter-field-focus","dd.ui.filter-helper","dd.ui.filter-tags","dd.ui.form-actions","dd.ui.form-validation","dd.ui.lookup","dd.ui.validation.phone","dd.ui.validation.sameAs","dd.ui.validation"]);
+ */angular.module("dd.ui", ["dd.ui.tpls", "dd.ui.arrow-key-nav","dd.ui.busy-element","dd.ui.conversion","dd.ui.core","dd.ui.data-list","dd.ui.datetimepicker","dd.ui.dd-datepicker","dd.ui.dd-datetimepicker","dd.ui.dd-table","dd.ui.dd-timepicker","dd.ui.filter-field-focus","dd.ui.filter-helper","dd.ui.filter-tags","dd.ui.form-actions","dd.ui.form-validation","dd.ui.lookup","dd.ui.validation.phone","dd.ui.validation.sameAs","dd.ui.validation"]);
+angular.module("dd.ui.tpls", ["template/busy-element/busy-element.html","template/datetimepicker/datetimepicker.html","template/dd-datepicker/dd-datepicker.html","template/dd-datetimepicker/dd-datetimepicker.html","template/filter-tags/filter-tags.html","template/form-actions/form-actions.html","template/lookup/lookup-item.html","template/lookup/lookup.html"]);
 angular.module('dd.ui.arrow-key-nav', [])
     .directive('ddArrowKeyNav', ['$document', function ($document) {
         return {
@@ -1143,10 +1144,10 @@ var ddui;
     var FilterHelper = (function () {
         function FilterHelper() {
         }
-        FilterHelper.mergeStateParams = function (filter, $stateParams) {
+        FilterHelper.mergeFilterValues = function (filter, object) {
             for (var prop in filter) {
-                if (filter.hasOwnProperty(prop) && typeof ($stateParams[prop]) !== 'undefined') {
-                    filter[prop].value = $stateParams[prop];
+                if (filter.hasOwnProperty(prop) && typeof (object[prop]) !== 'undefined') {
+                    filter[prop].value = object[prop];
                 }
             }
         };
@@ -1180,6 +1181,57 @@ var ddui;
                 }
             }
             return url;
+        };
+        FilterHelper.generateFilterObject = function (filter) {
+            var _this = this;
+            var params = {};
+            var _loop_1 = function(prop) {
+                if (filter.hasOwnProperty(prop) && filter[prop].value) {
+                    var field_1 = filter[prop];
+                    if (field_1.value instanceof Array) {
+                        field_1.value.forEach(function (x) { return _this.stripProperties(x, field_1.properties); });
+                    }
+                    else {
+                        this_1.stripProperties(field_1.value, field_1.properties);
+                    }
+                    params[prop] = field_1.value;
+                }
+            };
+            var this_1 = this;
+            for (var prop in filter) {
+                _loop_1(prop);
+            }
+            return Object.keys(params).length ? params : null;
+        };
+        FilterHelper.generateFilterRequest = function (filter) {
+            var params = {};
+            for (var prop in filter) {
+                if (filter.hasOwnProperty(prop) && filter[prop].value) {
+                    var field = filter[prop];
+                    if (field.requestFormatter) {
+                        params[prop] = field.requestFormatter(field.value);
+                    }
+                    else if (field.value instanceof Array) {
+                        params[prop] = field.value.map(function (x) { return x.id || x; }).join(',');
+                    }
+                    else if (field.value instanceof Object) {
+                        params[prop] = field.value['id'];
+                    }
+                    else {
+                        params[prop] = field.value;
+                    }
+                }
+            }
+            return params;
+        };
+        FilterHelper.stripProperties = function (object, propertiesToKeep) {
+            if (propertiesToKeep) {
+                Object.keys(object).forEach(function (key) {
+                    if (propertiesToKeep.indexOf(key) < 0) {
+                        delete object[key];
+                    }
+                });
+            }
         };
         return FilterHelper;
     }());
@@ -1225,7 +1277,7 @@ var ddui;
                 this.tags.push({
                     id: fieldName,
                     name: this.createTagName(fieldName, field.displayName),
-                    value: filter[fieldName].value
+                    value: this.getValue(field)
                 });
             }
         };
@@ -1237,6 +1289,9 @@ var ddui;
             var firstWorld = parts[0];
             parts[0] = firstWorld.charAt(0).toLocaleUpperCase() + firstWorld.slice(1, firstWorld.length);
             return parts.join(' ');
+        };
+        FilterTagsComponent.prototype.getValue = function (field) {
+            return field.valueFormatter ? field.valueFormatter(field.value) : field.value;
         };
         return FilterTagsComponent;
     }());
@@ -1625,7 +1680,180 @@ angular.module('dd.ui.validation.sameAs', [])
 });
 //# sourceMappingURL=sameAs.js.map
 angular.module('dd.ui.validation', ['dd.ui.validation.phone', 'dd.ui.validation.sameAs']);
-//# sourceMappingURL=validation.js.mapangular.module('dd.ui.busy-element').run(function() {!angular.$$csp().noInlineStyle && angular.element(document).find('head').prepend('<style type="text/css">.be-container{position:absolute;z-index:1;}.be-overlay{background-color:rgba(255,255,255,0.7);text-align:center;}.be-overlay.success{background-color:rgba(0,128,0,0.15);}.be-overlay.fail{background-color:rgba(128,0,0,0.15);}.be-animate{-webkit-transition:opacity 0.5s;transition:opacity 0.5s;opacity:1;}.be-animate.ng-hide-add,.be-animate.ng-hide-remove{display:block !important;}.be-animate.ng-hide{opacity:0;}</style>'); });
+//# sourceMappingURL=validation.js.map
+angular.module("template/busy-element/busy-element.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("template/busy-element/busy-element.html",
+    "<div class=\"be-container\" style=\"margin-left: -{{ marginLeft }}; margin-top: -{{ marginTop }}\">\n" +
+    "    <div class=\"be-overlay\" ng-show=\"busy\" style=\"width: {{ width }}px; height: {{ height }}px; line-height: {{ height }}px\">\n" +
+    "        <img src=\"https://drivr.com/img/spinner.gif\" />\n" +
+    "    </div>\n" +
+    "    <div class=\"be-overlay be-animate\" ng-show=\"status\" ng-class=\"statusClass\" style=\"width: {{ width }}px; height: {{ height }}px\"></div>\n" +
+    "</div>");
+}]);
+
+angular.module("template/datetimepicker/datetimepicker.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("template/datetimepicker/datetimepicker.html",
+    "<div class=\"form-inline\">\n" +
+    "	<div class=\"form-group timepicker-container\">\n" +
+    "		<div uib-timepicker\n" +
+    "			ng-model=\"time\"\n" +
+    "			ng-disabled=\"ngDisabled\"\n" +
+    "			show-meridian=\"showMeridian\"\n" +
+    "			minute-step=\"minuteStep\"\n" +
+    "			ng-change=\"timeChange()\"\n" +
+    "			show-spinners=\"showSpinners\">\n" +
+    "		</div>\n" +
+    "	</div>\n" +
+    "	<div class=\"form-group datepicker-container\">\n" +
+    "		<input class=\"form-control datepicker-input\" type=\"text\" style=\"width: 100px\"\n" +
+    "				uib-datepicker-popup\n" +
+    "				ng-click=\"open($event)\"\n" +
+    "				ng-change=\"dateChange($event)\"\n" +
+    "				is-open=\"opened\"\n" +
+    "				ng-model=\"ngModel\"\n" +
+    "				ng-disabled=\"ngDisabled\"				\n" +
+    "				date-disabled=\"dateDisabled({date: date, mode: mode})\"\n" +
+    "				close-text=\"Close\"\n" +
+    "				popup-placement=\"{{popupPlacement}}\"\n" +
+    "				show-weeks=\"showWeeks\" />\n" +
+    "	</div>\n" +
+    "</div>");
+}]);
+
+angular.module("template/dd-datepicker/dd-datepicker.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("template/dd-datepicker/dd-datepicker.html",
+    "<div class=\"input-group dd-datepicker\">\n" +
+    "    <input class=\"form-control display-input datepicker-input\"\n" +
+    "           type=\"text\"\n" +
+    "           name=\"{{name}}\"\n" +
+    "           placeholder=\"{{placeholder}}\"\n" +
+    "           ng-class=\"{'short': useShortDateFormat}\"\n" +
+    "           ng-disabled=\"ngDisabled\"\n" +
+    "           ng-required=\"ngRequired\"\n" +
+    "           ng-model=\"displayModel\" />\n" +
+    "           \n" +
+    "    <div class=\"input-group-btn\">\n" +
+    "        <div type=\"text\"\n" +
+    "           class=\"datepicker-input\" \n" +
+    "           uib-datepicker-popup=\"{{dateFormat}}\"\n" +
+    "           ng-model=\"bootstrapDateModel\"\n" +
+    "           is-open=\"calendarOpened\"\n" +
+    "           date-disabled=\"dateDisabled({date: date, mode: mode})\"\n" +
+    "           datepicker-options=\"dateOptions\"\n" +
+    "           close-text=\"Close\"\n" +
+    "           popup-placement=\"{{popupPlacement}}\"\n" +
+    "           show-weeks=\"showWeeks\"></div>\n" +
+    "        <button ng-disabled=\"ngDisabled\" \n" +
+    "                type=\"button\" \n" +
+    "                class=\"btn btn-default open-calendar-btn\" \n" +
+    "                ng-click=\"openCalendar($event)\"\n" +
+    "                ng-class=\"{'calendar-btn-with-day':showDayName}\">\n" +
+    "                <i class=\"glyphicon glyphicon-calendar\"></i>\n" +
+    "        </button>\n" +
+    "    </div>\n" +
+    "    \n" +
+    "    <div ng-if=\"showDayName\" class=\"input-group-addon day-name-label\">{{dayName}}</span>\n" +
+    "\n" +
+    "</div>\n" +
+    "");
+}]);
+
+angular.module("template/dd-datetimepicker/dd-datetimepicker.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("template/dd-datetimepicker/dd-datetimepicker.html",
+    "<div class=\"dd-datetimepicker\">\n" +
+    "	<div class=\"input-group timepicker-container\">\n" +
+    "         <span class=\"input-group-addon\"><span class=\"glyphicon glyphicon-time\"></span></span>\n" +
+    "         <input class=\"form-control timepicker-input\" \n" +
+    "                dd-timepicker\n" +
+    "                placeholder=\"{{timePlaceholder}}\"\n" +
+    "                is-date-type=\"true\"\n" +
+    "                type=\"text\"\n" +
+    "                ng-blur=\"onTimeBlur()\"\n" +
+    "                ng-disabled=\"ngDisabled\"\n" +
+    "                ng-required=\"ngRequired\"\n" +
+    "                minute-step=\"minuteStep\"\n" +
+    "                ng-model=\"time\" />\n" +
+    "	</div>\n" +
+    "	<div class=\"input-group datepicker-container\">\n" +
+    "        <div dd-datepicker\n" +
+    "               placeholder=\"{{datePlaceholder}}\"\n" +
+    "               ng-disabled=\"datepickerDisabled || ngDisabled\"\n" +
+    "               ng-required=\"ngRequired\"\n" +
+    "               date-format=\"{{::dateFormat}}\"\n" +
+    "               ng-model=\"date\"\n" +
+    "               name=\"{{name}}\"\n" +
+    "               show-day-name=\"showDayName\"\n" +
+    "               close-text=\"Close\"\n" +
+    "               popup-placement=\"{{popupPlacement}}\"\n" +
+    "               date-disabled=\"dateDisabled({date: date, mode: mode})\">\n" +
+    "        </div>\n" +
+    "	</div>\n" +
+    "</div>");
+}]);
+
+angular.module("template/filter-tags/filter-tags.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("template/filter-tags/filter-tags.html",
+    "<div class=\"filter-tags\" ng-if=\"$ctrl.tags.length > 0\">\n" +
+    "    <div ng-repeat=\"tag in $ctrl.tags\" class=\"btn-group\">\n" +
+    "        <button type=\"button\" ng-click=\"$ctrl.openTag(tag)\" class=\"btn btn-info btn-sm btn-tag\">{{tag.name}}: {{tag.value}}</button>\n" +
+    "        <button ng-click=\"$ctrl.removeTag(tag)\" type=\"button\" class=\"btn btn-info btn-sm btn-tag-remove\">\n" +
+    "            <span class=\"glyphicon glyphicon-remove\"></span>\n" +
+    "        </button>\n" +
+    "    </div>\n" +
+    "    <div class=\"btn-group\">\n" +
+    "        <button type=\"button\" ng-click=\"$ctrl.clearAll()\" class=\"btn btn-default btn-sm btn-clear-tags\">Clear all <span class=\"glyphicon glyphicon-remove\"></span></button>\n" +
+    "    </div>\n" +
+    "</div>");
+}]);
+
+angular.module("template/form-actions/form-actions.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("template/form-actions/form-actions.html",
+    "<div id=\"{{form.$name}}-actions-bar\" ng-show=\"form.$dirty\" class=\"form-actions-bar\">\n" +
+    "    <div ng-transclude></div>\n" +
+    "</div>");
+}]);
+
+angular.module("template/lookup/lookup-item.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("template/lookup/lookup-item.html",
+    "<div class=\"typeahead-group-header\" ng-if=\"match.model.firstInGroup\">{{match.model.lookupGroup}}</div>\n" +
+    "<a href tabindex=\"-1\" ng-bind-html=\"match.label | uibTypeaheadHighlight:query\" ng-attr-title=\"{{match.label}}\">\n" +
+    "</a>");
+}]);
+
+angular.module("template/lookup/lookup.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("template/lookup/lookup.html",
+    "<div class=\"lookup-container\" ng-cloak>\n" +
+    "  <div class=\"input-group\">\n" +
+    "    <input type=\"text\"\n" +
+    "           ng-model=\"ngModel\"\n" +
+    "           autocomplete=\"off\"\n" +
+    "           uib-typeahead=\"d as getLabel(d) for d in getItems($viewValue)\"\n" +
+    "           typeahead-on-select=\"onSelect($item, $model, $label)\"\n" +
+    "           typeahead-editable=\"false\"\n" +
+    "           typeahead-focus-first=\"lookupFocusFirst\"\n" +
+    "           typeahead-no-results=\"noResults\"\n" +
+    "           typeahead-template-url=\"template/lookup/lookup-item.html\"\n" +
+    "           typeahead-wait-ms=\"300\"\n" +
+    "           typeahead-min-length=\"lookupMinLength\"\n" +
+    "           ng-keydown=\"onKeydown($event)\"\n" +
+    "           ng-disabled=\"ngDisabled\"\n" +
+    "           placeholder=\"{{placeholder}}\"\n" +
+    "           class=\"form-control {{inputClass}}\" />\n" +
+    "    <span class=\"lookup-legend\">\n" +
+    "      <div class=\"lookup-icon\" ng-show=\"!isBusy\"></div>\n" +
+    "      <div class=\"spinner-icon\" ng-show=\"isBusy\"></div>\n" +
+    "    </span>\n" +
+    "    <a class=\"lookup-clear\" ng-click=\"clear()\" tabindex=\"-1\" ng-class=\"{ 'disabled' : ngDisabled }\">\n" +
+    "      <div class=\"clear-icon\" tooltip=\"Clear\" tooltip-append-to-body=\"true\"></div>\n" +
+    "    </a>\n" +
+    "    <div ng-show=\"noResults\" class=\"lookup-no-results\">\n" +
+    "      <span class=\"detail\"><i class=\"glyphicon glyphicon-remove\"></i> No results found</span>\n" +
+    "    </div>\n" +
+    "  </div>\n" +
+    "</div>\n" +
+    "");
+}]);
+angular.module('dd.ui.busy-element').run(function() {!angular.$$csp().noInlineStyle && angular.element(document).find('head').prepend('<style type="text/css">.be-container{position:absolute;z-index:1;}.be-overlay{background-color:rgba(255,255,255,0.7);text-align:center;}.be-overlay.success{background-color:rgba(0,128,0,0.15);}.be-overlay.fail{background-color:rgba(128,0,0,0.15);}.be-animate{-webkit-transition:opacity 0.5s;transition:opacity 0.5s;opacity:1;}.be-animate.ng-hide-add,.be-animate.ng-hide-remove{display:block !important;}.be-animate.ng-hide{opacity:0;}</style>'); });
 angular.module('dd.ui.dd-datepicker').run(function() {!angular.$$csp().noInlineStyle && angular.element(document).find('head').prepend('<style type="text/css"> .dd-datepicker .calendar-btn-with-day{border-radius:0;border-left:0;}.dd-datepicker .day-name-label{width:90px !important;font-size:12px;}.dd-datepicker input.short{width:70px;}.dd-datepicker input{width:105px;}</style>'); });
 angular.module('dd.ui.dd-datetimepicker').run(function() {!angular.$$csp().noInlineStyle && angular.element(document).find('head').prepend('<style type="text/css">.dd-datetimepicker{display:inline-flex;}.dd-datetimepicker .timepicker-container{width:100px !important;}.dd-datetimepicker .timepicker-container input{border-bottom-right-radius:0;border-top-right-radius:0;border-right:0;}.dd-datetimepicker .datepicker-container input.short{width:70px !important;}.dd-datetimepicker .datepicker-container input{width:105px !important;border-bottom-left-radius:0;border-top-left-radius:0;}.has-error .dd-datetimepicker .calendar-btn-with-day{border-color:#a94442;}</style>'); });
 angular.module('dd.ui.dd-table').run(function() {!angular.$$csp().noInlineStyle && angular.element(document).find('head').prepend('<style type="text/css">.dd-table > thead:first-child > tr:first-child > th,.dd-table > thead:first-child > tr:first-child > th{border-bottom:0px;}.dd-table > thead > tr > th.checkbox-row{width:55px;}.dd-table > tbody > tr.active:hover > td{background-color:#f5f5f5;}.dd-table thead .rows-count{font-size:11px;color:#aaa;font-weight:normal;}.dd-table > tbody > tr > td{background:#fff;}.dd-table > tbody > tr:hover{background-color:#fff;}.dd-pagination{margin-top:0px !important;}.dd-table > tbody > tr > td{max-width:180px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}</style>'); });
