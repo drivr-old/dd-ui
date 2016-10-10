@@ -4,6 +4,7 @@ namespace ddui {
         displayName?: string;
         excludeTag?: boolean;
         valueFormatter?: (value) => any;
+        requestFormatter?: (value) => any;
         properties?: string[];
     }
 
