@@ -14,7 +14,11 @@ class FilterHelperCtrl {
         return {
             'firstName': { value: 'Vasia' },
             'lastName': { value: 'Sprotauskas' },
-            'customField': { displayName: 'Custom name', value: undefined }
+            'customField': { displayName: 'Custom name', value: undefined },
+            'object': {
+                value: { id: 5, name: 'Vilnius' },
+                valueFormatter: (value) => value.name
+            },
         };
     }
 }

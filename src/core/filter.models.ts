@@ -3,6 +3,9 @@ namespace ddui {
         value?: any;
         displayName?: string;
         excludeTag?: boolean;
+        valueFormatter?: (value) => any;
+        requestFormatter?: (value) => any;
+        properties?: string[];
     }
 
     export interface FilterModel {

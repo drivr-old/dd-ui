@@ -18,7 +18,7 @@ describe('Filter service tests', () => {
                 'createdAt': '2016-01-01'
             };
 
-            FilterHelper.mergeStateParams(filter, stateParams);
+            FilterHelper.mergeFilterValues(filter, stateParams);
 
             expect(filter['firstName'].value).toEqual('a');
             expect(filter['lastName'].value).toEqual('m');
@@ -88,6 +88,48 @@ describe('Filter service tests', () => {
             var result = FilterHelper.generateUrlParams(obj);
 
             expect(result).toEqual('property1&property2');
+        });
+    });
+
+    describe('generate filter object', () => {
+        it('should strip extra properties', () => {
+            var filter: FilterModel = {
+                'id': { value: 1 },
+                'companyId': { value: { id: 5, name: 'Vilnius' } },
+                'franchiseId': { value: { id: 6, name: 'Vilnius', title: 'Franchise' }, properties: ['id', 'name'] },
+            };
+
+            var result = FilterHelper.generateFilterObject(filter);
+
+            expect(result['id']).toEqual(1);
+            expect(result['companyId']).toEqual({ id: 5, name: 'Vilnius' });
+            expect(result['franchiseId']).toEqual({ id: 6, name: 'Vilnius' });
+        });
+
+        it('should return null for empty filter', () => {
+            var filter: FilterModel = { 'id': { value: null } };
+            var result = FilterHelper.generateFilterObject(filter);
+            expect(result).toEqual(null);
+        });
+    });
+
+    describe('generate filter request', () => {
+        it('should strip extra properties', () => {
+            var filter: FilterModel = {
+                'id': { value: 1 },
+                'companyId': { value: { id: 5, name: 'Vilnius' } },
+                'names': { value: ['Jim', 'John'] },
+                'franchises': { value: [{ id: 5 }, { id: 6 }, { id: 7 }] },
+                'custom': { value: [{ id: 5, name: 'A' }, { id: 6, name: 'B' }], requestFormatter: (value) => value.map(x => x.id) }
+            };
+
+            var result = FilterHelper.generateFilterRequest(filter);
+
+            expect(result['id']).toEqual(1);
+            expect(result['companyId']).toEqual(5);
+            expect(result['names']).toEqual('Jim,John');
+            expect(result['franchises']).toEqual('5,6,7');
+            expect(result['custom']).toEqual([5, 6]);
         });
     });
 
