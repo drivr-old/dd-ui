@@ -2,7 +2,7 @@
  * dd-ui
  * http://clickataxi.github.io/dd-ui/
 
- * Version: 0.9.6 - 2016-10-10
+ * Version: 0.10.0-SNAPSHOT - 2016-10-11
  * License: MIT
  */angular.module("dd.ui", ["dd.ui.tpls", "dd.ui.arrow-key-nav","dd.ui.busy-element","dd.ui.conversion","dd.ui.core","dd.ui.data-list","dd.ui.datetimepicker","dd.ui.dd-datepicker","dd.ui.dd-datetimepicker","dd.ui.dd-table","dd.ui.dd-timepicker","dd.ui.filter-field-focus","dd.ui.filter-helper","dd.ui.filter-tags","dd.ui.form-actions","dd.ui.form-validation","dd.ui.lookup","dd.ui.validation.phone","dd.ui.validation.sameAs","dd.ui.validation"]);
 angular.module("dd.ui.tpls", ["template/busy-element/busy-element.html","template/datetimepicker/datetimepicker.html","template/dd-datepicker/dd-datepicker.html","template/dd-datetimepicker/dd-datetimepicker.html","template/filter-tags/filter-tags.html","template/form-actions/form-actions.html","template/lookup/lookup-item.html","template/lookup/lookup.html"]);
@@ -1212,7 +1212,7 @@ var ddui;
                         params[prop] = field.requestFormatter(field.value);
                     }
                     else if (field.value instanceof Array) {
-                        params[prop] = field.value.map(function (x) { return x.id || x; }).join(',');
+                        params[prop] = field.value.map(function (x) { return x.id || x; });
                     }
                     else if (field.value instanceof Object) {
                         params[prop] = field.value['id'];

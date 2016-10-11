@@ -2,7 +2,7 @@
  * dd-ui
  * http://clickataxi.github.io/dd-ui/
 
- * Version: 0.9.6 - 2016-10-10
+ * Version: 0.10.0-SNAPSHOT - 2016-10-11
  * License: MIT
  */angular.module("dd.ui", ["dd.ui.arrow-key-nav","dd.ui.busy-element","dd.ui.conversion","dd.ui.core","dd.ui.data-list","dd.ui.datetimepicker","dd.ui.dd-datepicker","dd.ui.dd-datetimepicker","dd.ui.dd-table","dd.ui.dd-timepicker","dd.ui.filter-field-focus","dd.ui.filter-helper","dd.ui.filter-tags","dd.ui.form-actions","dd.ui.form-validation","dd.ui.lookup","dd.ui.validation.phone","dd.ui.validation.sameAs","dd.ui.validation"]);
 angular.module('dd.ui.arrow-key-nav', [])
@@ -1211,7 +1211,7 @@ var ddui;
                         params[prop] = field.requestFormatter(field.value);
                     }
                     else if (field.value instanceof Array) {
-                        params[prop] = field.value.map(function (x) { return x.id || x; }).join(',');
+                        params[prop] = field.value.map(function (x) { return x.id || x; });
                     }
                     else if (field.value instanceof Object) {
                         params[prop] = field.value['id'];

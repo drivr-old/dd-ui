@@ -1,3 +1,13 @@
+<a name="0.10.0"></a>
+# [0.10.0](//compare/0.9.6...v0.10.0) (2016-10-11)
+
+
+### Bug Fixes
+
+* **filter:** keep array for filter values 66926fe
+
+
+
 <a name="0.9.6"></a>
 ## [0.9.6](//compare/0.9.5...v0.9.6) (2016-10-10)
 
