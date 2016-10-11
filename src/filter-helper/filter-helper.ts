@@ -67,7 +67,7 @@
                     if (field.requestFormatter) {
                         params[prop] = field.requestFormatter(field.value);
                     } else if (field.value instanceof Array) {
-                        params[prop] = field.value.map(x => x.id || x).join(',');
+                        params[prop] = field.value.map(x => x.id || x);
                     } else if (field.value instanceof Object) {
                         params[prop] = field.value['id'];
                     } else {

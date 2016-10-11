@@ -127,8 +127,8 @@ describe('Filter service tests', () => {
 
             expect(result['id']).toEqual(1);
             expect(result['companyId']).toEqual(5);
-            expect(result['names']).toEqual('Jim,John');
-            expect(result['franchises']).toEqual('5,6,7');
+            expect(result['names']).toEqual(['Jim', 'John']);
+            expect(result['franchises']).toEqual([5, 6, 7]);
             expect(result['custom']).toEqual([5, 6]);
         });
     });
