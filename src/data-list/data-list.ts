@@ -140,7 +140,7 @@ namespace ddui {
             this.ensureLimitAndSkip();
 
             const config = {
-                params: ddui.FilterHelper.generateStateParams(filter)
+                params: ddui.FilterHelper.generateFilterRequest(filter)
             };
 
             return this.$http.get(this.url, config)

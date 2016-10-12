@@ -52,19 +52,11 @@ module.exports = function (grunt) {
             }
         },
         concat: {
-            dist: {
-                options: {
-                    banner: '<%= meta.banner %><%= meta.modules %>\n',
-                    footer: '<%= meta.cssInclude %>'
-                },
-                src: [], //src filled in by build task
-                dest: '<%= dist %>/<%= filename %>-<%= pkg.version %>.js'
-            },
             dist_dt: {
                 options: {
                 },
                 src: [], //src filled in by build task
-                dest: '<%= dist %>/dd-ui.d.ts'
+                dest: '<%= dist %>/index.d.ts'
             },
             dist_tpls: {
                 options: {
@@ -103,10 +95,6 @@ module.exports = function (grunt) {
         uglify: {
             options: {
                 banner: '<%= meta.banner %>'
-            },
-            dist: {
-                src: ['<%= concat.dist.dest %>'],
-                dest: '<%= dist %>/<%= filename %>-<%= pkg.version %>.min.js'
             },
             dist_tpls: {
                 src: ['<%= concat.dist_tpls.dest %>'],
@@ -373,15 +361,9 @@ module.exports = function (grunt) {
             })
         );
 
-        var cssStrings = _.flatten(_.compact(_.map(modules, 'css')));
         var cssJsStrings = _.flatten(_.compact(_.map(modules, 'cssJs')));
-        if (cssStrings.length) {
+        if (cssJsStrings.length) {
             grunt.config('meta.cssInclude', cssJsStrings.join('\n'));
-
-            grunt.file.write(grunt.config('meta.cssFileDest'), grunt.config('meta.cssFileBanner') +
-                cssStrings.join('\n'));
-
-            grunt.log.writeln('File ' + grunt.config('meta.cssFileDest') + ' created');
         }
 
         var moduleFileMapping = _.cloneDeep(modules, true);
@@ -392,9 +374,7 @@ module.exports = function (grunt) {
         var srcFiles = _.map(modules, 'srcFiles');
         var tpljsFiles = _.map(modules, 'tpljsFiles');
         var dtFiles = _.map(modules, 'dtFiles');
-        //Set the concat task to concatenate the given src modules
-        grunt.config('concat.dist.src', grunt.config('concat.dist.src')
-            .concat(srcFiles));
+
         //Set the concat-with-templates task to concat the given src & tpl modules
         grunt.config('concat.dist_tpls.src', grunt.config('concat.dist_tpls.src')
             .concat(srcFiles).concat(tpljsFiles));
@@ -403,7 +383,7 @@ module.exports = function (grunt) {
         grunt.config('concat.dist_dt.src', grunt.config('concat.dist_dt.src')
             .concat(dtFiles));
 
-        grunt.task.run(['concat', 'uglify', 'makeModuleMappingFile', 'makeRawFilesJs']);
+        grunt.task.run(['concat']);
     });
 
     grunt.registerTask('test', 'Run tests on singleRun karma server', function () {
