@@ -1,3 +1,13 @@
+<a name="0.10.1"></a>
+## [0.10.1](//compare/0.9.8...v0.10.1) (2016-10-12)
+
+
+### Bug Fixes
+
+* **datalist:** remove uneeded check 560d4a2
+
+
+
 <a name="0.9.8"></a>
 ## [0.9.8](//compare/0.9.7...v0.9.8) (2016-10-12)
 
