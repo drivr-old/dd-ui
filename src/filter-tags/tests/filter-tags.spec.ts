@@ -66,7 +66,8 @@ describe('Filter tags component tests', () => {
             $scope.filter = {
                 'firstName': { displayName: 'First name', value: undefined },
                 'lastName': { value: undefined },
-                'empty': { value: '' }
+                'empty': { value: '' },
+                'arr': { value: [] }
             };
 
             initComponent('<filter-tags filter="filter"></filter-tags>');

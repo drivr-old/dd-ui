@@ -41,20 +41,32 @@
         }
 
         private createFilterTags(filter: FilterModel) {
-            var definedFieldsNames = Object.keys(filter)
+            let definedFieldsNames = Object.keys(filter)
                 .filter(key => {
-                    var value = filter[key].value;
-                    return angular.isDefined(value) && value !== '' && !filter[key].excludeTag;
+                    let value = filter[key].value;
+                    return !this.isEmpty(value) && !filter[key].excludeTag;
                 });
 
             for (let fieldName of definedFieldsNames) {
-                var field = filter[fieldName];
+                let field = filter[fieldName];
                 this.tags.push({
                     id: fieldName,
                     name: this.createTagName(fieldName, field.displayName),
                     value: this.getValue(field)
                 });
             }
+        }
+
+        private isEmpty(value) {
+            if (value === undefined || value === null || value === '') {
+                return true;
+            }
+
+            if (value instanceof Array && !value.length) {
+                return true;
+            }
+
+            return false;
         }
 
         private createTagName(fieldName: string, displayName: string): string {
