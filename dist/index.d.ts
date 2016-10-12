@@ -89,12 +89,10 @@ declare namespace ddui {
 declare namespace ddui {
     class FilterHelper {
         static mergeFilterValues(filter: FilterModel, object: Object): void;
-        static generateStateParams(filter: FilterModel): Object;
-        static generateDynamicParams(filter: FilterModel, defaultParams?: Object): Object;
-        static generateUrlParams(filter: FilterModel): string;
         static generateFilterObject(filter: FilterModel): {};
         static generateFilterRequest(filter: FilterModel): {};
         private static stripProperties(object, propertiesToKeep);
+        private static isDefined(value);
     }
 }
 

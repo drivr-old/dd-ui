@@ -1,3 +1,13 @@
+<a name="0.9.8"></a>
+## [0.9.8](//compare/0.9.7...v0.9.8) (2016-10-12)
+
+
+### Bug Fixes
+
+* **filter:** fix wrong request generation 1dc5252
+
+
+
 <a name="0.9.7"></a>
 ## [0.9.7](//compare/0.10.0...v0.9.7) (2016-10-11)
 

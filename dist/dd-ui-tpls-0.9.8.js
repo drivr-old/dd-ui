@@ -2,7 +2,7 @@
  * dd-ui
  * http://clickataxi.github.io/dd-ui/
 
- * Version: 0.9.7 - 2016-10-11
+ * Version: 0.9.8 - 2016-10-12
  * License: MIT
  */angular.module("dd.ui", ["dd.ui.tpls", "dd.ui.arrow-key-nav","dd.ui.busy-element","dd.ui.conversion","dd.ui.core","dd.ui.data-list","dd.ui.datetimepicker","dd.ui.dd-datepicker","dd.ui.dd-datetimepicker","dd.ui.dd-table","dd.ui.dd-timepicker","dd.ui.filter-field-focus","dd.ui.filter-helper","dd.ui.filter-tags","dd.ui.form-actions","dd.ui.form-validation","dd.ui.lookup","dd.ui.validation.phone","dd.ui.validation.sameAs","dd.ui.validation"]);
 angular.module("dd.ui.tpls", ["template/busy-element/busy-element.html","template/datetimepicker/datetimepicker.html","template/dd-datepicker/dd-datepicker.html","template/dd-datetimepicker/dd-datetimepicker.html","template/filter-tags/filter-tags.html","template/form-actions/form-actions.html","template/lookup/lookup-item.html","template/lookup/lookup.html"]);
@@ -285,7 +285,7 @@ var ddui;
             this.isLoading = true;
             this.ensureLimitAndSkip();
             var config = {
-                params: ddui.FilterHelper.generateStateParams(filter)
+                params: ddui.FilterHelper.generateFilterRequest(filter)
             };
             return this.$http.get(this.url, config)
                 .then(function (response) {
@@ -1151,42 +1151,11 @@ var ddui;
                 }
             }
         };
-        FilterHelper.generateStateParams = function (filter) {
-            var params = {};
-            for (var prop in filter) {
-                if (filter.hasOwnProperty(prop)) {
-                    params[prop] = filter[prop].value;
-                }
-            }
-            return params;
-        };
-        FilterHelper.generateDynamicParams = function (filter, defaultParams) {
-            if (defaultParams === void 0) { defaultParams = null; }
-            var params = defaultParams || {};
-            for (var prop in filter) {
-                if (filter.hasOwnProperty(prop)) {
-                    params[prop] = { dynamic: true };
-                }
-            }
-            return params;
-        };
-        FilterHelper.generateUrlParams = function (filter) {
-            var url = '';
-            for (var prop in filter) {
-                if (filter.hasOwnProperty(prop)) {
-                    if (url.length > 0) {
-                        url += '&';
-                    }
-                    url += prop;
-                }
-            }
-            return url;
-        };
         FilterHelper.generateFilterObject = function (filter) {
             var _this = this;
             var params = {};
             var _loop_1 = function(prop) {
-                if (filter.hasOwnProperty(prop) && filter[prop].value) {
+                if (filter.hasOwnProperty(prop) && this_1.isDefined(filter[prop].value)) {
                     var field_1 = filter[prop];
                     if (field_1.value instanceof Array) {
                         field_1.value.forEach(function (x) { return _this.stripProperties(x, field_1.properties); });
@@ -1206,7 +1175,7 @@ var ddui;
         FilterHelper.generateFilterRequest = function (filter) {
             var params = {};
             for (var prop in filter) {
-                if (filter.hasOwnProperty(prop) && filter[prop].value) {
+                if (filter.hasOwnProperty(prop) && this.isDefined(filter[prop].value)) {
                     var field = filter[prop];
                     if (field.requestFormatter) {
                         params[prop] = field.requestFormatter(field.value);
@@ -1214,7 +1183,7 @@ var ddui;
                     else if (field.value instanceof Array) {
                         params[prop] = field.value.map(function (x) { return x.id || x; });
                     }
-                    else if (field.value instanceof Object) {
+                    else if (field.value instanceof Object && !(field.value instanceof Date)) {
                         params[prop] = field.value['id'];
                     }
                     else {
@@ -1232,6 +1201,9 @@ var ddui;
                     }
                 });
             }
+        };
+        FilterHelper.isDefined = function (value) {
+            return value !== undefined && value !== null && value !== '';
         };
         return FilterHelper;
     }());
@@ -1857,7 +1829,7 @@ angular.module('dd.ui.busy-element').run(function() {!angular.$$csp().noInlineSt
 angular.module('dd.ui.dd-datepicker').run(function() {!angular.$$csp().noInlineStyle && angular.element(document).find('head').prepend('<style type="text/css"> .dd-datepicker .calendar-btn-with-day{border-radius:0;border-left:0;}.dd-datepicker .day-name-label{width:90px !important;font-size:12px;}.dd-datepicker input.short{width:70px;}.dd-datepicker input{width:105px;}</style>'); });
 angular.module('dd.ui.dd-datetimepicker').run(function() {!angular.$$csp().noInlineStyle && angular.element(document).find('head').prepend('<style type="text/css">.dd-datetimepicker{display:inline-flex;}.dd-datetimepicker .timepicker-container{width:100px !important;}.dd-datetimepicker .timepicker-container input{border-bottom-right-radius:0;border-top-right-radius:0;border-right:0;}.dd-datetimepicker .datepicker-container input.short{width:70px !important;}.dd-datetimepicker .datepicker-container input{width:105px !important;border-bottom-left-radius:0;border-top-left-radius:0;}.has-error .dd-datetimepicker .calendar-btn-with-day{border-color:#a94442;}</style>'); });
 angular.module('dd.ui.dd-table').run(function() {!angular.$$csp().noInlineStyle && angular.element(document).find('head').prepend('<style type="text/css">.dd-table > thead:first-child > tr:first-child > th,.dd-table > thead:first-child > tr:first-child > th{border-bottom:0px;}.dd-table > thead > tr > th.checkbox-row{width:55px;}.dd-table > tbody > tr.active:hover > td{background-color:#f5f5f5;}.dd-table thead .rows-count{font-size:11px;color:#aaa;font-weight:normal;}.dd-table > tbody > tr > td{background:#fff;}.dd-table > tbody > tr:hover{background-color:#fff;}.dd-pagination{margin-top:0px !important;}.dd-table > tbody > tr > td{max-width:180px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}</style>'); });
-angular.module('dd.ui.filter-tags').run(function() {!angular.$$csp().noInlineStyle && angular.element(document).find('head').prepend('<style type="text/css"> .filter-tags{margin:15px 15px 0 15px;}.filter-tags .btn-group{margin-right:10px;}</style>'); });
+angular.module('dd.ui.filter-tags').run(function() {!angular.$$csp().noInlineStyle && angular.element(document).find('head').prepend('<style type="text/css"> .filter-tags{margin-top:15px;margin-bottom:15px;}.filter-tags .btn-group{margin-right:10px;margin-bottom:10px;}.filter-tags .btn-group .btn:first-child{margin-right:3px;}</style>'); });
 angular.module('dd.ui.form-actions').run(function() {!angular.$$csp().noInlineStyle && angular.element(document).find('head').prepend('<style type="text/css">@keyframes formBarMoveIn{from{bottom:-100px;}to{bottom:0;}}@keyframes formBarMoveOut{from{bottom:0;}to{bottom:-100px;}}.form-actions-bar{position:fixed;left:0;bottom:0;background:#eee;border-top:1px solid #ddd;width:100%;padding:10px 5px;z-index:9999;animation:formBarMoveIn 0.3s ease-out;}.form-actions-bar.ng-hide{animation:formBarMoveOut 0.3s ease-out;}.form-actions-bar button{margin-right:10px;}</style>'); });
 angular.module('dd.ui.form-validation').run(function() {!angular.$$csp().noInlineStyle && angular.element(document).find('head').prepend('<style type="text/css">.form-fields-group .field-error{display:none;margin-top:5px;margin-bottom:10px;color:#a94442}.form-fields-group.has-error .field-error{display:block;}</style>'); });
 angular.module('dd.ui.lookup').run(function() {!angular.$$csp().noInlineStyle && angular.element(document).find('head').prepend('<style type="text/css">.lookup-container .input-group{width:100%;}.lookup-container .dropdown-menu{border:1px solid #ccc !important;border-top:none !important;font-size:11px;padding:1px !important;max-height:196px;overflow-y:scroll;overflow-x:hidden;width:100%;}.lookup-container input{background-color:#ffe;}.lookup-container .dropdown-menu > li > a{padding:5px;}.lookup-container .lookup-legend div,.lookup-clear div{width:16px;height:16px;display:inline-block;vertical-align:middle;}.lookup-container a.lookup-clear{outline:0}.lookup-container .lookup-no-results{position:absolute;background-color:#fff;z-index:100;padding:4px;width:100%;border:1px solid #ddd;margin-top:1px;top:100%;}.lookup-container .lookup-no-results span{color:#a94442;font-size:10px;}.lookup-container .lookup-legend .lookup-icon{background-image:url(./assets/img/magnifier-small.png);}.lookup-container .lookup-legend .spinner-icon{background-image:url(./assets/img/spinner.gif);background-size:16px;}.lookup-container .lookup-clear .clear-icon{background-image:url(./assets/img/cross-small-white.png);opacity:0.6;}.lookup-container .lookup-legend{position:absolute;right:6px;top:6px;z-index:5;}.lookup-container .lookup-clear{position:absolute;right:22px;top:6px;z-index:5;}.lookup-container .typeahead-group-header{font-weight:bold;padding:.2em .4em;}</style>'); });
