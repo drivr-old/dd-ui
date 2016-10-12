@@ -1,3 +1,13 @@
+<a name="0.10.2"></a>
+## [0.10.2](//compare/0.10.1...v0.10.2) (2016-10-12)
+
+
+### Bug Fixes
+
+* **filter:** do not show tags for empty values c78317c
+
+
+
 <a name="0.10.1"></a>
 ## [0.10.1](//compare/0.9.8...v0.10.1) (2016-10-12)
 

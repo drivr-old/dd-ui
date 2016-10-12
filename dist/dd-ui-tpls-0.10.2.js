@@ -2,7 +2,7 @@
  * dd-ui
  * http://clickataxi.github.io/dd-ui/
 
- * Version: 0.10.1 - 2016-10-12
+ * Version: 0.10.2 - 2016-10-12
  * License: MIT
  */angular.module("dd.ui", ["dd.ui.tpls", "dd.ui.arrow-key-nav","dd.ui.busy-element","dd.ui.conversion","dd.ui.core","dd.ui.data-list","dd.ui.datetimepicker","dd.ui.dd-datepicker","dd.ui.dd-datetimepicker","dd.ui.dd-table","dd.ui.dd-timepicker","dd.ui.filter-field-focus","dd.ui.filter-helper","dd.ui.filter-tags","dd.ui.form-actions","dd.ui.form-validation","dd.ui.lookup","dd.ui.validation.phone","dd.ui.validation.sameAs","dd.ui.validation"]);
 angular.module("dd.ui.tpls", ["template/busy-element/busy-element.html","template/datetimepicker/datetimepicker.html","template/dd-datepicker/dd-datepicker.html","template/dd-datetimepicker/dd-datetimepicker.html","template/filter-tags/filter-tags.html","template/form-actions/form-actions.html","template/lookup/lookup-item.html","template/lookup/lookup.html"]);
@@ -1235,10 +1235,11 @@ var ddui;
             this.tags = [];
         };
         FilterTagsComponent.prototype.createFilterTags = function (filter) {
+            var _this = this;
             var definedFieldsNames = Object.keys(filter)
                 .filter(function (key) {
                 var value = filter[key].value;
-                return angular.isDefined(value) && value !== '' && !filter[key].excludeTag;
+                return !_this.isEmpty(value) && !filter[key].excludeTag;
             });
             for (var _i = 0, definedFieldsNames_1 = definedFieldsNames; _i < definedFieldsNames_1.length; _i++) {
                 var fieldName = definedFieldsNames_1[_i];
@@ -1249,6 +1250,15 @@ var ddui;
                     value: this.getValue(field)
                 });
             }
+        };
+        FilterTagsComponent.prototype.isEmpty = function (value) {
+            if (value === undefined || value === null || value === '') {
+                return true;
+            }
+            if (value instanceof Array && !value.length) {
+                return true;
+            }
+            return false;
         };
         FilterTagsComponent.prototype.createTagName = function (fieldName, displayName) {
             if (displayName) {
