@@ -54,13 +54,6 @@ describe('Data list tests', function () {
             var action = () => dataListManager.init<TestRowItem>(listConfig);
             expect(action).toThrowError();
         });
-
-        it('should throw error list is already created', () => {
-            listConfig.id = 'customId';
-            dataListManager.init<TestRowItem>(listConfig);
-            var action = () => dataListManager.init<TestRowItem>(listConfig);
-            expect(action).toThrowError();
-        });
     });
 
     describe('Get list', () => {

@@ -214,10 +214,6 @@ namespace ddui {
             if (!config || !config.url) {
                 throw new Error('List config url is required');
             }
-
-            if (this.listServiceHash[config.id]) {
-                throw new Error(`List with id ${config.id} is already created`);
-            }
         }
 
         private validateGet(id: string) {
