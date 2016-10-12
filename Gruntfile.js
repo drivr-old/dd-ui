@@ -56,7 +56,7 @@ module.exports = function (grunt) {
                 options: {
                 },
                 src: [], //src filled in by build task
-                dest: '<%= dist %>/dd-ui.d.ts'
+                dest: '<%= dist %>/index.d.ts'
             },
             dist_tpls: {
                 options: {
