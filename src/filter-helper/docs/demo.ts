@@ -3,9 +3,8 @@ class FilterHelperCtrl {
     constructor() {
         this.filter = this.getDefaultFilter();
 
-        console.log('Generate $stateParams', ddui.FilterHelper.generateStateParams(this.filter));
-        console.log('Generate dynamic params', ddui.FilterHelper.generateDynamicParams(this.filter));
-        console.log('Generate url params', ddui.FilterHelper.generateUrlParams(this.filter));
+        console.log('generateFilterObject', ddui.FilterHelper.generateFilterObject(this.filter));
+        console.log('generateFilterRequest', ddui.FilterHelper.generateFilterRequest(this.filter));
     }
 
     filter: ddui.FilterModel;

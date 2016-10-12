@@ -315,7 +315,7 @@ describe('Data list tests', function () {
         it('should extend default filter with custom filter', () => {
             filterFunc = () => {
                 return { 
-                    'name': {value: 'Vasia' }
+                    'name': { value: 'Vasia' }
                 };
             };
 
@@ -344,17 +344,18 @@ describe('Data list tests', function () {
         });
 
         it('should submit filter and query data', () => {
-            $httpBackend.expectGET('/api/test?arr=1&arr=2&bool=true&date=2016-01-01T00:00:00.000Z&limit=25&name=Vasia&obj=%7B%22n%22:1%7D&skip=0').respond(200, { items: [] });
+            $httpBackend.expectGET('/api/test?arr=1&arr=2&bool=true&date=2016-01-01T00:00:00.000Z&limit=25&name=Vasia&obj=1&skip=0').respond(200, { items: [] });
             spyOn(dataList, 'fetchPage').and.callThrough();
 
             dataList.setFilter(() => {
-                return {
+                var filter: ddui.FilterModel = {
                     'name': {value: 'Vasia'},
                     'arr': {value: [1, 2]},
                     'bool': {value: true},
                     'date': {value: new Date('2016-01-01')},
-                    'obj': {value: { n: 1 }}
+                    'obj': {value: { n: 1 }, requestFormatter: (value) => value.n}
                 };
+                return filter;
             });
             dataList.submitFilter();
             $httpBackend.flush();
