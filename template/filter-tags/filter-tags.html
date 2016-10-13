@@ -2,10 +2,10 @@
     <div ng-repeat="tag in $ctrl.tags" class="btn-group">
         <button type="button" ng-click="$ctrl.openTag(tag)" class="btn btn-info btn-sm btn-tag">{{tag.name}}: {{tag.value}}</button>
         <button ng-click="$ctrl.removeTag(tag)" type="button" class="btn btn-info btn-sm btn-tag-remove">
-            <span class="glyphicon glyphicon-remove"></span>
+            <span class="clear-all-icon">&#10005</span>
         </button>
     </div>
     <div class="btn-group">
-        <button type="button" ng-click="$ctrl.clearAll()" class="btn btn-default btn-sm btn-clear-tags">Clear all <span class="glyphicon glyphicon-remove"></span></button>
+        <button type="button" ng-click="$ctrl.clearAll()" class="btn btn-default btn-sm btn-clear-tags"><span class="clear-all-icon">&#10005</span> Clear all</button>
     </div>
 </div>

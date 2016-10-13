@@ -3,12 +3,23 @@
         margin-bottom: 15px;
     }
 
-   
+.filter-tags .btn {
+    background-image: none;
+}
+.filter-tags .btn-info {
+    background: #44bbf6 !important;
+    background-image: none;
+}
+
+.filter-tags .btn-info:hover,.filter-tags .btn-info:focus,.filter-tags .btn-info:active{
+    background:#23b1f7 !important;
+}
+
     .filter-tags .btn-group {
         margin-right: 10px;
         margin-bottom: 10px;
     }
 
     .filter-tags .btn-group .btn:first-child {
-        margin-right: 3px;
+        margin-right: 2px;
     }
