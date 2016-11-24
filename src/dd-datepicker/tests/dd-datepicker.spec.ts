@@ -28,8 +28,9 @@ describe('datetimepicker', function () {
         });
     });
 
-    function compileElement($scope) {
-        var element = $compile('<input dd-datepicker show-day-name="true" date-format="{{dateFormat}}" date-disabled="dateDisabled(date, mode)" ng-model="date" />')($scope);
+    function compileElement($scope, html?) {
+        html = html || '<input dd-datepicker show-day-name="true" date-format="{{dateFormat}}" date-disabled="dateDisabled(date, mode)" ng-model="date" />';
+        var element = $compile(html)($scope);
         element.appendTo($document[0].body);
         $scope.$digest();
         return element;
@@ -45,6 +46,12 @@ describe('datetimepicker', function () {
 
             expect(elementScope.displayModel).toBeDefined();
             expect(elementScope.bootstrapDateModel).toBeDefined();
+        });
+
+        it('throws an error if date-prediction value is invalid.', () => {
+            expect(() => {
+                compileElement($scope, '<input dd-datepicker ng-model="date" date-prediction="other" />');
+            }).toThrow();               
         });
     });
 
@@ -105,6 +112,19 @@ describe('datetimepicker', function () {
                     changeInputValue(element, '12/8');
                     expectDate(element, 8, 12);
                 });
+            });
+
+            describe('with date-prediction="future"', () => {
+                it('parses future date.', () => {
+                    element = compileElement($scope, '<input dd-datepicker ng-model="date" date-prediction="future" />');
+
+                    jasmine.clock().mockDate(new Date('2016-06-06'));
+
+                    changeInputValue(element, '0605');
+                    expectDate(element, 6, 5, 2017);
+
+                    jasmine.clock().uninstall();
+                });                
             });
         });
         
@@ -289,9 +309,9 @@ describe('datetimepicker', function () {
         });
     });
 
-    function expectDate(el, month, day) {
+    function expectDate(el, month, day, year?) {
         var model = el.isolateScope().ngModel;
-        expect(model.getFullYear()).toBe(currentYear);
+        expect(model.getFullYear()).toBe(year || currentYear);
         expect(model.getMonth() + 1).toBe(month);
         expect(model.getDate()).toBe(day);
     }

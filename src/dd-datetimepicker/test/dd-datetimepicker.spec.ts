@@ -138,6 +138,14 @@ describe('dd-datetimepicker', function () {
             expect(element.isolateScope().time).toBeDefined();
             expect(element.isolateScope().date).toBeDefined();
         });
+
+        it('initializes date prediction.', () => {
+            expect(element.isolateScope().datePrediction).toEqual('default');
+
+            element = compileElement($scope, '<div dd-datetimepicker ng-model="dateTime" date-prediction="future"></div>');
+
+            expect(element.isolateScope().datePrediction).toEqual('future');
+        });
     });
 
     describe('Adjust date', function () {
@@ -173,8 +181,9 @@ describe('dd-datetimepicker', function () {
         el.trigger($sniffer.hasEvent('input') ? 'input' : 'change');
     }
 
-    function compileElement($scope) {
-        var element = $compile(angular.element('<div dd-datetimepicker ng-change="change()" allow-forward-date-adjustment="allowForwardDateAdjustment" ng-model="dateTime"></div>'))($scope);
+    function compileElement($scope, html?) {
+        html = html || '<div dd-datetimepicker ng-change="change()" allow-forward-date-adjustment="allowForwardDateAdjustment" ng-model="dateTime"></div>';
+        var element = $compile(angular.element(html))($scope);
         element.appendTo($document[0].body);
         $scope.$digest();
         return element;
