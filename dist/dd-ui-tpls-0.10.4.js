@@ -2,7 +2,7 @@
  * dd-ui
  * http://clickataxi.github.io/dd-ui/
 
- * Version: 0.10.3 - 2016-10-13
+ * Version: 0.10.4 - 2016-11-25
  * License: MIT
  */angular.module("dd.ui", ["dd.ui.tpls", "dd.ui.arrow-key-nav","dd.ui.busy-element","dd.ui.conversion","dd.ui.core","dd.ui.data-list","dd.ui.datetimepicker","dd.ui.dd-datepicker","dd.ui.dd-datetimepicker","dd.ui.dd-table","dd.ui.dd-timepicker","dd.ui.filter-field-focus","dd.ui.filter-helper","dd.ui.filter-tags","dd.ui.form-actions","dd.ui.form-validation","dd.ui.lookup","dd.ui.validation.phone","dd.ui.validation.sameAs","dd.ui.validation"]);
 angular.module("dd.ui.tpls", ["template/busy-element/busy-element.html","template/datetimepicker/datetimepicker.html","template/dd-datepicker/dd-datepicker.html","template/dd-datetimepicker/dd-datetimepicker.html","template/filter-tags/filter-tags.html","template/form-actions/form-actions.html","template/lookup/lookup-item.html","template/lookup/lookup.html"]);
@@ -484,6 +484,10 @@ angular.module('dd.ui.datetimepicker', ['ui.bootstrap'])
                 var input = angular.element(element.find('.display-input'));
                 var canUpdateDisplayModel = true;
                 var canExecuteNgModelChanges = true;
+                var datePrediction = attrs.datePrediction || 'default';
+                if (datePrediction !== 'default' && datePrediction !== 'future') {
+                    throw new Error('date-prediction must be either "default" or "future".');
+                }
                 scope.dayName = null;
                 scope.dateFormat = attrs.dateFormat || datepickerConfig.dateFormat;
                 scope.dateOptions = attrs.dateOptions || angular.copy(datepickerConfig.dateOptions);
@@ -564,11 +568,11 @@ angular.module('dd.ui.datetimepicker', ['ui.bootstrap'])
                     }
                 }
                 function parseUserInput() {
-                    var parsedDate = datepickerParserService.parse(scope.displayModel, scope.dateFormat, scope.dateDisabled, ctrl.$modelValue);
+                    var parsedDate = datepickerParserService.parse(scope.displayModel, scope.dateFormat, scope.dateDisabled, ctrl.$modelValue, datePrediction);
                     setDate(parsedDate);
                 }
                 function changeDate(delta) {
-                    var parsedDate = scope.displayModel ? datepickerParserService.parse(scope.displayModel, scope.dateFormat, scope.dateDisabled, ctrl.$modelValue) : new Date();
+                    var parsedDate = scope.displayModel ? datepickerParserService.parse(scope.displayModel, scope.dateFormat, scope.dateDisabled, ctrl.$modelValue, datePrediction) : new Date();
                     datepickerParserService.changeDate(parsedDate, delta);
                     var validatedDate = datepickerParserService.validateWithDisabledDate(parsedDate, scope.dateDisabled);
                     setDate(validatedDate);
@@ -624,8 +628,8 @@ angular.module('dd.ui.datetimepicker', ['ui.bootstrap'])
         self.parse = parse;
         self.changeDate = changeDate;
         self.validateWithDisabledDate = validateWithDisabledDate;
-        function parse(input, format, dateDisabled, time) {
-            var parsedDate = parseInternal(input, format);
+        function parse(input, format, dateDisabled, time, datePrediction) {
+            var parsedDate = parseInternal(input, format, datePrediction);
             if (!parsedDate) {
                 return null;
             }
@@ -652,19 +656,26 @@ angular.module('dd.ui.datetimepicker', ['ui.bootstrap'])
             return parsedDate;
         }
         // private
-        function parseInternal(input, format) {
+        function parseInternal(input, format, datePrediction) {
             var useMmDdPattern = mmDdFormatPattern.test(format);
             if (!useMmDdPattern) {
                 input = reversToMmDdFormat(input);
             }
             if (mmDdPattern.test(input)) {
-                return buildNewDate(input);
+                return buildNewDate(input, datePrediction);
             }
             return uibDateParser.parse(input, format);
         }
-        function buildNewDate(input) {
-            var tokens = tokenize(input), year = new Date().getFullYear(), month = parseInt(tokens[1], 10) - 1, day = parseInt(tokens[2], 10);
-            return new Date(year, month, day);
+        function buildNewDate(input, datePrediction) {
+            var tokens = tokenize(input);
+            var year = new Date().getFullYear();
+            var month = parseInt(tokens[1], 10) - 1;
+            var day = parseInt(tokens[2], 10);
+            var date = new Date(year, month, day);
+            if (datePrediction === 'future' && date < new Date()) {
+                date.setFullYear(++year);
+            }
+            return date;
         }
         function reversToMmDdFormat(input) {
             return input.replace(datePartsPattern, '$2-$1');
@@ -718,6 +729,7 @@ angular.module('dd.ui.dd-datetimepicker', ['ui.bootstrap'])
             link: function (scope, element, attrs, ctrl) {
                 var timeChanged = false;
                 var timepickerBlurEventFired = false;
+                scope.datePrediction = attrs.datePrediction || 'default';
                 scope.time = null;
                 scope.date = null;
                 scope.name = attrs.name;
@@ -1764,7 +1776,8 @@ angular.module("template/dd-datetimepicker/dd-datetimepicker.html", []).run(["$t
     "               show-day-name=\"showDayName\"\n" +
     "               close-text=\"Close\"\n" +
     "               popup-placement=\"{{popupPlacement}}\"\n" +
-    "               date-disabled=\"dateDisabled({date: date, mode: mode})\">\n" +
+    "               date-disabled=\"dateDisabled({date: date, mode: mode})\"\n" +
+    "               date-prediction=\"{{datePrediction}}\">\n" +
     "        </div>\n" +
     "	</div>\n" +
     "</div>");

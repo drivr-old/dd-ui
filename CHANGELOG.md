@@ -1,3 +1,13 @@
+<a name="0.10.4"></a>
+## [0.10.4](//compare/0.10.3...v0.10.4) (2016-11-25)
+
+
+### Features
+
+* **dd-datepicker:** date-prediction setting to allow future dates 2990d9d
+
+
+
 <a name="0.10.3"></a>
 ## [0.10.3](//compare/0.10.2...v0.10.3) (2016-10-13)
 
