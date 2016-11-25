@@ -28,15 +28,16 @@ describe('datetimepicker', function () {
         });
     });
 
-    function compileElement($scope) {
-        var element = $compile('<input dd-datepicker show-day-name="true" date-format="{{dateFormat}}" date-disabled="dateDisabled(date, mode)" ng-model="date" />')($scope);
+    function compileElement($scope, html?) {
+        html = html || '<input dd-datepicker show-day-name="true" date-format="{{dateFormat}}" date-disabled="dateDisabled(date, mode)" ng-model="date" />';
+        var element = $compile(html)($scope);
         element.appendTo($document[0].body);
         $scope.$digest();
         return element;
     }
 
     describe('Init', function () {
-        it('set default values', function () {
+        it('sets default values.', function () {
             $scope.date = new Date('2016-02-09T12:01:00+00:00');
 
             var element = compileElement($scope);
@@ -46,116 +47,122 @@ describe('datetimepicker', function () {
             expect(elementScope.displayModel).toBeDefined();
             expect(elementScope.bootstrapDateModel).toBeDefined();
         });
-    });
 
-    describe('Parse date formats', function () {
-        it('yyyy-MM-dd', function () {
-            changeInputValue(element, '2016-02-09');
-            expectDate(element, 2, 9);
-        });
-
-        it('MM/dd/yyyy', function () {
-            $scope.dateFormat = 'MM/dd/yyyy';
-            element = compileElement($scope);
-
-            changeInputValue(element, '02/09/2016');
-            expectDate(element, 2, 9);
+        it('throws an error if date-prediction value is invalid.', () => {
+            expect(() => {
+                compileElement($scope, '<input dd-datepicker ng-model="date" date-prediction="other" />');
+            }).toThrow();               
         });
     });
 
-    describe('Parse custom formats', function () {
-        it('0812', function () {
+    describe('On user input', () => {
+        describe('full date', () => {
+            it('parses ISO format.', () => {
+                changeInputValue(element, '2016-02-09');
+                expectDate(element, 2, 9);
+            });
 
-            changeInputValue(element, '0812');
-            expectDate(element, 8, 12);
+            it('parses specified format.', () => {
+                $scope.dateFormat = 'MM/dd/yyyy';
+                element = compileElement($scope);
+                changeInputValue(element, '02/09/2016');
+                expectDate(element, 2, 9);
+            });
         });
 
-        it('08-12', function () {
+        describe('short date', () => {
+            it('parses MMdd.', () => {
+                changeInputValue(element, '0812');
+                expectDate(element, 8, 12);
+            });
 
-            changeInputValue(element, '08-12');
-            expectDate(element, 8, 12);
+            it('parses MM-dd.', function () {
+                changeInputValue(element, '08-12');
+                expectDate(element, 8, 12);
+            });
+
+            it('parses MM dd.', function () {
+                changeInputValue(element, '08 12');
+                expectDate(element, 8, 12);
+            });
+
+            it('parses MM/dd.', function () {
+                changeInputValue(element, '08/12');
+                expectDate(element, 8, 12);
+            });
+
+            it('parses MM.dd.', function () {
+                changeInputValue(element, '08.12');
+                expectDate(element, 8, 12);
+            });
+
+            describe('with specified format', () => {
+                it('parses M/d.', function () {
+                    $scope.dateFormat = 'M/d';
+                    element = compileElement($scope);
+
+                    changeInputValue(element, '8/12');
+                    expectDate(element, 8, 12);
+                });
+
+                it('parses d/M.', function () {
+                    $scope.dateFormat = 'd/M';
+                    element = compileElement($scope);
+
+                    changeInputValue(element, '12/8');
+                    expectDate(element, 8, 12);
+                });
+            });
+
+            describe('with date-prediction="future"', () => {
+                it('parses future date.', () => {
+                    element = compileElement($scope, '<input dd-datepicker ng-model="date" date-prediction="future" />');
+
+                    jasmine.clock().mockDate(new Date('2016-06-06'));
+
+                    changeInputValue(element, '0605');
+                    expectDate(element, 6, 5, 2017);
+
+                    jasmine.clock().uninstall();
+                });                
+            });
+        });
+        
+        describe('invalid date', () => {
+            it('sets the model to null.', () => {
+                changeInputValue(element, 'abcd');
+                expect(element.isolateScope().ngModel).toBe(null);
+
+                changeInputValue(element, '9999');
+                expect(element.isolateScope().ngModel).toBe(null);
+
+                changeInputValue(element, '10.50');
+                expect(element.isolateScope().ngModel).toBe(null);
+            });
         });
 
-        it('08 12', function () {
+        describe('with date disabling logic', () => {
+            let d = new Date('2016-08-30T15:00:00+00:00');
+            d.setHours(0, 0, 0, 0);
 
-            changeInputValue(element, '08 12');
-            expectDate(element, 8, 12);
-        });
+            beforeEach(() => {
+                $scope.dateDisabled = function (date, mode) {                    
+                    return mode === 'day' && date < d;
+                };
+                $scope.$digest();
+            });
 
-        it('08/12', function () {
+            it('sets model to null if disabled.', function () {
+                changeInputValue(element, '08-12');
 
-            changeInputValue(element, '08/12');
-            expectDate(element, 8, 12);
-        });
+                expect(element.isolateScope().ngModel).toBe(null);
+            });
 
-        it('08.12', function () {
+            it('sets model to date if not disabled.', function () {
+                changeInputValue(element, '08-30');
 
-            changeInputValue(element, '08.12');
-            expectDate(element, 8, 12);
-        });
-
-        it('8/12', function () {
-            $scope.dateFormat = 'M/d';
-            element = compileElement($scope);
-
-            changeInputValue(element, '8/12');
-            expectDate(element, 8, 12);
-        });
-
-        it('12/8', function () {
-            $scope.dateFormat = 'd/M';
-            element = compileElement($scope);
-
-            changeInputValue(element, '12/8');
-            expectDate(element, 8, 12);
-        });
-    });
-
-    describe('Return null for invalid', function () {
-
-        it('abcd', function () {
-            changeInputValue(element, 'abcd');
-            expect(element.isolateScope().ngModel).toBe(null);
-        });
-
-        it('9999', function () {
-            changeInputValue(element, '9999');
-            expect(element.isolateScope().ngModel).toBe(null);
-        });
-
-        it('10.50', function () {
-            changeInputValue(element, '10.50');
-            expect(element.isolateScope().ngModel).toBe(null);
-        });
-    });
-
-    describe('Validate by dateDisabled', function () {
-        it('return null if date disabled', function () {
-
-            $scope.dateDisabled = function (date, mode) {
-                var d = new Date('2016-08-30T15:00:00+00:00');
-                d.setHours(0, 0, 0, 0);
-                return mode === 'day' && date < d;
-            };
-            $scope.$digest();
-
-            changeInputValue(element, '08-12');
-
-            expect(element.isolateScope().ngModel).toBe(null);
-        });
-
-        it('return date if in range', function () {
-
-            var d = new Date('2016-08-30T15:00:00+00:00');
-            $scope.dateDisabled = function (date, mode) {
-                d.setHours(0, 0, 0, 0);
-                return mode === 'day' && date < d;
-            };
-            $scope.$digest();
-
-            changeInputValue(element, '08-30');
-
-            expect(element.isolateScope().ngModel.getTime()).toBe(d.getTime());
+                expect(element.isolateScope().ngModel.getTime()).toBe(d.getTime());
+            });
         });
     });
 
@@ -302,9 +309,9 @@ describe('datetimepicker', function () {
         });
     });
 
-    function expectDate(el, month, day) {
+    function expectDate(el, month, day, year?) {
         var model = el.isolateScope().ngModel;
-        expect(model.getFullYear()).toBe(currentYear);
+        expect(model.getFullYear()).toBe(year || currentYear);
         expect(model.getMonth() + 1).toBe(month);
         expect(model.getDate()).toBe(day);
     }

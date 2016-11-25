@@ -26,6 +26,8 @@ angular.module('dd.ui.dd-datetimepicker', ['ui.bootstrap'])
                 var timeChanged = false;
                 var timepickerBlurEventFired = false;
 
+                scope.datePrediction = attrs.datePrediction || 'default';
+
                 scope.time = null;
                 scope.date = null;
                 scope.name = attrs.name;

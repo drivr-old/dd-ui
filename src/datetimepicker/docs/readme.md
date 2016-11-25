@@ -33,3 +33,7 @@ Combined UI Bootstrap Timepicker and Datepicker that uses a single Date model.
  * `popup-placement`
   (Default: 'bottom-left auto') :
   Calendar popup placement
+
+ * `date-prediction`
+  *(Default: 'default')* :
+  By default the short date entered (see below) uses current year. Currently "future" value can also be used to only allow future dates.

@@ -36,6 +36,10 @@
                 var input = angular.element(element.find('.display-input'));
                 var canUpdateDisplayModel = true;
                 var canExecuteNgModelChanges = true;
+                var datePrediction = attrs.datePrediction || 'default';
+                if (datePrediction !== 'default' && datePrediction !== 'future') {
+                    throw new Error('date-prediction must be either "default" or "future".');
+                }
 
                 scope.dayName = null;
                 scope.dateFormat = attrs.dateFormat || datepickerConfig.dateFormat;
@@ -127,12 +131,12 @@
                 }
 
                 function parseUserInput() {
-                    var parsedDate = datepickerParserService.parse(scope.displayModel, scope.dateFormat, scope.dateDisabled, ctrl.$modelValue);
+                    var parsedDate = datepickerParserService.parse(scope.displayModel, scope.dateFormat, scope.dateDisabled, ctrl.$modelValue, datePrediction);
                     setDate(parsedDate);
                 }
 
                 function changeDate(delta) {
-                    var parsedDate = scope.displayModel ? datepickerParserService.parse(scope.displayModel, scope.dateFormat, scope.dateDisabled, ctrl.$modelValue) : new Date();
+                    var parsedDate = scope.displayModel ? datepickerParserService.parse(scope.displayModel, scope.dateFormat, scope.dateDisabled, ctrl.$modelValue, datePrediction) : new Date();
                     datepickerParserService.changeDate(parsedDate, delta);
                     var validatedDate = datepickerParserService.validateWithDisabledDate(parsedDate, scope.dateDisabled);
                     setDate(validatedDate);
@@ -201,8 +205,8 @@
         self.changeDate = changeDate;
         self.validateWithDisabledDate = validateWithDisabledDate;
 
-        function parse(input, format, dateDisabled, time) {
-            var parsedDate = parseInternal(input, format);
+        function parse(input, format, dateDisabled, time, datePrediction) {
+            var parsedDate = parseInternal(input, format, datePrediction);
 
             if (!parsedDate) {
                 return null;
@@ -238,7 +242,7 @@
 
         // private
 
-        function parseInternal(input, format) {
+        function parseInternal(input, format, datePrediction) {
             var useMmDdPattern = mmDdFormatPattern.test(format);
 
             if (!useMmDdPattern) {
@@ -246,19 +250,24 @@
             }
 
             if (mmDdPattern.test(input)) {
-                return buildNewDate(input);
+                return buildNewDate(input, datePrediction);
             }
 
             return uibDateParser.parse(input, format);
         }
 
-        function buildNewDate(input) {
-            var tokens = tokenize(input),
-                year = new Date().getFullYear(),
-                month = parseInt(tokens[1], 10) - 1,
-                day = parseInt(tokens[2], 10);
+        function buildNewDate(input, datePrediction) {
+            var tokens = tokenize(input);
+            var year = new Date().getFullYear();
+            var month = parseInt(tokens[1], 10) - 1;
+            var day = parseInt(tokens[2], 10);
 
-            return new Date(year, month, day);
+            var date = new Date(year, month, day);
+            if (datePrediction === 'future' && date < new Date()) {
+                date.setFullYear(++year);
+            }
+
+            return date;
         }
 
         function reversToMmDdFormat(input) {
