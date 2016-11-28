@@ -13,7 +13,7 @@
     <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular-touch.min.js"></script>
     <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular-animate.min.js"></script>
 	<script src="assets/ui-bootstrap-tpls.js"></script>
-    <script src="dd-ui-tpls-0.10.3.js"></script>
+    <script src="dd-ui-tpls-0.10.5.js"></script>
     <script src="assets/angular-mocks.js"></script>
     <script src="assets/plunker.js"></script>
     <script src="assets/app.js"></script>
@@ -251,7 +251,7 @@
                         <div class="row code">
                             <div class="col-md-12" ng-controller="PlunkerCtrl">
                                 <div class="pull-right">
-                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.5.8', '3.1.1', '0.10.3', 'arrow-key-nav')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
+                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.5.8', '3.1.1', '0.10.5', 'arrow-key-nav')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
                                 </div>
                                 <uib-tabset>
                                     <uib-tab heading="Markup">
@@ -400,7 +400,7 @@
                         <div class="row code">
                             <div class="col-md-12" ng-controller="PlunkerCtrl">
                                 <div class="pull-right">
-                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.5.8', '3.1.1', '0.10.3', 'busy-element')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
+                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.5.8', '3.1.1', '0.10.5', 'busy-element')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
                                 </div>
                                 <uib-tabset>
                                     <uib-tab heading="Markup">
@@ -576,7 +576,7 @@ To display meters or kilometers in imperial distance units, use:</p>
                         <div class="row code">
                             <div class="col-md-12" ng-controller="PlunkerCtrl">
                                 <div class="pull-right">
-                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.5.8', '3.1.1', '0.10.3', 'conversion')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
+                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.5.8', '3.1.1', '0.10.5', 'conversion')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
                                 </div>
                                 <uib-tabset>
                                     <uib-tab heading="Markup">
@@ -709,7 +709,7 @@ To display meters or kilometers in imperial distance units, use:</p>
                         <div class="row code">
                             <div class="col-md-12" ng-controller="PlunkerCtrl">
                                 <div class="pull-right">
-                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.5.8', '3.1.1', '0.10.3', 'data-list')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
+                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.5.8', '3.1.1', '0.10.5', 'data-list')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
                                 </div>
                                 <uib-tabset>
                                     <uib-tab heading="Markup">
@@ -871,6 +871,10 @@ Allows overriding of default template of the datetimepicker</p>
 (Default: &#39;bottom-left auto&#39;) :
 Calendar popup placement</p>
 </li>
+<li><p><code>date-prediction</code>
+<em>(Default: &#39;default&#39;)</em> :
+By default the short date entered (see below) uses current year. Currently &quot;future&quot; value can also be used to only allow future dates.</p>
+</li>
 </ul>
 
                             </div>
@@ -879,7 +883,7 @@ Calendar popup placement</p>
                         <div class="row code">
                             <div class="col-md-12" ng-controller="PlunkerCtrl">
                                 <div class="pull-right">
-                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.5.8', '3.1.1', '0.10.3', 'datetimepicker')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
+                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.5.8', '3.1.1', '0.10.5', 'datetimepicker')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
                                 </div>
                                 <uib-tabset>
                                     <uib-tab heading="Markup">
@@ -942,7 +946,11 @@ Calendar popup placement</p>
             <dd-datepicker placeholder="insert date" type="text" style="width:250px" show-day-name="true" date-format="MM/dd/yyyy" ng-model="date" ng-change="change()" date-disabled="disabled(date, mode)"></dd-datepicker>
         </div>
         <div class="form-group">
-             <label>Datetime model:&nbsp;</label><span>{{date}}</span>
+            <h4>Only future dates predicted by entering short date format</h4>
+            <dd-datepicker placeholder="insert short date" type="text" style="width:150px" ng-model="date" date-prediction="future"></dd-datepicker>
+        </div>
+        <div class="form-group">
+            <label>Datetime model:&nbsp;</label><span>{{date}}</span>
         </div>
     </div>
 </div>
@@ -960,7 +968,7 @@ Calendar popup placement</p>
   Date format string. In .Net it can be taken from CultureInfo.CurrentCulture.DateTimeFormat.ShortDatePattern</p>
 </li>
 <li><p><code>show-day-name</code>
-  <em>(Default: false)</em> ::
+  <em>(Default: false)</em> :
   Show day name.</p>
 </li>
 <li><p><code>ng-change</code>
@@ -986,24 +994,23 @@ Calendar popup placement</p>
 <li><p><code>datepicker-options</code>
 <small class="badge">$</small> -
 An object to configure the datepicker.</p>
-<ul>
-<li><code>startingDay</code>
-<small class="badge">C</small>
-<em>(Default: <code>$locale.DATETIME_FORMATS.FIRSTDAYOFWEEK</code>)</em> -
-Starting day of the week from 0-6 (0=Sunday, ..., 6=Saturday).</li>
-</ul>
+</li>
+<li><p><code>date-prediction</code>
+<em>(Default: &#39;default&#39;)</em> :
+By default the short date entered (see below) uses current year. Currently &quot;future&quot; value can also be used to only allow future dates.</p>
 </li>
 </ul>
-<h3 id="dd-ui-datepicker-supports-custom-users-date-input-depending-on-given-date-format">dd-ui Datepicker supports custom users date input depending on given date format</h3>
+<h3 id="short-date-prediction">Short date prediction</h3>
+<p>dd-ui Datepicker supports custom users date input depending on given date format:</p>
 <ul>
 <li>2108 OR 0821 = 21.08 (21st of August)</li>
 <li>21-08 OR 08-21 = 21.08 (21st of August)</li>
 <li>21/08 OR 08/21 = 21.08 (21st of August)</li>
 <li>21 08 OR 08 21 = 21.08 (21st of August)</li>
 </ul>
-<h3 id="datepickerconfigprovider">datepickerConfigProvider</h3>
+<h3 id="global-configuration">Global configuration</h3>
 <ul>
-<li>you can use datepickerConfigProvider.setDateFormat method to set date format globally.<pre><code class="lang-js">myModule.config([&quot;datepickerConfigProvider&quot;, function (datepickerConfigProvider) {
+<li>you can use <code>datepickerConfigProvider.setDateFormat</code> method to set date format globally.<pre><code class="lang-js">myModule.config([&quot;datepickerConfigProvider&quot;, function (datepickerConfigProvider) {
   datepickerConfigProvider.setDateFormat(&#39;yyyy-MM-dd&#39;);
 }]);
 </code></pre>
@@ -1016,7 +1023,7 @@ Starting day of the week from 0-6 (0=Sunday, ..., 6=Saturday).</li>
                         <div class="row code">
                             <div class="col-md-12" ng-controller="PlunkerCtrl">
                                 <div class="pull-right">
-                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.5.8', '3.1.1', '0.10.3', 'dd-datepicker')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
+                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.5.8', '3.1.1', '0.10.5', 'dd-datepicker')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
                                 </div>
                                 <uib-tabset>
                                     <uib-tab heading="Markup">
@@ -1034,7 +1041,11 @@ Starting day of the week from 0-6 (0=Sunday, ..., 6=Saturday).</li>
             &lt;dd-datepicker placeholder=&quot;insert date&quot; type=&quot;text&quot; style=&quot;width:250px&quot; show-day-name=&quot;true&quot; date-format=&quot;MM/dd/yyyy&quot; ng-model=&quot;date&quot; ng-change=&quot;change()&quot; date-disabled=&quot;disabled(date, mode)&quot;&gt;&lt;/dd-datepicker&gt;
         &lt;/div&gt;
         &lt;div class=&quot;form-group&quot;&gt;
-             &lt;label&gt;Datetime model:&amp;nbsp;&lt;/label&gt;&lt;span&gt;{{date}}&lt;/span&gt;
+            &lt;h4&gt;Only future dates predicted by entering short date format&lt;/h4&gt;
+            &lt;dd-datepicker placeholder=&quot;insert short date&quot; type=&quot;text&quot; style=&quot;width:150px&quot; ng-model=&quot;date&quot; date-prediction=&quot;future&quot;&gt;&lt;/dd-datepicker&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;form-group&quot;&gt;
+            &lt;label&gt;Datetime model:&amp;nbsp;&lt;/label&gt;&lt;span&gt;{{date}}&lt;/span&gt;
         &lt;/div&gt;
     &lt;/div&gt;
 &lt;/div&gt;</code></pre>
@@ -1221,7 +1232,7 @@ Allows overriding of default template of the datetimepicker</p>
                         <div class="row code">
                             <div class="col-md-12" ng-controller="PlunkerCtrl">
                                 <div class="pull-right">
-                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.5.8', '3.1.1', '0.10.3', 'dd-datetimepicker')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
+                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.5.8', '3.1.1', '0.10.5', 'dd-datetimepicker')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
                                 </div>
                                 <uib-tabset>
                                     <uib-tab heading="Markup">
@@ -1454,7 +1465,7 @@ Allows overriding of default template of the datetimepicker</p>
                         <div class="row code">
                             <div class="col-md-12" ng-controller="PlunkerCtrl">
                                 <div class="pull-right">
-                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.5.8', '3.1.1', '0.10.3', 'dd-table')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
+                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.5.8', '3.1.1', '0.10.5', 'dd-table')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
                                 </div>
                                 <uib-tabset>
                                     <uib-tab heading="Markup">
@@ -1741,7 +1752,7 @@ angular.module('dd.ui.demo')
                         <div class="row code">
                             <div class="col-md-12" ng-controller="PlunkerCtrl">
                                 <div class="pull-right">
-                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.5.8', '3.1.1', '0.10.3', 'dd-timepicker')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
+                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.5.8', '3.1.1', '0.10.5', 'dd-timepicker')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
                                 </div>
                                 <uib-tabset>
                                     <uib-tab heading="Markup">
@@ -1824,7 +1835,7 @@ angular.module('dd.ui.demo')
                         <div class="row code">
                             <div class="col-md-12" ng-controller="PlunkerCtrl">
                                 <div class="pull-right">
-                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.5.8', '3.1.1', '0.10.3', 'filter-field-focus')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
+                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.5.8', '3.1.1', '0.10.5', 'filter-field-focus')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
                                 </div>
                                 <uib-tabset>
                                     <uib-tab heading="Markup">
@@ -1907,7 +1918,7 @@ See console
                         <div class="row code">
                             <div class="col-md-12" ng-controller="PlunkerCtrl">
                                 <div class="pull-right">
-                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.5.8', '3.1.1', '0.10.3', 'filter-helper')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
+                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.5.8', '3.1.1', '0.10.5', 'filter-helper')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
                                 </div>
                                 <uib-tabset>
                                     <uib-tab heading="Markup">
@@ -2020,7 +2031,7 @@ angular.module('dd.ui.demo')
                         <div class="row code">
                             <div class="col-md-12" ng-controller="PlunkerCtrl">
                                 <div class="pull-right">
-                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.5.8', '3.1.1', '0.10.3', 'filter-tags')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
+                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.5.8', '3.1.1', '0.10.5', 'filter-tags')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
                                 </div>
                                 <uib-tabset>
                                     <uib-tab heading="Markup">
@@ -2211,7 +2222,7 @@ angular.module('dd.ui.demo')
                         <div class="row code">
                             <div class="col-md-12" ng-controller="PlunkerCtrl">
                                 <div class="pull-right">
-                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.5.8', '3.1.1', '0.10.3', 'form-actions')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
+                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.5.8', '3.1.1', '0.10.5', 'form-actions')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
                                 </div>
                                 <uib-tabset>
                                     <uib-tab heading="Markup">
@@ -2415,7 +2426,7 @@ angular.module('dd.ui.demo')
                         <div class="row code">
                             <div class="col-md-12" ng-controller="PlunkerCtrl">
                                 <div class="pull-right">
-                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.5.8', '3.1.1', '0.10.3', 'form-validation')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
+                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.5.8', '3.1.1', '0.10.5', 'form-validation')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
                                 </div>
                                 <uib-tabset>
                                     <uib-tab heading="Markup">
@@ -2760,7 +2771,7 @@ angular.module('dd.ui.demo')
                         <div class="row code">
                             <div class="col-md-12" ng-controller="PlunkerCtrl">
                                 <div class="pull-right">
-                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.5.8', '3.1.1', '0.10.3', 'lookup')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
+                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.5.8', '3.1.1', '0.10.5', 'lookup')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
                                 </div>
                                 <uib-tabset>
                                     <uib-tab heading="Markup">
@@ -3029,7 +3040,7 @@ angular.module('dd.ui.demo')
                         <div class="row code">
                             <div class="col-md-12" ng-controller="PlunkerCtrl">
                                 <div class="pull-right">
-                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.5.8', '3.1.1', '0.10.3', 'validation')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
+                                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.5.8', '3.1.1', '0.10.5', 'validation')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
                                 </div>
                                 <uib-tabset>
                                     <uib-tab heading="Markup">
