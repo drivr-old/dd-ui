@@ -266,7 +266,7 @@
             var today = new Date();
             today.setHours(0, 0, 0, 0);
             if (datePrediction === 'future' && date < today) {
-                date.setFullYear(++year);
+                date = new Date(++year, month, day);
             }
 
             return date;
