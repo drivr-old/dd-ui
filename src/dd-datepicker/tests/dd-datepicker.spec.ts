@@ -115,16 +115,24 @@ describe('datetimepicker', function () {
             });
 
             describe('with date-prediction="future"', () => {
-                it('parses future date.', () => {
+                beforeEach(() => {
                     element = compileElement($scope, '<input dd-datepicker ng-model="date" date-prediction="future" />');
+                    jasmine.clock().mockDate(new Date('2016-06-06T12:00:00'));
+                });
 
-                    jasmine.clock().mockDate(new Date('2016-06-06'));
-
-                    changeInputValue(element, '0605');
-                    expectDate(element, 6, 5, 2017);
-
+                afterEach(() => {
                     jasmine.clock().uninstall();
-                });                
+                });
+
+                it('parses future date.', () => {
+                    changeInputValue(element, '0605');
+                    expectDate(element, 6, 5, 2017);                    
+                });  
+
+                it('parses current date.', () => {
+                    changeInputValue(element, '0606');
+                    expectDate(element, 6, 6, 2016);
+                });               
             });
         });
         

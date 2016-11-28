@@ -263,7 +263,9 @@
             var day = parseInt(tokens[2], 10);
 
             var date = new Date(year, month, day);
-            if (datePrediction === 'future' && date < new Date()) {
+            var today = new Date();
+            today.setHours(0, 0, 0, 0);
+            if (datePrediction === 'future' && date < today) {
                 date.setFullYear(++year);
             }
 
