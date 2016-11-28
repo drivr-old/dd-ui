@@ -1,3 +1,13 @@
+<a name="0.10.6"></a>
+## [0.10.6](//compare/0.10.5...v0.10.6) (2016-11-28)
+
+
+### Bug Fixes
+
+* **dd-datepicker:** minor fix for date parser 57067ac
+
+
+
 <a name="0.10.5"></a>
 ## [0.10.5](//compare/0.10.4...v0.10.5) (2016-11-28)
 
