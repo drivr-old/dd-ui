@@ -36,7 +36,7 @@
     "typescript": "^2.0.3"
   },
   "license": "MIT",
-  "main": "false",
+  "main": "dist/dd-ui-tpls-0.10.6.js",
   "jspm": {
     "main": "dd-ui-tpls-0.10.6.js",
     "directories": {

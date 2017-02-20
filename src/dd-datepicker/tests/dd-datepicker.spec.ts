@@ -1,7 +1,7 @@
 interface Window {
     triggerKeyDown(input, keyUpCode);
 }
-describe('datetimepicker', function () {
+describe('datepicker', function () {
     var $scope,
         $sniffer,
         $document,
@@ -22,7 +22,7 @@ describe('datetimepicker', function () {
             $timeout = _$timeout_;
 
             $locale.DATETIME_FORMATS.FIRSTDAYOFWEEK = 1;
-            
+
             $scope.dateFormat = 'yyyy-MM-dd';
             element = compileElement($scope);
         });
@@ -51,7 +51,7 @@ describe('datetimepicker', function () {
         it('throws an error if date-prediction value is invalid.', () => {
             expect(() => {
                 compileElement($scope, '<input dd-datepicker ng-model="date" date-prediction="other" />');
-            }).toThrow();               
+            }).toThrow();
         });
     });
 
@@ -59,14 +59,14 @@ describe('datetimepicker', function () {
         describe('full date', () => {
             it('parses ISO format.', () => {
                 changeInputValue(element, '2016-02-09');
-                expectDate(element, 2, 9);
+                expectDate(element, 2, 9, 2016);
             });
 
             it('parses specified format.', () => {
                 $scope.dateFormat = 'MM/dd/yyyy';
                 element = compileElement($scope);
                 changeInputValue(element, '02/09/2016');
-                expectDate(element, 2, 9);
+                expectDate(element, 2, 9, 2016);
             });
         });
 
@@ -126,16 +126,16 @@ describe('datetimepicker', function () {
 
                 it('parses future date.', () => {
                     changeInputValue(element, '0605');
-                    expectDate(element, 6, 5, 2017);                    
-                });  
+                    expectDate(element, 6, 5, 2017);
+                });
 
                 it('parses current date.', () => {
                     changeInputValue(element, '0606');
                     expectDate(element, 6, 6, 2016);
-                });               
+                });
             });
         });
-        
+
         describe('invalid date', () => {
             it('sets the model to null.', () => {
                 changeInputValue(element, 'abcd');
@@ -154,7 +154,8 @@ describe('datetimepicker', function () {
             d.setHours(0, 0, 0, 0);
 
             beforeEach(() => {
-                $scope.dateDisabled = function (date, mode) {                    
+                jasmine.clock().mockDate(d);
+                $scope.dateDisabled = function (date, mode) {
                     return mode === 'day' && date < d;
                 };
                 $scope.$digest();
@@ -170,6 +171,10 @@ describe('datetimepicker', function () {
                 changeInputValue(element, '08-30');
 
                 expect(element.isolateScope().ngModel.getTime()).toBe(d.getTime());
+            });
+
+            afterEach(() => {
+                jasmine.clock().uninstall();
             });
         });
     });
@@ -247,7 +252,7 @@ describe('datetimepicker', function () {
     });
 
     describe('ddDatepicker:setDate event', function () {
-        it('sets date if valid', function() {
+        it('sets date if valid', function () {
             $scope.date = new Date('2016-08-25');
             $scope.$digest();
 
@@ -283,31 +288,31 @@ describe('datetimepicker', function () {
             expect($scope.date).toBe(null);
         });
     });
-    
-    describe('calendar popup', function() {
-        it('should open calendar popup on btn click', function() {
-            
+
+    describe('calendar popup', function () {
+        it('should open calendar popup on btn click', function () {
+
             var elementScope = element.isolateScope();
-            
+
             element.find('.open-calendar-btn').trigger('click');
 
             expect(elementScope.calendarOpened).toBe(true);
         });
-        
-        it('on clear should close calendar', function() {
-            
+
+        it('on clear should close calendar', function () {
+
             var elementScope = element.isolateScope();
-            
+
             element.find('.open-calendar-btn').trigger('click');
             element.find('.uib-clear').trigger('click');
-            
+
             expect(elementScope.calendarOpened).toBe(false);
         });
-        
-        it('set ngModel from popup selected value', function() {
-            
+
+        it('set ngModel from popup selected value', function () {
+
             var elementScope = element.isolateScope();
-            
+
             element.find('.open-calendar-btn').trigger('click');
             element.find('.btn.btn-default.btn-sm.active').trigger('click');
             $scope.$digest();
