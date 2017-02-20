@@ -2,7 +2,7 @@
  * dd-ui
  * http://clickataxi.github.io/dd-ui/
 
- * Version: 0.10.6 - 2016-11-28
+ * Version: 0.10.7 - 2017-02-20
  * License: MIT
  */angular.module("dd.ui", ["dd.ui.tpls", "dd.ui.arrow-key-nav","dd.ui.busy-element","dd.ui.conversion","dd.ui.core","dd.ui.data-list","dd.ui.datetimepicker","dd.ui.dd-datepicker","dd.ui.dd-datetimepicker","dd.ui.dd-table","dd.ui.dd-timepicker","dd.ui.filter-field-focus","dd.ui.filter-helper","dd.ui.filter-tags","dd.ui.form-actions","dd.ui.form-validation","dd.ui.lookup","dd.ui.validation.phone","dd.ui.validation.sameAs","dd.ui.validation"]);
 angular.module("dd.ui.tpls", ["template/busy-element/busy-element.html","template/datetimepicker/datetimepicker.html","template/dd-datepicker/dd-datepicker.html","template/dd-datetimepicker/dd-datetimepicker.html","template/filter-tags/filter-tags.html","template/form-actions/form-actions.html","template/lookup/lookup-item.html","template/lookup/lookup.html"]);
@@ -1165,7 +1165,7 @@ var ddui;
         FilterHelper.generateFilterObject = function (filter) {
             var _this = this;
             var params = {};
-            var _loop_1 = function(prop) {
+            var _loop_1 = function (prop) {
                 if (filter.hasOwnProperty(prop) && this_1.isDefined(filter[prop].value)) {
                     var field_1 = filter[prop];
                     if (field_1.value instanceof Array) {
@@ -1253,7 +1253,7 @@ var ddui;
             var definedFieldsNames = Object.keys(filter)
                 .filter(function (key) {
                 var value = filter[key].value;
-                return !_this.isEmpty(value) && !filter[key].excludeTag;
+                return !_this.isEmpty(value) && !filter[key].excludeTag && value !== filter[key].defaultValue;
             });
             for (var _i = 0, definedFieldsNames_1 = definedFieldsNames; _i < definedFieldsNames_1.length; _i++) {
                 var fieldName = definedFieldsNames_1[_i];
