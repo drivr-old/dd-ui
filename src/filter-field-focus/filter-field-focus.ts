@@ -3,7 +3,7 @@
     function filterFieldFocus($timeout: ng.ITimeoutService): ng.IDirective {
         return {
             restrict: 'A',
-            link: (scope: any, element, attr) => {
+            link: (scope: any, element, attr: any) => {
                 scope.$watch(() => attr.filterFieldFocus, (oldVal, newVal) => {
                     if (newVal) {
                         $timeout(() => {

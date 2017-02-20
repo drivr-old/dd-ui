@@ -90,7 +90,7 @@ namespace ddui {
                             </div>
                             <span ng-if="ddTable.selectedRows.length > 0" class="rows-count">{{ddTable.selectedRows.length}}</span>
                        </div>`,
-            link: (scope: any, element, attrs, ctrl) => {
+            link: (scope: any, element, attrs, ctrl: any) => {
                 scope.ddTable = ctrl.ddTable;
             }
         };

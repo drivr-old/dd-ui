@@ -62,6 +62,19 @@ describe('Filter tags component tests', () => {
             expect(tags[0].innerHTML).toBe('Company: Vilnius');
         });
 
+        it('should not create tag for filter with default value', () => {
+            $scope.filter = {
+                'radius': { displayName: 'Radius', value: '100m', defaultValue: '100m' }
+            };
+
+            initComponent('<filter-tags filter="filter"></filter-tags>');
+
+            var tags = element.find('.btn-tag');
+            console.log(tags);
+            
+            expect(tags.length).toBe(0);
+        });
+
         it('should not create tags for empty filters', () => {
             $scope.filter = {
                 'firstName': { displayName: 'First name', value: undefined },

@@ -44,7 +44,7 @@
             let definedFieldsNames = Object.keys(filter)
                 .filter(key => {
                     let value = filter[key].value;
-                    return !this.isEmpty(value) && !filter[key].excludeTag;
+                    return !this.isEmpty(value) && !filter[key].excludeTag && value !== filter[key].defaultValue;
                 });
 
             for (let fieldName of definedFieldsNames) {
